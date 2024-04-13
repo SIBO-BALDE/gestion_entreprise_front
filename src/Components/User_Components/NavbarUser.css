@@ -1,0 +1,38 @@
+:root{
+    --principal:#004573;
+    --seconde:#FFB703;
+    --troisieme:#FFF;
+    
+}  
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none !important;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+
+/* **************************** navbar style debut*********************************** */
+.navbar_body{
+    background-color: var(--principal);
+    
+    
+   
+}
+.navbar_glabal_content{
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+}
+#link_navbar_menu{
+    color: var(--principal) !important;
+    font-weight: bold;
+    
+}
+
+
+/* **************************** navbar style Fin*********************************** */
