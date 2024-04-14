@@ -132,10 +132,8 @@
 /* **************************nos engagements debut ***************************** */
 .conteneur_losange_home {
     display: flex;
-    /* justify-content: center; */
-    justify-content: space-evenly;
-    /* align-items: center; */
-    height: 50vh;
+    justify-content: center;
+    height: 60vh;
 }
 
 .losange {
@@ -148,8 +146,14 @@
     display: flex;
     justify-content:center ;
     align-items: center;
-
 }
+.losange:hover {
+    transform: rotate(90deg) scale(1.5);
+    transition: transform 0.3s ease-in-out;
+    
+    
+}
+
 #losange{
     background-color: var(--seconde);
     border: 3px solid var(--troisieme);
@@ -157,6 +161,11 @@
 #icon_font_home_engament{
     transform: rotate(-45deg);
     font-size: 60px;
+    
+}
+#icon_font_home_engament:hover{
+    transform: rotate(-90deg);
+    
     
 }
 .icon_onetwo_home{

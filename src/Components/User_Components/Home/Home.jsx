@@ -5,7 +5,7 @@ import NavbarUser from '../NavbarUser'
 import './Home.css';
 import Underline from './Underline/Underline';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBuilding, faBullseye, faFaceSmile,faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faBuilding, faBullseye, faChartLine, faCheck, faFaceSmile,faHandshake,faUserTie,faUsers } from '@fortawesome/free-solid-svg-icons';
 import ban2 from '../../../Images/dessin.png';
 import ban3 from '../../../Images/Rectangle2.png';
 import * as regularIcons from '@fortawesome/free-regular-svg-icons';
@@ -132,16 +132,136 @@ export default function Home() {
 
 
       {/*  Nos agagements debut*/}
-      <section style={{paddingTop:'70px', backgroundColor:'#004573'}}>
-        <div>
-        <div className="conteneur_losange_home">
-        <div className="losange "><FontAwesomeIcon icon={faBullseye}  id='icon_font_home_engament' className='icon_onetwo_home'/> </div>
-        <div className="losange" id='losange'> <FontAwesomeIcon icon={regularIcons.faGem} id='icon_font_home_engament' className='icon_onetwo_home1' /></div>
-        <div className="losange"> <FontAwesomeIcon icon={regularIcons.faPaperPlane} id='icon_font_home_engament' className='icon_onetwo_home' /></div>
-    </div>
+      <section style={{paddingTop:'50px', backgroundColor:'#004573'}}>
+        <Underline  text='Nos engagment' color='white'/>
+        <div className='' style={{marginTop:'70px'}}>
+            <div className="conteneur_losange_home">
+
+                <div>
+                <div className="losange ">
+                  <FontAwesomeIcon icon={faBullseye}  id='icon_font_home_engament' className='icon_onetwo_home'/> 
+                </div>
+                <div className='mt-5 d-flex justify-content-center  '>
+                            <div className='bg-white d-flex justify-content-center align-items-center mt-2 me-1' style={{width:'15px', height:'15px',borderRadius:'50%'}}>
+                                <div style={{width:'10px', height:'10px',borderRadius:'50%', backgroundColor:'#FFB703'}}></div>
+                            </div>
+                        
+                        <div><h5 className='' ><strong style={{color:'#FFB703'}}>Notre vision</strong></h5></div>
+                </div>
+                <div className='mt-4' style={{borderLeft:'3px solid #FFB703'}}>
+                    <p className='me-3 pe-4 '>Chez <strong style={{color:'#FFFF'}}>
+                        <span style={{color:'#FFB703'}}>  BARAKA</span> GATE</strong><br />
+                         Notre vision est de révolutionner la <br />
+                          façon dont les entreprises évaluent <br />
+                           et développent leurs équipes. Nous <br />
+                            aspirons à devenir le leader mondial <br /> en 
+                            fournissant une plateforme en <br /> ligne 
+                            innovante et intuitive,<br /> permettant 
+                            à chaque.
+                      
+                      </p>
+                </div>
+                </div>
+
+                <div>
+                <div className="losange" id='losange'> 
+                    <FontAwesomeIcon icon={regularIcons.faGem} id='icon_font_home_engament' className='icon_onetwo_home1' />
+                </div>
+                <div className='mt-5 d-flex justify-content-center  '>
+                            <div className='bg-white d-flex justify-content-center align-items-center mt-2 me-1' style={{width:'15px', height:'15px',borderRadius:'50%'}}>
+                                <div style={{width:'10px', height:'10px',borderRadius:'50%', backgroundColor:'#FFB703'}}></div>
+                            </div>
+                        
+                        <div><h5 className='' ><strong style={{color:'#FFB703'}}>Nos valeurs</strong></h5></div>
+                </div>
+                <div className='mt-4' style={{borderLeft:'3px solid #FFB703'}}>
+                    <p className='me-3'>Chez  
+                        <strong style={{color:'#FFFF'}}>
+                        <span style={{color:'#FFB703'}}>  BARAKA</span> GATE</strong> <br />
+                        Nos valeurs sont bien plus qu'une <br />
+                        simple déclaration.Elles sont le <br /> 
+                        fondement de tout ce que nous<br /> 
+                        faisons et guident chaque aspect <br /> 
+                        de notre entreprise.                      
+                      </p>
+                </div>
+                </div>
+
+                <div>
+                <div className="losange"> 
+                    <FontAwesomeIcon icon={regularIcons.faPaperPlane} id='icon_font_home_engament' className='icon_onetwo_home' />
+                </div>
+                <div className='mt-5 d-flex justify-content-center  '>
+                            <div className='bg-white d-flex justify-content-center align-items-center mt-2 me-1' style={{width:'15px', height:'15px',borderRadius:'50%'}}>
+                                <div style={{width:'10px', height:'10px',borderRadius:'50%', backgroundColor:'#FFB703'}}></div>
+                            </div>
+                        
+                        <div><h5 className='' ><strong style={{color:'#FFB703'}}>Notre mission</strong></h5></div>
+                </div>
+                <div className='mt-4' style={{borderLeft:'3px solid #FFB703'}}>
+                    <p>Chez 
+                        <strong style={{color:'#FFFF'}}><span style={{color:'#FFB703'}}>  BARAKA</span > GATE</strong> <br />
+                      Notre mission est de fournir aux entreprises <br />
+                       du monde entier les outils et les ressources <br />
+                       nécessairespour optimiser la performance de <br />
+                        leurs équipes.Nous nous engageons à offrir <br />
+                        une plateforme en ligne conviviale et <br />
+                        innovante qui permet à chaque.
+                      
+                      </p>
+                </div>
+                </div>
+            </div>
         </div>
       </section>
       {/*  Nos agagements fin  */}
+
+      {/*  modéles d'évaluation debut */}
+       <section className='pt-4 pb-4'>
+        <div>
+          <div><Underline text='Quelques uns de nos modéles d’évaluation' /></div>
+        </div>
+        <div className='d-flex justify-content-center mt-5 gap-4 '>
+            <div className='pt-2 pb-2 pe-3 ps-3' style={{width:'320px', height:'250px', borderTop:'3px solid #FFB703', 
+               boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius:'25px'}}>
+                <div><FontAwesomeIcon  icon={faHandshake} style={{fontSize:'60px', color:'#FFB703'}} /></div>
+                <div>
+                    <h6 style={{fontWeight:'bold'}}  className='mt-2 mb-2'>Sondage sur l’engagement des employés</h6>
+                    <p>Évaluez et améliorez l’expérience de vos <br />
+                        collaborateurs grâce à notre modèle de
+                        sondage gratuit 
+                        sur...</p>
+                </div>
+            </div>
+            <div className='pt-2 pb-2 pe-3 ps-3' style={{width:'320px', height:'250px', borderTop:'3px solid #FFB703', 
+               boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius:'25px'}}>
+                <div><FontAwesomeIcon  icon={faChartLine} style={{fontSize:'60px', color:'#FFB703'}} /></div>
+                <div>
+                    <h6 style={{fontWeight:'bold'}}  className='mt-2 mb-2'>Performances des employés</h6>
+                    <p>Découvrez notre modèle de sondage sur
+                        les performances des employés, certifié
+                        par des experts. Simples...</p>
+                </div>
+            </div>
+            <div className='pt-2 pb-2 pe-3 ps-3' style={{width:'320px', height:'250px', borderTop:'3px solid #FFB703', 
+               boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius:'25px', position:'relative'}}>
+                <div><FontAwesomeIcon  icon={faUserTie} style={{fontSize:'60px', color:'#FFB703'}} /></div>
+                <div>
+                    <h6 style={{fontWeight:'bold'}}  className='mt-2 mb-2'>Sondage Employee Net Promoter Score (eNPS)</h6>
+                    <p>Recueillez du feedback sur l’expérience et 
+                        la satisfaction de vos employés avec le 
+                        sondage Employee...</p>
+                </div>
+                <div 
+                    style={{float:'left', marginTop:'30px', position: 'absolute', right:'10px'}}>
+                    <Button style={{color:'black', backgroundColor:'#FFFF',border:'2px solid #FFB703'}}>Voir plus</Button>
+                </div>
+            </div>
+            
+        </div>
+        
+       </section>
+      {/*  modéles d'évaluation fin  */}
     </div>
   )
 }
