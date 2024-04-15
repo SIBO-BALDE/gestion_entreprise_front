@@ -1,12 +1,14 @@
 import './App.css';
-import Home from './Components/User_Components/Home/Home';
+import AboutScreen from './Pages/AboutScreen/AboutScreen';
+import HomeScreen from './Pages/HomeScreen/HomeScreen';
+
 
 
 
 function App() {
   return (
     <div >
-      <Home />
+      <AboutScreen />
     </div>
   );
 }

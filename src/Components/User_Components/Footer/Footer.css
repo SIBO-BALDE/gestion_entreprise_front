@@ -1,0 +1,83 @@
+:root{
+    --principal:#004573;
+    --seconde:#FFB703;
+    --troisieme:#FFF;
+    --optionel:#ebf0f4;
+    
+}  
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none !important;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/* ************************** footer  debut  ***************************** */
+.footer_content_main{
+    padding-top: 50px;
+    background-color: var(--principal);
+}
+.footer_content{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    justify-content: center;
+    
+}
+.footer_bottom_home{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+}
+.icons_footer_home{
+    display: flex;
+    gap: 10px;
+}
+.footer_content p{
+    color: var(--troisieme);
+}
+.footer_ref_home hr{
+    color: var(--troisieme);
+    margin-left:100px ;
+    margin-right: 100px;
+    margin-bottom: 40px;
+}
+
+#btn_abonner_footer{
+    position: relative;
+    left: -108px;
+    background-color: var(--principal);
+    border: none !important;
+    border-radius: 50px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#input_searchcontent_footer{
+    width: 300px;
+    border-radius: 50px;
+    height: 50px;
+    padding-left: 10px;
+  }
+  .copyright_footer_home p{
+    color: var(--troisieme);
+  }
+  .icons_footer_home div{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--troisieme);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .icon_footer_topbar{
+    color: var(--seconde);
+    font-size: 15px;
+    
+  }
+  
+
+
+  
+/* ************************** footer  fin  ***************************** */
