@@ -13,13 +13,51 @@
     list-style: none !important;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+
+
+
+/* **************************banniere debut***************************** */
+
+.ban_about_about_one{
+    width: 100%;
+    height: 598px;
+   
+  
+}
+#ban_about_about_one1 {
+    width: 100%;
+    height: 100%; 
+   
+    
+    
+}
+.ban_about_about_one{
+    background-color: black;
+   
+}
+#ban_about_about_one1{
+    opacity: 0.6 !important;
+
+}
+.ban_about_about_one2{
+    position: absolute;
+    top: 360px;
+    
+}
+
+/* **************************banniere fin***************************** */
+
+
+/* **************************About about qui somme nous debut***************************** */
 .bann_about_aboutscreen{
     display: grid !important;
-    grid-template-columns: 60% 40% !important;
-    border-bottom: 5px solid  var(--principal) !;
-    border-top: 5px solid var(--principal);
+    grid-template-columns: 50% 50% !important;
+   
     width: 100%;
     height: 60vh;
+    /* background-color: var(--optionel);
+     */
+    
 }
 .ban_right_content_about{
     display: flex;
@@ -29,18 +67,25 @@
     margin-right: 30px;
 }
 .ban_right_image_about1{
-    border-top-left-radius: 50%;
-    border-bottom-right-radius: 50%;
+    border-top-left-radius: 30%;
+    border-bottom-right-radius: 30%;
     width: 250px;
     height: 100%;
+    border-top:5px solid var(--principal);
+border-left:5px solid var(--principal);
+border-right: 5px solid var(--seconde);
+border-bottom: 5px solid var(--seconde);
     /* transform: rotate(20deg); */
 }
 .ban_right_image_about2{
-    border-top-left-radius: 50%;
-    border-bottom-right-radius: 50%;
+    border-top-left-radius: 30%;
+    border-bottom-right-radius: 30%;
     width: 250px;
     height: 100%;
-    /* transform: rotate(20deg); */
+    border-top:5px solid var(--principal);
+border-left:5px solid var(--principal);
+border-right: 5px solid var(--seconde);
+border-bottom: 5px solid var(--seconde);
 }
 .ban_right_image_about_content1{
     width: 50%;
@@ -49,16 +94,285 @@
 .ban_right_image_about_content2{
     width: 50%;
     height: 170px;
+    
+    
 }
 .ban_left_content_about{
     background-color: var(--principal);
-    width: 80%;
-    height: 270px;
-    border-top-right-radius: 30%;
-    border-bottom-left-radius: 30%;
-    margin-left: 30px;
-    margin-top: 30px;
-    border-top: 10px solid var(--seconde);
-    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    width: 90%;
+    height: 95%;
+    border-top-right-radius: 27%;
+    border-bottom-right-radius: 27% ;
+    border-right: 18px solid var(--principal);
+    box-shadow: 0.4rem 0rem var(--seconde);
     
+    /* border-top:5px solid var(--troisieme) ;
+    border-bottom:5px solid var(--troisieme) ; */
+    border-right:5px solid var(--troisieme) ;
+    margin-left: 30px;
+     
 }
+/* **************************About about qui somme nous fin***************************** */
+
+
+/* **************************Nos objectifs debut***************************** */
+.objectif_content_flex{
+    display: flex;
+    /* grid-template-columns: 40% 60%; */
+    justify-content: space-around;
+}
+.content_numero_object{
+    width: 30px ;
+    height: 30px;
+    border: 3px solid var(--principal);
+    display: flex;
+    justify-content: center;
+    align-items: center !important;
+    place-content: center !important;
+}
+.content_main_midle_about3{
+    border: 3px solid var(--seconde);
+    background-color: var(--troisieme);
+    width: 220px ;
+    height: 220px;
+    transform: rotate(45deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+
+}
+.content_midle_about3{
+    background-color: var(--principal);
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+   
+}
+.content_flex_midle_el{
+    display: flex;
+    align-items: center;
+    gap: 40px;
+   
+}
+.icon_comment_figure{
+    color: var(--troisieme);
+    transform: rotate(-45deg);
+    font-size: 120px;
+}
+
+.content_flex_midle_el_first, .content_flex_midle_el_thirth{
+    border: 3px solid var(--seconde);
+    color: var(--principal);
+    width:30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: 10px;
+    animation: rotate 5s linear infinite;
+}
+.top_content_first_objectif , .bottom_content_last_objectif{
+    margin-left: 166px;
+    border: 3px solid var(--seconde);
+    color: var(--principal);
+    width:30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-left-radius: 10px;
+}
+.top_content_first_objectif{
+    margin-bottom: 40px;
+    animation: rotate 5s linear infinite;
+}
+.bottom_content_last_objectif{
+    margin-top: 40px;
+    animation: rotate 5s linear infinite;
+}
+.text_design_header, .baraka_content, 
+.gate_content,
+.content_numero_object1{
+    
+    font-style: italic;
+    font-weight: bold;
+   
+    letter-spacing: 1px;
+    word-spacing: 2px;
+    font-family: Arial, sans-serif; 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.10); 
+}
+.content_numero_object1{
+    color: var(--seconde);
+}
+@keyframes rotate {
+    from {
+      transform: rotate(0deg); /* Rotation initiale à 0 degrés */
+    }
+    to {
+      transform: rotate(360deg); /* Rotation complète à 360 degrés */
+    }
+    }
+
+    
+
+
+/* **************************Nos objectifs fin***************************** */
+
+
+/* **************************Recontre avec nos expert debut***************************** */
+
+.separator {
+    width: 100%;
+    height: 2px;
+    background-color: #ccc;
+    margin: 20px 0;
+}
+
+.conten_separateur {
+    padding: 20px;
+    background-color: var(--principal);
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+}
+.content_images_top_ev_flex{
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+   
+}
+
+.content_images_under_ev h5{
+    color: var(--seconde);
+    font-weight: bold;
+    margin-top: 15px;
+   
+
+}
+.content_content_formateur{
+    width: 400px;
+    height: 220px;
+
+}
+.content_content_formateur_image{
+    width: 100%;
+    height: 100%;
+    border: 10PX solid var(--troisieme);
+}
+/* **************************Recontre avec nos expert fin***************************** */
+
+
+
+/* **************************Nos partenaire debut***************************** */
+@keyframes slider {
+    0%, 20%, 100%	{ left: 0 }
+    25%, 45%		{ left: -100% }
+    50%, 70%		{ left: -200% }
+    75%, 95%		{ left: -300% }
+  }
+  
+  .partenaire{
+      animation: scroll  40s linear infinite;
+      display: flex;
+      width: calc(250px * 14);
+  }
+  @keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-250px * 7))}
+  }
+  .Section_partenaire {
+    overflow-x: auto;
+}
+  .contentpartner{
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+  }
+  .contentparternerimg{
+    width: 100px;
+    height: 80px;
+    margin-left: 10px;
+  }
+  .contentpatnermain{
+    width: 100%;
+    height: 60px;
+    display: flex;
+
+  }
+  .card_partenaire {
+    width: 300px;
+    height: 170px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    padding: 2em;
+    /* border-radius: 20px; */
+    margin-bottom: 20px;
+  }
+  
+  .partenaire {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    overflow-x: auto;
+  }
+  
+  .Section_partenaire p {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .card_partenaire{
+    width: 300px;
+    height: 170px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    padding: 2em;
+    margin-right: 20px;
+
+  }
+  
+  .card_partenaire img {
+    width: 120px;
+    height: 120px;
+    display: block;
+    margin: auto;
+  }
+  .card-partenaire-img{
+    width: 120px;
+    height: 120px;
+    display: block;
+    margin: auto;
+    border-radius: 5px;
+
+  }
+  .position-content-relative-parent{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: calc(700px + 100px); ;
+    align-items: center;
+    justify-content: center;
+  }
+ 
+  .text-relative-content h5{
+    font-size: 60px;
+    color: var(--seconde);
+    
+  }
+  .text-relative-content h6{
+    font-size: 20px;
+    color: var(--seconde);
+    padding-left: 20px;
+    
+  }
+/* **************************Nos partenaire fin***************************** */

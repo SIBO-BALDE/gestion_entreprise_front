@@ -1,0 +1,15 @@
+:root{
+    --principal:#004573;
+    --seconde:#FFB703;
+    --troisieme:#FFF;
+    --optionel:#ebf0f4;
+    
+}  
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none !important;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

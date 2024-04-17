@@ -8,7 +8,7 @@ import Navbar from 'react-bootstrap/Navbar';
 export default function NavbarUser() {
   return (
     <div className='navbar_glabal_content'>
-        {/* Navbar component debut */}
+        {/**************************** Navbar component debut ****************************/}
         
         <Navbar expand="lg" className="navbar_body" style={{backgroundColor:'#fff', boxShadow:'rgba(0, 0, 0, 0.16) 0px 1px 4px',}}>
           <Container fluid>
@@ -27,7 +27,7 @@ export default function NavbarUser() {
           </Container>
         </Navbar>
 
-        {/* Navbar component  fin*/}
+        {/**************************** Navbar component  fin****************************/}
       
     </div>
   )

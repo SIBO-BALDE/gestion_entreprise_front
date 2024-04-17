@@ -30,7 +30,7 @@ export default function HomeScreen() {
       {/* Navbar fin */}
 
 
-      {/*  banniere debut */}
+      {/****************************  banniere debut ****************************/}
          <div className='ban_content_home'>
            <Image src={ban1}  className='w-100 ban_image_content_home' /> 
          </div>
@@ -91,9 +91,9 @@ export default function HomeScreen() {
          
         </div>
       </section>
-      {/*  chiffres clés  fin*/}
+      {/****************************  chiffres clés  fin****************************/}
 
-      {/*  qui sommes nout  debut*/}
+      {/****************************  qui sommes nout  debut****************************/}
       <section className='content_section2_home '>
         
         <div>
@@ -122,9 +122,9 @@ export default function HomeScreen() {
             </div>
         </div>
       </section>
-      {/*  qui sommes nous  fin*/}
+      {/****************************  qui sommes nous  fin****************************/}
 
-      {/*  ccomment sa marche  debut*/}
+      {/****************************  ccomment sa marche  debut****************************/}
       <section style={{boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', paddingTop:'20px', paddingBottom:'30px'}}>
        <div>
           <div>
@@ -139,10 +139,10 @@ export default function HomeScreen() {
           <div className='d-flex justify-content-center '> <Button id='btn_about_homes2'>Decouvrir</Button></div>
        </div>
       </section>
-      {/*  comment sa marche fin */}
+      {/****************************  comment sa marche fin ****************************/}
 
 
-      {/*  Nos agagements debut*/}
+      {/****************************  Nos agagements debut****************************/}
       <section style={{paddingTop:'50px', backgroundColor:'#004573',paddingBottom:'90px'}}>
         <Underline  text='Nos engagments' color='white'/>
         <div className='' style={{marginTop:'70px'}}>
@@ -276,9 +276,9 @@ export default function HomeScreen() {
             </div>
         </div>
       </section>
-      {/*  Nos agagements fin  */}
+      {/****************************  Nos agagements fin  ****************************/}
 
-      {/*  modéles d'évaluation debut */}
+      {/****************************  modéles d'évaluation debut ****************************/}
        <section className='pt-4 pb-4'>
         <div>
           <div><Underline text='Quelques uns de nos modéles d’évaluation' /></div>
@@ -323,10 +323,10 @@ export default function HomeScreen() {
         </div>
         
        </section>
-      {/*  modéles d'évaluation fin  */}
+      {/****************************  modéles d'évaluation fin  ****************************/}
 
 
-      {/* expliquation modéles d'évaluation debut  */}
+      {/**************************** expliquation modéles d'évaluation debut  ****************************/}
       <section style={{backgroundColor:'#ebf0f4', marginTop:'80px', boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px'}}>
         <div id="" className='container'>
         <div className="experience pt-100 pb-100" >
@@ -380,9 +380,9 @@ export default function HomeScreen() {
 	    </div>
         </div>
       </section>
-      {/*  explication modéles d'évaluation fin  */}
+      {/****************************  explication modéles d'évaluation fin  ****************************/}
 
-      {/*  Notre équipe  début */}
+      {/****************************  Notre équipe  début ****************************/}
       <section>
       <div className='contenthome1'>
               <Underline text='Notre équipe' />
@@ -438,9 +438,9 @@ export default function HomeScreen() {
               
             </div>
       </section>
-      {/*  Notre équipe  fin */}
+      {/****************************  Notre équipe  fin ****************************/}
 
-      {/*  Footer */}
+      {/****************************  Footer ****************************/}
       <Footer />
       {/*  Footer */}
 
