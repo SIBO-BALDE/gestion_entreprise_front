@@ -112,7 +112,22 @@
     background-color: var(--principal) !important;
     border: 2px solid var(--seconde) !important;
     color: var(--troisieme);
+   
 }
+.reference1_home, .reference2_home{
+  animation: animesection 2s linear infinite;
+}
+ @keyframes animesection {
+  0% {
+    transform: scaleY(1);
+}
+50% {
+    transform: scaleY(0); /* Mettez à zéro pour réduire la hauteur à zéro */
+}
+100% {
+    transform: scaleY(1);
+}
+  }
 /* **************************style qui sommes nous fin ***************************** */
 
 
@@ -126,6 +141,9 @@
     background-color: var(--troisieme);
     border: 2px solid var(--principal);
     color: var(--principal);
+}
+#discover:hover{
+  color: var(--principal) !important;
 }
 /* **************************comment sa marche fin ***************************** */
 
@@ -147,7 +165,22 @@
     display: flex;
     justify-content:center ;
     align-items: center;
+    /* animation: rotate 5s linear infinite; */
+    /* animation: rotation 5s infinite linear; */
 }
+
+
+  /* @keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  } */
+  #icon_font_home_engament{
+    animation: none !important;
+  }
 .losange:hover {
     transform: rotate(90deg) scale(1.5);
     transition: transform 0.3s ease-in-out;
@@ -292,11 +325,7 @@ ul.timeline-list li {
     border-radius: 10px;
    
 }
-#experience{
-    /* box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px; */
-    /* background-color: rgba(250, 250, 250, 0.324); */
-    
-}
+
 .section-avis{
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
     background-color: rgba(250, 250, 250, 0.324);
@@ -358,8 +387,11 @@ ul.timeline-list li:before {
 
 .cardtemoinhome{
     width: 100%;
-    height: 355px;
+    height: 345px;
     
+  }
+  .cardtemoinhome:hover{
+    transform: scale(1.1);
   }
   #temoignages{
     margin-top: 5rem !important;
@@ -369,17 +401,17 @@ ul.timeline-list li:before {
   }
   .cardtemoinhome1{
     width: 100%;
-    height: 165px;
+    height: auto;
     display: flex;
     justify-content: center;
     position: relative;
     bottom: -75px;
   }
   .cardtemoinhome1img{
-    width: 50% !important;
+    width: 65% !important;
     height: 90% !important;
     border-radius: 50%;
-    border: 10px solid var(--troisieme);
+    /* border: 10px solid var(--troisieme); */
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
   }
   .cardtemoinhome2{
@@ -400,7 +432,7 @@ ul.timeline-list li:before {
     /* margin-top: 75px; */
   }
   .title-temoinhome{
-    margin-top: 80px;
+    margin-top: 90px;
   }
   .cardtemoinsociau{
     background-color: var(--seconde);
@@ -414,6 +446,7 @@ ul.timeline-list li:before {
     justify-content: center;
     place-content: center;
     align-items: center;
+    margin-top: 25px;
     
   }
   .cardtitletemoin{
@@ -443,8 +476,27 @@ ul.timeline-list li:before {
     padding-bottom: 5rem !important;
     /* margin-top: 20px !important; */
    
-
   }
+
+  /* @keyframes slider {
+    0%, 20%, 100%	{ left: 0 }
+    25%, 45%		{ left: -100% }
+    50%, 70%		{ left: -200% }
+    75%, 95%		{ left: -300% }
+  } */
+  
+  .contenttemoignagehome{
+      /* animation: scroll  40s linear infinite; */
+      display: flex;
+      /* width: calc(250px * 14); */
+  }
+  /* @keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-250px * 7))}
+  }
+  .section_content_team{
+    overflow-x: auto;
+} */
 /* ************************** notre équipe  fin  ***************************** */
 
 

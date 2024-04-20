@@ -8,8 +8,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBuilding, faBullseye, faChartLine, faFaceSmile,faHandshake,faUserTie,faUsers } from '@fortawesome/free-solid-svg-icons';
 import ban2 from '../../Images/dessin.png';
 import ban3 from '../../Images/Rectangle2.png';
+import baraka7 from '../../Images/baraka7.jpeg';
+import baraka8 from '../../Images/baraka8.jpeg';
+import baraka6 from '../../Images/baraka6.jpeg';
+import baraka12 from '../../Images/baraka12.jpeg';
+import baraka13 from '../../Images/baraka13.jpeg';
+import baraka14 from '../../Images/baraka14.jpeg';
+import baraka11 from '../../Images/baraka11.jpeg';
 import homme2 from '../../Images/homme2 1.png';
-import homme1 from '../../Images/homme1 1.png';
+import homme1 from '../../Images/Ben.png';
 import femme from '../../Images/femme 1.png';
 import * as regularIcons from '@fortawesome/free-regular-svg-icons';
 
@@ -17,6 +24,9 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { faFacebookF, faInstagram, faLinkedinIn, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import Footer from '../../Components/User_Components/Footer/Footer';
+import ButtonDeco from '../../Components/User_Components/Buttons/ButtonDeco';
+import ChiffresCles from '../../Components/User_Components/ChiffresCles/ChiffresCles';
+import { Link } from 'react-router-dom';
 
 
 export default function HomeScreen() {
@@ -31,7 +41,7 @@ export default function HomeScreen() {
 
 
       {/****************************  banniere debut ****************************/}
-         <div className='ban_content_home'>
+         <div className='ban_content_home mt-5 '>
            <Image src={ban1}  className='w-100 ban_image_content_home' /> 
          </div>
          <div id='ban_content_home-text'>
@@ -42,58 +52,27 @@ export default function HomeScreen() {
             </p>
             <div className='d-flex mt-5'>
                 <div>
-                    <Button className='btn_ban_home pt-3 pb-3' id='btn1_ban_home'>Commencer l’evaluation</Button>
+                    <Button className='btn_ban_home pt-3 pb-3' id='btn1_ban_home'>
+                        <Link to={'/login'} style={{textDecoration:'none', color:'white'}}>Commencer l’evaluation</Link> 
+                    </Button>
                 </div>
                 <div className='ms-4'>
-                    <Button className='btn_ban_home pt-3 pb-3' id='btn2_ban_home'>Voir les modéles</Button>
+                    <Button className='btn_ban_home pt-3 pb-3' id='btn2_ban_home'>
+                        <Link to={'/modeles'} style={{textDecoration:'none', color:'white'}}>Voir les modéles</Link>
+                    </Button>
                 </div>
             </div>
          </div>
-      {/*  banniere  fin*/}
+      {/****************************   banniere  fin**************************** /}
 
 
-      {/*  chiffres clés  debut*/}
-      <section style={{paddingTop:'20px', paddingBottom:'30px'}}>
-        <div>
-            <Underline  text='Quelques chiffres clés'/>
-        </div>
-        <div className='d-flex justify-content-center'> 
-         <div className ='me-5 '>
-            <div className='content_main_chiffre1'>
-                <FontAwesomeIcon  icon={faBuilding } className='content_main_icon_home'/>
-            </div>
-            <div>
-                <h1 className='content_blue_home'>2000+</h1>
-                <p>Entreprises formé</p>
-            </div>
-
-         </div>
-         <div className>
-            <div className='content_main_chiffre1'>
-                <FontAwesomeIcon  icon={faUsers } className='content_main_icon_home'/>
-            </div>
-            <div>
-                <h1 className='content_orange_home'>1000+</h1>
-                <p>Employés évalué</p>
-            </div>
-
-         </div>
-         <div className='ms-5 '>
-            <div className='content_main_chiffre1'>
-                <FontAwesomeIcon  icon={faFaceSmile } className='content_main_icon_home'/>
-            </div>
-            <div>
-                <h1 className='content_blue_home'>5000+</h1>
-                <p>Resultats de satisfaction</p>
-            </div>
-
-         </div>
-         
-        </div>
-      </section>
+      {/****************************   chiffres clés  debut*************************** */}
+     <section>
+        <ChiffresCles />
+     </section>
       {/****************************  chiffres clés  fin****************************/}
 
-      {/****************************  qui sommes nout  debut****************************/}
+      {/****************************  qui sommes nous  debut****************************/}
       <section className='content_section2_home '>
         
         <div>
@@ -104,10 +83,10 @@ export default function HomeScreen() {
             <diiv  className='reference1_home me-1 ' style={{marginTop:'56px'}}></diiv>
             <div  className='reference2_home' style={{marginTop:'30px'}}></div>
         </div>
-            <div style={{height:'300px',width:'100%'}}>
-                <Image src={ban3} style={{height:'100%' ,width:'100%'}} />
+            <div style={{height:'335px',width:'100%'}}>
+                <Image src={baraka11} style={{height:'100%' ,width:'100%'}} />
             </div>
-            <div style={{marginLeft:'30px', height:'300px', width:'100%'}}>
+            <div style={{marginLeft:'30px', height:'330px', width:'100%'}}>
                 <h3 style={{color:'white',fontWeight:'bold'}}>Vous aimerez faire une évaluation de vos équipes? <br />
                     <span style={{color:'#FFB703'}}>BARAKA GATE</span> est la solution</h3>
                     <p style={{color:'white'}} className='mt-4'>BARAKA GATE offre une plateforme d'évaluation en ligne novatrice pour 
@@ -116,15 +95,17 @@ export default function HomeScreen() {
                        dans le domaine de l'évaluation des équipes, Byfeeding propose une solution 
                        personnalisée et flexible adaptée aux besoins spécifiques de chaque entreprise.
                     </p>
-                    <Button className='w-90'id='btn_about_home_middle' 
+                    <Button className='w-90 mt-3'id='btn_about_home_middle' 
                     style={{width:'99%', backgroundColor:'#FFB703', border:'none',
-                    boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px' }}>Voir plus</Button>
+                    boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px' }}>
+                        <Link to={'/about'} style={{textDecoration:'none', color:'white'}}>Voir plus</Link>
+                    </Button>
             </div>
         </div>
       </section>
       {/****************************  qui sommes nous  fin****************************/}
 
-      {/****************************  ccomment sa marche  debut****************************/}
+      {/****************************  comment sa marche  debut****************************/}
       <section style={{boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', paddingTop:'20px', paddingBottom:'30px'}}>
        <div>
           <div>
@@ -136,7 +117,11 @@ export default function HomeScreen() {
           <div>
             <h6 className='text-center'>Laisser nous vous guider pas à pas sur les differentes parties de Comment marche l’évalution en ligne</h6>
           </div>
-          <div className='d-flex justify-content-center '> <Button id='btn_about_homes2'>Decouvrir</Button></div>
+          <div className='d-flex justify-content-center '> 
+            <Button id='btn_about_homes2'>
+                <Link to={'/about'} style={{textDecoration:'none', color:'white'}} id='discover'>Decouvrir</Link>
+            </Button>
+        </div>
        </div>
       </section>
       {/****************************  comment sa marche fin ****************************/}
@@ -152,9 +137,9 @@ export default function HomeScreen() {
                 <div className="losange ">
                   <FontAwesomeIcon icon={faBullseye}  id='icon_font_home_engament' className='icon_onetwo_home'/> 
                 </div>
-                <div className='mt-5 d-flex justify-content-center  '>
-                            <div className='bg-white d-flex justify-content-center align-items-center mt-2 me-1' style={{width:'15px', height:'15px',borderRadius:'50%'}}>
-                                <div style={{width:'10px', height:'10px',borderRadius:'50%', backgroundColor:'#FFB703'}}></div>
+                <div className='mt-5 d-flex '>
+                            <div>
+                                <ButtonDeco />
                             </div>
                         
                         <div><h5 className='' ><strong style={{color:'#FFB703'}}>Notre vision</strong></h5></div>
@@ -178,9 +163,9 @@ export default function HomeScreen() {
                 <div className="losange" id='losange'> 
                     <FontAwesomeIcon icon={regularIcons.faGem} id='icon_font_home_engament' className='icon_onetwo_home1' />
                 </div>
-                <div className='mt-5 d-flex justify-content-center  '>
-                            <div className='bg-white d-flex justify-content-center align-items-center mt-2 me-1' style={{width:'15px', height:'15px',borderRadius:'50%'}}>
-                                <div style={{width:'10px', height:'10px',borderRadius:'50%', backgroundColor:'#FFB703'}}></div>
+                <div className='mt-5 d-flex'>
+                            <div>
+                                <ButtonDeco />
                             </div>
                         
                         <div><h5 className='' ><strong style={{color:'#FFB703'}}>Nos valeurs</strong></h5></div>
@@ -198,8 +183,8 @@ export default function HomeScreen() {
                       <div>
                         <div className='d-flex ms-3'>
                             <div className='d-flex'>
-                            <div className='bg-white d-flex justify-content-center align-items-center mt-2 me-1' style={{width:'15px', height:'15px',borderRadius:'50%'}}>
-                                <div style={{width:'10px', height:'10px',borderRadius:'50%', backgroundColor:'#FFB703'}}></div>
+                            <div>
+                            <ButtonDeco />
                             </div>
                             <div>
                                 <p  className='text-white'>Intégrité</p>
@@ -207,8 +192,8 @@ export default function HomeScreen() {
 
                             </div>
                             <div className='d-flex ms-4'>
-                            <div className='bg-white d-flex justify-content-center align-items-center mt-2 me-1' style={{width:'15px', height:'15px',borderRadius:'50%'}}>
-                                <div style={{width:'10px', height:'10px',borderRadius:'50%', backgroundColor:'#FFB703'}}></div>
+                            <div>
+                            <ButtonDeco />
                             </div>
                             <div>
                                 <p  className='text-white'>Responsablité</p>
@@ -219,8 +204,8 @@ export default function HomeScreen() {
                         </div>
                         <div className='d-flex ms-3'>
                             <div className='d-flex'>
-                            <div className='bg-white d-flex justify-content-center align-items-center mt-2 me-1' style={{width:'15px', height:'15px',borderRadius:'50%'}}>
-                                <div style={{width:'10px', height:'10px',borderRadius:'50%', backgroundColor:'#FFB703'}}></div>
+                            <div>
+                            <ButtonDeco />
                             </div>
                             <div>
                                 <p  className='text-white'>Exélence</p>
@@ -228,9 +213,7 @@ export default function HomeScreen() {
 
                             </div>
                             <div className='d-flex ms-4'>
-                            <div className='bg-white d-flex justify-content-center align-items-center mt-2 me-1' style={{width:'15px', height:'15px',borderRadius:'50%'}}>
-                                <div style={{width:'10px', height:'10px',borderRadius:'50%', backgroundColor:'#FFB703'}}></div>
-                            </div>
+                            <ButtonDeco />
                             <div>
                                 <p className='text-white'>Innovation</p>
                             </div>
@@ -248,12 +231,12 @@ export default function HomeScreen() {
                 <div className="losange"> 
                     <FontAwesomeIcon icon={regularIcons.faPaperPlane} id='icon_font_home_engament' className='icon_onetwo_home' />
                 </div>
-                <div className='mt-5 d-flex justify-content-center  '>
-                            <div className='bg-white d-flex justify-content-center align-items-center mt-2 me-1' style={{width:'15px', height:'15px',borderRadius:'50%'}}>
-                                <div style={{width:'10px', height:'10px',borderRadius:'50%', backgroundColor:'#FFB703'}}></div>
+                <div className='mt-5 d-flex   '>
+                            <div>
+                            <ButtonDeco />
                             </div>
                         
-                        <div><h5 className='' ><strong style={{color:'#FFB703'}}>Notre mission</strong></h5></div>
+                        <div style={{textAlign:'left'}}><h5 className='' ><strong style={{color:'#FFB703'}}>Notre mission</strong></h5></div>
                 </div>
                 <div className='mt-4' style={{borderLeft:'3px solid #FFB703', height:'240px'}}>
                     <p className='ms-3 text-white '>Chez 
@@ -316,7 +299,9 @@ export default function HomeScreen() {
                 </div>
                 <div 
                     style={{float:'left', marginTop:'30px', position: 'absolute', right:'10px'}}>
-                    <Button style={{color:'black', backgroundColor:'#FFFF',border:'2px solid #FFB703'}}>Voir plus</Button>
+                    <Button style={{color:'black', backgroundColor:'#FFFF',border:'2px solid #FFB703'}}>
+                        <Link to={'/modeles'} style={{textDecoration:'none', color:'black'}} >Voir plus</Link> 
+                    </Button>
                 </div>
             </div>
             
@@ -349,13 +334,13 @@ export default function HomeScreen() {
                      {/* <!-- Single Experience --> */}
                      <li>
                         <div className="timeline_content" data-aos="fade-left">
-                        <Image  src={ban3} className='timeline-img'id='contentimg-timeline' />
+                        <Image  src={baraka7} className='timeline-img'id='contentimg-timeline' />
                         </div>
                      </li>
                      {/* <!-- Single Experience --> */}
                      <li>
                         <div className="timeline_content" data-aos="fade-right">
-                        <Image  src={ban3} className='timeline-img'id='contentimg-timeline' />
+                        <Image  src={baraka8} className='timeline-img'id='contentimg-timeline' />
                         </div>
                      </li>
                      {/* <!-- Single Experience --> */}
@@ -386,15 +371,16 @@ export default function HomeScreen() {
       <section>
       <div className='contenthome1'>
               <Underline text='Notre équipe' />
+              <div className='section_content_team'>
               <div className='contenttemoignagehome'>
             
               <div  className='cardtemoinhome'>
                 <div className='cardtemoinhome1'>
-                  <Image src={homme1} className='cardtemoinhome1img' />
+                  <Image src={baraka6} className='cardtemoinhome1img' />
                 </div>
                     <div className='cardtemoinhome2'>
-                        <h6 className='text-center title-temoinhome text-light'>Glen léonard</h6>
-                        <p className='text-center text-light paratextcontenthome'>Développeur Backend</p>
+                        <h6 className='text-center title-temoinhome text-light'>Gaïus YOKOSSId</h6>
+                        <p className='text-center text-light paratextcontenthome'>M. Baraka</p>
                         <div className='d-flex justify-content-center pb-5'>
                             <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>
                             <div className='cardtemoinsociau'><FontAwesomeIcon icon={faTwitter} className='' /></div>
@@ -405,11 +391,11 @@ export default function HomeScreen() {
               </div>
               <div  className='cardtemoinhome'>
                 <div className='cardtemoinhome1'>
-                  <Image src={femme} className='cardtemoinhome1img' />
+                  <Image src={baraka13} className='cardtemoinhome1img' />
                 </div>
                     <div className='cardtemoinhome2'>
-                        <h6 className='text-center title-temoinhome text-light'>Sibo Baldé</h6>
-                        <p className='text-center text-light paratextcontenthome'>Développeur Frontend</p>
+                        <h6 className='text-center title-temoinhome text-light'>Carine KOKODE</h6>
+                        <p className='text-center text-light paratextcontenthome'>Miss Success</p>
                         <div className='d-flex justify-content-center pb-5'>
                             <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>
                             <div className='cardtemoinsociau'><FontAwesomeIcon icon={faTwitter} className='' /></div>
@@ -420,11 +406,26 @@ export default function HomeScreen() {
               </div>
               <div  className='cardtemoinhome'>
                 <div className='cardtemoinhome1'>
-                  <Image src={homme2} className='cardtemoinhome1img' />
+                  <Image src={baraka12} className='cardtemoinhome1img' />
                 </div>
                     <div className='cardtemoinhome2'>
-                        <h6 className='text-center title-temoinhome text-light'>Aziz Ndiaye</h6>
-                        <p className='text-center text-light paratextcontenthome'>Social media manager</p>
+                        <h6 className='text-center title-temoinhome text-light'>Isaac WODE</h6>
+                        <p className='text-center text-light paratextcontenthome'>M. Joy</p>
+                        <div className='d-flex justify-content-center pb-5'>
+                            <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>
+                            <div className='cardtemoinsociau'><FontAwesomeIcon icon={faTwitter} className='' /></div>
+                            <div className='cardtemoinsociau'><FontAwesomeIcon icon={faInstagram} className='' /></div>
+                            <div className='cardtemoinsociau'><FontAwesomeIcon icon={faLinkedinIn} className='' /></div>
+                        </div>
+                    </div>
+              </div>
+              <div  className='cardtemoinhome'>
+                <div className='cardtemoinhome1'>
+                  <Image src={baraka14} className='cardtemoinhome1img' />
+                </div>
+                    <div className='cardtemoinhome2'>
+                        <h6 className='text-center title-temoinhome text-light'>Jolin CADETe</h6>
+                        <p className='text-center text-light paratextcontenthome'>Mister Smart</p>
                         <div className='d-flex justify-content-center pb-5'>
                             <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>
                             <div className='cardtemoinsociau'><FontAwesomeIcon icon={faTwitter} className='' /></div>
@@ -434,6 +435,8 @@ export default function HomeScreen() {
                     </div>
               </div>
     
+              </div>
+
               </div>
               
             </div>

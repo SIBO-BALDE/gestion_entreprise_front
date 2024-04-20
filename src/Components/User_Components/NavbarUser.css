@@ -16,6 +16,10 @@
 
 
 /* **************************** navbar style debut*********************************** */
+.logo_conntent_navbar{
+    width: 40px;
+    height: 40px;
+}
 .navbar_body{
     background-color: var(--principal);
     
@@ -30,8 +34,13 @@
 }
 #link_navbar_menu{
     color: var(--principal) !important;
-    font-weight: bold;
+    font-weight: 500px;
+    text-decoration: none;
     
+}
+#link_navbar_menu:hover{
+    color: var(--seconde) !important;
+   
 }
 
 

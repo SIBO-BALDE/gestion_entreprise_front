@@ -1,0 +1,39 @@
+:root{
+    --principal:#004573;
+    --seconde:#FFB703;
+    --troisieme:#FFF;
+    --optionel:#ebf0f4;
+    
+}  
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none !important;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+.content_main_chiffre1{
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    border: 1px solid var(--principal);
+    background-color: var(--troisieme);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.content_main_icon_home{
+    font-size: 56px;
+    color: var(--principal);
+}
+.content_blue_home{
+    color: var(--principal);
+}
+
+.content_orange_home{
+    color: var(--seconde);
+}

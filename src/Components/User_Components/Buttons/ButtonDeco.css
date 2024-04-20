@@ -1,0 +1,12 @@
+#btn_deco_compo{
+    animation: rotation 10s infinite linear !important;
+   
+}
+@keyframes rotation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }

@@ -7,15 +7,15 @@ import ben from '../../Images/Ben.png';
 import image1 from '../../Images/image 1.png'
 import image2 from '../../Images/image 2.png';
 import image3 from '../../Images/image 3.png';
-import ban_about from '../../Images/ban_apropos.jpg';
-import { Image } from 'react-bootstrap';
+import ban_about from '../../Images/baraka11.jpeg';
+import { Button, Image } from 'react-bootstrap';
 import Underline from '../../Components/User_Components/Underline/Underline';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBriefcase, faSignsPost } from '@fortawesome/free-solid-svg-icons';
 import { faComments, faFileVideo, faHandshake } from '@fortawesome/free-regular-svg-icons';
-import ev1 from '../../Images/Ev-4 1.png';
+import ev1 from '../../Images/baraka9.jpeg';
 import ev2 from '../../Images/Ev-5 1.png';
-import ev3 from '../../Images/Ev-6 1.png';
+import ev3 from '../../Images/baraka8.jpeg';
 import formateur1 from '../../Images/image 50.png';
 import formateur2 from '../../Images/image 51.png';
 import formateur3 from '../../Images/image 52.png';
@@ -25,6 +25,8 @@ import partenaire3 from '../../Images/0.png';
 import partenaire4 from '../../Images/casa.png';
 import partenaire5 from '../../Images/3fpt.png';
 import partenaire6 from '../../Images/13.png';
+import baraka_vd from '../../Images/baraka_vd.mp4';
+import { Link } from 'react-router-dom';
 
 export default function AboutScreen() {
   return (
@@ -36,17 +38,25 @@ export default function AboutScreen() {
 
       <main>
         {/**************************** Banniere debut ****************************/}
-       <div className=' w-100 ban_about_about_one'>
+        <div className='section_fixer'>
+       <div className=' w-100 ban_about_about_one mt-5 '>
         <Image  src={ban_about} id='ban_about_about_one1' />
        </div>
-       <div className='ban_about_about_one2' style={{marginLeft:'350px', lineHeight:'120px'}}>
+       <div className='ban_about_about_one2 mt-4 ' style={{marginLeft:'380px', lineHeight:'120px'}}>
         <h1 className='text-white text-center '>
             <strong style={{color:'#004573'}}>BARAKA </strong>
             <strong className='text-center' style={{color:'#FFB703'}}>GATE </strong>
-               INCARNE  <br />LE MIRACLE ET L'ABONDANCE
         </h1>
+        <h3> INCARNE  LE MIRACLE ET L'ABONDANCE</h3>
+        <div className=' mt-1' style={{marginLeft:'170px'}}>
+        <Button className="btn_about_bottom"> 
+          <Link to={'/modeles'} style={{textDecoration:'none', color:'#FFB703'}} id='btn_link_ban_about'> Decouvrer nos modéles</Link>
+        </Button>
+        </div>
         
        </div>
+          
+        </div>
        {/**************************** Banniere fin ****************************/}
 
       {/**************************** Comment sa marche debut ****************************/}
@@ -97,7 +107,7 @@ export default function AboutScreen() {
 
      
       {/**************************** Nos objectifs  debut****************************/}
-      <section>
+      <section className='mt-5'>
         <Underline text='Nos objectifs' />
         <div className='objectif_content_flex'>
           <div>
@@ -129,7 +139,7 @@ export default function AboutScreen() {
             <div>
                 <div className='d-flex'>
                     <div className='content_numero_object me-2'>
-                       <h4 className='mt-2 content_numero_object1'> 1</h4>
+                       <h4 className='mt-2 fw-extrabold  content_numero_object1'> 1</h4>
                     </div>
                     <div>
                         <p>Notre mission est de fournir aux entreprises du monde entier <br />
@@ -141,7 +151,7 @@ export default function AboutScreen() {
                 </div>
                 <div className='d-flex'>
                     <div className='content_numero_object me-2'>
-                       <h4 className='mt-2 content_numero_object1'> 2</h4>
+                       <h4 className='mt-2 fw-extrabold content_numero_object1'> 2</h4>
                     </div>
                     <div>
                         <p>Le plateforme vise à inspirer, informer et guider les <br />
@@ -152,7 +162,7 @@ export default function AboutScreen() {
                 </div>
                 <div className='d-flex'>
                     <div className='content_numero_object me-2'>
-                       <h4 className='mt-2 content_numero_object1'> 3</h4>
+                       <h4 className='mt-2 fw-extrabold content_numero_object1'> 3</h4>
                     </div>
                     <div>
                         <p>Le principal objectif est d'aider les entreprises en simplifiant  <br />
@@ -163,7 +173,7 @@ export default function AboutScreen() {
                 </div>
                 <div className='d-flex'>
                     <div className='content_numero_object me-2'>
-                       <h4 className='mt-2 content_numero_object1'> 4</h4>
+                       <h4 className='mt-2 fw-extrabold content_numero_object1'> 4</h4>
                     </div>
                     <div>
                         <p><strong style={{color:'#004573'}} className='baraka_content'>BARAKA </strong>
@@ -187,9 +197,13 @@ export default function AboutScreen() {
             <div className='content_images_top_ev_flex'>
                 <div className='content_content_formateur'>
                 <Image src={ev1} className='content_content_formateur_image' />
+                
                 </div>
                 <div className='content_content_formateur'>
-                <Image src={ev2} className='content_content_formateur_image'/>
+                {/* <Image src={ev2} className='content_content_formateur_image'/> */}
+                <video  width="640" height="360" controls className='content_content_formateur_image'>
+                <source src={baraka_vd} type="video/mp4" />
+                </video>
                 </div>
                 <div className='content_content_formateur'>
                 <Image src={ev3}  className='content_content_formateur_image'/>
@@ -253,26 +267,26 @@ export default function AboutScreen() {
         <Underline  text='Ils nous font confiance'/>
             </div>
             <div className="Section_partenaire">
-          <div className="partenaire">
-            <div className="card_partenaire">
-          <Image src={partenaire1} alt=""  className='card-partenaire-img'/>
-            </div>
-            <div className="card_partenaire">
-          <Image src={partenaire2} alt=""  className='card-partenaire-img'/>
-            </div>
-            <div className="card_partenaire">
-          <Image src={partenaire3} alt="" className='card-partenaire-img' />
-            </div>
-            <div className="card_partenaire">
-          <Image src={partenaire4} alt="" className='card-partenaire-img' />
-            </div>
-            <div className="card_partenaire">
-          <Image src={partenaire5} alt="" className='card-partenaire-img' />
-            </div>
-            <div className="card_partenaire">
-          <Image src={partenaire6} alt=""  className='card-partenaire-img'/>
-            </div>
-          </div>
+              <div className="partenaire">
+                <div className="card_partenaire">
+              <Image src={partenaire1} alt=""  className='card-partenaire-img'/>
+                </div>
+                <div className="card_partenaire">
+              <Image src={partenaire2} alt=""  className='card-partenaire-img'/>
+                </div>
+                <div className="card_partenaire">
+              <Image src={partenaire3} alt="" className='card-partenaire-img' />
+                </div>
+                <div className="card_partenaire">
+              <Image src={partenaire4} alt="" className='card-partenaire-img' />
+                </div>
+                <div className="card_partenaire">
+              <Image src={partenaire5} alt="" className='card-partenaire-img' />
+                </div>
+                <div className="card_partenaire">
+              <Image src={partenaire6} alt=""  className='card-partenaire-img'/>
+                </div>
+              </div>
             </div>
        </section>
        {/**************************** Ils nous font confiance  fin****************************/}

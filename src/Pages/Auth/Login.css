@@ -1,0 +1,176 @@
+:root{
+    --principal:#004573;
+    --seconde:#FFB703;
+    --troisieme:#FFF;
+    --optionel:#ebf0f4;
+    
+}  
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none !important;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.wrapper_content_form{
+    position: absolute !important;
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    background: linear-gradient(90deg, rgba(2, 0, .6, 1) 0%, rgba(0, 69, 115,1) 35%, rgba(0, 212,255,1) 100%) !important;
+}
+.box_content_login div{
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background-color: transparent;
+    border: 6px solid rgba(255, 255, 255, 0.8);
+}
+.box_content_login div:nth-child(1){
+    top: 12%;
+    left: 42%;
+    animation: animecontact 10s linear infinite;
+}
+.box_content_login div:nth-child(2){
+    top: 7%;
+    left: 50%;
+    animation: animecontact 7s linear infinite;
+}
+.box_content_login div:nth-child(3){
+    top: 17%;
+    left: 6%;
+    animation: animecontact 9s linear infinite;
+}
+.box_content_login div:nth-child(4){
+    top: 20%;
+    left: 60%;
+    animation: animecontact 10s linear infinite;
+}
+.box_content_login div:nth-child(5){
+    top: 67%;
+    left: 61%;
+    animation: animecontact 6s linear infinite;
+}
+.box_content_login div:nth-child(6){
+    top: 80%;
+    left: 70%;
+    animation: animecontact 12s linear infinite;
+}
+.box_content_login div:nth-child(7){
+    top: 60%;
+    left: 80%;
+    animation: animecontact 15s linear infinite;
+}
+.box_content_login div:nth-child(8){
+    top: 32%;
+    left: 25%;
+    animation: animecontact 16s linear infinite;
+}
+.box_content_login div:nth-child(9){
+    top: 90%;
+    left: 25%;
+    animation: animecontact 9s linear infinite;
+}
+.box_content_login div:nth-child(10){
+    top: 20%;
+    left: 80%;
+    animation: animecontact 5s linear infinite;
+}
+@keyframes animecontact {
+    0%{
+        transform: scale(0) translateY(0) rotate(0);
+        opacity: 1;
+    }
+    100%{
+        transform: scale(1.3) translateY(-90px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+
+/*t*********************************** form t************************************/
+
+
+  .content_login_main_glabal_form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    animation: animatedBackground 15s ease infinite;
+  }
+  
+  .login_container_content_main_middle {
+    background-color: var(--troisieme);
+    padding-top:20px ;
+    padding-bottom:20px ;
+    padding-left:50px ;
+    padding-right:20px ;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 370px; 
+    height: 330px; 
+  }
+  
+  .login_container_content_main_middle h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-right: 40px;
+  }
+  
+  .login_container_content_main_middle form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input_container_content_main_middle {
+    position: relative;
+    margin-bottom: 15px;
+  }
+  
+  .input_container_content_main_middle .icon_login_content_middle {
+    position: absolute;
+    top: 12px;
+    left: 10px;
+    color: #999;
+  }
+  
+  .input_container_content_main_middle .password_toggle_login_form {
+    position: absolute;
+    top: 17px;
+    right: 41px;
+    color: #999;
+    cursor: pointer;
+    position: absolute;
+  }
+  
+  .login_container_content_main_middle input[type="text"],
+  .login_container_content_main_middle input[type="password"],
+  .login_container_content_main_middle input[type="submit"] {
+    width: calc(100% - 30px);
+    padding: 10px;
+    padding-left: 30px; /* Pour tenir compte de l'icône */
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .login_container_content_main_middle input[type="submit"] {
+    background-color: var(--principal);
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .login_container_content_main_middle input[type="submit"]:hover {
+    background-color: var(--principal);
+  }
+  
+  @keyframes animatedBackground {
+    from { background-position: 0 0; }
+    to { background-position: 100% 0; }
+  }
+  
+  
+ 
+  

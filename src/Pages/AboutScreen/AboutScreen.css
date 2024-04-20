@@ -20,16 +20,26 @@
 
 .ban_about_about_one{
     width: 100%;
-    height: 598px;
+    height: 620px;
+    
+   
    
   
 }
 #ban_about_about_one1 {
     width: 100%;
     height: 100%; 
+    
    
     
     
+}
+.section_fixer{
+    /* position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999; */
+
 }
 .ban_about_about_one{
     background-color: black;
@@ -44,6 +54,70 @@
     top: 360px;
     
 }
+.ban_about_about_one2 h3{
+    color: var(--troisieme);
+}
+
+   
+.btn_about_bottom {
+    padding: 0.8em 1.75em;
+    background-color: #cccccc00 !important;
+    border-radius: 6px;
+    border: 3px solid var(--seconde) !important;
+    transition: .5s;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    z-index: 1;
+    font-weight: 300;
+    font-size: 17px;
+    font-family: 'Roboto', 'Segoe UI', sans-serif;
+    text-transform: uppercase;
+    color: var(--seconde) !important;
+    font-weight: bold;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+   }
+   #btn_link_ban_about{
+   
+   }
+   
+   .btn_about_bottom::after, .btn_about_bottom::before {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 100%;
+    transform: skew(90deg) translate(-50%, -50%);
+    position: absolute;
+    inset: 50%;
+    left: 25%;
+    z-index: -1;
+    transition: .5s ease-out;
+    background-color: var(--principal) !important;
+   
+   }
+   
+   .btn_about_bottom::before {
+    top: -50%;
+    left: -25%;
+    transform: skew(90deg) rotate(180deg) translate(-50%, -50%);
+   }
+   
+   .btn_about_bottom:hover::before {
+    transform: skew(45deg) rotate(180deg) translate(-50%, -50%);
+   }
+   
+   .btn_about_bottom:hover::after {
+    transform: skew(45deg) translate(-50%, -50%);
+   }
+   
+   .btn_about_bottom link:hover {
+    color: var(--seconde);
+   }
+   
+   .btn_about_bottom:active {
+    filter: brightness(.7);
+    transform: scale(.98);
+   }
 
 /* **************************banniere fin***************************** */
 
@@ -212,10 +286,10 @@ border-bottom: 5px solid var(--seconde);
 }
 @keyframes rotate {
     from {
-      transform: rotate(0deg); /* Rotation initiale à 0 degrés */
+      transform: rotate(0deg); 
     }
     to {
-      transform: rotate(360deg); /* Rotation complète à 360 degrés */
+      transform: rotate(360deg); 
     }
     }
 
