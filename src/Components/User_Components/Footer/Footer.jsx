@@ -16,23 +16,28 @@ export default function Footer() {
                 <Image src={logo} />
 
             </div>
-            <div>
-                <h6>Adresse</h6>
+            {/* <div>
+                <h5>Adresse</h5>
                 <Link to={'/about'} style={{textDecoration:'none', color:'white'}}>Dakar, Sacré Coeur Rue 44</Link>
                 <p>Lundi - Vendredi: 8h - 17h</p>
+            </div> */}
+            <div>
+                <h5>Adresse</h5>
+                <Link to={'/about'}style={{textDecoration:'none', color:'white'}} >Dakar,Sacré Coeur Rue 44</Link><br />
+                <Link to={'/about'} style={{textDecoration:'none', color:'white'}} >Lundi-Vendredi: 8h-17h</Link>
             </div>
             <div>
-                <h6>Qui sommes nous ?</h6>
+                <h5>Qui sommes nous ?</h5>
                 <Link to={'/about'}style={{textDecoration:'none', color:'white'}} >A propos de nous</Link><br />
                 <Link to={'/about'} style={{textDecoration:'none', color:'white'}} >Nos objectifs</Link>
             </div>
             <div>
-                <h6>Nous contacter</h6>
+                <h5>Nous contacter</h5>
                 <Link to={'#'} style={{textDecoration:'none', color:'white'}}>77301 72 72 </Link>
                 <Link to={'#'} style={{textDecoration:'none', color:'white'}} >contact@barakagate.com</Link>
             </div>
             <div>
-                <h6>Sécurité</h6>
+                <h5>Sécurité</h5>
                 <Link to={'/confidentialite'} style={{textDecoration:'none', color:'white'}}>Politiques de confidentialité</Link><br />
                 <Link to={'/conditions'} style={{textDecoration:'none', color:'white'}}>Condition d’utilisation</Link>
             </div>

@@ -15,9 +15,9 @@ import baraka12 from '../../Images/baraka12.jpeg';
 import baraka13 from '../../Images/baraka13.jpeg';
 import baraka14 from '../../Images/baraka14.jpeg';
 import baraka11 from '../../Images/baraka11.jpeg';
-import homme2 from '../../Images/homme2 1.png';
-import homme1 from '../../Images/Ben.png';
-import femme from '../../Images/femme 1.png';
+import baraka15 from '../../Images/baraka15.jpeg';
+import baraka2 from '../../Images/baraka2.jpeg';
+
 import * as regularIcons from '@fortawesome/free-regular-svg-icons';
 
 import AOS from 'aos';
@@ -25,6 +25,7 @@ import 'aos/dist/aos.css';
 import { faFacebookF, faInstagram, faLinkedinIn, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import Footer from '../../Components/User_Components/Footer/Footer';
 import ButtonDeco from '../../Components/User_Components/Buttons/ButtonDeco';
+import ButtonWashapp from '../../Components/User_Components/Buttons/ButtonWatsapp/ButtonWashapp';
 import ChiffresCles from '../../Components/User_Components/ChiffresCles/ChiffresCles';
 import { Link } from 'react-router-dom';
 
@@ -63,8 +64,15 @@ export default function HomeScreen() {
                 </div>
             </div>
          </div>
-      {/****************************   banniere  fin**************************** /}
+      {/****************************   banniere  fin**************************** */}
+       
 
+      {/****************************   buttonwashapp  debut**************************** */}
+      <div>
+            <ButtonWashapp/>
+      </div>
+      {/****************************   buttonwashapp  fin**************************** */}
+     
 
       {/****************************   chiffres clés  debut*************************** */}
      <section>
@@ -84,7 +92,7 @@ export default function HomeScreen() {
             <div  className='reference2_home' style={{marginTop:'30px'}}></div>
         </div>
             <div style={{height:'335px',width:'100%'}}>
-                <Image src={baraka11} style={{height:'100%' ,width:'100%'}} />
+                <Image src={baraka2} style={{height:'100%' ,width:'100%'}} />
             </div>
             <div style={{marginLeft:'30px', height:'330px', width:'100%'}}>
                 <h3 style={{color:'white',fontWeight:'bold'}}>Vous aimerez faire une évaluation de vos équipes? <br />
@@ -369,77 +377,144 @@ export default function HomeScreen() {
 
       {/****************************  Notre équipe  début ****************************/}
       <section>
-      <div className='contenthome1'>
-              <Underline text='Notre équipe' />
-              <div className='section_content_team'>
-              <div className='contenttemoignagehome'>
-            
-              <div  className='cardtemoinhome'>
-                <div className='cardtemoinhome1'>
-                  <Image src={baraka6} className='cardtemoinhome1img' />
-                </div>
-                    <div className='cardtemoinhome2'>
-                        <h6 className='text-center title-temoinhome text-light'>Gaïus YOKOSSId</h6>
-                        <p className='text-center text-light paratextcontenthome'>M. Baraka</p>
-                        <div className='d-flex justify-content-center pb-5'>
-                            <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>
-                            <div className='cardtemoinsociau'><FontAwesomeIcon icon={faTwitter} className='' /></div>
-                            <div className='cardtemoinsociau'><FontAwesomeIcon icon={faInstagram} className='' /></div>
-                            <div className='cardtemoinsociau'><FontAwesomeIcon icon={faLinkedinIn} className='' /></div>
-                        </div>
+        <div className='contenthome1'>
+                <Underline text='Notre équipe' />
+                <div className='section_content_team'>
+                <div className='contenttemoignagehome'>
+                
+                <div  className='cardtemoinhome'>
+                    <div className='cardtemoinhome1'>
+                    <Image src={baraka6} className='cardtemoinhome1img' />
                     </div>
-              </div>
-              <div  className='cardtemoinhome'>
-                <div className='cardtemoinhome1'>
-                  <Image src={baraka13} className='cardtemoinhome1img' />
-                </div>
-                    <div className='cardtemoinhome2'>
-                        <h6 className='text-center title-temoinhome text-light'>Carine KOKODE</h6>
-                        <p className='text-center text-light paratextcontenthome'>Miss Success</p>
-                        <div className='d-flex justify-content-center pb-5'>
-                            <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>
-                            <div className='cardtemoinsociau'><FontAwesomeIcon icon={faTwitter} className='' /></div>
-                            <div className='cardtemoinsociau'><FontAwesomeIcon icon={faInstagram} className='' /></div>
-                            <div className='cardtemoinsociau'><FontAwesomeIcon icon={faLinkedinIn} className='' /></div>
+                        <div className='cardtemoinhome2'>
+                            <h6 className='text-center title-temoinhome text-light'>Gaïus YOKOSSId</h6>
+                            <p className='text-center text-light paratextcontenthome'>M. Baraka</p>
+                            <div className='d-flex justify-content-center pb-5'>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faTwitter} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faInstagram} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faLinkedinIn} className='' /></div>
+                            </div>
                         </div>
-                    </div>
-              </div>
-              <div  className='cardtemoinhome'>
-                <div className='cardtemoinhome1'>
-                  <Image src={baraka12} className='cardtemoinhome1img' />
                 </div>
-                    <div className='cardtemoinhome2'>
-                        <h6 className='text-center title-temoinhome text-light'>Isaac WODE</h6>
-                        <p className='text-center text-light paratextcontenthome'>M. Joy</p>
-                        <div className='d-flex justify-content-center pb-5'>
-                            <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>
-                            <div className='cardtemoinsociau'><FontAwesomeIcon icon={faTwitter} className='' /></div>
-                            <div className='cardtemoinsociau'><FontAwesomeIcon icon={faInstagram} className='' /></div>
-                            <div className='cardtemoinsociau'><FontAwesomeIcon icon={faLinkedinIn} className='' /></div>
-                        </div>
+                <div  className='cardtemoinhome'>
+                    <div className='cardtemoinhome1'>
+                    <Image src={baraka13} className='cardtemoinhome1img' />
                     </div>
-              </div>
-              <div  className='cardtemoinhome'>
-                <div className='cardtemoinhome1'>
-                  <Image src={baraka14} className='cardtemoinhome1img' />
+                        <div className='cardtemoinhome2'>
+                            <h6 className='text-center title-temoinhome text-light'>Carine KOKODE</h6>
+                            <p className='text-center text-light paratextcontenthome'>Miss Success</p>
+                            <div className='d-flex justify-content-center pb-5'>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faTwitter} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faInstagram} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faLinkedinIn} className='' /></div>
+                            </div>
+                        </div>
                 </div>
-                    <div className='cardtemoinhome2'>
-                        <h6 className='text-center title-temoinhome text-light'>Jolin CADETe</h6>
-                        <p className='text-center text-light paratextcontenthome'>Mister Smart</p>
-                        <div className='d-flex justify-content-center pb-5'>
-                            <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>
-                            <div className='cardtemoinsociau'><FontAwesomeIcon icon={faTwitter} className='' /></div>
-                            <div className='cardtemoinsociau'><FontAwesomeIcon icon={faInstagram} className='' /></div>
-                            <div className='cardtemoinsociau'><FontAwesomeIcon icon={faLinkedinIn} className='' /></div>
-                        </div>
+                <div  className='cardtemoinhome'>
+                    <div className='cardtemoinhome1'>
+                    <Image src={baraka12} className='cardtemoinhome1img' />
                     </div>
-              </div>
-    
-              </div>
+                        <div className='cardtemoinhome2'>
+                            <h6 className='text-center title-temoinhome text-light'>Isaac WODE</h6>
+                            <p className='text-center text-light paratextcontenthome'>M. Joy</p>
+                            <div className='d-flex justify-content-center pb-5'>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faTwitter} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faInstagram} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faLinkedinIn} className='' /></div>
+                            </div>
+                        </div>
+                </div>
+                <div  className='cardtemoinhome'>
+                <div className='cardtemoinhome1'>
+                    <Image src={baraka14} className='cardtemoinhome1img' />
+                </div>
+                <div className='cardtemoinhome2'>
+                            <h6 className='text-center title-temoinhome text-light'>Jolin CADETe</h6>
+                            <p className='text-center text-light paratextcontenthome'>Mister Smart</p>
+                            <div className='d-flex justify-content-center pb-5'>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faTwitter} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faInstagram} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faLinkedinIn} className='' /></div>
+                            </div>
+                </div>
 
-              </div>
-              
-            </div>
+                </div>
+                <div  className='cardtemoinhome'>
+                <div className='cardtemoinhome1'>
+                    <Image src={baraka15} className='cardtemoinhome1img' />
+                </div>
+                <div className='cardtemoinhome2'>
+                            <h6 className='text-center title-temoinhome text-light'>Saoudatou Diallo</h6>
+                            <p className='text-center text-light paratextcontenthome'>Miss Linguere</p>
+                            <div className='d-flex justify-content-center pb-5'>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faTwitter} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faInstagram} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faLinkedinIn} className='' /></div>
+                            </div>
+                </div>
+
+                </div>
+                <div  className='cardtemoinhome'>
+                <div className='cardtemoinhome1'>
+                    <Image src={baraka14} className='cardtemoinhome1img' />
+                </div>
+                <div className='cardtemoinhome2'>
+                            <h6 className='text-center title-temoinhome text-light'>Jolin CADETe</h6>
+                            <p className='text-center text-light paratextcontenthome'>Mister Smart</p>
+                            <div className='d-flex justify-content-center pb-5'>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faTwitter} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faInstagram} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faLinkedinIn} className='' /></div>
+                            </div>
+                </div>
+
+                </div>
+                <div  className='cardtemoinhome'>
+                <div className='cardtemoinhome1'>
+                    <Image src={baraka14} className='cardtemoinhome1img' />
+                </div>
+                <div className='cardtemoinhome2'>
+                            <h6 className='text-center title-temoinhome text-light'>Jolin CADETe</h6>
+                            <p className='text-center text-light paratextcontenthome'>Mister Smart</p>
+                            <div className='d-flex justify-content-center pb-5'>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faTwitter} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faInstagram} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faLinkedinIn} className='' /></div>
+                            </div>
+                </div>
+
+                </div>
+                <div  className='cardtemoinhome'>
+                <div className='cardtemoinhome1'>
+                    <Image src={baraka14} className='cardtemoinhome1img' />
+                </div>
+                <div className='cardtemoinhome2'>
+                            <h6 className='text-center title-temoinhome text-light'>Jolin CADETe</h6>
+                            <p className='text-center text-light paratextcontenthome'>Mister Smart</p>
+                            <div className='d-flex justify-content-center pb-5'>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faTwitter} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faInstagram} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faLinkedinIn} className='' /></div>
+                            </div>
+                </div>
+
+                </div>
+                
+                
+        
+                </div>
+
+                </div>
+                
+        </div>
       </section>
       {/****************************  Notre équipe  fin ****************************/}
 

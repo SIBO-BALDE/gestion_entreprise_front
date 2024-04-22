@@ -31,6 +31,8 @@
 .form_content_right_contact{
     width: 100%;
     height: 100%;
+    border-top-left-radius:10px;
+    border-bottom-left-radius:10px;
 }
 .form_content_right_contact_image{
     width: 100%;

@@ -1,10 +1,11 @@
-import { faEnvelope, faHeart, faMessage, faUser } from '@fortawesome/free-regular-svg-icons';
+import { faEnvelope,faMessage, faUser } from '@fortawesome/free-regular-svg-icons';
 import { faGauge, faGear, faHouse, faLayerGroup, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react'
 import './SideBar.css';
 import { Button, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import logo from '../../../Images/logo.png'
 
 
 const links = [
@@ -35,11 +36,7 @@ const links = [
       text: "Gestion Catégories",
       icon: faLayerGroup,
     },
-    {
-      path: "gestionfavorie",
-      text: "Gestion Témoignages",
-      icon: faHeart,
-    },
+   
     {
       path: "gestionnewletter",
       text: "Gestion Newsletters",
@@ -59,21 +56,21 @@ export default function SideBar({ isOpen, name, handleChangePath }) {
         <div className="contentimage">
           <div className="d-flex justify-content-center ">
             {" "}
-            <Image src='' alt="" id="image-contenu" />
+            <Image src={logo} alt="" id="image-contenu" />
           </div>
-          <p className="text-center"><Link to={'/'} style={{textDecoration:'none', color:'white'}}>Moussa Basse</Link></p>
+          <p className="text-center"><Link to={'/'} style={{textDecoration:'none', color:'white'}}>BARAKA GATE</Link></p>
           <hr />
         </div>
-        <div id="content-try-content">
+        <div id="content-try-content" className=''>
           {links.map((link, index) => (
             <div key={index}
               className={`contentlink mt-3 ${
                 name === link.path && "activeclassbar"
               }`}
             >
-              <FontAwesomeIcon icon={link.icon} className="ms-2" />
+              <FontAwesomeIcon icon={link.icon} className="ms-2  icon_content_sidebar" />
               <Button
-                className="linkcontent"
+                className="linkcontent_sidebar"
                 onClick={() => handleChangePath(link.path)}
               >
                 <span

@@ -25,7 +25,7 @@
   
   .maincontent-dashbord-static {
     display: grid;
-    grid-template-columns: 15% 85%;
+    grid-template-columns: 16% 84%;
     height: 100vh;
   }
   .contentsidebar{

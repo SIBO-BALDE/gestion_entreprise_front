@@ -5,6 +5,7 @@ import { Button, Form, Image } from 'react-bootstrap'
 import contact from '../../Images/Image-contact.png'
 import './ContactScreen.css';
 import map from '../../Images/map-map.png'
+import contact1 from '../../Images/contact1.jpeg'
 import Underline from '../../Components/User_Components/Underline/Underline'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons'
@@ -21,7 +22,7 @@ export default function ContactScreen() {
          <section>
          <div className='form_content_main_contact mt-5 mb-5 '>
             <div className='form_content_right_contact'>
-                <Image src={contact} className='form_content_right_contact_image' />
+                <Image src={contact1} className='form_content_right_contact_image' />
             </div>
             <div className='form_content_left_contact'>
             <Form>

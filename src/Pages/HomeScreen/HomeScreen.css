@@ -386,7 +386,7 @@ ul.timeline-list li:before {
 /* ************************** notre équipe debut  ***************************** */
 
 .cardtemoinhome{
-    width: 100%;
+    width: 230px;
     height: 345px;
     
   }
@@ -458,13 +458,15 @@ ul.timeline-list li:before {
   }
   .contenttemoignagehome {
    
-    display: grid;
-    grid-template-columns: 28% 28% 28%;
+    /* display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
     justify-content: center;
     align-items: center;
     gap: 30px;
     width: 70%; 
+    height: auto;
     margin: 0 auto;
+    border: 1px solid red; */
     
    
   }
@@ -474,29 +476,38 @@ ul.timeline-list li:before {
     margin: 40px 0;
     padding-top: 0.2rem !important;
     padding-bottom: 5rem !important;
-    /* margin-top: 20px !important; */
    
   }
 
-  /* @keyframes slider {
+  @keyframes slider {
     0%, 20%, 100%	{ left: 0 }
     25%, 45%		{ left: -100% }
     50%, 70%		{ left: -200% }
     75%, 95%		{ left: -300% }
-  } */
+  }
   
   .contenttemoignagehome{
-      /* animation: scroll  40s linear infinite; */
+      animation: scroll  40s linear infinite;
       display: flex;
-      /* width: calc(250px * 14); */
+      width: calc(250px * 14);
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      overflow-x: auto;
+      
+    
   }
-  /* @keyframes scroll {
+  .section_content_team {
+    overflow-x: auto;
+}
+
+  @keyframes scroll {
     0% { transform: translateX(0); }
     100% { transform: translateX(calc(-250px * 7))}
   }
-  .section_content_team{
-    overflow-x: auto;
-} */
+
+  
 /* ************************** notre équipe  fin  ***************************** */
 
 

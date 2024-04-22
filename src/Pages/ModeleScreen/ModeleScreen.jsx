@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import './ModeleScreen.css';
 import { Button, Image } from 'react-bootstrap';
-import ban_about from '../../Images/ban_apropos.jpg';
+import ban_about from '../../Images/baraka1.jpeg';
 import logo from '../../Images/logo.png';
 import NavbarUser from '../../Components/User_Components/NavbarUser';
 import Footer from '../../Components/User_Components/Footer/Footer';

@@ -7,7 +7,7 @@ import ben from '../../Images/Ben.png';
 import image1 from '../../Images/image 1.png'
 import image2 from '../../Images/image 2.png';
 import image3 from '../../Images/image 3.png';
-import ban_about from '../../Images/baraka11.jpeg';
+import ban_about from '../../Images/ban_rediment.jpeg';
 import { Button, Image } from 'react-bootstrap';
 import Underline from '../../Components/User_Components/Underline/Underline';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,7 +19,7 @@ import ev3 from '../../Images/baraka8.jpeg';
 import formateur1 from '../../Images/image 50.png';
 import formateur2 from '../../Images/image 51.png';
 import formateur3 from '../../Images/image 52.png';
-import partenaire1 from '../../Images/1.png';
+import partenaire1 from '../../Images/part1.png';
 import partenaire2 from '../../Images/10.png';
 import partenaire3 from '../../Images/0.png';
 import partenaire4 from '../../Images/casa.png';
@@ -269,7 +269,7 @@ export default function AboutScreen() {
             <div className="Section_partenaire">
               <div className="partenaire">
                 <div className="card_partenaire">
-              <Image src={partenaire1} alt=""  className='card-partenaire-img'/>
+                  <Image src={partenaire1} alt=""  className='card-partenaire-img'/>
                 </div>
                 <div className="card_partenaire">
               <Image src={partenaire2} alt=""  className='card-partenaire-img'/>
@@ -284,7 +284,7 @@ export default function AboutScreen() {
               <Image src={partenaire5} alt="" className='card-partenaire-img' />
                 </div>
                 <div className="card_partenaire">
-              <Image src={partenaire6} alt=""  className='card-partenaire-img'/>
+                  <Image src={partenaire6} alt=""  className='card-partenaire-img'/>
                 </div>
               </div>
             </div>

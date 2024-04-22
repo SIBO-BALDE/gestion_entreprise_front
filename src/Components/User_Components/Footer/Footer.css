@@ -25,7 +25,24 @@
     justify-content: center ;
     margin: 0 auto !important;
     line-height: 50px;
+    align-items: center;
+   
     
+}
+.logo_footer_content_one{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+    /* background-color: var(--troisieme); */
+   
+    /* width: 120px;
+    height:120px; */
+}
+.logo_footer_content_one img{
+    border: 3px solid var(--troisieme);
+    border-radius: 50%;
+
 }
 .footer_bottom_home{
     /* display: grid;
@@ -41,7 +58,7 @@
 .footer_content p{
     color: var(--troisieme);
 }
-.footer_content h6{
+.footer_content h5{
     color: var(--troisieme);
 }
 
