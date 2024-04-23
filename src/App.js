@@ -6,6 +6,8 @@ import HomeScreen from './Pages/HomeScreen/HomeScreen';
 import ModeleScreen from './Pages/ModeleScreen/ModeleScreen';
 import Login from './Pages/Auth/Login';
 import DashbordAdmin from './Pages/Dashboards/DashboardAdmin/DashboardAdmin';
+import DashboardUser from './Pages/Dashboards/DashboardUser/DashboardUser';
+import { AuthProvider } from './Pages/Auth/AuthContex';
 
 
 
@@ -13,6 +15,7 @@ import DashbordAdmin from './Pages/Dashboards/DashboardAdmin/DashboardAdmin';
 function App() {
   return (
     <div >
+      <AuthProvider>
       <Routes>
       <Route path="/" element={<HomeScreen />}></Route>
       <Route path="about" element={<AboutScreen />}></Route>
@@ -20,9 +23,9 @@ function App() {
       <Route path="contact" element={<ContactScreen />}></Route>
       <Route path="login" element={<Login />}></Route>
       <Route path="dashbordAdmin" element={<DashbordAdmin />}></Route>
-      
-
+      <Route path="dashbordUser" element={<DashboardUser />}></Route>
       </Routes>
+      </AuthProvider>
      
     </div>
   );

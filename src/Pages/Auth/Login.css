@@ -90,6 +90,7 @@
 }
 
 
+
 /*t*********************************** form t************************************/
 
 
@@ -111,6 +112,8 @@
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     width: 370px; 
     height: 330px; 
+    /* border: 1px solid red; */
+    height: auto;
   }
   
   .login_container_content_main_middle h2 {
@@ -154,12 +157,26 @@
     margin: 5px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
+   
+  }
+  .btn_login_baraka{
+    width: calc(100% - 30px);
+    padding: 10px;
+    padding-left: 30px; /* Pour tenir compte de l'icône */
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: var(--principal) !important;
+    color: var(--troisieme);
+    cursor: pointer;
   }
   
   .login_container_content_main_middle input[type="submit"] {
     background-color: var(--principal);
-    color: #fff;
+    color: var(--troisieme);
     cursor: pointer;
+    /* height: auto !important;
+    border: 1px solid red !important; */
   }
   
   .login_container_content_main_middle input[type="submit"]:hover {

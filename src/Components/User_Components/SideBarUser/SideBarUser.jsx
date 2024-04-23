@@ -1,20 +1,12 @@
+
 import { faEnvelope,faMessage, faUser } from '@fortawesome/free-regular-svg-icons';
 import { faGauge, faGear, faHouse, faLayerGroup, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useContext } from 'react'
-import './SideBar.css';
+import React from 'react'
+// import './SideBar.css';
 import { Button, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import logo from '../../../Images/logo.png';
-import { useAuth } from "../../../Pages/Auth/AuthContex";
-import { createContext } from 'react';
-import Swal from 'sweetalert2';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-
-
-
-
+import logo from '../../../Images/logo.png'
 
 
 const links = [
@@ -57,58 +49,7 @@ const links = [
       icon: faMessage,
     },
   ];
-
- 
-  
-
-  
-export default function SideBar({ isOpen, name, handleChangePath }) {
-
-  // const { token, role, logout } = useAuth();
-
-  const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    
-    try {
-      const token = localStorage.getItem("tokencle");
-        const role = localStorage.getItem("rolecle");
-      if (token || role === "admin") {
-        // Utilisez votre instance Axios configurée
-        const response = await axios.post(
-          "http://localhost:8000/api/logout",
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-  
-        if (response.status === 200) {
-          // Appel de la fonction logout depuis authContext
-         
-          localStorage.removeItem("tokencle");
-          localStorage.removeItem("rolecle");
-  
-          Swal.fire({
-            title: "Déconnexion réussie!",
-            text: "Vous êtes déconnecté avec succès.",
-            icon: "success",
-          });
-          navigate("/login");
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Oops!",
-            text: "Échec de déconnexion!",
-          });
-        }
-      }
-    } catch (error) {
-      console.error("Erreur lors de la déconnexion :", error);
-    }
-  };
+export default function SideBarUser({ isOpen, name, handleChangePath }) {
   return (
     <div>
        <div style={{ display: !isOpen ? "block" : "none", border:'none' }}>
@@ -146,13 +87,10 @@ export default function SideBar({ isOpen, name, handleChangePath }) {
         <div className="mainContentBottom">
           <div className="d-flex  justify-content-center">
             <Button className="logout d-flex justify-content-center align-items-center " 
-            id="logout" 
-            onClick={handleLogout}
-            >
+            id="logout" >
               <FontAwesomeIcon
                 icon={faSignOutAlt}
-                className="logouticon"
-               
+                className="logouticon  "
               />
             </Button>
           </div>
