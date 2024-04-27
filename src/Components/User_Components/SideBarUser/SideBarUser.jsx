@@ -5,51 +5,76 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react'
 // import './SideBar.css';
 import { Button, Image } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../../Images/logo.png'
+import "./SideBarUse.css";
+import Swal from 'sweetalert2';
+import axios from 'axios';
 
 
 const links = [
     {
-      path: "dashbordAdmin",
+      path: "dashbordUser",
       text: "Dashboard",
       icon: faGauge,
     },
     {
-      path: "gestionuser",
-      text: "Gestion Participants",
+      path: "feedbackeve",
+      text: "Feedback Evenement",
       icon: faUser,
     },
     {
-      path: "gestionevenement",
-      text: "Gestion Evenements",
+      path: "feedbackevalu",
+      text: "Feedback Evaluation",
       icon: faHouse,
     },
     
-    {
-      path: "gestionentreprise",
-      text: "Gestion Entreprises",
-      icon: faGear,
-    },
     
-    {
-      path: "gestioncategorie",
-      text: "Gestion Catégories",
-      icon: faLayerGroup,
-    },
-   
-    {
-      path: "gestionnewletter",
-      text: "Gestion Newsletters",
-      icon: faEnvelope,
-    },
-    {
-      path: "gestionmessage",
-      text: "Gestion Messages",
-      icon: faMessage,
-    },
   ];
 export default function SideBarUser({ isOpen, name, handleChangePath }) {
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    
+    
+    try {
+      const token = localStorage.getItem("tokencle");
+        const role = localStorage.getItem("rolecle");
+      if (token || role === "Admin") {
+        // Utilisez votre instance Axios configurée
+        const response = await axios.post(
+          "http://localhost:8000/api/logout",
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+  
+        if (response.status === 200) {
+          // Appel de la fonction logout depuis authContext
+         
+          localStorage.removeItem("tokencle");
+          localStorage.removeItem("rolecle");
+  
+          Swal.fire({
+            title: "Déconnexion réussie!",
+            text: "Vous êtes déconnecté avec succès.",
+            icon: "success",
+          });
+          navigate("/login");
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops!",
+            text: "Échec de déconnexion!",
+          });
+        }
+      }
+    } catch (error) {
+      console.error("Erreur lors de la déconnexion :", error);
+    }
+  };
   return (
     <div>
        <div style={{ display: !isOpen ? "block" : "none", border:'none' }}>
@@ -57,7 +82,7 @@ export default function SideBarUser({ isOpen, name, handleChangePath }) {
         <div className="contentimage">
           <div className="d-flex justify-content-center ">
             {" "}
-            <Image src={logo} alt="" id="image-contenu" />
+            <Image src={logo} alt="" id="image-contenu" className='border' />
           </div>
           <p className="text-center"><Link to={'/'} style={{textDecoration:'none', color:'white'}}>BARAKA GATE</Link></p>
           <hr />
@@ -90,7 +115,8 @@ export default function SideBarUser({ isOpen, name, handleChangePath }) {
             id="logout" >
               <FontAwesomeIcon
                 icon={faSignOutAlt}
-                className="logouticon  "
+                className="logouticon"
+                onClick={handleLogout}
               />
             </Button>
           </div>

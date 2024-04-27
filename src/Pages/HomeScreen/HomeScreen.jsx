@@ -88,7 +88,7 @@ export default function HomeScreen() {
         </div>
         <div className='d-flex justify-content-center mt-5' style={{width:'96%'}}>
         <div className='d-flex justify-content-between ms-5'style={{marginLeft:'150px', marginRight:'17px'}}>
-            <diiv  className='reference1_home me-1 ' style={{marginTop:'56px'}}></diiv>
+            <div  className='reference1_home me-1 ' style={{marginTop:'56px'}}></div>
             <div  className='reference2_home' style={{marginTop:'30px'}}></div>
         </div>
             <div style={{height:'335px',width:'100%'}}>

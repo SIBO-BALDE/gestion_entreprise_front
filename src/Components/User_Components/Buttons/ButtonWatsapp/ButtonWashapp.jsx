@@ -16,7 +16,7 @@ export default function ButtonWashapp() {
           text: "De vouloir communiquer avec l'admin?",
           icon: 'warning',
           showCancelButton: true,
-          confirmButtonColor: '#D46F4D',
+          confirmButtonColor: '#004573',
           cancelButtonColor: '#f00020',
           confirmButtonText: "Oui, j'accepte!",
         }).then((result)=>{

@@ -8,6 +8,8 @@ import Login from './Pages/Auth/Login';
 import DashbordAdmin from './Pages/Dashboards/DashboardAdmin/DashboardAdmin';
 import DashboardUser from './Pages/Dashboards/DashboardUser/DashboardUser';
 import { AuthProvider } from './Pages/Auth/AuthContex';
+import ProtectedRoutes from './Pages/Utils/ProtectedRoutes';
+import GestionMessageDetail from './Pages/CRUD/GestionMessage/GestionMessageDetail';
 
 
 
@@ -22,8 +24,15 @@ function App() {
       <Route path="modeles" element={<ModeleScreen />}></Route>
       <Route path="contact" element={<ContactScreen />}></Route>
       <Route path="login" element={<Login />}></Route>
+
+      <Route  element={<ProtectedRoutes />}>
       <Route path="dashbordAdmin" element={<DashbordAdmin />}></Route>
       <Route path="dashbordUser" element={<DashboardUser />}></Route>
+      <Route path="/gestionmessagedetail/:id" component={GestionMessageDetail} />
+
+
+      </Route>
+
       </Routes>
       </AuthProvider>
      

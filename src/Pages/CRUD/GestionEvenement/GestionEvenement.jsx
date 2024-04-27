@@ -13,25 +13,240 @@ import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
 
 import Swal from "sweetalert2";
+import axios from "axios";
 
 
 
 export default function GestionEvenement({ id }) {
   // const [show, setShow] = useState(false);
-  const [showMaison, setshowMaison] = useState(false);
-  const [showEditModalMaisons, setShowEditModalMaisons] = useState(false);
+  const [showEvent, setShowEvent] = useState(false);
 
-  const handleCloseEdit = () => setshowMaison(false);
-  const handleShowEdit = () => setshowMaison(true);
-  const handleCloseEditMaisons = () => setShowEditModalMaisons(false);
+  const [showEditModalEvents, setShowEditModalEvents] = useState(false);
 
-  // tableau ou stocker la liste des maison
-  // const [maisons, setMaisons] = useState([]);
+  const handleCloseEdit = () => setShowEvent(false);
+  const handleShowEdit = () => setShowEvent(true);
+  const handleShowEditEvent = () => showEditModalEvents(true);
+  const handleCloseEditEvents = () => setShowEditModalEvents(false);
+  
+  
 
-  // const [newFile, setNewFile] = useState("");
 
-  //  state pour liste les categorie
-  // const [categories, setCategories] = useState([]);
+  const [events, setEvents] = useState([]);
+  // etat pour ajout categorie
+  const [eventData, setEventData] = useState({
+    titre: "",
+    description: "",
+    date_debut: "",
+    date_fin: "",
+  
+  });
+
+   // function pour ajouter une categorie
+   const ajouterEvent = async () => {
+    const token = localStorage.getItem("tokencle");
+    const role = localStorage.getItem("rolecle");
+    // alert('okay')
+  
+    if(eventData.titre === "" ||  eventData.description === ""  || eventData.date_debut === "" || eventData.date_fin === "" ){
+      Swal.fire({
+        icon: "error",
+        title: "Oops!",
+        text: "les champs sont  obligatoires!",
+      });
+      // console.log(eventData, 'categoriedata')
+      return
+    }
+    try {
+      if (token && role === "Admin") {
+        const response = await axios.post(
+          "http://localhost:8000/api/evenement/create",
+
+          eventData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(response, 'responses event ajout')
+        const essay =response.data.Evenement
+        console.log(essay , 'essay')
+
+        // Vérifiez si la requête a réussi
+        if (response.status === 200) {
+          // Ajoutez la nouvelle maison à la liste existante
+          console.log(response, 'response categorie')
+          setEvents([...events, response.data.Evenement
+          ]);
+          
+          console.log(events, 'events event')
+          // Réinitialisez les valeurs du formulaire après avoir ajouté la maison
+          setEventData({
+            titre: "",
+            description: "",
+            date_debut: "",
+            date_fin: "",
+           
+          });
+          Swal.fire({
+            icon: "success",
+            title: "Succès!",
+            text: "evenement ajouter avec succée!",
+          });
+          // Fermez le modal
+          handleCloseEdit();
+          fetchEvents()
+        } else {
+          console.error("Erreur dans lajout de maison");
+        }
+      }
+    } catch (error) {
+      // Gestion des erreurs Axios
+      console.error("Erreur Axios:", error);
+    }
+  };
+
+  const fetchEvents = async () => {
+    const role = localStorage.getItem("rolecle");
+    const token = localStorage.getItem("tokencle");
+    try {
+      if (token || role === "Admin") {
+        const response = await axios.get(
+          "http://localhost:8000/api/evenements",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(response , 'liste')
+        setEvents(response.data.evenements);
+
+        console.log(events);
+      }
+    } catch (error) {
+      console.error("Erreur lors de la récupération des catégories:", error);
+    }
+  };
+  useEffect(() => {
+    fetchEvents();
+  }, []);
+
+
+   // Function pour supprimer une catégorie
+   const supprimerEvent = async (id) => {
+    const role = localStorage.getItem("rolecle");
+    const token = localStorage.getItem("tokencle");
+   
+    try {
+      if (token || role === "Admin"){
+        const response = await axios.delete(
+          `http://localhost:8000/api/evenements/${id}/soft-delete`,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+       
+        if (response.status === 200) {
+          // Filtrez la liste des catégories pour exclure celle qui vient d'être supprimée
+          const updatedEvents = events.filter(
+            (evet) => evet.id !== id
+          );
+  
+          setEvents(updatedEvents);
+          Swal.fire({
+            title: 'Êtes-vous sûr?',
+            text: "De vouloir supprimer un evenement?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#004573',
+            cancelButtonColor: '#f00020',
+            confirmButtonText: "Oui, j'accepte!",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Succès!",
+                    text: "evenement supprimer avec succès!",
+                });
+            }
+        });
+        } else {
+          console.error("Erreur lors de la suppression de la catégorie");
+        }
+      }
+    } catch (error) {}
+  };
+
+  //  etat pour modifier categorie
+ const [editEventData, setEditEventData] = useState({
+  id: null,
+  titre: "",
+  description: "",
+  date_debut: "",
+  date_fin: "",
+  
+});
+
+  // Gestionnaire de clic pour le bouton de modification
+
+  const handleShowEditEvents = (eventEl) => {
+    setEditEventData({
+      id: eventEl.id,
+      titre: eventEl.titre,
+      description: eventEl.description,
+      date_debut: eventEl.date_debut,
+      date_fin: eventEl.date_fin,
+     
+    });
+    setShowEditModalEvents(true);
+  };
+
+  // Fonction pour mettre à jour une catégorie
+  const modifierEvent = async () => {
+    const role = localStorage.getItem("rolecle");
+    const token = localStorage.getItem("tokencle");
+    try {
+      if (token || role === "Admin") {
+          const response = await axios.post(
+          `http://localhost:8000/api/evenement/update/${editEventData.id}`,
+          editEventData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(response, 'response ev modif')
+
+        if (response.status === 200) {
+          const updatedEvents = events.map((evtUp) =>
+            evtUp.id === editEventData.id
+              ? response.data.evenements
+              : evtUp
+          );
+          setEvents(updatedEvents);
+          handleCloseEditEvents();
+          Swal.fire({
+            icon: "success",
+            title: "Succès!",
+            text: "evenement mise à jour avec succès!",
+          });
+          fetchEvents();
+        } else {
+          console.error("erreur lors de la modification de la evenement");
+        }
+      }
+    } catch (error) {
+      console.error("une erreur  Axios:", error);
+    }
+  };
+
+  
 
   //  pour le champ recherche
   // const [searchValue, setSearchValue] = useState("");
@@ -50,129 +265,6 @@ export default function GestionEvenement({ id }) {
   // );
   // const displayMaisons = searchValue === "" ? maisons : filteredMaisons;
 
-  // etat pour ajout maison
-  // const [maisonData, setMaisonData] = useState({
-  //   addresse: "",
-  //   superficie: "",
-  //   prix: "",
-  //   categories_id: "",
-  //   image: "",
-  //   annee_construction: "",
-  //   description: "",
-  // });
-
-  //  etat pour modifier categorie
-  // const [editMaisonData, setEditMaisonData] = useState({
-  //   id: null,
-  //   addresse: "",
-  //   superficie: "",
-  //   prix: "",
-  //   categories_id: "",
-  //   image: null,
-  //   annee_construction: "",
-  //   description: "",
-  // });
-
-  // const handleFileChange = (file) => {
-  //   setNewFile(file);
-  // };
-
-  // const handleShowEditMaisons = (maison) => {
-   
-  //   if (maison && maison.categories_id) {
-  //     setEditMaisonData({
-  //       id: maison.id,
-  //       addresse: maison.addresse,
-  //       superficie: maison.superficie,
-  //       prix: maison.prix,
-  //       categories_id: maison.categories_id,
-  //       image: maison.image,
-  //       annee_construction: maison.annee_construction,
-  //       description: maison.description,
-  //     });
-  //     setShowEditModalMaisons(true);
-  //     // console.log(maison.categories_id, 'maison.categories_id onclick')
-  //   } else {
-  //     console.error("Catégorie non définie pour la maison à modifier.");
-  //     // Autres actions nécessaires en cas d'erreur...
-  //   }
-  // };
-
-  // const ajouterMaison = async (e) => {
-  //   e.preventDefault();
-  //   const role = localStorage.getItem("rolecle");
-  //   const token = localStorage.getItem('tokencle')
-  //   if(maisonData.addresse === "" || maisonData.superficie === "" || maisonData.prix === "" 
-  //   || maisonData.categories_id === "" || maisonData.image === "" || maisonData.annee_construction === ""
-  //    || maisonData.description === ""){
-  //     Swal.fire({
-  //       icon: "error",
-  //       title: "Oops!",
-  //       text: "les champs sont  obligatoires!",
-  //     });
-  //     return
-  //   }
-    
-
-  //   if (validationStatus) {
-  //     try {
-  //       const formData = new FormData();
-  //       formData.append("addresse", maisonData.addresse);
-  //       formData.append("superficie", maisonData.superficie);
-  //       formData.append("prix", maisonData.prix);
-  //       formData.append("categories_id", maisonData.categories_id);
-  //       formData.append("image", maisonData.image);
-  //       formData.append("annee_construction", maisonData.annee_construction);
-  //       formData.append("description", maisonData.description);
-       
-
-  //       if (token || role==="admin"){
-  //         const response = await axios.post(
-  //           "http://localhost:8000/api/maison/create",
-  //           formData,
-  //           {
-  //             headers: {
-  //               "Content-Type": "multipart/form-data",
-  //               Authorization: `Bearer ${token}`,
-  //             },
-  //           }
-  //         );
-  
-  //         if (response.status === 200) {
-  //           setMaisons([...maisons, response.data]);
-  //           setMaisonData({
-  //             addresse: "",
-  //             superficie: "",
-  //             prix: "",
-  //             categories_id: "",
-  //             image: "",
-  //             annee_construction: "",
-  //             description: "",
-  //           });
-  
-  //           Swal.fire({
-  //             icon: "success",
-  //             title: "Succès!",
-  //             text: "Maison ajoutée avec succès!",
-  //           });
-  
-  //           handleCloseEdit();
-  //           fetchMaison();
-  
-  //           setErrors({});
-  //           setSuccesseds({});
-  //           setValidationStatus(false);
-  //         } else {
-  //           console.error("Erreur dans l'ajout de la maison");
-  //         }
-  //       }
-        
-  //     } catch (error) {
-  //       console.error("Erreur Axios:", error);
-  //     }
-    
-  // }
-  // };
   
   // annuler l'ajout
   // const handleCancleAdd = () => {
@@ -565,64 +657,44 @@ export default function GestionEvenement({ id }) {
             {/* {currentMaisons &&
               currentMaisons.map((maison) => {  key={maison.id} {maison.image && (*/}
                 {/* return ( */}
-                  <tr >
-                    
 
-                    {/* {maison && <td>{maison.addresse || "N/A"}</td>} {maison.superficie}m2 {maison.prix} */}
-                    
-                    <td>Evaluation</td>
-                    <td> est un evenement qui va ...</td>
-                    <td>
-                      {/* {maison.categorie && maison.categorie.titre
-                        ? maison.categorie.titre
-                        : "Catégorie non définie"}{" "} */}
-                        20/07/2024
+                {events && events.map((eventEl) => (
+                  <tr key={ eventEl && eventEl.id}>
+                    <td>{ eventEl && eventEl.titre}</td>
+                    <td>{ eventEl && eventEl.description}</td>
+                    <td>{ eventEl && eventEl.date_debut}</td>
+                    <td>{ eventEl && eventEl.date_fin}</td>
+                    <td className="d-flex justify-content-evenly">
+                      {/* Vos boutons d'action ici */}
                     </td>
-                    <td>20/08/2024</td>
-
-                    <td className=" d-flex justify-content-evenly">
-                      <Button
-                        variant="primary"
-                        onClick={handleShowEdit}
-                        // onClick={() => handleShowEditMaisons(maison)}
-                        style={{
-                          backgroundColor: "#fff",
-                          border: "1px solid #004573",
-                          color: "#004573",
-                        }}
-                        id="buttonModifier"
-                      >
-                        <FontAwesomeIcon icon={faPenToSquare} />
-                      </Button>
-                      <Button
-                        // onClick={() => supprimerMaison(maison.id)}
-                        style={{
-                          backgroundColor: "#fff",
-                          border: "1px solid #004573",
-                          color: "#004573",
-                        }}
-                      >
-                        <FontAwesomeIcon icon={faTrash} />
-                      </Button>
-
-                      <Button
-                        style={{
-                          backgroundColor: "#fff",
-                          border: "1px solid #004573",
-                          color: "#004573",
-                        }}
-                      >
-                        <Link
-                          // to={`/detailmaisonadmin/${maison.id} || '' `}
-                          style={{ color: "#004573" }}
-                        >
-                          <FontAwesomeIcon icon={faEye} />
-                        </Link>
-                      </Button>
-                    </td>
+                    <td className="d-flex justify-content-evenly">
+                  <Button
+                    variant="primary"
+                    onClick={() => handleShowEditEvents(eventEl)}
+                    // onClick={handleShowEditEvent}
+                    style={{
+                      backgroundColor: "#fff",
+                      border: "1px solid #004573",
+                      color: "#004573",
+                    }}
+                    id="buttonModifier"
+                  >
+                    <FontAwesomeIcon icon={faPenToSquare} />
+                  </Button>
+                  <Button
+                    style={{
+                      backgroundColor: "#fff",
+                      border: "1px solid #004573",
+                      color: "#004573",
+                    }}
+                    onClick={() => supprimerEvent(eventEl.id)}
+                  >
+                    <FontAwesomeIcon icon={faTrash} />
+                  </Button>
+                </td>
                   </tr>
-                {/* ); */}
-              {/* })} */}
+                ))}
+
           </tbody>
         </table>
         {/* <Pagination
@@ -632,9 +704,9 @@ export default function GestionEvenement({ id }) {
         /> */}
       </div>
 
-      {/* modal debut  ajouter participant*/}
+      {/* modal debut  ajouter event*/}
       <>
-        <Modal show={showMaison} onHide={handleCloseEdit} id="buttonAjouter">
+        <Modal show={showEvent} onHide={handleCloseEdit} id="buttonAjouter">
           <Modal.Header closeButton>
             <Modal.Title>Ajouter un évenement</Modal.Title>
           </Modal.Header>
@@ -647,23 +719,18 @@ export default function GestionEvenement({ id }) {
                 >
                   <Form.Label>Titre</Form.Label>
                   <Form.Control
-                    // value={maisonData.addresse}
-                    // onChange={(e) => {
-                    //   setMaisonData({
-                    //     ...maisonData,
-                    //     addresse: e.target.value,
-                    //   });
-                    //   validateField("addresse", e.target.value);
-                    // }}
+                    value={eventData.titre}
+                    onChange={(e) => {
+                      setEventData({
+                        ...eventData,
+                        titre: e.target.value,
+                      });
+                    
+                    }}
                     type="text"
                     placeholder=""
                   />
-                  {/* {errors.addresse && (
-                    <p className="error-message">{errors.addresse}</p>
-                  )}
-                  {successeds.addresse && (
-                    <p className="success-message">{successeds.addresse}</p>
-                  )} */}
+                 
                 </Form.Group>
                 <Form.Group
                   className="mb-3"
@@ -671,23 +738,18 @@ export default function GestionEvenement({ id }) {
                 >
                   <Form.Label>Description</Form.Label>
                   <Form.Control
-                    // value={maisonData.superficie}
-                    // onChange={(e) => {
-                    //   setMaisonData({
-                    //     ...maisonData,
-                    //     superficie: e.target.value,
-                    //   });
-                    //   validateField("superficie", e.target.value);
-                    // }}
+                    value={eventData.description}
+                    onChange={(e) => {
+                      setEventData({
+                        ...eventData,
+                        description: e.target.value,
+                      });
+                      
+                    }}
                     type="text"
                     placeholder=""
                   />
-                  {/* {errors.superficie && (
-                    <p className="error-message">{errors.superficie}</p>
-                  )}
-                  {successeds.superficie && (
-                    <p className="success-message">{successeds.superficie}</p>
-                  )} */}
+                 
                 </Form.Group>
                 
               </div>
@@ -698,23 +760,18 @@ export default function GestionEvenement({ id }) {
                 >
                   <Form.Label>Date de début</Form.Label>
                   <Form.Control
-                    // value={maisonData.superficie}
-                    // onChange={(e) => {
-                    //   setMaisonData({
-                    //     ...maisonData,
-                    //     superficie: e.target.value,
-                    //   });
-                    //   validateField("superficie", e.target.value);
-                    // }}
+                    value={eventData.date_debut}
+                    onChange={(e) => {
+                      setEventData({
+                        ...eventData,
+                        date_debut: e.target.value,
+                      });
+                      
+                    }}
                     type="date"
                     placeholder=""
                   />
-                  {/* {errors.superficie && (
-                    <p className="error-message">{errors.superficie}</p>
-                  )}
-                  {successeds.superficie && (
-                    <p className="success-message">{successeds.superficie}</p>
-                  )} */}
+                  
                 </Form.Group>
                 <Form.Group
                   className="mb-3"
@@ -722,35 +779,30 @@ export default function GestionEvenement({ id }) {
                 >
                   <Form.Label>Date de fin</Form.Label>
                   <Form.Control
-                    // value={maisonData.superficie}
-                    // onChange={(e) => {
-                    //   setMaisonData({
-                    //     ...maisonData,
-                    //     superficie: e.target.value,
-                    //   });
-                    //   validateField("superficie", e.target.value);
-                    // }}
+                    value={eventData.date_fin}
+                    onChange={(e) => {
+                      setEventData({
+                        ...eventData,
+                        date_fin: e.target.value,
+                      });
+                     
+                    }}
                     type="date"
                     placeholder=""
                   />
-                  {/* {errors.superficie && (
-                    <p className="error-message">{errors.superficie}</p>
-                  )}
-                  {successeds.superficie && (
-                    <p className="success-message">{successeds.superficie}</p>
-                  )} */}
+                 
                 </Form.Group>
 
               </div>
+               
               
-              {/* <div className="d-flex justify-content-around"> */}
-           
+              
             </Form>
           </Modal.Body>
           <Modal.Footer>
             <Button
               variant="secondary"
-              // onClick={ajouterMaison}
+              onClick={ajouterEvent}
               style={{
                 backgroundColor: "#004573",
                 border: "none",
@@ -774,11 +826,112 @@ export default function GestionEvenement({ id }) {
           </Modal.Footer>
         </Modal>
       </>
-      {/* modal fin ajouter maison */}
+      {/* modal fin ajouter event */}
 
-      {/* modal debut modifier maison */}
-     
+      {/* modal debut modifier event */}
+      
+      <Modal
+        show={showEditModalEvents}
+        onHide={handleCloseEditEvents}
+        id="buttonModifier"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Modifier Evenement</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Titre</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder=""
+                name="titre"
+                value={editEventData.titre}
+                onChange={(e) =>
+                  setEditEventData({
+                    ...editEventData,
+                    titre:e.target.value,
+                  })
+                }
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder=""
+                name="nom"
+                value={editEventData.description}
+                onChange={(e) =>
+                  setEditEventData({
+                    ...editEventData,
+                    description:e.target.value,
+                  })
+                }
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Date de debut</Form.Label>
+              <Form.Control
+                type="date"
+                placeholder=""
+                name="nom"
+                value={editEventData.date_debut}
+                onChange={(e) =>
+                  setEditEventData({
+                    ...editEventData,
+                    date_debut:e.target.value,
+                  })
+                }
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Date de fin</Form.Label>
+              <Form.Control
+                type="date"
+                placeholder=""
+                name="nom"
+                value={editEventData.date_fin}
+                onChange={(e) =>
+                  setEditEventData({
+                    ...editEventData,
+                    date_fin:e.target.value,
+                  })
+                }
+              />
+            </Form.Group>
+            
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={modifierEvent}
+            style={{
+              backgroundColor: "#004573",
+              border: "none",
+              width: "130px",
+            }}
+          >
+            Modifier
+          </Button>
+          <Button
+            variant="primary"
+            // onClick={handleCancleEdit}
+            style={{
+              backgroundColor: "#fff",
+              border: "1px solid #004573",
+              width: "130px",
+              color: "#004573",
+            }}
+          >
+            Fermer
+          </Button>
+        </Modal.Footer>
+      </Modal>
       {/* modal fin modifier maison */}
+     
+      {/* modal fin modifier event */}
     </div>
   );
 }

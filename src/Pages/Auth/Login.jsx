@@ -8,7 +8,9 @@ import { emailPattern } from "../Regex/Regex";
 import { passwordPattern } from "../Regex/Regex";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { useAuth } from '../Auth/AuthContex'
 import { useNavigate } from 'react-router-dom';
+
 
 
 export default function Login() {
@@ -17,6 +19,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   // import {useNavigation} from '@babel/generator'
   const navigate = useNavigate();
+  const { login } = useAuth();
 
 
   const togglePasswordVisibility = () => {
@@ -98,17 +101,27 @@ export default function Login() {
   )
   console.log(credentials, 'credential')
   console.log(response, 'response')
+  if (response.data.status === 402) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops!",
+      text: "Ce compte a ete bloqué!",
+    });
+    return
+    
+  }
   if(response.status === 200){
     const data = response.data;
     const tokenauth= data.token
-    const roleauth=response.data.roles[0]
+    const userRole=response.data.roles[0]
 
     console.log(tokenauth, 'cest le token')
-    console.log(roleauth, 'cest le role')
+    console.log(userRole, 'cest le role')
     localStorage.setItem("tokencle", tokenauth);
-    localStorage.setItem("rolecle", roleauth);
+    localStorage.setItem("rolecle", userRole);
+    login(userRole);
 
-    if (roleauth === "Admin") {
+    if (userRole=== "Admin") {
       navigate ("/dashbordAdmin");
     } else {
       navigate("/dashbordUser");

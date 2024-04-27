@@ -1,10 +1,11 @@
-import React, {  useState } from "react";
+import React, {  useEffect, useState } from "react";
 import "./DashboardAdmin.css";
 import NavbarAdmin from "../../../Components/Admin_Components/NavbarAdmin/NavbarAdmin";
 import SideBars from "../../../Components/Admin_Components/SideBar/SideBar";
 import GestionUser from "../../CRUD/GestionUsers/GestionUser";
 import GestionMessage from "../../CRUD/GestionMessage/GestionMessage";
 import GestionCategorie from "../../CRUD/GestionCategorie/GestionCategorie";
+import Tableaux from "../../../Components/Admin_Components/Tableaux/Tableaux";
 // import axios from "axios";
 // import { useNavigate } from "react-router-dom";
 // import { useAuth } from "../Authentification/AuthContext";
@@ -14,11 +15,95 @@ import GestionNewsletter from "../../CRUD/GestionNewsLetter/GestionNewsletter";
 import GestionEntreprise from "../../CRUD/GestionEntreprise/GestionEntreprise";
 import GestionEvenement from "../../CRUD/GestionEvenement/GestionEvenement";
 import { Image } from "react-bootstrap";
+import axios from "axios";
+import GestionEvaluationAdmin from "../../CRUD/GestionEvaluationAdmin/GestionEvaluationAdmin";
+
 
 
 
 function KPI() {
-  // const [userLists, setUserLists] = useState([]);
+
+    // tableau ou stocker la liste des users
+    const [users, setUsers] = useState([]);
+
+    const [categories, setCategories] = useState([]);
+    const [entreprises, setEntreprises] = useState([]);
+ //  Lister les categories
+ const fetchCategories = async () => {
+  const role = localStorage.getItem("rolecle");
+  const token = localStorage.getItem("tokencle");
+  try {
+    if (token || role === "Admin") {
+      const response = await axios.get(
+        "http://localhost:8000/api/categories",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setCategories(response.data.categories);
+
+      console.log(categories);
+    }
+  } catch (error) {
+    console.error("Erreur lors de la récupération des catégories:", error);
+  }
+};
+useEffect(() => {
+  fetchCategories();
+}, []);
+
+  //  Lister les entreprises
+  const fetchEntreprises = async () => {
+    const role = localStorage.getItem("rolecle");
+    const token = localStorage.getItem("tokencle");
+    try {
+      if (token || role === "Admin") {
+        const response = await axios.get(
+          "http://localhost:8000/api/entreprises",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setEntreprises(response.data.entreprises);
+
+        console.log(entreprises);
+      }
+    } catch (error) {
+      console.error("Erreur lors de la récupération des catégories:", error);
+    }
+  };
+  useEffect(() => {
+    fetchEntreprises();
+  }, []);
+  //  Lister les users
+  const fetchUsers = async () => {
+    const role = localStorage.getItem("rolecle");
+    const token = localStorage.getItem("tokencle");
+    try {
+      if (token || role === "Admin") {
+        const response = await axios.get(
+          "http://localhost:8000/api/users_participants",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setUsers(response.data.participants);
+
+        console.log(users ,'ici users du users');
+      }
+    } catch (error) {
+      console.error("Erreur lors de la récupération des catégories:", error);
+    }
+  };
+  useEffect(() => {
+    fetchUsers();
+  }, []);
  
 
   
@@ -30,14 +115,13 @@ function KPI() {
   return (
     <div className="contenueprincipal container ">
       <div className="dashbord-content-main-one container" id="vv">
-        <div className="content-left-admin-dashbord">
+        <div>
+        <div className="content-left-admin-dashbord border">
           <h3 className="mb-2">Liste des Participants</h3>
           <table className="table mb-5">
             <thead className="table-light" id="hearder-color">
               <tr>
-                <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                  Profile
-                </th>
+                
                 <th style={{ backgroundColor: "#004573", color: "#fff" }}>
                   Prenom
                 </th>
@@ -48,7 +132,7 @@ function KPI() {
                   Email
                 </th>
                 <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                  Téléphone
+                  Catégorie
                 </th>
                 <th style={{ backgroundColor: "#004573", color: "#fff" }}>
                   Entreprise
@@ -56,38 +140,67 @@ function KPI() {
               </tr>
             </thead>
             <tbody>
+            { users && users.map((user) => ( 
+              <tr key={user && user.id} >
+                <td>{user &&  user.nom}</td>
+                <td>{user &&  user.prenom}</td>
+                <td>{user &&  user.email}</td>
+                <td>{user &&  user.categorie.nom}</td>
+                <td>{user &&  user.entreprise.nom}</td>
+              </tr>
+              ))} 
+              
+            </tbody>
+          </table>
+          <div>
+         
+          </div>
+        </div>
+        <div className="content-left-admin-dashbord border">
+          <h3 className="mb-2">Liste des Evenements</h3>
+          <table className="table mb-5">
+            <thead className="table-light" id="hearder-color">
               <tr>
-                <td><Image src="" /></td>
-                <td>Fabiola</td>
-                <td>Williams</td>
-                <td>fabiwili@gmail.com</td>
-                <td>775892011</td>
-                <td>Simplon</td>
+                <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+                  Nom
+                </th>
+                <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+                  Date debut
+                </th>
+                <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+                  Date fin
+                </th>
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                
+                <td>Evaluation 360</td>
+                <td>24/05/20224</td>
+                <td>25/05/20224</td>
+                
               </tr>
               <tr>
-                <td><Image src="" /></td>
-                <td>Leonard</td>
-                <td>Jackson</td>
-                <td>jacksonglen@gmail.com</td>
-                <td>787700022</td>
-                <td>Atos</td>
+                
+                <td>Satifaction employé</td>
+                <td>24/05/20224</td>
+                <td>25/05/20224</td>
+                
               </tr>
             </tbody>
           </table>
           <div>
          
           </div>
-          <div className="conten-admin-2">
-            
-            
-          </div>
+          
         </div>
-        <div className="content-diagramme-circulaire-right-conten-2">
-          <div className="">
-            {/* <Chart /> */}
-            <p className="text-center mt-2 ">
-              Nombre de projet de construction <br></br> terminé par rapport au
-              projet total <br></br> 2023
+          
+        </div>
+        <div className="content-diagramme-circulaire-right-conten-2 border pt-4">
+          <div className=" ">
+            <p className="text-center mt-2  ">
+              <Tableaux />
             </p>
           </div>
         </div>
@@ -112,6 +225,8 @@ function RenderContent(name) {
       return <GestionNewsletter />;
     case "gestionmessage":
       return <GestionMessage />;
+    case "gestionevaluation":
+      return <GestionEvaluationAdmin />;
     default:
       return <KPI />;
   }

@@ -1,5 +1,6 @@
 import {
   faEye,
+  faLock,
   faMagnifyingGlass,
   faPenToSquare,
   faTrash,
@@ -10,22 +11,107 @@ import { Button, Form, Image } from "react-bootstrap";
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
+import { emailPattern } from "../../Regex/Regex";
 
 import Swal from "sweetalert2";
+import axios from "axios";
 
 
 
 export default function GestionUser({ id }) {
   // const [show, setShow] = useState(false);
-  const [showMaison, setshowMaison] = useState(false);
-  const [showEditModalMaisons, setShowEditModalMaisons] = useState(false);
+  const [showUser, setShowUser] = useState(false);
+  const [showEditModalUsers, setShowEditModalUsers] = useState(false);
 
-  const handleCloseEdit = () => setshowMaison(false);
-  const handleShowEdit = () => setshowMaison(true);
-  const handleCloseEditMaisons = () => setShowEditModalMaisons(false);
+  const handleCloseEdit = () => setShowUser(false);
+  const handleShowEdit = () => setShowUser(true);
+  const handleCloseEditUser = () => setShowEditModalUsers(false);
 
-  // tableau ou stocker la liste des maison
-  // const [maisons, setMaisons] = useState([]);
+  // tableau ou stocker la liste des users
+  const [users, setUsers] = useState([]);
+
+  const [categories, setCategories] = useState([]);
+  const [entreprises, setEntreprises] = useState([]);
+
+
+  
+  //  Lister les categories
+  const fetchCategories = async () => {
+    const role = localStorage.getItem("rolecle");
+    const token = localStorage.getItem("tokencle");
+    try {
+      if (token || role === "Admin") {
+        const response = await axios.get(
+          "http://localhost:8000/api/categories",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setCategories(response.data.categories);
+
+        console.log(categories);
+      }
+    } catch (error) {
+      console.error("Erreur lors de la récupération des catégories:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+    //  Lister les entreprises
+    const fetchEntreprises = async () => {
+      const role = localStorage.getItem("rolecle");
+      const token = localStorage.getItem("tokencle");
+      try {
+        if (token || role === "Admin") {
+          const response = await axios.get(
+            "http://localhost:8000/api/entreprises",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          setEntreprises(response.data.entreprises);
+  
+          console.log(entreprises);
+        }
+      } catch (error) {
+        console.error("Erreur lors de la récupération des catégories:", error);
+      }
+    };
+    useEffect(() => {
+      fetchEntreprises();
+    }, []);
+    //  Lister les users
+    const fetchUsers = async () => {
+      const role = localStorage.getItem("rolecle");
+      const token = localStorage.getItem("tokencle");
+      try {
+        if (token || role === "Admin") {
+          const response = await axios.get(
+            "http://localhost:8000/api/users_participants",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          setUsers(response.data.participants);
+  
+          console.log(users ,'ici users du users');
+        }
+      } catch (error) {
+        console.error("Erreur lors de la récupération des catégories:", error);
+      }
+    };
+    useEffect(() => {
+      fetchUsers();
+    }, []);
 
   // const [newFile, setNewFile] = useState("");
 
@@ -41,7 +127,7 @@ export default function GestionUser({ id }) {
   // };
 
   // faire le filtre des maison par addrsse
-  // const filteredMaisons = maisons.filter(
+  // const filteredUsers = maisons.filter(
   //   (maison) =>
   //     maison &&
   //     maison.addresse &&
@@ -50,128 +136,122 @@ export default function GestionUser({ id }) {
   // const displayMaisons = searchValue === "" ? maisons : filteredMaisons;
 
   // etat pour ajout maison
-  // const [maisonData, setMaisonData] = useState({
-  //   addresse: "",
-  //   superficie: "",
-  //   prix: "",
-  //   categories_id: "",
-  //   image: "",
-  //   annee_construction: "",
-  //   description: "",
-  // });
-
-  //  etat pour modifier categorie
-  // const [editMaisonData, setEditMaisonData] = useState({
-  //   id: null,
-  //   addresse: "",
-  //   superficie: "",
-  //   prix: "",
-  //   categories_id: "",
-  //   image: null,
-  //   annee_construction: "",
-  //   description: "",
-  // });
-
-  // const handleFileChange = (file) => {
-  //   setNewFile(file);
-  // };
-
-  // const handleShowEditMaisons = (maison) => {
-   
-  //   if (maison && maison.categories_id) {
-  //     setEditMaisonData({
-  //       id: maison.id,
-  //       addresse: maison.addresse,
-  //       superficie: maison.superficie,
-  //       prix: maison.prix,
-  //       categories_id: maison.categories_id,
-  //       image: maison.image,
-  //       annee_construction: maison.annee_construction,
-  //       description: maison.description,
-  //     });
-  //     setShowEditModalMaisons(true);
-  //     // console.log(maison.categories_id, 'maison.categories_id onclick')
-  //   } else {
-  //     console.error("Catégorie non définie pour la maison à modifier.");
-  //     // Autres actions nécessaires en cas d'erreur...
-  //   }
-  // };
-
-  // const ajouterMaison = async (e) => {
-  //   e.preventDefault();
-  //   const role = localStorage.getItem("rolecle");
-  //   const token = localStorage.getItem('tokencle')
-  //   if(maisonData.addresse === "" || maisonData.superficie === "" || maisonData.prix === "" 
-  //   || maisonData.categories_id === "" || maisonData.image === "" || maisonData.annee_construction === ""
-  //    || maisonData.description === ""){
-  //     Swal.fire({
-  //       icon: "error",
-  //       title: "Oops!",
-  //       text: "les champs sont  obligatoires!",
-  //     });
-  //     return
-  //   }
+  const [userData, setUserData] = useState({
+    nom: "",
+    prenom: "",
+    email: "",
+    password: "",
+    categorie_id: "",
+    entreprise_id: "",
     
+  });
 
-  //   if (validationStatus) {
-  //     try {
-  //       const formData = new FormData();
-  //       formData.append("addresse", maisonData.addresse);
-  //       formData.append("superficie", maisonData.superficie);
-  //       formData.append("prix", maisonData.prix);
-  //       formData.append("categories_id", maisonData.categories_id);
-  //       formData.append("image", maisonData.image);
-  //       formData.append("annee_construction", maisonData.annee_construction);
-  //       formData.append("description", maisonData.description);
-       
+  //  etat initialiser à vide au depart pour modifier categorie
+  const [editUserData, setEditUserData] = useState({
+    id: null,
+    nom: "",
+    prenom: "",
+    email: "",
+    categorie_id: "",
+    entreprise_id: "",
+  });
 
-  //       if (token || role==="admin"){
-  //         const response = await axios.post(
-  //           "http://localhost:8000/api/maison/create",
-  //           formData,
-  //           {
-  //             headers: {
-  //               "Content-Type": "multipart/form-data",
-  //               Authorization: `Bearer ${token}`,
-  //             },
-  //           }
-  //         );
   
-  //         if (response.status === 200) {
-  //           setMaisons([...maisons, response.data]);
-  //           setMaisonData({
-  //             addresse: "",
-  //             superficie: "",
-  //             prix: "",
-  //             categories_id: "",
-  //             image: "",
-  //             annee_construction: "",
-  //             description: "",
-  //           });
+// Funtion qui permet de recuperer les information du user sur le quel on a cliquer
+  const handleShowEditUsers = (user) => {
+    if (user && user.categorie_id) {
+      setEditUserData({
+        id: user.id,
+        nom: user.nom,
+        prenom: user.prenom,
+        email: user.email,
+        categorie_id: user.categorie_id,
+        entreprise_id: user.entreprise_id,
+      });
+      setShowEditModalUsers(true);
+    } else {
+      console.error("Catégorie non définie pour la maison à modifier.");
+      // Autres actions nécessaires en cas d'erreur...
+    }
+  };
+
+  const ajouterUser = async (e) => {
+    e.preventDefault();
+    const role = localStorage.getItem("rolecle");
+    const token = localStorage.getItem('tokencle')
+    
+    if(userData.nom === "" || userData.prenom === "" || userData.email === "" 
+    || userData.categorie_id === "" || userData.password === "" || userData.entreprise_id === ""){
+      Swal.fire({
+        icon: "error",
+        title: "Oops!",
+        text: "les champs sont  obligatoires!",
+      });
+      return
+    }
+    if (!emailPattern.test(userData.email)) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops!",
+        text: "L'adresse e-mail saisie n'est pas valide!",
+      });
+      return;
+    }
+    if ((userData.password.trim().length < 8)) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops!",
+        text: "le password doit etre plus de 8!",
+      });
+      return
+      
+    }
+    
+      try {
+        if (token || role==="Admin"){
+          const response = await axios.post(
+            "http://localhost:8000/api/participant/create",
+            userData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
   
-  //           Swal.fire({
-  //             icon: "success",
-  //             title: "Succès!",
-  //             text: "Maison ajoutée avec succès!",
-  //           });
+          if (response.status === 200) {
+            setUsers([...users, response.data]);
+            setUserData({
+              nom: "",
+              prenom: "",
+              email: "",
+              password: "",
+              categorie_id: "",
+              entreprise_id: "",
+            });
   
-  //           handleCloseEdit();
-  //           fetchMaison();
+            Swal.fire({
+              icon: "success",
+              title: "Succès!",
+              text: "user ajoutée avec succès!",
+            });
   
-  //           setErrors({});
-  //           setSuccesseds({});
-  //           setValidationStatus(false);
-  //         } else {
-  //           console.error("Erreur dans l'ajout de la maison");
-  //         }
-  //       }
+            handleCloseEdit();
+            fetchUsers();
+  
+           
+          } else {
+            console.error("Erreur dans l'ajout de la maison");
+          }
+        }
         
-  //     } catch (error) {
-  //       console.error("Erreur Axios:", error);
-  //     }
+      } catch (error) {
+        console.error("Erreur Axios:", error);
+      }
     
-  // }
-  // };
+  
+  };
   
   // annuler l'ajout
   // const handleCancleAdd = () => {
@@ -199,127 +279,75 @@ export default function GestionUser({ id }) {
   // };
 
   
-  // function pour lister les maison
-  // const fetchMaison = async () => {
-  //   const token = localStorage.getItem('tokencle')
-  //   const role = localStorage.getItem("rolecle");
-  //   try {
-  //     if (token || role==="admin") {
+ 
+  // Modifier user
+  const modifierUser = async (id) => {
+    const token = localStorage.getItem('tokencle')
+    const role = localStorage.getItem("rolecle");
+    if(editUserData.nom === "" || editUserData.prenom === "" || editUserData.email === "" 
+    || editUserData.categorie_id === ""  || editUserData.entreprise_id === ""){
+      Swal.fire({
+        icon: "error",
+        title: "Oops!",
+        text: "les champs sont  obligatoires!",
+      });
+      return
+    }
+    if (!emailPattern.test(editUserData.email)) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops!",
+        text: "L'adresse e-mail saisie n'est pas valide!",
+      });
+      return;
+    }
+      try {
+        
+          if (token || role==="Admin"){
 
-  //     }
-  //     const response = await axios.get(
-  //       "http://localhost:8000/api/maison/liste",
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         }
-  //       }
-
-
-  //     );
-  //     // console.log(response, "response");
-  //     setMaisons(response.data.maison);
-
-  //     // console.log(maison, "liste maison");
-  //   } catch (error) {
-  //     console.error("Erreur lors de la récupération des maisons:", error);
-  //   }
-  // };
-
-  // recuperer la liste des maisons
-  // useEffect(() => {
-  //   fetchMaison();
-  // }, []);
-
-  // recuperer les categorie
-  // useEffect(() => {
-  //   // Effectuer une requête pour récupérer la liste des catégories depuis le backend
-  //   const RecupererCategories = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         "http://localhost:8000/api/categorie/liste"
-  //       );
-  //       // console.log(response, "les respones");
-  //       setCategories(response.data.categories);
-  //     } catch (error) {
-  //       // console.error("Erreur lors de la récupération des catégories:", error);
-  //     }
-  //   };
-  //   RecupererCategories();
-  // }, []);
-
-  // Modifier maison
-  // const modifierMaison = async (id) => {
-  //   const token = localStorage.getItem('tokencle')
-  //   const role = localStorage.getItem("rolecle");
-  //   if (validationStatus) {
-  //     try {
-  //       {
-  //         // Créez un objet FormData pour l'envoi de la requête
-  //         const formData = new FormData();
-  //         formData.append("id", editMaisonData.id);
-  //         formData.append("addresse", editMaisonData.addresse);
-  //         formData.append("superficie", editMaisonData.superficie);
-  //         formData.append("prix", editMaisonData.prix);
-  //         formData.append("categories_id", editMaisonData.categories_id);
-  //         console.log(" avant categories_id", editMaisonData.categories_id);
-  //         if (newFile instanceof File) {
-  //           formData.append("image", newFile);
-  //         } else {
-  //           formData.append("image", editMaisonData.image);
-  //         }
-  //         // console.log('Données avant la requête:', formData);
-
-  //         formData.append(
-  //           "annee_construction",
-  //           editMaisonData.annee_construction
-  //         );
-  //         formData.append("description", editMaisonData.description);
-  //         // console.log(addresse, 'address')
-
-  //         if (token || role==="admin"){
-
-  //           const response = await axios.post(
-  //             `http://localhost:8000/api/maison/edit/${editMaisonData.id}`,
-  //             formData,
-  //             {
-  //               headers: {
-  //                 "Content-Type": "multipart/form-data",
-  //                 Authorization: `Bearer ${token}`
-  //               },
-  //             }
-  //           );
-  //           // console.log('Réponse du serveur après mise à jour :', response.data);
-  //           // console.log('Valeur de categories_id après la requête (côté client) :', response.data.maison.categories_id);
+            const response = await axios.post(
+              `http://localhost:8000/api/participant/update/${editUserData.id}`,
+              editUserData,
+              {
+                headers: {
+                  "Content-Type": "multipart/form-data",
+                  Authorization: `Bearer ${token}`
+                },
+              }
+            );
+           
   
-  //           if (response.status === 200) {
-  //             const updatedMaisons = maisons.map((maison) =>
-  //               maison.id === editMaisonData.id ? response.data.maison : maison
-  //             );
-  //             // console.log('updatedMaisons:', updatedMaisons);
+            if (response.status === 200) {
+              console.log(response, 'response modif')
+              const dataEv = response.data.participants
+              const updatedUsers = users.map((user) =>
+              
+                user.id === editUserData.id ? dataEv : user
+              );
+              // console.log('updatedMaisons:', updatedMaisons);
   
-  //             setMaisons(updatedMaisons);
-  //             setEditMaisonData(response.data.maison);
-  //             handleCloseEditMaisons();
-  //             Swal.fire({
-  //               icon: "success",
-  //               title: "Succès!",
-  //               text: "Maison mise à jour avec succès!",
-  //             });
-  //             setErrors({});
-  //             setSuccesseds({});
-  //             setValidationStatus(false);
-  //             // console.log('Valeur de categories_id après la requête:', editMaisonData.categories_id);
-  //           } else {
-  //             console.error("Erreur lors de la modification de la maison");
-  //           }
-  //         }
-  //       }
-  //     } catch (error) {
-  //       console.error("Erreur Axios:", error);
-  //     }
-  //   }
-  // };
+              setUsers(updatedUsers);
+              setEditUserData(response.data.participants);
+              fetchUsers();
+              handleCloseEditUser();
+              Swal.fire({
+                icon: "success",
+                title: "Succès!",
+                text: "user mise à jour avec succès!",
+              });
+           
+              console.log('Valeur de categories_id après la requête:', editUserData.categorie_id);
+            } else {
+              console.error("Erreur lors de la modification de la user");
+            }
+          
+        }
+      } catch (error) {
+        console.error("Erreur Axios:", error);
+      }
+    }
+    
+  
 
   // femer annuler la modificacion
   // const handleCancleEdit = () => {
@@ -346,39 +374,55 @@ export default function GestionUser({ id }) {
   //   setValidationStatus(false);
   // };
 
-  // const supprimerMaison = async (id) => {
-  //   const token = localStorage.getItem('tokencle')
-  //   const role = localStorage.getItem("rolecle");
-  //   try {
-  //     if (token || role==="admin"){
-  //       const response = await axios.delete(
-  //         `http://localhost:8000/api/maison/supprimer/${id}`,
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  
-  
-          
-  //       );
-  //       if (response.status === 200) {
-  //         // Filtrez la liste des catégories pour exclure celle qui vient d'être supprimée
-  //         const updatedMaisons = maisons.filter((maison) => maison.id !== id);
-  
-  //         setMaisons(updatedMaisons);
-  //         Swal.fire({
-  //           icon: "success",
-  //           title: "Succès!",
-  //           text: "maison supprimée avec succès!",
-  //         });
-  //         fetchMaison();
-  //       } else {
-  //         console.error("Erreur lors de la suppression de la catégorie");
-  //       }
-  //     }
-  //   } catch (error) {}
-  // };
+  const supprimerUser = async (id) => {
+    const token = localStorage.getItem('tokencle');
+    const role = localStorage.getItem("rolecle");
+    try {
+        if (token || role === "Admin") {
+            const response = await axios.post(
+                `http://localhost:8000/api/participant/${id}/bloquer`,
+                {}, // Passer un objet vide en tant que corps de la requête
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            if (response.status === 200) {
+                // Bloquer l'utilisateur avec succès
+                const userId = response.data.id; // Assurez-vous de récupérer l'ID correctement
+                console.log("Utilisateur bloqué avec succès :", userId);
+
+                // Supprimer l'utilisateur de la liste des utilisateurs
+                setUsers(users.filter((user) => user.id !== userId));
+
+                Swal.fire({
+                    title: 'Êtes-vous sûr?',
+                    text: "De vouloir bloquer l'utilisateur?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#004573',
+                    cancelButtonColor: '#f00020',
+                    confirmButtonText: "Oui, j'accepte!",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Succès!",
+                            text: "Utilisateur bloqué avec succès!",
+                        });
+                    }
+                });
+            } else {
+                console.error("Erreur lors de la suppression de l'utilisateur");
+            }
+        }
+    } catch (error) {
+        console.error("Une erreur s'est produite :", error);
+    }
+};
+
+
 
   // pour la pagination
   // const [currentPage, setCurrentPage] = useState(1);
@@ -393,96 +437,9 @@ export default function GestionUser({ id }) {
 
   // const totalPaginationPages = Math.ceil(maisons.length / maisonsParPage);
 
-  // etat pour faire la validation des champs
-  // const [errors, setErrors] = useState({
-  //   addresse: "",
-  //   superficie: "",
-  //   prix: "",
-  //   categories_id: "",
-  //   image: "",
-  //   annee_construction: "",
-  //   description: "",
-  // });
 
-  // const [successeds, setSuccesseds] = useState({
-  //   addresse: "",
-  //   superficie: "",
-  //   prix: "",
-  //   categories_id: "",
-  //   image: "",
-  //   annee_construction: "",
-  //   description: "",
-  // });
 
-  // const [validationStatus, setValidationStatus] = useState(false);
-
-  // funtion pour faire la validation des champs
-  // const validateField = (name, value) => {
-  //   // Ajoutez vos conditions de validation pour chaque champ
-  //   let errorMessage = "";
-  //   let successMessage = "";
-
-  //   if (name === "addresse") {
-  //     if (!value.trim()) {
-  //       errorMessage = "L'adresse ne peut pas être vide";
-  //     } else if (value.trim().length < 2) {
-  //       errorMessage = "L'adresse doit contenir au moins deux lettres";
-  //     } else {
-  //       successMessage = "L'adresse est valide";
-  //     }
-  //   } else if (name === "superficie") {
-  //     if (!value.trim()) {
-  //       errorMessage = "La superficie ne peut pas être vide";
-  //     } else if (value.trim().length < 3) {
-  //       errorMessage = "La superficie doit contenir au moins trois chiffres";
-  //     } else if (!/^\d+$/.test(value.trim())) {
-  //       errorMessage = "La superficie doit contenir uniquement des chiffres";
-  //     } else {
-  //       successMessage = "La superficie est valide";
-  //     }
-  //   } else if (name === "prix") {
-  //     if (!value.trim()) {
-  //       errorMessage = "La prix ne peut pas être vide";
-  //     } else if (value.trim().length < 7) {
-  //       errorMessage = "La prix doit contenir au moins sept chiffres";
-  //     } else if (!/^\d+$/.test(value.trim())) {
-  //       errorMessage = "Le prix doit contenir uniquement des chiffres";
-  //     } else {
-  //       successMessage = "Le prix est valide";
-  //     }
-  //   } else if (name === "categories_id") {
-  //     if (!value.trim()) {
-  //       errorMessage = "La categories ne peut pas être vide";
-  //     } else {
-  //       successMessage = "La categorie a été remplie";
-  //     }
-  //   } else if (name === "image") {
-  //     if (!value) {
-  //       errorMessage = "L'image doit être definie";
-  //     } else {
-  //       successMessage = "L'image a été definie";
-  //     }
-  //   } else if (name === "annee_construction") {
-  //     if (!value.trim()) {
-  //       errorMessage = "L'annee de construction ne doit pas etre vide";
-  //     } else {
-  //       successMessage = "L'annee de construction est valide";
-  //     }
-  //   }
-
-  //   // Mettez à jour le state en utilisant le nom du champ actuel
-  //   setErrors((prevErrors) => ({
-  //     ...prevErrors,
-  //     [name]: errorMessage,
-  //   }));
-  //   setSuccesseds((prevSuccess) => ({
-  //     ...prevSuccess,
-  //     [name]: successMessage,
-  //   }));
-
-  //   const isValid = Object.values(errors).every((error) => !error);
-  //   setValidationStatus(isValid);
-  // };
+  
 
   return (
     <div className="container">
@@ -546,7 +503,10 @@ export default function GestionUser({ id }) {
                 Email
               </th>
               <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                Téléphone
+                Catégorie
+              </th>
+              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+                Entreprise
               </th>
               <th
                 className="d-flex  justify-content-center "
@@ -563,27 +523,21 @@ export default function GestionUser({ id }) {
           <tbody>
             {/* {currentMaisons &&
               currentMaisons.map((maison) => {  key={maison.id} {maison.image && (*/}
-                {/* return ( */}
-                  <tr >
-                    
 
-                    {/* {maison && <td>{maison.addresse || "N/A"}</td>} {maison.superficie}m2 {maison.prix} */}
-                    
-                    <td>Glen </td>
-                    <td>Leonard</td>
-                    <td>
-                      {/* {maison.categorie && maison.categorie.titre
-                        ? maison.categorie.titre
-                        : "Catégorie non définie"}{" "} */}
-                        leonard@gmail.com
-                    </td>
-                    <td>7758966</td>
+                {users && users.map((user) => (
+                    <tr key={user && user.id}>
+                        <td>{user ? user.nom : ''}</td>
+                        <td>{user ? user.prenom : ''}</td>
+                        <td>{user ? user.email : ''}</td>
+                        <td>{user && user.categorie ? user.categorie.nom : ''}</td>
+                        <td>{user && user.entreprise ? user.entreprise.nom : ''}</td>
+                    {/* <td>7758966</td> */}
 
                     <td className=" d-flex justify-content-evenly">
                       <Button
                         variant="primary"
-                        onClick={handleShowEdit}
-                        // onClick={() => handleShowEditMaisons(maison)}
+                        // onClick={handleShowEdit}
+                        onClick={() => handleShowEditUsers(user)}
                         style={{
                           backgroundColor: "#fff",
                           border: "1px solid #004573",
@@ -594,34 +548,22 @@ export default function GestionUser({ id }) {
                         <FontAwesomeIcon icon={faPenToSquare} />
                       </Button>
                       <Button
-                        // onClick={() => supprimerMaison(maison.id)}
+                        onClick={() => supprimerUser(user.id)}
                         style={{
                           backgroundColor: "#fff",
                           border: "1px solid #004573",
                           color: "#004573",
                         }}
                       >
-                        <FontAwesomeIcon icon={faTrash} />
+                        <FontAwesomeIcon icon={faLock} />
                       </Button>
 
-                      <Button
-                        style={{
-                          backgroundColor: "#fff",
-                          border: "1px solid #004573",
-                          color: "#004573",
-                        }}
-                      >
-                        <Link
-                          // to={`/detailmaisonadmin/${maison.id} || '' `}
-                          style={{ color: "#004573" }}
-                        >
-                          <FontAwesomeIcon icon={faEye} />
-                        </Link>
-                      </Button>
+                     
                     </td>
-                  </tr>
-                {/* ); */}
-              {/* })} */}
+                
+              </tr>
+            ))} 
+            
           </tbody>
         </table>
         {/* <Pagination
@@ -633,7 +575,7 @@ export default function GestionUser({ id }) {
 
       {/* modal debut  ajouter participant*/}
       <>
-        <Modal show={showMaison} onHide={handleCloseEdit} id="buttonAjouter">
+        <Modal show={showUser} onHide={handleCloseEdit} id="buttonAjouter">
           <Modal.Header closeButton>
             <Modal.Title>Ajouter un participant</Modal.Title>
           </Modal.Header>
@@ -646,100 +588,136 @@ export default function GestionUser({ id }) {
                 >
                   <Form.Label>Nom</Form.Label>
                   <Form.Control
-                    // value={maisonData.addresse}
-                    // onChange={(e) => {
-                    //   setMaisonData({
-                    //     ...maisonData,
-                    //     addresse: e.target.value,
-                    //   });
-                    //   validateField("addresse", e.target.value);
-                    // }}
+                    value={userData.nom}
+                    onChange={(e) => {
+                      setUserData({
+                        ...userData,
+                        nom: e.target.value,
+                      });
+                      //
+                    }}
                     type="text"
                     placeholder=""
                   />
-                  {/* {errors.addresse && (
-                    <p className="error-message">{errors.addresse}</p>
-                  )}
-                  {successeds.addresse && (
-                    <p className="success-message">{successeds.addresse}</p>
-                  )} */}
+                 
                 </Form.Group>
                 <Form.Group
                   className="mb-3"
-                  controlId="exampleForm.ControlInput1"
+                  controlId="exampleForm.ControlInput2"
                 >
                   <Form.Label>Prenom</Form.Label>
                   <Form.Control
-                    // value={maisonData.superficie}
-                    // onChange={(e) => {
-                    //   setMaisonData({
-                    //     ...maisonData,
-                    //     superficie: e.target.value,
-                    //   });
-                    //   validateField("superficie", e.target.value);
-                    // }}
+                    value={userData.prenom}
+                    onChange={(e) => {
+                      setUserData({
+                        ...userData,
+                        prenom: e.target.value,
+                      });
+                    
+                    }}
                     type="text"
                     placeholder=""
                   />
-                  {/* {errors.superficie && (
-                    <p className="error-message">{errors.superficie}</p>
-                  )}
-                  {successeds.superficie && (
-                    <p className="success-message">{successeds.superficie}</p>
-                  )} */}
+                 
                 </Form.Group>
                 
               </div>
               <div className="d-flex justify-content-around ">
               <Form.Group
                   className="mb-3"
-                  controlId="exampleForm.ControlInput1"
+                  controlId="exampleForm.ControlInput3"
                 >
                   <Form.Label>Email</Form.Label>
                   <Form.Control
-                    // value={maisonData.superficie}
-                    // onChange={(e) => {
-                    //   setMaisonData({
-                    //     ...maisonData,
-                    //     superficie: e.target.value,
-                    //   });
-                    //   validateField("superficie", e.target.value);
-                    // }}
-                    type="text"
+                    value={userData.email}
+                    onChange={(e) => {
+                      setUserData({
+                        ...userData,
+                        email: e.target.value,
+                      });
+                     
+                    }}
+                    type="email"
                     placeholder=""
                   />
-                  {/* {errors.superficie && (
-                    <p className="error-message">{errors.superficie}</p>
-                  )}
-                  {successeds.superficie && (
-                    <p className="success-message">{successeds.superficie}</p>
-                  )} */}
+                  
                 </Form.Group>
                 <Form.Group
                   className="mb-3"
-                  controlId="exampleForm.ControlInput1"
+                  controlId="exampleForm.ControlInput4"
                 >
-                  <Form.Label>Telephone</Form.Label>
+                  <Form.Label>Mot de passe</Form.Label>
                   <Form.Control
-                    // value={maisonData.superficie}
-                    // onChange={(e) => {
-                    //   setMaisonData({
-                    //     ...maisonData,
-                    //     superficie: e.target.value,
-                    //   });
-                    //   validateField("superficie", e.target.value);
-                    // }}
-                    type="text"
+                    value={userData.password}
+                    onChange={(e) => {
+                      setUserData({
+                        ...userData,
+                        password: e.target.value,
+                      });
+                      
+                    }}
+                    type="password"
                     placeholder=""
                   />
-                  {/* {errors.superficie && (
-                    <p className="error-message">{errors.superficie}</p>
-                  )}
-                  {successeds.superficie && (
-                    <p className="success-message">{successeds.superficie}</p>
-                  )} */}
+                  
                 </Form.Group>
 
+              </div>
+              <div className="d-flex justify-content-around">
+                  <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput5"
+                >
+                  <Form.Label>Categorie</Form.Label>
+                  <Form.Select
+                    aria-label="Default select example"
+                    value={userData.categorie_id}
+                    onChange={(e) => {
+                      setUserData({
+                        ...userData,
+                        categorie_id: e.target.value,
+                      });
+                      
+                    }}
+                  >
+                    <option>Choisir une catégorie</option>
+                    {categories &&
+                      categories.map((cat, index) => {
+                        return (
+                          <option key={index} value={cat.id}>
+                            {cat.nom}
+                          </option>
+                        );
+                      })}
+                  </Form.Select>
+                  </Form.Group>
+                  <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput6"
+                >
+                  <Form.Label>Entreprise</Form.Label>
+                  <Form.Select
+                    aria-label="Default select example"
+                    value={userData.entreprise_id}
+                    onChange={(e) => {
+                      setUserData({
+                        ...userData,
+                        entreprise_id: e.target.value,
+                      });
+                      
+                    }}
+                  >
+                    <option>Choisir une entreprise</option>
+                    {entreprises &&
+                      entreprises.map((entrepriseel, index) => {
+                        return (
+                          <option key={index} value={entrepriseel.id}>
+                            {entrepriseel.nom}
+                          </option>
+                        );
+                      })}
+                  </Form.Select>
+                  </Form.Group>
               </div>
               
               {/* <div className="d-flex justify-content-around"> */}
@@ -749,7 +727,7 @@ export default function GestionUser({ id }) {
           <Modal.Footer>
             <Button
               variant="secondary"
-              // onClick={ajouterMaison}
+              onClick={ajouterUser}
               style={{
                 backgroundColor: "#004573",
                 border: "none",
@@ -773,11 +751,167 @@ export default function GestionUser({ id }) {
           </Modal.Footer>
         </Modal>
       </>
-      {/* modal fin ajouter maison */}
+      {/* modal fin ajouter user */}
 
-      {/* modal debut modifier maison */}
+      {/* modal debut modifier user */}
+      <Modal
+        show={showEditModalUsers}
+        onHide={handleCloseEditUser}
+        id="buttonModifier"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Modifier user</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {editUserData && editUserData.nom && (
+            <Form>
+              <div className="d-flex justify-content-around ">
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Label>Nom</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder=""
+                    value={editUserData.nom}
+                    onChange={(e) => {
+                      setEditUserData({
+                        ...editUserData,
+                        nom: e.target.value,
+                      });
+                     
+                    }}
+                  />
+                  
+                </Form.Group>
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Label>Prenom</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder=""
+                    value={editUserData.prenom}
+                    onChange={(e) => {
+                      setEditUserData({
+                        ...editUserData,
+                        prenom: e.target.value,
+                      });
+                      
+                    }}
+                  />
+                  
+                </Form.Group>
+              </div>
+              <div className="d-flex justify-content-around">
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    placeholder=""
+                    value={editUserData.email}
+                    onChange={(e) => {
+                      setEditUserData({
+                        ...editUserData,
+                        email: e.target.value,
+                      });
+                     
+                    }}
+                  />
+                 
+                </Form.Group>
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput5"
+                >
+                  <Form.Label>Categorie</Form.Label>
+                  <Form.Select
+                      aria-label="Default select example"
+                      value={editUserData.categorie_id}
+                      onChange={(e) => {
+                        setEditUserData({
+                          ...editUserData,
+                          categorie_id: e.target.value,
+                        });
+                      }}
+                    >
+                    <option>Choisir une catégorie</option>
+                    {categories &&
+                      categories.map((cat, index) => {
+                        return (
+                          <option key={index} value={cat.id}>
+                            {cat.nom}
+                          </option>
+                        );
+                      })}
+                  </Form.Select>
+                  </Form.Group>
+              </div>
+              <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Label>Entreprise</Form.Label>
+                  <Form.Select
+                    aria-label="Default select example"
+                    // value={editUserData.categories_id}
+                    value={editUserData.entreprise_id || ""}
+                    onChange={(e) => {
+                      setEditUserData({
+                        ...editUserData,
+                        entreprise_id: e.target.value,
+                      });
+                     
+                    }}
+                  >
+                    {/* recuperer la categorie selectionner par défaut pour la modifier */}
+                  {entreprises &&
+                      entreprises.map((entrepriseel, index) => {
+                        return (
+                          <option key={index} value={entrepriseel.id}>
+                            {entrepriseel.nom}
+                          </option>
+                        );
+                      })}
+                  </Form.Select>
+                  
+                </Form.Group>
+            </Form>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={modifierUser}
+            style={{
+              backgroundColor: "#004573",
+              border: "none",
+              width: "130px",
+            }}
+          >
+            Modifier
+          </Button>
+          <Button
+            variant="primary"
+            onClick={handleCloseEditUser}
+            style={{
+              backgroundColor: "#fff",
+              border: "1px solid #004573",
+              width: "130px",
+              color: "#004573",
+            }}
+          >
+            Fermer
+          </Button>
+        </Modal.Footer>
+      </Modal>
      
-      {/* modal fin modifier maison */}
+      {/* modal fin modifier user */}
     </div>
   );
 }

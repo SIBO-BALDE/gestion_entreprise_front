@@ -1,5 +1,5 @@
 import { faEnvelope,faMessage, faUser } from '@fortawesome/free-regular-svg-icons';
-import { faGauge, faGear, faHouse, faLayerGroup, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faBuilding, faGauge, faGear, faHouse, faLayerGroup, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useContext } from 'react'
 import './SideBar.css';
@@ -29,6 +29,11 @@ const links = [
       icon: faUser,
     },
     {
+      path: "gestionevaluation",
+      text: "Gestion Evaluations",
+      icon: faUser,
+    },
+    {
       path: "gestionevenement",
       text: "Gestion Evenements",
       icon: faHouse,
@@ -37,7 +42,7 @@ const links = [
     {
       path: "gestionentreprise",
       text: "Gestion Entreprises",
-      icon: faGear,
+      icon: faBuilding,
     },
     
     {
@@ -73,7 +78,7 @@ export default function SideBar({ isOpen, name, handleChangePath }) {
     try {
       const token = localStorage.getItem("tokencle");
         const role = localStorage.getItem("rolecle");
-      if (token || role === "admin") {
+      if (token || role === "Admin") {
         // Utilisez votre instance Axios configurée
         const response = await axios.post(
           "http://localhost:8000/api/logout",
@@ -116,7 +121,7 @@ export default function SideBar({ isOpen, name, handleChangePath }) {
         <div className="contentimage">
           <div className="d-flex justify-content-center ">
             {" "}
-            <Image src={logo} alt="" id="image-contenu" />
+            <Image src={logo} alt="" id="image-contenu" className='border' />
           </div>
           <p className="text-center"><Link to={'/'} style={{textDecoration:'none', color:'white'}}>BARAKA GATE</Link></p>
           <hr />

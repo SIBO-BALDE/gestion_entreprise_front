@@ -8,6 +8,8 @@ import { Button, Form, Modal } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 // import axios from "axios";
 import Swal from "sweetalert2";
+import axios from "axios";
+import { useAuth } from  '../../Auth/AuthContex'
 // import Pagination from "../../Components/Pagination/Pagination";
 
 export default function GestionCategorie() {
@@ -17,17 +19,8 @@ export default function GestionCategorie() {
   const handleCloseCategories = () => setShowCategories(false);
   const handleshowCategories = () => setShowCategories(true);
   const handleCloseEditCategories = () => setShowEditModalCategories(false);
- 
 
-  // Gestionnaire de clic pour le bouton de modification
-  // const handleShowEditCategories = (categorie) => {
-  //   setEditCategoryData({
-  //     id: categorie.id,
-  //     titre: categorie.titre,
-  //    ,
-  //   });
-  //   setShowEditModalCategories(true);
-  // };
+ 
 
   // recherche champ input
   // const [searchValue, setSearchValue] = useState("");
@@ -46,157 +39,201 @@ export default function GestionCategorie() {
   // });
 
   // tableau ou stocker la liste des categories
+ 
   const [categories, setCategories] = useState([]);
-
-  // function pour ajouter une categorie
-  // const ajouterCategory = async () => {
-  //   const role = localStorage.getItem("rolecle");
-  //   const token = localStorage.getItem("tokencle");
+  // etat pour ajout categorie
+  const [categoryData, setCategoryData] = useState({
+    nom: "",
   
-  //   if(categoryData.titre === "" ||categoryData.description === ""){
-  //     Swal.fire({
-  //       icon: "error",
-  //       title: "Oops!",
-  //       text: "les champs sont  obligatoires!",
-  //     });
-  //     return
-  //   }
-  //   try {
-  //     if (token || role === "admin") {
-  //       const response = await axios.post(
-  //         "http://localhost:8000/api/categorie/create",
+  });
+  const { userRole, userToken } = useAuth();
+  // function pour ajouter une categorie
+  const ajouterCategory = async () => {
+    const token = localStorage.getItem("tokencle");
+    const role = localStorage.getItem("rolecle");
+    // alert('okay')
+  
+    if(categoryData.nom === ""){
+      Swal.fire({
+        icon: "error",
+        title: "Oops!",
+        text: "les champs sont  obligatoires!",
+      });
+      console.log(categoryData, 'categoriedata')
+      return
+    }
+    try {
+      if (token && role === "Admin") {
+        const response = await axios.post(
+          "http://localhost:8000/api/categorie/create",
 
-  //         categoryData,
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
+          categoryData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
-  //       // Vérifiez si la requête a réussi
-  //       if (response.status === 200) {
-  //         // Ajoutez la nouvelle maison à la liste existante
-  //         setCategories([...categories, response.data]);
-  //         // Réinitialisez les valeurs du formulaire après avoir ajouté la maison
-  //         setCategoryData({
-  //           titre: "",
-  //           description: "",
-  //         });
-  //         Swal.fire({
-  //           icon: "success",
-  //           title: "Succès!",
-  //           text: "categorie ajouter avec succée!",
-  //         });
-  //         // Fermez le modal
-  //         handleCloseCategories();
-  //       } else {
-  //         console.error("Erreur dans lajout de maison");
-  //       }
-  //     }
-  //   } catch (error) {
-  //     // Gestion des erreurs Axios
-  //     console.error("Erreur Axios:", error);
-  //   }
-  // };
+        // Vérifiez si la requête a réussi
+        if (response.status === 200) {
+          // Ajoutez la nouvelle maison à la liste existante
+          console.log(response, 'response categorie')
+          setCategories([...categories, response.data]);
+          // Réinitialisez les valeurs du formulaire après avoir ajouté la maison
+          setCategoryData({
+            nom: "",
+           
+          });
+          Swal.fire({
+            icon: "success",
+            title: "Succès!",
+            text: "categorie ajouter avec succée!",
+          });
+          // Fermez le modal
+          handleCloseCategories();
+          fetchCategories()
+        } else {
+          console.error("Erreur dans lajout de maison");
+        }
+      }
+    } catch (error) {
+      // Gestion des erreurs Axios
+      console.error("Erreur Axios:", error);
+    }
+  };
+
   //  Lister les categories
-  // useEffect(() => {
-  //   const fetchCategories = async () => {
-  //     const role = localStorage.getItem("rolecle");
-  //     const token = localStorage.getItem("tokencle");
-  //     try {
-  //       if (token || role === "admin") {
-  //         const response = await axios.get(
-  //           "http://localhost:8000/api/categorie/liste",
-  //           {
-  //             headers: {
-  //               Authorization: `Bearer ${token}`,
-  //             },
-  //           }
-  //         );
-  //         setCategories(response.data.categories);
+  const fetchCategories = async () => {
+    const role = localStorage.getItem("rolecle");
+    const token = localStorage.getItem("tokencle");
+    try {
+      if (token || role === "Admin") {
+        const response = await axios.get(
+          "http://localhost:8000/api/categories",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setCategories(response.data.categories);
 
-  //         console.log(categories);
-  //       }
-  //     } catch (error) {
-  //       console.error("Erreur lors de la récupération des catégories:", error);
-  //     }
-  //   };
-  //   fetchCategories();
-  // }, []);
+        console.log(categories);
+      }
+    } catch (error) {
+      console.error("Erreur lors de la récupération des catégories:", error);
+    }
+  };
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  //  etat pour modifier categorie
+ const [editCategoryData, setEditCategoryData] = useState({
+  id: null,
+  nom: "",
+  
+});
+
+  // Gestionnaire de clic pour le bouton de modification
+  const handleShowEditCategories = (categorie) => {
+    setEditCategoryData({
+      id: categorie.id,
+      nom: categorie.nom,
+     
+    });
+    setShowEditModalCategories(true);
+  };
 
   // Fonction pour mettre à jour une catégorie
-  // const modifierCategory = async () => {
-  //   const role = localStorage.getItem("rolecle");
-  //   const token = localStorage.getItem("tokencle");
-  //   try {
-  //     if (token || role === "admin") {
-  //         const response = await axios.post(
-  //         `http://localhost:8000/api/categorie/edit/${editCategoryData.id}`,
-  //         editCategoryData,
-  //         {
-  //           headers: {
-  //             "Content-Type": "multipart/form-data",
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
+  const modifierCategory = async () => {
+    const role = localStorage.getItem("rolecle");
+    const token = localStorage.getItem("tokencle");
+    try {
+      if (token || role === "Admin") {
+          const response = await axios.post(
+          `http://localhost:8000/api/categorie/update/${editCategoryData.id}`,
+          editCategoryData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      
 
-  //       if (response.status === 200) {
-  //         const updatedCategories = categories.map((category) =>
-  //           category.id === editCategoryData.id
-  //             ? response.data.categorie
-  //             : category
-  //         );
-  //         setCategories(updatedCategories);
-  //         handleCloseEditCategories();
-  //         Swal.fire({
-  //           icon: "success",
-  //           title: "Succès!",
-  //           text: "Catégorie mise à jour avec succès!",
-  //         });
-  //       } else {
-  //         console.error("erreur lors de la modification de la catégorie");
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.error("une erreur  Axios:", error);
-  //   }
-  // };
+        if (response.status === 200) {
+          const updatedCategories = categories.map((category) =>
+            category.id === editCategoryData.id
+              ? response.data.categorie
+              : category
+          );
+          setCategories(updatedCategories);
+          handleCloseEditCategories();
+          Swal.fire({
+            icon: "success",
+            title: "Succès!",
+            text: "Catégorie mise à jour avec succès!",
+          });
+          fetchCategories();
+        } else {
+          console.error("erreur lors de la modification de la catégorie");
+        }
+      }
+    } catch (error) {
+      console.error("une erreur  Axios:", error);
+    }
+  };
 
   // Function pour supprimer une catégorie
-  // const supprimerCategory = async (id) => {
-  //   const role = localStorage.getItem("rolecle");
-  //   const token = localStorage.getItem("tokencle");
-  //   try {
-  //     if (token || role === "admin"){
-  //       const response = await axios.delete(
-  //         `http://localhost:8000/api/categorie/supprimer/${id}`,
-  //         {
-  //           headers: {
-  //             'Content-Type': 'multipart/form-data',
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
-  //       if (response.status === 200) {
-  //         // Filtrez la liste des catégories pour exclure celle qui vient d'être supprimée
-  //         const updatedCategories = categories.filter(
-  //           (category) => category.id !== id
-  //         );
+  const supprimerCategory = async (id) => {
+    const role = localStorage.getItem("rolecle");
+    const token = localStorage.getItem("tokencle");
+    alert('oaky1')
+    try {
+      if (token || role === "Admin"){
+        const response = await axios.delete(
+          `http://localhost:8000/api/categories/${id}/soft-delete`,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        alert('okay2')
+        if (response.status === 200) {
+          // Filtrez la liste des catégories pour exclure celle qui vient d'être supprimée
+          const updatedCategories = categories.filter(
+            (category) => category.id !== id
+          );
   
-  //         setCategories(updatedCategories);
-  //         Swal.fire({
-  //           icon: "success",
-  //           title: "Succès!",
-  //           text: "Catégorie supprimée avec succès!",
-  //         });
-  //       } else {
-  //         console.error("Erreur lors de la suppression de la catégorie");
-  //       }
-  //     }
-  //   } catch (error) {}
-  // };
+          setCategories(updatedCategories);
+          Swal.fire({
+            title: 'Êtes-vous sûr?',
+            text: "De vouloir supprimer une catégorie?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#004573',
+            cancelButtonColor: '#f00020',
+            confirmButtonText: "Oui, j'accepte!",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Succès!",
+                    text: "catégorie supprimer avec succès!",
+                });
+            }
+        });
+        } else {
+          console.error("Erreur lors de la suppression de la catégorie");
+        }
+      }
+    } catch (error) {}
+  };
 
   // recherche
   // const handleSearchChange = (event) => {
@@ -254,7 +291,7 @@ export default function GestionCategorie() {
   //       successMessage = "L'adresse est valide";
   //     }
   //   }
-  //   // Mettez à jour le state en utilisant le nom du champ actuel
+    // Mettez à jour le state en utilisant le nom du champ actuel
   //   setErrors((prevErrors) => ({
   //     ...prevErrors,
   //     [name]: errorMessage,
@@ -390,13 +427,13 @@ export default function GestionCategorie() {
           </thead>
           <tbody>
             {/* {currentCategories.map((categorie) => ( key={categorie.id} {categorie.titre}{categorie.description}*/}
-              <tr >
-                <td style={{ color: "black" }}>Collegue</td>
-                <td style={{ color: "black" }}>cv</td>
+            { categories && categories.map((categorie) => ( 
+              <tr key={categorie && categorie.id} >
+                <td style={{ color: "black" }} >{categorie && categorie.nom}</td>
                 <td className="d-flex justify-content-evenly">
                   <Button
                     variant="primary"
-                    // onClick={() => handleShowEditCategories(categorie)}
+                    onClick={() => handleShowEditCategories(categorie)}
                     // onClick={handleShowEditCategories}
                     style={{
                       backgroundColor: "#fff",
@@ -413,13 +450,13 @@ export default function GestionCategorie() {
                       border: "1px solid #004573",
                       color: "#004573",
                     }}
-                    // onClick={() => supprimerCategory(categorie.id)}
+                    onClick={() => supprimerCategory(categorie.id)}
                   >
                     <FontAwesomeIcon icon={faTrash} />
                   </Button>
                 </td>
               </tr>
-            {/* ))} */}
+            ))} 
           </tbody>
         </table>
         {/* <Pagination
@@ -447,11 +484,11 @@ export default function GestionCategorie() {
               >
                 <Form.Label>Titre</Form.Label>
                 <Form.Control
-                  // value={categoryData.titre}
-                  // onChange={(e) => {
-                  //   setCategoryData({ ...categoryData, titre: e.target.value });
+                  value={categoryData.nom}
+                  onChange={(e) => {
+                    setCategoryData({ ...categoryData, nom: e.target.value });
                   //   validateField("titre", e.target.value);
-                  // }}
+                  }}
                   type="text"
                   placeholder=""
                 />
@@ -463,29 +500,13 @@ export default function GestionCategorie() {
                 )} */}
               </Form.Group>
 
-              <Form.Group
-                className="mb-3"
-                controlId="exampleForm.ControlTextarea1"
-              >
-                <Form.Label>Description</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={3}
-                  // value={categoryData.description}
-                  // onChange={(e) =>
-                  //   setCategoryData({
-                  //     ...categoryData,
-                  //     description: e.target.value,
-                  //   })
-                  // }
-                />
-              </Form.Group>
+              
             </Form>
           </Modal.Body>
           <Modal.Footer>
             <Button
               variant="secondary"
-              // onClick={ajouterCategory}
+              onClick={ajouterCategory}
               style={{
                 backgroundColor: "#004573",
                 border: "none",
@@ -512,7 +533,7 @@ export default function GestionCategorie() {
       {/* modal fin ajouter categorie */}
 
       {/* modal debut modifier categorie */}
-      {/* <Modal
+      <Modal
         show={showEditModalCategories}
         onHide={handleCloseEditCategories}
         id="buttonModifier"
@@ -527,32 +548,17 @@ export default function GestionCategorie() {
               <Form.Control
                 type="text"
                 placeholder=""
-                value={editCategoryData.titre}
+                name="nom"
+                value={editCategoryData.nom}
                 onChange={(e) =>
                   setEditCategoryData({
                     ...editCategoryData,
-                    titre: e.target.value,
+                    nom:e.target.value,
                   })
                 }
               />
             </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>Description</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={3}
-                value={editCategoryData.description}
-                onChange={(e) =>
-                  setEditCategoryData({
-                    ...editCategoryData,
-                    description: e.target.value,
-                  })
-                }
-              />
-            </Form.Group>
+            
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -569,7 +575,7 @@ export default function GestionCategorie() {
           </Button>
           <Button
             variant="primary"
-            onClick={handleCancleEdit}
+            // onClick={handleCancleEdit}
             style={{
               backgroundColor: "#fff",
               border: "1px solid #004573",
@@ -580,7 +586,7 @@ export default function GestionCategorie() {
             Fermer
           </Button>
         </Modal.Footer>
-      </Modal> */}
+      </Modal>
       {/* modal fin modifier maison */}
     </div>
   );

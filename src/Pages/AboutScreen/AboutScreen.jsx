@@ -26,6 +26,16 @@ import partenaire4 from '../../Images/casa.png';
 import partenaire5 from '../../Images/3fpt.png';
 import partenaire6 from '../../Images/13.png';
 import baraka_vd from '../../Images/baraka_vd.mp4';
+import baraka6 from '../../Images/baraka6.jpeg';
+import baraka12 from '../../Images/baraka12.jpeg';
+import baraka13 from '../../Images/baraka13.jpeg';
+import baraka14 from '../../Images/baraka14.jpeg';
+import baraka11 from '../../Images/baraka11.jpeg';
+import baraka15 from '../../Images/baraka15.jpeg';
+import baraka2 from '../../Images/baraka2.jpeg';
+import baraka9 from '../../Images/baraka9.jpeg';
+import baraka8 from '../../Images/baraka8.jpeg';
+import barakadg from '../../Images/baraka-dg.jpeg';
 import { Link } from 'react-router-dom';
 
 export default function AboutScreen() {
@@ -92,13 +102,13 @@ export default function AboutScreen() {
         </div>
         <div className='ban_right_content_about'>
             <div>
-            <div className='ban_right_image_about_content1 mb-3'><Image src={image1} className='ban_right_image_about1' /></div>
-            <div className='ban_right_image_about_content1'><Image src={image2} className='ban_right_image_about1' /></div>
+            <div className='ban_right_image_about_content1 mb-3'><Image src={baraka8} className='ban_right_image_about1' /></div>
+            <div className='ban_right_image_about_content1'><Image src={barakadg} className='ban_right_image_about1' /></div>
 
             </div>
             <div>
                 <div className='ban_right_image_about_content2 mb-3'><Image src={image3} className='ban_right_image_about2' /></div>
-                <div className='ban_right_image_about_content2'><Image src={image1} className='ban_right_image_about2' /></div>
+                <div className='ban_right_image_about_content2'><Image src={baraka9} className='ban_right_image_about2' /></div>
             </div>
         </div>
       </div>

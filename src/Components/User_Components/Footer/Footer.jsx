@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 export default function Footer() {
   return (
     <div>
-      <footer className='footer_content_main'>
+      <footer className='footer_content_main pb-4'>
         <section className='footer_content'>
             <div className='logo_footer_content_one'>
                 <Image src={logo} />
