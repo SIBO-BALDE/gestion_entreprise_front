@@ -64,6 +64,36 @@ export default function Tableaux() {
     }, []);
 
 
+    // Liste evenements
+    const [events, setEvents] = useState([]);
+
+    const fetchEvents = async () => {
+      const role = localStorage.getItem("rolecle");
+      const token = localStorage.getItem("tokencle");
+      try {
+        if (token || role === "Admin") {
+          const response = await axios.get(
+            "http://localhost:8000/api/evenements",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          console.log(response , 'liste')
+          setEvents(response.data.evenements);
+  
+          console.log(events);
+        }
+      } catch (error) {
+        console.error("Erreur lors de la récupération des catégories:", error);
+      }
+    };
+    useEffect(() => {
+      fetchEvents();
+    }, []);
+
+
   return (
     <div className=''>
       {/* <div className="content-diagramme-circulaire-right-conten-2  pt-4 "> */}
@@ -98,7 +128,7 @@ export default function Tableaux() {
             <h4>Nombre d'evenements</h4>
           </div>
         </div>
-        <h1 className="text-center mt-1 ">150</h1>
+        <h1 className="text-center mt-1 ">{events.length}</h1>
       </div>
         {/* </div> */}
     </div>

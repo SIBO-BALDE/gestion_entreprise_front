@@ -2,7 +2,7 @@
 import { faEnvelope,faMessage, faUser } from '@fortawesome/free-regular-svg-icons';
 import { faGauge, faGear, faHouse, faLayerGroup, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 // import './SideBar.css';
 import { Button, Image } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
@@ -32,10 +32,57 @@ const links = [
     
   ];
 export default function SideBarUser({ isOpen, name, handleChangePath }) {
+
+
+  const [utilisateur, setUtilisateur] = useState([]);
+  const userInformations = () =>{
+    const token = localStorage.getItem("tokencle");
+    const role = localStorage.getItem("rolecle");
+    
+    if (token || role==='Participant') {
+      
+
+      axios
+        .post(
+          "http://localhost:8000/api/me",
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+
+        .then((response) => {
+          const userData = response.data;
+          setUtilisateur(userData);
+          console.log(userData, "userdATA Dashboarduser");
+        })
+        .catch((error) => {
+          console.error(
+            "Erreur lors de la récupération des informations de l'utilisateur :",
+            error
+          );
+        });
+    }
+  }
+
+
+  useEffect(() => {
+    // Récupérez le token et le role  du localStorage
+    userInformations();
+    
+    
+  }, []);
+
+
+
+
+
+
+
   const navigate = useNavigate();
   const handleLogout = async () => {
-    
-    
     try {
       const token = localStorage.getItem("tokencle");
         const role = localStorage.getItem("rolecle");
@@ -84,7 +131,7 @@ export default function SideBarUser({ isOpen, name, handleChangePath }) {
             {" "}
             <Image src={logo} alt="" id="image-contenu" className='border' />
           </div>
-          <p className="text-center"><Link to={'/'} style={{textDecoration:'none', color:'white'}}>BARAKA GATE</Link></p>
+          <p className="text-center"><Link to={'/'} style={{textDecoration:'none', color:'white'}}>{utilisateur.prenom} {utilisateur.nom}</Link></p>
           <hr />
         </div>
         <div id="content-try-content" className=''>

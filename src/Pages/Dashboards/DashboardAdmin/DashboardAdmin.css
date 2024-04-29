@@ -52,7 +52,7 @@
     gap: 20px;
   }
   .content-left-admin-dashbord {
-    margin-top: 30px;
+    /* margin-top: 10px; */
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
     ;
     border-radius: 20px;
@@ -87,7 +87,7 @@
   .content-diagramme-circulaire-right-conten-2 {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px;
     border-radius: 20px;
-    margin-top: 30px;
+    /* margin-top: 30px; */
     /* background-color: var(--principal); */
   }
   thead #hearder-color{

@@ -17,6 +17,8 @@ import GestionEvenement from "../../CRUD/GestionEvenement/GestionEvenement";
 import { Image } from "react-bootstrap";
 import axios from "axios";
 import GestionEvaluationAdmin from "../../CRUD/GestionEvaluationAdmin/GestionEvaluationAdmin";
+import Pagination from "../../../Components/User_Components/Pagination/Pagination";
+import GestionFeedback from "../../CRUD/GestionFeedback/GestionFeedback";
 
 
 
@@ -104,9 +106,115 @@ useEffect(() => {
   useEffect(() => {
     fetchUsers();
   }, []);
+
+
+   // Liste evenements
+   const [events, setEvents] = useState([]);
+
+   const fetchEvents = async () => {
+     const role = localStorage.getItem("rolecle");
+     const token = localStorage.getItem("tokencle");
+     try {
+       if (token || role === "Admin") {
+         const response = await axios.get(
+           "http://localhost:8000/api/evenements",
+           {
+             headers: {
+               Authorization: `Bearer ${token}`,
+             },
+           }
+         );
+         console.log(response , 'liste')
+         setEvents(response.data.evenements);
+ 
+         console.log(events);
+       }
+     } catch (error) {
+       console.error("Erreur lors de la récupération des catégories:", error);
+     }
+   };
+   useEffect(() => {
+     fetchEvents();
+   }, []);
+
+
+
+
+    //  pour le champ recherche
+  const [searchValueUser, setSearchValueUser] = useState("");
+
+  // function la recherche
+  const handleSearchChange = (event) => {
+    setSearchValueUser(event.target.value);
+  };
+
+  // faire le filtre des maison par addrsse
+  const filteredUsers = users.filter(
+    (user) =>
+      user &&
+      user.nom &&
+      user.nom.toLowerCase().includes(searchValueUser.toLowerCase())
+  );
+  const displayUsers = searchValueUser === "" ? users : filteredUsers;
+
+
+    const [currentPage1, setCurrentPage1] = useState(1);
+  const usersParPage= 2;
+
+  // pagination
+  const indexOfLastUser = currentPage1* usersParPage;
+  const indexOfFirstUser = indexOfLastUser - usersParPage;
+  const currentUsers = filteredUsers.slice(
+    indexOfFirstUser,
+    indexOfLastUser
+  );
+
+  const totalPaginationPagesUser = Math.ceil(users.length / usersParPage);
+
+
+  //  pour le champ recherche des evenements
+  const [searchValueEvent, setSearchValueEvent] = useState("");
+
+   // function la recherche
+   const handleSearchChangeEvent = (eventElement) => {
+    setSearchValueUser(eventElement.target.value);
+  };
+
+   // faire le filtre des maison par addrsse
+   const filteredEvents = events.filter(
+    (eventEl) =>
+      eventEl &&
+      eventEl.titre &&
+      eventEl.titre.toLowerCase().includes(searchValueEvent.toLowerCase())
+  );
+
+  const displayEvents = searchValueEvent === "" ? events : filteredEvents;
+
+
+    const [currentPage, setCurrentPage] = useState(1);
+  const eventsParPage= 2;
+
+
+  const indexOfLastEvent = currentPage* eventsParPage;
+  const indexOfFirstEvent = indexOfLastEvent - eventsParPage;
+  const currentEvents = filteredEvents.slice(
+    indexOfFirstEvent,
+    indexOfLastEvent
+  );
+
+  const totalPaginationPagesEvent = Math.ceil(events.length / eventsParPage);
+
+
+
+
+ 
+   
+
+
  
 
   
+ 
 
   
 
@@ -140,7 +248,8 @@ useEffect(() => {
               </tr>
             </thead>
             <tbody>
-            { users && users.map((user) => ( 
+            { currentUsers &&
+              currentUsers.map((user) => ( 
               <tr key={user && user.id} >
                 <td>{user &&  user.nom}</td>
                 <td>{user &&  user.prenom}</td>
@@ -152,9 +261,11 @@ useEffect(() => {
               
             </tbody>
           </table>
-          <div>
-         
-          </div>
+          <Pagination
+          currentPage={currentPage1}
+          totalPaginationPages={totalPaginationPagesUser}
+          setCurrentPage={setCurrentPage1}
+          />  
         </div>
         <div className="content-left-admin-dashbord border">
           <h3 className="mb-2">Liste des Evenements</h3>
@@ -163,6 +274,9 @@ useEffect(() => {
               <tr>
                 <th style={{ backgroundColor: "#004573", color: "#fff" }}>
                   Nom
+                </th>
+                <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+                  Description
                 </th>
                 <th style={{ backgroundColor: "#004573", color: "#fff" }}>
                   Date debut
@@ -174,25 +288,25 @@ useEffect(() => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                
-                <td>Evaluation 360</td>
-                <td>24/05/20224</td>
-                <td>25/05/20224</td>
-                
+            {currentEvents &&
+               currentEvents.map((eventEl) => ( 
+              <tr key={eventEl && eventEl.id} >
+                <td>{eventEl &&  eventEl.titre}</td>
+                <td>{eventEl &&  eventEl.description}</td>
+                <td>{eventEl &&  eventEl.date_debut}</td>
+                <td>{eventEl &&  eventEl.date_fin}</td>
+               
               </tr>
-              <tr>
-                
-                <td>Satifaction employé</td>
-                <td>24/05/20224</td>
-                <td>25/05/20224</td>
-                
-              </tr>
+              ))} 
             </tbody>
           </table>
-          <div>
-         
-          </div>
+          <Pagination
+           currentPage={currentPage}
+           totalPaginationPagesEvent={totalPaginationPagesEvent}
+           setCurrentPage={setCurrentPage}
+          
+          />  
+          
           
         </div>
           
@@ -227,6 +341,8 @@ function RenderContent(name) {
       return <GestionMessage />;
     case "gestionevaluation":
       return <GestionEvaluationAdmin />;
+    case "gestionfeedback":
+      return <GestionFeedback />;
     default:
       return <KPI />;
   }

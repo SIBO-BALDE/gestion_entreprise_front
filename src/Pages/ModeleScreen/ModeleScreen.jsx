@@ -28,7 +28,7 @@ export default function ModeleScreen() {
         <Image  src={ban_about} id='ban_modele_modele_one_img' />
        </div>
        <div className='ban_modele_modele_one_text'>
-       <h1 className='text-center'>Évaluation des Équipes d'Entreprise en Ligne</h1>
+       <h1 className='text-center' >Évaluation des Équipes d'Entreprise en Ligne</h1>
        <p className='text-center'>Une solution professionnelle pour évaluer et améliorer les performances de votre équipe.</p>
        {/* <div class="loading_content_modele">
             <span></span>
@@ -46,13 +46,30 @@ export default function ModeleScreen() {
    
      {/**************************** deuxieme partie card ****************************/}
    
-     <div className=' card_modele_home_content_main_modele  mt-5 gap-4 container '>
+     <div className=' card_modele_home_content_main_modele  mt-5 gap-4 container mb-5 '>
+            <div className='pt-2 pb-2 pe-3 ps-3 card_modele_home' style={{width:'auto', height:'auto', borderTop:'3px solid #FFB703', 
+               boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius:'25px', position:'relative'}} >
+                <div><FontAwesomeIcon  icon={faUserTie} style={{fontSize:'60px', color:'#FFB703'}} /></div>
+                <div>
+                    <h6 
+                    style={{fontWeight:'bold', textAlign:'justify'}}  className='mt-3 mb-2'>
+                        <Link to={'/login'} style={{textDecoration:'none', color:'black'}}>Evaluation 360d egrés</Link>
+                    </h6>
+                    <p style={{textAlign:'justify'}}>Évaluez et améliorez l’expérience de vos
+                    collaborateurs grâce à notre modèle de
+                    sondage gratuit 
+                    sur...</p>
+                </div>
+                
+            </div>
             <div className='pt-2 pb-2 pe-3 ps-3 card_modele_home' style={{width:'auto', height:'auto', borderTop:'3px solid #FFB703', 
                boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius:'25px'}} >
                 <div><FontAwesomeIcon  icon={faHandshake} style={{fontSize:'60px', color:'#FFB703'}}  /></div>
                 <div>
-                    <h6 style={{fontWeight:'bold'}}  className='mt-3 mb-2'>Sondage sur l’engagement des employés</h6>
-                    <p>Évaluez et améliorez l’expérience de vos <br />
+                    <h6 style={{fontWeight:'bold', textAlign:'justify'}}  className='mt-3 mb-2'>
+                         <Link to={'/error'} style={{textDecoration:'none', color:'black'}}>Sondage sur l’engagement des employés</Link>
+                    </h6>
+                    <p style={{textAlign:'justify'}}>Évaluez et améliorez l’expérience de vos 
                         collaborateurs grâce à notre modèle de
                         sondage gratuit 
                         sur...</p>
@@ -62,8 +79,10 @@ export default function ModeleScreen() {
                boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius:'25px'}} >
                 <div><FontAwesomeIcon  icon={faChartLine} style={{fontSize:'60px', color:'#FFB703'}} /></div>
                 <div>
-                    <h6 style={{fontWeight:'bold'}}  className='mt-3 mb-2'>Performances des employés</h6>
-                    <p>Découvrez notre modèle de sondage sur
+                    <h6 style={{fontWeight:'bold', textAlign:'justify'}}  className='mt-3 mb-2'>
+                        <Link to={'/error'} style={{textDecoration:'none', color:'black'}}>Performances des employés</Link>
+                    </h6>
+                    <p style={{textAlign:'justify'}}>Découvrez notre modèle de sondage sur
                         les performances des employés, certifié
                         par des experts. Simples...</p>
                 </div>
@@ -72,8 +91,10 @@ export default function ModeleScreen() {
                boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius:'25px', position:'relative'}} >
                 <div><FontAwesomeIcon  icon={faUserTie} style={{fontSize:'60px', color:'#FFB703'}} /></div>
                 <div>
-                    <h6 style={{fontWeight:'bold'}}  className='mt-3 mb-2'>Sondage Employee Net Promoter Score (eNPS)</h6>
-                    <p>Recueillez du feedback sur l’expérience et 
+                    <h6 style={{fontWeight:'bold', textAlign:'justify'}}  className='mt-3 mb-2'>
+                        <Link to={'/error'} style={{textDecoration:'none', color:'black'}}>Sondage Employee Net Promoter Score (eNPS)</Link>
+                    </h6>
+                    <p style={{textAlign:'justify'}}>Recueillez du feedback sur l’expérience et 
                         la satisfaction de vos employés avec le 
                         sondage Employee...</p>
                 </div>
@@ -83,8 +104,22 @@ export default function ModeleScreen() {
                boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius:'25px', position:'relative'}} >
                 <div><FontAwesomeIcon  icon={faUserTie} style={{fontSize:'60px', color:'#FFB703'}} /></div>
                 <div>
-                    <h6 style={{fontWeight:'bold'}}  className='mt-3 mb-2'>Feedbacks post évenement</h6>
-                    <p>Decouvrer l’attente des participants pour vos prochains évenements......</p>
+                    <h6 style={{fontWeight:'bold', textAlign:'justify'}}  className='mt-3 mb-2'>
+                    <Link to={'/error'} style={{textDecoration:'none', color:'black'}}>Feedbacks post évenement</Link>
+                    </h6>
+                    <p style={{textAlign:'justify'}}>Decouvrer l’attente des participants pour vos prochains évenements......</p>
+                </div>
+                
+            </div>
+            
+            <div className='pt-2 pb-2 pe-3 ps-3 card_modele_home' style={{width:'auto', height:'auto', borderTop:'3px solid #FFB703', 
+               boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius:'25px', position:'relative'}} >
+                <div><FontAwesomeIcon  icon={faUserTie} style={{fontSize:'60px', color:'#FFB703'}} /></div>
+                <div>
+                    <h6 style={{fontWeight:'bold', textAlign:'justify'}}  className='mt-3 mb-2'>
+                    <Link to={'/error'} style={{textDecoration:'none', color:'black'}}>Modéle d’évaluation des responsables</Link>
+                    </h6>
+                    <p style={{textAlign:'justify'}}>Découvrezcomment demander à vos employés de donner des feedbacks sur leur responsable...</p>
                 </div>
                 
             </div>
@@ -92,29 +127,10 @@ export default function ModeleScreen() {
                boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius:'25px', position:'relative'}} >
                 <div><FontAwesomeIcon  icon={faUserTie} style={{fontSize:'60px', color:'#FFB703'}} /></div>
                 <div>
-                    <h6 style={{fontWeight:'bold'}}  className='mt-3 mb-2'>Evaluation 360d egrés</h6>
-                    <p>Évaluez et améliorez l’expérience de vos
-                    collaborateurs grâce à notre modèle de
-                    sondage gratuit 
-                    sur...</p>
-                </div>
-                
-            </div>
-            <div className='pt-2 pb-2 pe-3 ps-3 card_modele_home' style={{width:'auto', height:'auto', borderTop:'3px solid #FFB703', 
-               boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius:'25px', position:'relative'}} >
-                <div><FontAwesomeIcon  icon={faUserTie} style={{fontSize:'60px', color:'#FFB703'}} /></div>
-                <div>
-                    <h6 style={{fontWeight:'bold'}}  className='mt-3 mb-2'>Modéle d’évaluation des responsables</h6>
-                    <p>Découvrezcomment demander à vos employés de donner des feedbacks sur leur responsable...</p>
-                </div>
-                
-            </div>
-            <div className='pt-2 pb-2 pe-3 ps-3 card_modele_home' style={{width:'auto', height:'auto', borderTop:'3px solid #FFB703', 
-               boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius:'25px', position:'relative'}} >
-                <div><FontAwesomeIcon  icon={faUserTie} style={{fontSize:'60px', color:'#FFB703'}} /></div>
-                <div>
-                    <h6 style={{fontWeight:'bold'}}  className='mt-3 mb-2'>Modéle de sondage sur la cohésion de l’équipe</h6>
-                    <p>Avec ce modéle vous pouvez mesurer le degré de cohésion
+                    <h6 style={{fontWeight:'bold', textAlign:'justify'}}  className='mt-3 mb-2'>
+                    <Link to={'/error'} style={{textDecoration:'none', color:'black'}}>Modéle de sondage sur la cohésion de l’équipe</Link>
+                    </h6>
+                    <p style={{textAlign:'justify'}}>Avec ce modéle vous pouvez mesurer le degré de cohésion
                  de vos équipes pour plus de performance dans le travail en équipe...</p>
                 </div>
                 
@@ -123,13 +139,16 @@ export default function ModeleScreen() {
                boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius:'25px', position:'relative'}} >
                 <div><FontAwesomeIcon  icon={faUserTie} style={{fontSize:'60px', color:'#FFB703'}} /></div>
                 <div>
-                    <h6 style={{fontWeight:'bold'}}  className='mt-3 mb-2'>Modéle d’évaluation des performances collaborateur</h6>
-                    <p>Ce cercle vertueux  d’évaluation est la clés pour améliorer la culture d’entreprise l’éfficacité des équipes...</p>
+                    <h6 style={{fontWeight:'bold', textAlign:'justify'}}  className='mt-3 mb-2'>
+                    <Link to={'/error'} style={{textDecoration:'none', color:'black'}}>Modéle d’évaluation des performances collaborateur</Link>
+                    
+                    </h6>
+                    <p style={{textAlign:'justify'}}>Ce cercle vertueux  d’évaluation est la clés pour améliorer la culture d’entreprise l’éfficacité des équipes...</p>
                 </div>
                 
             </div>
             
-        </div>
+     </div>
 
 
      {/* nouveau */}
@@ -138,9 +157,9 @@ export default function ModeleScreen() {
    
      {/*************************** modele card fin ***************************/}
      {/*************************** modele card fin ***************************/}
-       <div className='mt-5'>
+       {/* <div className='mt-5'>
        <Pagination />
-       </div>
+       </div> */}
      </main>
      <footer>
         <Footer />

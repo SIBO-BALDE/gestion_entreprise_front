@@ -42,8 +42,8 @@ export default function NavbarUser() {
            <Navbar.Collapse id="navbarScroll">
           <Nav className="me-auto  my-lg-0 navbarcontent" style={{marginLeft:'350px'}}>
             <Link to={"/"} id='link_navbar_menu'  style={{fontWeight:'500px', color:'#004573', borderBottom: linkActive === '/' ? '3px solid #FFB703' : 'none'}}>Accueil</Link>
-            <Link to={"/modeles"} id='link_navbar_menu'  style={{fontWeight:'500px', color:'#004573' , marginLeft:'30px', borderBottom: linkActive === '/modeles' ? '3px solid #FFB703' : 'none'}}>Modéles</Link> 
             <Link to={"/about"} id='link_navbar_menu' style={{fontWeight:'500px', color:'#004573' , marginLeft:'30px', borderBottom: linkActive === '/about' ? '3px solid #FFB703' : 'none'}}>A propos</Link> 
+            <Link to={"/modeles"} id='link_navbar_menu'  style={{fontWeight:'500px', color:'#004573' , marginLeft:'30px', borderBottom: linkActive === '/modeles' ? '3px solid #FFB703' : 'none'}}>Modéles</Link> 
             <Link to={"/contact"} id='link_navbar_menu' style={{fontWeight:'500px', color:'#004573' , marginLeft:'30px', borderBottom: linkActive === '/contact' ? '3px solid #FFB703' : 'none'}}>Contact</Link> 
           </Nav>
 

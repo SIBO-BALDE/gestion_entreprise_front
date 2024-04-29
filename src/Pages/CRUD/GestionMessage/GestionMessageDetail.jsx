@@ -5,7 +5,7 @@ import "./GestionMessageDetail.css";
 import { Image } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarDay, faEnvelope, faHouse, faMessage } from "@fortawesome/free-solid-svg-icons";
+import { faCalendarDay, faComment, faEnvelope, faHouse, faMessage, faUser } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
 export default function  GestionMessageDetail() {
@@ -32,12 +32,12 @@ export default function  GestionMessageDetail() {
           }
         );
         console.log(response, 'response detail')
-        if (response.data.message) {
-          setMessages(response.data.message);
-          const messageDetailsData = response.data.message_details;
+        if (response.data.contacte) {
+          setMessages(response.data.contacte);
+          const messageDetailsData = response.data.contacte;
           setMessageDetails(messageDetailsData);
           console.log(
-            response.data.message_details,
+            response.data.contacte,
             "ici la reponse de detail"
           );
         } else {
@@ -79,7 +79,7 @@ export default function  GestionMessageDetail() {
                         <Link
                   to={"/dashbordAdmin"}
                   style={{
-                    color: "#D46F4D",
+                    color: "#004573",
                     textDecoration: "none",
                     fontWeight: "bold",
                     
@@ -99,22 +99,32 @@ export default function  GestionMessageDetail() {
                     align-content-center align-items-center" style={{width:'150px',
                     height:'150px',
                     borderRadius:'50%',
-                    border:'3px solid #D46F4D',}}>
+                    border:'3px solid #004573',}}>
                       
                       <FontAwesomeIcon icon={faMessage}  style={{width:'100px',
-                        height:'100px', color:'#D46F4D'}}/>
+                        height:'100px', color:'#004573'}}/>
                     </div>
                   </div>
                   <div className="col-lg-8 col-md-8 col-12">
                     <h4 className="m-t-0 m-b-0  mt-2">
-                        <span><FontAwesomeIcon icon={faEnvelope} style={{color:'#D46F4D',marginRight:'10px'}} /> </span>
-                      <strong>{messageDetails.email} </strong>
+                        <span><FontAwesomeIcon icon={faEnvelope} style={{color:'#004573',marginRight:'10px'}} /> </span>
+                      <strong>{ messageDetails && messageDetails.email} </strong>
+                    </h4>
+                    <h4 className="m-t-0 m-b-0  mt-2">
+                        <span><FontAwesomeIcon icon={faUser} style={{color:'#004573',marginRight:'10px'}} /> </span>
+                      <strong>{ messageDetails && messageDetails.nom} </strong>
                     </h4>
                     <h4 className="m-t-0 m-b-0 mt-2">
-                    <span><FontAwesomeIcon icon={faCalendarDay} style={{color:'#D46F4D',marginRight:'10px'}} /> </span>
-                      <strong>{formatDate(messageDetails.created_at)} </strong>
+                    <span><FontAwesomeIcon icon={faCalendarDay} style={{color:'#004573',marginRight:'10px'}} /> </span>
+                      <strong>{formatDate( messageDetails && messageDetails.created_at)} </strong>
                     </h4>
-                    <p className=" mt-2">{messageDetails.message} </p>
+                    <p className=" mt-2">
+                    <span style={{color:'#004573',marginRight:'10px', fontSize:'25px'}}>
+                    <FontAwesomeIcon icon={faComment} />
+                    
+                    </span>
+                   { messageDetails && messageDetails.message}
+                      </p>
                   </div>
                 </div>
               </div>

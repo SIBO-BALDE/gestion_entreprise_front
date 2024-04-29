@@ -97,7 +97,7 @@ export default function HomeScreen() {
             <div style={{marginLeft:'30px', height:'330px', width:'100%'}}>
                 <h3 style={{color:'white',fontWeight:'bold'}}>Vous aimerez faire une évaluation de vos équipes? <br />
                     <span style={{color:'#FFB703'}}>BARAKA GATE</span> est la solution</h3>
-                    <p style={{color:'white'}} className='mt-4'>BARAKA GATE offre une plateforme d'évaluation en ligne novatrice pour 
+                    <p style={{color:'white', textAlign:'justify'}} className='mt-4'>BARAKA GATE offre une plateforme d'évaluation en ligne novatrice pour 
                        les entreprises désireuses de favoriser un environnement de travail
                        collaboratif et axé sur l'amélioration continue. Grâce à son expertise 
                        dans le domaine de l'évaluation des équipes, Byfeeding propose une solution 
@@ -153,16 +153,20 @@ export default function HomeScreen() {
                         <div><h5 className='' ><strong style={{color:'#FFB703'}}>Notre vision</strong></h5></div>
                 </div>
                 <div className='mt-4' style={{borderLeft:'3px solid #FFB703', height:'240px'}}>
-                    <p className='me-3 ms-3 text-white  '>Chez <strong style={{color:'#FFFF', marginBottom:'25px'}}>
-                        <span style={{color:'#FFB703'}}>  BARAKA</span> GATE</strong><br />
-                         Notre vision est de révolutionner la <br />
-                          façon dont les entreprises évaluent <br />
-                           et développent leurs équipes. Nous <br />
-                            aspirons à devenir le leader mondial <br /> en 
-                            fournissant une plateforme en <br /> ligne 
-                            innovante et intuitive,<br /> permettant 
-                            à chaque.
-                      
+                    <p className='me-3 ms-3 text-white' 
+                        style={{textAlign:'justify'}}>Chez 
+                        <strong style={{color:'#FFFF', marginBottom:'25px'}}>
+                            <span style={{color:'#FFB703'}}>  BARAKA</span>
+                                GATE
+                         </strong><br />
+                                Notre vision est de révolutionner la <br />
+                                façon dont les entreprises évaluent <br />
+                                et développent leurs équipes. Nous <br />
+                                aspirons à devenir le leader mondial <br /> en 
+                                fournissant une plateforme en <br /> ligne 
+                                innovante et intuitive,<br /> permettant 
+                                à chaque.
+
                       </p>
                 </div>
                 </div>
@@ -280,7 +284,7 @@ export default function HomeScreen() {
                 <div><FontAwesomeIcon  icon={faHandshake} style={{fontSize:'60px', color:'#FFB703'}}  /></div>
                 <div>
                     <h6 style={{fontWeight:'bold'}}  className='mt-2 mb-2'>Sondage sur l’engagement des employés</h6>
-                    <p>Évaluez et améliorez l’expérience de vos <br />
+                    <p style={{textAlign:'justify'}}>Évaluez et améliorez l’expérience de vos 
                         collaborateurs grâce à notre modèle de
                         sondage gratuit 
                         sur...</p>
@@ -291,7 +295,7 @@ export default function HomeScreen() {
                 <div><FontAwesomeIcon  icon={faChartLine} style={{fontSize:'60px', color:'#FFB703'}} /></div>
                 <div>
                     <h6 style={{fontWeight:'bold'}}  className='mt-2 mb-2'>Performances des employés</h6>
-                    <p>Découvrez notre modèle de sondage sur
+                    <p style={{textAlign:'justify'}}>Découvrez notre modèle de sondage sur
                         les performances des employés, certifié
                         par des experts. Simples...</p>
                 </div>
@@ -301,7 +305,7 @@ export default function HomeScreen() {
                 <div><FontAwesomeIcon  icon={faUserTie} style={{fontSize:'60px', color:'#FFB703'}} /></div>
                 <div>
                     <h6 style={{fontWeight:'bold'}}  className='mt-2 mb-2'>Sondage Employee Net Promoter Score (eNPS)</h6>
-                    <p>Recueillez du feedback sur l’expérience et 
+                    <p style={{textAlign:'justify'}}>Recueillez du feedback sur l’expérience et 
                         la satisfaction de vos employés avec le 
                         sondage Employee...</p>
                 </div>
@@ -335,8 +339,8 @@ export default function HomeScreen() {
                      <li>
                         <div className="timeline_content" id='content1' data-aos="fade-right">
                            {/* <span>2008</span> */}
-                           <h4> Accédez à des centaines de questions préparées par des experts</h4>
-                           <p>En quelques secondes, vous pouvez créer un sondage à partir d’un modèle avec des centaines de questions rédigées par des experts. Posez les bonnes questions, minimisez le risque de biais et obtenez rapidement les informations dont vous avez besoin.</p>
+                           <h4 style={{textAlign:'justify'}}> Accédez à des centaines de questions préparées par des experts</h4>
+                           <p style={{textAlign:'justify'}}>En quelques secondes, vous pouvez créer un sondage à partir d’un modèle avec des centaines de questions rédigées par des experts. Posez les bonnes questions, minimisez le risque de biais et obtenez rapidement les informations dont vous avez besoin.</p>
                         </div>
                      </li>
                      {/* <!-- Single Experience --> */}
@@ -355,15 +359,15 @@ export default function HomeScreen() {
                      <li>
                         <div className="timeline_content" id='timeline_content' data-aos="fade-left">
                         
-                           <h4>Collectez du feedback de différentes manières</h4>
-                           <p>Analysez les attentes de vos clients en recueillant leurs avis via des liens Web, par des sondages ou des formulaires envoyés par email ou incorporés à votre site Web. Nous proposons aussi un panel mondial d’audience pour vous aider à collecter des insights Marché.</p>
+                           <h4 style={{textAlign:'justify'}}>Collectez du feedback de différentes manières</h4>
+                           <p style={{textAlign:'justify'}}>Analysez les attentes de vos clients en recueillant leurs avis via des liens Web, par des sondages ou des formulaires envoyés par email ou incorporés à votre site Web. Nous proposons aussi un panel mondial d’audience pour vous aider à collecter des insights Marché.</p>
                         </div>
                      </li>
                      <li>
                         <div className="timeline_content"  id='content1'data-aos="fade-right" >
                         
-                           <h4>Découvrez rapidement des informations exploitables</h4>
-                           <p>Analysez un grand nombre de réponses grâce à des rapports intégrés ou des tableaux de bord avancés, que vous pouvez facilement personnaliser et partager avec votre équipe. Vous pouvez aussi exporter vos données dans votre logiciel préféré pour les étudier plus en détail.</p>
+                           <h4 style={{textAlign:'justify'}}>Découvrez rapidement des informations exploitables</h4>
+                           <p style={{textAlign:'justify'}}>Analysez un grand nombre de réponses grâce à des rapports intégrés ou des tableaux de bord avancés, que vous pouvez facilement personnaliser et partager avec votre équipe. Vous pouvez aussi exporter vos données dans votre logiciel préféré pour les étudier plus en détail.</p>
                         </div>
                      </li>
                   </ul>
@@ -432,7 +436,7 @@ export default function HomeScreen() {
                     <Image src={baraka14} className='cardtemoinhome1img' />
                 </div>
                 <div className='cardtemoinhome2'>
-                            <h6 className='text-center title-temoinhome text-light'>Jolin CADETe</h6>
+                            <h6 className='text-center title-temoinhome text-light'>Jolin CADET</h6>
                             <p className='text-center text-light paratextcontenthome'>Mister Smart</p>
                             <div className='d-flex justify-content-center pb-5'>
                                 <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>

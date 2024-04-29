@@ -28,7 +28,7 @@ function App() {
       <Route  element={<ProtectedRoutes />}>
       <Route path="dashbordAdmin" element={<DashbordAdmin />}></Route>
       <Route path="dashbordUser" element={<DashboardUser />}></Route>
-      <Route path="/gestionmessagedetail/:id" component={GestionMessageDetail} />
+      <Route path="/messagedetail/:id" element={<GestionMessageDetail />} />
 
 
       </Route>

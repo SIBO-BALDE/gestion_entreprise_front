@@ -20,7 +20,7 @@ import { useNavigate } from 'react-router-dom';
 const links = [
     {
       path: "dashbordAdmin",
-      text: "Dashboard",
+      text: "Dashboard Admin",
       icon: faGauge,
     },
     {
@@ -31,6 +31,11 @@ const links = [
     {
       path: "gestionevaluation",
       text: "Gestion Evaluations",
+      icon: faUser,
+    },
+    {
+      path: "gestionfeedback",
+      text: "Gestion Feedbacks",
       icon: faUser,
     },
     {

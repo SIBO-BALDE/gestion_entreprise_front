@@ -11,6 +11,7 @@ import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useAuth } from  '../../Auth/AuthContex'
+import Pagination from "../../../Components/User_Components/Pagination/Pagination";
 // import Pagination from "../../Components/Pagination/Pagination";
 
 export default function GestionEntreprise() {
@@ -23,24 +24,6 @@ export default function GestionEntreprise() {
 
  
 
-  // recherche champ input
-  // const [searchValue, setSearchValue] = useState("");
-
-  // etat pour ajout entreprise
-  // const [entrepriseData, setEntrepriseData] = useState({
-  //   titre: "",
-  //   description: "",
-  // });
-
-  //  etat pour modifier entreprise
-  // const [editentrepriseData, setEditentrepriseData] = useState({
-  //   id: null,
-  //   titre: "",
-  //   description: "",
-  // });
-
-  // tableau ou stocker la liste des entreprises
- 
   const [entreprises, setEntreprises] = useState([]);
   // etat pour ajout entreprise
   const [entrepriseData, setEntrepriseData] = useState({ 
@@ -212,10 +195,22 @@ export default function GestionEntreprise() {
   
           setEntreprises(updatedEntreprises);
           Swal.fire({
-            icon: "success",
-            title: "Succès!",
-            text: "Entreprise supprimée avec succès!",
-          });
+            title: 'Êtes-vous sûr?',
+            text: "De vouloir supprimer cette entreprise?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#004573',
+            cancelButtonColor: '#f00020',
+            confirmButtonText: "Oui, j'accepte!",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Succès!",
+                    text: "entreprise supprimer avec succès!",
+                });
+            }
+        });
         } else {
           console.error("Erreur lors de la suppression de la catégorie");
         }
@@ -223,127 +218,37 @@ export default function GestionEntreprise() {
     } catch (error) {}
   };
 
-  // recherche
-  // const handleSearchChange = (event) => {
-  //   setSearchValue(event.target.value);
-  // };
+   
+//  pour le champ recherche
+const [searchValue, setSearchValue] = useState("");
 
-  // const filteredentreprises = entreprises.filter(
-  //   (entreprise) =>
-  //     entreprise &&
-  //     entreprise.titre &&
-  //     entreprise.titre.toLowerCase().includes(searchValue.toLowerCase())
-  // );
-  // const displayentreprises =
-  //   searchValue === "" ? entreprises : filteredentreprises;
+// function la recherche
+const handleSearchChange = (nom) => {
+  setSearchValue(nom.target.value);
+};
 
-  // pour la pagination
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const entreprisesParPage = 4;
+// faire le filtre des maison par addrsse
+const filteredEntreprise = entreprises.filter(
+  (entreprise) =>
+    entreprise &&
+    entreprise.nom &&
+    entreprise.nom.toLowerCase().includes(searchValue.toLowerCase())
+);
+const displayEntreprise= searchValue === "" ? entreprises : filteredEntreprise;
 
-  // pagination
-  // const indexOfLastentreprise = currentPage * entreprisesParPage;
-  // const indexOfFirstentreprise = indexOfLastentreprise - entreprisesParPage;
-  // const currententreprises = filteredentreprises.slice(
-  //   indexOfFirstentreprise,
-  //   indexOfLastentreprise
-  // );
 
-  // const totalPaginationPages = Math.ceil(entreprises.length / entreprisesParPage);
+  const [currentPage, setCurrentPage] = useState(1);
+const  entrepriseParPage= 3;
 
-  // etat pour faire la validation des champs
-  // const [errors, setErrors] = useState({
-  //   titre: "",
-  //   description: "",
-  // });
+// pagination
+const indexOfLastEntreprise = currentPage* entrepriseParPage;
+const indexOfFirstEntreprise = indexOfLastEntreprise -  entrepriseParPage;
+const currentEntreprises = filteredEntreprise.slice(
+  indexOfFirstEntreprise,
+  indexOfLastEntreprise
+);
 
-  // const [successeds, setSuccesseds] = useState({
-  //   titre: "",
-  //   description: "",
-  // });
-
-  // const [validationStatus, setValidationStatus] = useState(false);
-
-  // funtion pour verifier si les champs sont valides ou pas
-  // const validateField = (name, value) => {
-  //   // Ajoutez vos conditions de validation pour chaque champ
-  //   let errorMessage = "";
-  //   let successMessage = "";
-
-  //   if (name === "titre") {
-  //     if (!value.trim()) {
-  //       errorMessage = "Le titre ne peut pas être vide";
-  //     } else if (value.trim().length < 2) {
-  //       errorMessage = "Le titre doit contenir au moins deux lettres";
-  //     } else {
-  //       successMessage = "L'adresse est valide";
-  //     }
-  //   }
-    // Mettez à jour le state en utilisant le nom du champ actuel
-  //   setErrors((prevErrors) => ({
-  //     ...prevErrors,
-  //     [name]: errorMessage,
-  //   }));
-  //   setSuccesseds((prevSuccess) => ({
-  //     ...prevSuccess,
-  //     [name]: successMessage,
-  //   }));
-
-  //   const isValid = Object.values(errors).every((error) => !error);
-  //   setValidationStatus(isValid);
-  // };
-
-  // femer annuler la modificacion
-  // const handleCancleEdit = () => {
-  //   Swal.fire({
-  //     title: "Vous etes sur?",
-  //     text: "De vouloir annuler!",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#004573",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonText: "Oui, je veux annuler!",
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       Swal.fire({
-  //         title: "Annulé!",
-  //         text: "Votre requete a été annulée avec succée.",
-  //         icon: "success",
-  //       });
-  //     }
-  //   });
-  //   handleCloseEditEntreprises();
-  //   setErrors({});
-  //   setSuccesseds({});
-  //   setValidationStatus(false);
-  // };
-  // annuler l'ajout
-  // const handleCancleAdd = () => {
-  //   Swal.fire({
-  //     title: "Vous etes sur?",
-  //     text: "De vouloir annuler!",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#004573",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonText: "Oui, je veux annuler!",
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       Swal.fire({
-  //         title: "Annulé!",
-  //         text: "Votre requete a été annulée avec succée.",
-  //         icon: "success",
-  //       });
-  //     }
-  //   });
-  //   handleCloseEntreprises();
-  //   setErrors({});
-  //   setSuccesseds({});
-  //   setValidationStatus(false);
-  // };
-
-  
- 
+const totalPaginationPages = Math.ceil(entreprises.length /  entrepriseParPage);
   
 
   return (
@@ -370,11 +275,11 @@ export default function GestionEntreprise() {
                 <Form.Control
                   type="search"
                   className="form-control w-50   "
-                  placeholder="Rechercher une catégorie"
+                  placeholder="Rechercher une entreprise"
                   aria-label="user"
                   aria-describedby="addon-wrapping"
-                  // value={searchValue}
-                  // onChange={handleSearchChange}
+                  value={searchValue}
+                  onChange={handleSearchChange}
                 />
                 <span
                   className="input-group-text text-white me-4"
@@ -415,7 +320,7 @@ export default function GestionEntreprise() {
           </thead>
           <tbody>
             {/* {currententreprises.map((entreprise) => ( key={entreprise.id} {entreprise.titre}{entreprise.description}*/}
-            { entreprises && entreprises.map((entreprise) => ( 
+            {currentEntreprises && currentEntreprises.map((entreprise) => ( 
               <tr key={entreprise && entreprise.id} >
                 <td style={{ color: "black" }} >{entreprise && entreprise.nom}</td>
                 <td className="d-flex justify-content-evenly">
@@ -447,11 +352,11 @@ export default function GestionEntreprise() {
             ))} 
           </tbody>
         </table>
-        {/* <Pagination
+        <Pagination
           currentPage={currentPage}
           totalPaginationPages={totalPaginationPages}
           setCurrentPage={setCurrentPage}
-        /> */}
+        />
       </div>
 
       {/* modal debut  ajouter entreprise*/}

@@ -15,6 +15,7 @@ import { emailPattern } from "../../Regex/Regex";
 
 import Swal from "sweetalert2";
 import axios from "axios";
+import Pagination from "../../../Components/User_Components/Pagination/Pagination";
 
 
 
@@ -94,7 +95,7 @@ export default function GestionUser({ id }) {
       try {
         if (token || role === "Admin") {
           const response = await axios.get(
-            "http://localhost:8000/api/users_participants",
+            "http://localhost:8000/api/participants",
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -113,28 +114,7 @@ export default function GestionUser({ id }) {
       fetchUsers();
     }, []);
 
-  // const [newFile, setNewFile] = useState("");
-
-  //  state pour liste les categorie
-  // const [categories, setCategories] = useState([]);
-
-  //  pour le champ recherche
-  // const [searchValue, setSearchValue] = useState("");
-
-  // function la recherche
-  // const handleSearchChange = (event) => {
-  //   setSearchValue(event.target.value);
-  // };
-
-  // faire le filtre des maison par addrsse
-  // const filteredUsers = maisons.filter(
-  //   (maison) =>
-  //     maison &&
-  //     maison.addresse &&
-  //     maison.addresse.toLowerCase().includes(searchValue.toLowerCase())
-  // );
-  // const displayMaisons = searchValue === "" ? maisons : filteredMaisons;
-
+  
   // etat pour ajout maison
   const [userData, setUserData] = useState({
     nom: "",
@@ -252,31 +232,7 @@ export default function GestionUser({ id }) {
     
   
   };
-  
-  // annuler l'ajout
-  // const handleCancleAdd = () => {
-  //   Swal.fire({
-  //     title: "Vous etes sur?",
-  //     text: "De vouloir annuler!",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#004573",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonText: "Oui, je veux annuler!",
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       Swal.fire({
-  //         title: "Annulé!",
-  //         text: "Votre requete a été annulée avec succée.",
-  //         icon: "success",
-  //       });
-  //     }
-  //   });
-  //   handleCloseEdit();
-  //   setErrors({});
-  //   setSuccesseds({});
-  //   setValidationStatus(false);
-  // };
+ 
 
   
  
@@ -322,7 +278,7 @@ export default function GestionUser({ id }) {
               const dataEv = response.data.participants
               const updatedUsers = users.map((user) =>
               
-                user.id === editUserData.id ? dataEv : user
+                user.id === editUserData.id ? response.data.participants : user
               );
               // console.log('updatedMaisons:', updatedMaisons);
   
@@ -349,30 +305,6 @@ export default function GestionUser({ id }) {
     
   
 
-  // femer annuler la modificacion
-  // const handleCancleEdit = () => {
-  //   Swal.fire({
-  //     title: "Vous etes sur?",
-  //     text: "De vouloir annuler!",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#004573",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonText: "Oui, je veux annuler!",
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       Swal.fire({
-  //         title: "Annulé!",
-  //         text: "Votre requete a été annulée avec succée.",
-  //         icon: "success",
-  //       });
-  //     }
-  //   });
-  //   handleCloseEditMaisons();
-  //   setErrors({});
-  //   setSuccesseds({});
-  //   setValidationStatus(false);
-  // };
 
   const supprimerUser = async (id) => {
     const token = localStorage.getItem('tokencle');
@@ -413,6 +345,7 @@ export default function GestionUser({ id }) {
                         });
                     }
                 });
+                fetchUsers();
             } else {
                 console.error("Erreur lors de la suppression de l'utilisateur");
             }
@@ -424,19 +357,36 @@ export default function GestionUser({ id }) {
 
 
 
-  // pour la pagination
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const maisonsParPage = 4;
-  // pagination
-  // const indexOfLastMaison = currentPage * maisonsParPage;
-  // const indexOfFirstMaison = indexOfLastMaison - maisonsParPage;
-  // const currentMaisons = filteredMaisons.slice(
-  //   indexOfFirstMaison,
-  //   indexOfLastMaison
-  // );
+ //  pour le champ recherche
+ const [searchValueUser, setSearchValueUser] = useState("");
 
-  // const totalPaginationPages = Math.ceil(maisons.length / maisonsParPage);
+ // function la recherche
+ const handleSearchChange = (event) => {
+   setSearchValueUser(event.target.value);
+ };
 
+ // faire le filtre des maison par addrsse
+ const filteredUsers = users.filter(
+   (user) =>
+     user &&
+     user.nom &&
+     user.nom.toLowerCase().includes(searchValueUser.toLowerCase())
+ );
+ const displayUsers = searchValueUser === "" ? users : filteredUsers;
+
+
+   const [currentPage1, setCurrentPage1] = useState(1);
+ const usersParPage= 3;
+
+ // pagination
+ const indexOfLastUser = currentPage1* usersParPage;
+ const indexOfFirstUser = indexOfLastUser - usersParPage;
+ const currentUsers = filteredUsers.slice(
+   indexOfFirstUser,
+   indexOfLastUser
+ );
+
+ const totalPaginationPagesUser = Math.ceil(users.length / usersParPage);
 
 
   
@@ -468,8 +418,8 @@ export default function GestionUser({ id }) {
                   placeholder="Rechercher un utilisateur"
                   aria-label="user"
                   aria-describedby="addon-wrapping"
-                  // value={searchValue}
-                  // onChange={handleSearchChange}
+                  value={searchValueUser}
+                  onChange={handleSearchChange}
                 />
                 <span
                   className="input-group-text text-white me-4"
@@ -521,17 +471,16 @@ export default function GestionUser({ id }) {
             </tr>
           </thead>
           <tbody>
-            {/* {currentMaisons &&
-              currentMaisons.map((maison) => {  key={maison.id} {maison.image && (*/}
+            
 
-                {users && users.map((user) => (
-                    <tr key={user && user.id}>
-                        <td>{user ? user.nom : ''}</td>
-                        <td>{user ? user.prenom : ''}</td>
-                        <td>{user ? user.email : ''}</td>
-                        <td>{user && user.categorie ? user.categorie.nom : ''}</td>
-                        <td>{user && user.entreprise ? user.entreprise.nom : ''}</td>
-                    {/* <td>7758966</td> */}
+          { currentUsers &&
+              currentUsers.map((user) => ( 
+              <tr key={user && user.id} >
+                <td>{user &&  user.nom}</td>
+                <td>{user &&  user.prenom}</td>
+                <td>{user &&  user.email}</td>
+                <td>{user &&  user.categorie.nom}</td>
+                <td>{user &&  user.entreprise.nom}</td>
 
                     <td className=" d-flex justify-content-evenly">
                       <Button
@@ -566,11 +515,11 @@ export default function GestionUser({ id }) {
             
           </tbody>
         </table>
-        {/* <Pagination
-          currentPage={currentPage}
-          totalPaginationPages={totalPaginationPages}
-          setCurrentPage={setCurrentPage}
-        /> */}
+        <Pagination
+          currentPage={currentPage1}
+          totalPaginationPages={totalPaginationPagesUser}
+          setCurrentPage={setCurrentPage1}
+          />  
       </div>
 
       {/* modal debut  ajouter participant*/}
@@ -581,7 +530,7 @@ export default function GestionUser({ id }) {
           </Modal.Header>
           <Modal.Body>
             <Form>
-              <div className="d-flex justify-content-around ">
+              <div className="d-flex justify-content-around " style={{gap:'10px'}}>
                 <Form.Group
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
@@ -598,6 +547,7 @@ export default function GestionUser({ id }) {
                     }}
                     type="text"
                     placeholder=""
+                    
                   />
                  
                 </Form.Group>
@@ -622,7 +572,7 @@ export default function GestionUser({ id }) {
                 </Form.Group>
                 
               </div>
-              <div className="d-flex justify-content-around ">
+              <div className="d-flex justify-content-around" style={{gap:'10px'}}>
               <Form.Group
                   className="mb-3"
                   controlId="exampleForm.ControlInput3"
@@ -765,7 +715,7 @@ export default function GestionUser({ id }) {
         <Modal.Body>
           {editUserData && editUserData.nom && (
             <Form>
-              <div className="d-flex justify-content-around ">
+              <div className="d-flex justify-content-around " style={{gap:'10px'}}>
                 <Form.Group
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
@@ -805,7 +755,7 @@ export default function GestionUser({ id }) {
                   
                 </Form.Group>
               </div>
-              <div className="d-flex justify-content-around">
+              <div className="d-flex justify-content-around" style={{gap:'10px'}}>
                 <Form.Group
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
@@ -880,7 +830,7 @@ export default function GestionUser({ id }) {
                       })}
                   </Form.Select>
                   
-                </Form.Group>
+              </Form.Group>
             </Form>
           )}
         </Modal.Body>

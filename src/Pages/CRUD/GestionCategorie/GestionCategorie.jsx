@@ -10,6 +10,7 @@ import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { useAuth } from  '../../Auth/AuthContex'
+import Pagination from "../../../Components/User_Components/Pagination/Pagination";
 // import Pagination from "../../Components/Pagination/Pagination";
 
 export default function GestionCategorie() {
@@ -22,23 +23,7 @@ export default function GestionCategorie() {
 
  
 
-  // recherche champ input
-  // const [searchValue, setSearchValue] = useState("");
-
-  // etat pour ajout categorie
-  // const [categoryData, setCategoryData] = useState({
-  //   titre: "",
-  //   description: "",
-  // });
-
-  //  etat pour modifier categorie
-  // const [editCategoryData, setEditCategoryData] = useState({
-  //   id: null,
-  //   titre: "",
-  //   description: "",
-  // });
-
-  // tableau ou stocker la liste des categories
+  
  
   const [categories, setCategories] = useState([]);
   // etat pour ajout categorie
@@ -191,7 +176,7 @@ export default function GestionCategorie() {
   const supprimerCategory = async (id) => {
     const role = localStorage.getItem("rolecle");
     const token = localStorage.getItem("tokencle");
-    alert('oaky1')
+    
     try {
       if (token || role === "Admin"){
         const response = await axios.delete(
@@ -203,7 +188,7 @@ export default function GestionCategorie() {
             },
           }
         );
-        alert('okay2')
+        
         if (response.status === 200) {
           // Filtrez la liste des catégories pour exclure celle qui vient d'être supprimée
           const updatedCategories = categories.filter(
@@ -235,125 +220,36 @@ export default function GestionCategorie() {
     } catch (error) {}
   };
 
-  // recherche
-  // const handleSearchChange = (event) => {
-  //   setSearchValue(event.target.value);
-  // };
+  //  pour le champ recherche
+const [searchValue, setSearchValue] = useState("");
 
-  // const filteredCategories = categories.filter(
-  //   (categorie) =>
-  //     categorie &&
-  //     categorie.titre &&
-  //     categorie.titre.toLowerCase().includes(searchValue.toLowerCase())
-  // );
-  // const displayCategories =
-  //   searchValue === "" ? categories : filteredCategories;
+// function la recherche
+const handleSearchChange = (nom) => {
+  setSearchValue(nom.target.value);
+};
 
-  // pour la pagination
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const categoriesParPage = 4;
+// faire le filtre des maison par addrsse
+const filteredCategorie = categories.filter(
+  (categorie) =>
+    categorie &&
+    categorie.nom &&
+    categorie.nom.toLowerCase().includes(searchValue.toLowerCase())
+);
+const displayCategories= searchValue === "" ? categories : filteredCategorie;
 
-  // pagination
-  // const indexOfLastCategorie = currentPage * categoriesParPage;
-  // const indexOfFirstCategorie = indexOfLastCategorie - categoriesParPage;
-  // const currentCategories = filteredCategories.slice(
-  //   indexOfFirstCategorie,
-  //   indexOfLastCategorie
-  // );
 
-  // const totalPaginationPages = Math.ceil(categories.length / categoriesParPage);
+  const [currentPage, setCurrentPage] = useState(1);
+const  categorieParPage= 3;
 
-  // etat pour faire la validation des champs
-  // const [errors, setErrors] = useState({
-  //   titre: "",
-  //   description: "",
-  // });
+// pagination
+const indexOfLastCategorie = currentPage* categorieParPage;
+const indexOfFirstCategorie = indexOfLastCategorie -  categorieParPage;
+const currentCategories = filteredCategorie.slice(
+  indexOfFirstCategorie,
+  indexOfLastCategorie
+);
 
-  // const [successeds, setSuccesseds] = useState({
-  //   titre: "",
-  //   description: "",
-  // });
-
-  // const [validationStatus, setValidationStatus] = useState(false);
-
-  // funtion pour verifier si les champs sont valides ou pas
-  // const validateField = (name, value) => {
-  //   // Ajoutez vos conditions de validation pour chaque champ
-  //   let errorMessage = "";
-  //   let successMessage = "";
-
-  //   if (name === "titre") {
-  //     if (!value.trim()) {
-  //       errorMessage = "Le titre ne peut pas être vide";
-  //     } else if (value.trim().length < 2) {
-  //       errorMessage = "Le titre doit contenir au moins deux lettres";
-  //     } else {
-  //       successMessage = "L'adresse est valide";
-  //     }
-  //   }
-    // Mettez à jour le state en utilisant le nom du champ actuel
-  //   setErrors((prevErrors) => ({
-  //     ...prevErrors,
-  //     [name]: errorMessage,
-  //   }));
-  //   setSuccesseds((prevSuccess) => ({
-  //     ...prevSuccess,
-  //     [name]: successMessage,
-  //   }));
-
-  //   const isValid = Object.values(errors).every((error) => !error);
-  //   setValidationStatus(isValid);
-  // };
-
-  // femer annuler la modificacion
-  // const handleCancleEdit = () => {
-  //   Swal.fire({
-  //     title: "Vous etes sur?",
-  //     text: "De vouloir annuler!",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#004573",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonText: "Oui, je veux annuler!",
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       Swal.fire({
-  //         title: "Annulé!",
-  //         text: "Votre requete a été annulée avec succée.",
-  //         icon: "success",
-  //       });
-  //     }
-  //   });
-  //   handleCloseEditCategories();
-  //   setErrors({});
-  //   setSuccesseds({});
-  //   setValidationStatus(false);
-  // };
-  // annuler l'ajout
-  // const handleCancleAdd = () => {
-  //   Swal.fire({
-  //     title: "Vous etes sur?",
-  //     text: "De vouloir annuler!",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#004573",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonText: "Oui, je veux annuler!",
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       Swal.fire({
-  //         title: "Annulé!",
-  //         text: "Votre requete a été annulée avec succée.",
-  //         icon: "success",
-  //       });
-  //     }
-  //   });
-  //   handleCloseCategories();
-  //   setErrors({});
-  //   setSuccesseds({});
-  //   setValidationStatus(false);
-  // };
-
+const totalPaginationPages = Math.ceil(categories.length /  categorieParPage);
   
  
   
@@ -385,8 +281,8 @@ export default function GestionCategorie() {
                   placeholder="Rechercher une catégorie"
                   aria-label="user"
                   aria-describedby="addon-wrapping"
-                  // value={searchValue}
-                  // onChange={handleSearchChange}
+                  value={searchValue}
+                  onChange={handleSearchChange}
                 />
                 <span
                   className="input-group-text text-white me-4"
@@ -427,7 +323,7 @@ export default function GestionCategorie() {
           </thead>
           <tbody>
             {/* {currentCategories.map((categorie) => ( key={categorie.id} {categorie.titre}{categorie.description}*/}
-            { categories && categories.map((categorie) => ( 
+            {currentCategories && currentCategories.map((categorie) => ( 
               <tr key={categorie && categorie.id} >
                 <td style={{ color: "black" }} >{categorie && categorie.nom}</td>
                 <td className="d-flex justify-content-evenly">
@@ -459,11 +355,11 @@ export default function GestionCategorie() {
             ))} 
           </tbody>
         </table>
-        {/* <Pagination
+        <Pagination
           currentPage={currentPage}
           totalPaginationPages={totalPaginationPages}
           setCurrentPage={setCurrentPage}
-        /> */}
+        />
       </div>
 
       {/* modal debut  ajouter categorie*/}

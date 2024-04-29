@@ -11,6 +11,7 @@ import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Pagination from "../../../Components/User_Components/Pagination/Pagination";
 
 
 
@@ -72,16 +73,62 @@ export default function GestionMessage({ id }) {
   
           setMessages(updatedCategories);
           Swal.fire({
-            icon: "success",
-            title: "Succès!",
-            text: "message supprimée avec succès!",
-          });
+            title: 'Êtes-vous sûr?',
+            text: "De vouloir supprimer ce message?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#004573',
+            cancelButtonColor: '#f00020',
+            confirmButtonText: "Oui, j'accepte!",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Succès!",
+                    text: "message supprimer avec succès!",
+                });
+            }
+        });
         } else {
           console.error("Erreur lors de la suppression de la catégorie");
         }
       }
     } catch (error) {}
   };
+
+
+       //  pour le champ recherche
+       const [searchValue, setSearchValue] = useState("");
+  // function la recherche
+const handleSearchChange = (nom) => {
+  setSearchValue(nom.target.value);
+};
+
+// faire le filtre des maison par addrsse
+const filteredMessage = messages.filter(
+  (messageel) =>
+    messageel &&
+    messageel.created_at &&
+    messageel.created_at.toLowerCase().includes(searchValue.toLowerCase())
+);
+const displayMessages= searchValue === "" ? messages : filteredMessage;
+
+
+  const [currentPage, setCurrentPage] = useState(1);
+const  messageParPage= 3;
+
+// pagination
+const indexOfLastMessage = currentPage* messageParPage;
+const indexOfFirstMessage = indexOfLastMessage -  messageParPage;
+const currentMessages = filteredMessage.slice(
+  indexOfFirstMessage,
+  indexOfLastMessage
+);
+
+const totalPaginationPages = Math.ceil(messages.length /  messageParPage);
+  
+ 
+  
 
  
 
@@ -90,15 +137,7 @@ export default function GestionMessage({ id }) {
     <div className="container">
       <div className="d-flex justify-content-between mt-5">
         <div>
-          {/* <Button
-            variant="primary"
-            onClick={handleShowEdit}
-            className="ms-4"
-            style={{ backgroundColor: "#004573", border: "none" }}
-            id="buttonAjouter"
-          >
-            Ajouter un évenement
-          </Button> */}
+         
         </div>
         <div className="flex-grow-1 d-flex justify-content-end ">
           <div className="champsRecherche mt-2 mb-3 w-50">
@@ -113,8 +152,8 @@ export default function GestionMessage({ id }) {
                   placeholder="Rechercher une message"
                   aria-label="user"
                   aria-describedby="addon-wrapping"
-                  // value={searchValue}
-                  // onChange={handleSearchChange}
+                  value={searchValue}
+                  onChange={handleSearchChange}
                 />
                 <span
                   className="input-group-text text-white me-4"
@@ -142,15 +181,13 @@ export default function GestionMessage({ id }) {
             </tr>
           </thead>
           <tbody>
-            {/* {currentMaisons &&
-              currentMaisons.map((maison) => {  key={maison.id} {maison.image && (*/}
-              {messages.map((messageel) => (
+           
+              {currentMessages.map((messageel) => (
               <tr key={messageel.id}>
                 <td>{messageel.nom}</td>
                 <td>{messageel.email}</td>
                 <td className="d-flex justify-content-evenly">
                   <Button
-                  // onClick={supprimerMessage}
                   onClick={() => supprimerMessage(messageel.id)}
                     style={{
                       backgroundColor: "#fff",
@@ -169,8 +206,7 @@ export default function GestionMessage({ id }) {
                   >
                     <Link
                       style={{ color: "#004573" }}
-                      to={`/gestionmessagedetail/${messageel.id || ''}`}
-                    >
+                      to={`/messagedetail/${messageel.id || ''}`}>
                       <FontAwesomeIcon icon={faEye} />
                     </Link>
                   </Button>
@@ -180,11 +216,11 @@ export default function GestionMessage({ id }) {
 
           </tbody>
         </table>
-        {/* <Pagination
+        <Pagination
           currentPage={currentPage}
           totalPaginationPages={totalPaginationPages}
           setCurrentPage={setCurrentPage}
-        /> */}
+        />
       </div>
 
   

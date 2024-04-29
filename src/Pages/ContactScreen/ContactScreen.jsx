@@ -189,12 +189,11 @@ export default function ContactScreen() {
                  value={messageData.message}
                  onChange={(e) =>{
                   setMessageData({...messageData, message: e.target.value})
-                  // validateField("email", e.target.value);
+                 
                 }}
                 
                 />
-                {/* <p style={{ color: "red" }}>{errors.message}</p>
-                <p style={{ color: "green" }}>{successeds.message}</p> */}
+                
                 </Form.Group>
                 <Button className='w-100 btn_contact_submit' onClick={ajouterMessage}>Soumettre</Button>
             </Form>
