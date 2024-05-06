@@ -7,7 +7,7 @@ import ben from '../../Images/Ben.png';
 import image1 from '../../Images/image 1.png'
 import image2 from '../../Images/image 2.png';
 import image3 from '../../Images/image 3.png';
-import ban_about from '../../Images/ban_rediment.jpeg';
+import ban_about from '../../Images/ap_ban3.jpg';
 import { Button, Image } from 'react-bootstrap';
 import Underline from '../../Components/User_Components/Underline/Underline';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -76,7 +76,7 @@ export default function AboutScreen() {
       <div className='bann_about_aboutscreen mt-5'>
         <div className='ban_left_content_about'>
         <h3 className='ms-5' style={{marginTop:'50px', color:'#FFB703'}}>On vous explique   comment sa marche</h3>
-                <p className='ms-5 text-white '>BARAKA GATE vous propose de répondre 
+                <p className='ms-5 text-white me-3' style={{textAlign:'justify'}}>BARAKA GATE vous propose de répondre 
                     au besoin croissant d'accompagnement 
                     et de soutien pour les entreprise. 
                     La plateforme souhaite démocratiser
@@ -88,15 +88,15 @@ export default function AboutScreen() {
                      <div>
                         <div className='d-flex ms-5 '>
                             <div><ButtonDeco backgroundColor='#fff' /></div>
-                            <div><p style={{color:'#ffb703'}}> Organisation d’une session d’évaluation</p></div>
+                            <div><p style={{color:'#ffb703', textAlign:'justify'}}> Organisation d’une session d’évaluation</p></div>
                         </div>
                         <div className='d-flex ms-5'>
                             <div><ButtonDeco backgroundColor='#fff' /></div>
-                            <div><p style={{color:'#ffb703'}}> Des ressources en ligne gratuits</p></div>
+                            <div><p style={{color:'#ffb703',textAlign:'justify'}}> Des ressources en ligne gratuits</p></div>
                         </div>
                         <div className='d-flex ms-5'>
                             <div><ButtonDeco backgroundColor='#fff' /></div>
-                            <div><p style={{color:'#ffb703'}}> Des ressources en ligne gratuits</p></div>
+                            <div><p style={{color:'#ffb703', textAlign:'justify'}}> Des ressources en ligne gratuits</p></div>
                         </div>
                      </div>
         </div>
@@ -120,7 +120,7 @@ export default function AboutScreen() {
       <section className='mt-5'>
         <Underline text='Nos objectifs' />
         <div className='objectif_content_flex'>
-          <div>
+          <div >
             <div className='top_content_first_objectif'>
               <FontAwesomeIcon icon={faBriefcase} />
             </div>
@@ -141,21 +141,21 @@ export default function AboutScreen() {
             <FontAwesomeIcon icon={faHandshake} />
             </div>
           </div>
-          <div>
+          <div >
             <div className="text-container">
                 <h1 style={{color:'#004573', marginBottom:'30px'}} className='text_design_header'>4 BONNES RAISON DE NOUS <br />
                 FAIRE CONFIANCE</h1>
             </div>
-            <div>
+            <div style={{marginRight:'190px'}}>
                 <div className='d-flex'>
                     <div className='content_numero_object me-2'>
                        <h4 className='mt-2 fw-extrabold  content_numero_object1'> 1</h4>
                     </div>
                     <div>
-                        <p>Notre mission est de fournir aux entreprises du monde entier <br />
-                           les outils et lesressources nécessairespour optimiser la <br />
-                            performance de leurs équipes.Nous nous engageons à offrir <br />
-                             une plateforme en ligne conviviale et innovante qui permet <br />
+                        <p  style={{textAlign:'justify', textAlign:'justify'}}>Notre mission est de fournir aux entreprises du monde entier 
+                           les outils et lesressources nécessairespour optimiser la 
+                            performance de leurs équipes.Nous nous engageons à offrir 
+                             une plateforme en ligne conviviale et innovante qui permet 
                              à chaque</p>
                     </div>
                 </div>
@@ -164,9 +164,9 @@ export default function AboutScreen() {
                        <h4 className='mt-2 fw-extrabold content_numero_object1'> 2</h4>
                     </div>
                     <div>
-                        <p>Le plateforme vise à inspirer, informer et guider les <br />
-                            pour qu'ils puissent réaliser leurs souhaits d’évalution <br />
-                            facile à leur employés. <br />
+                        <p  style={{textAlign:'justify', textAlign:'justify'}}>Le plateforme vise à inspirer, informer et guider les 
+                            pour qu'ils puissent réaliser leurs souhaits d’évalution 
+                            facile à leur employés. 
                              </p>
                     </div>
                 </div>
@@ -175,9 +175,9 @@ export default function AboutScreen() {
                        <h4 className='mt-2 fw-extrabold content_numero_object1'> 3</h4>
                     </div>
                     <div>
-                        <p>Le principal objectif est d'aider les entreprises en simplifiant  <br />
-                        l'organisation des sessions d'évaluation de leur équipe, afin <br />
-                            performance de leurs équipes.Nous nous engageons à offrir <br />
+                        <p  style={{textAlign:'justify', textAlign:'justify'}}>Le principal objectif est d'aider les entreprises en simplifiant 
+                        l'organisation des sessions d'évaluation de leur équipe, afin
+                            performance de leurs équipes.Nous nous engageons à offrir
                             souci de clarté, de logique et de professionnalisme accrus.</p>
                     </div>
                 </div>
@@ -186,10 +186,10 @@ export default function AboutScreen() {
                        <h4 className='mt-2 fw-extrabold content_numero_object1'> 4</h4>
                     </div>
                     <div>
-                        <p><strong style={{color:'#004573'}} className='baraka_content'>BARAKA </strong>
-                        <strong style={{color:'#FFB703'}} className='gate_content'>GATE  </strong> 
-                           offre une gamme complète de ressources  <br />
-                            essentielles pour faciliter la planification, l'analyse, la gestion  <br />
+                        <p  style={{textAlign:'justify'}}><strong style={{color:'#004573'}} className='baraka_content'>BARAKA </strong>
+                        <strong style={{color:'#FFB703', backgroundColor:'#004573', textAlign:'justify'}} className='gate_content'>GATE  </strong> 
+                           offre une gamme complète de ressources 
+                            essentielles pour faciliter la planification, l'analyse, la gestion 
                             des évaluations</p>
                     </div>
                 </div>

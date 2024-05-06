@@ -1,0 +1,195 @@
+:root{
+    --principal:#004573;
+    --seconde:#FFB703;
+    --troisieme:#FFF;
+    
+}  
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none !important;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+  
+  /* body {
+    background: #000000;
+    font-family: "Libre Baskerville", serif;
+  } */
+  
+  .container1 {
+    /* margin: 0 auto !important; */
+    text-align: center;
+    /* white-space: nowrap; */
+    
+  }
+  .content_container_price{
+    margin-top: 50px;
+
+  }
+  
+  .content_price_1{
+    display: inline-block;
+    /* position: relative; */
+    background: var(--troisieme);
+    color: #283D3B;
+    width: 300px;
+    height: 450px;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 0 auto;
+    text-align: center;
+    /* box-shadow: 0 11px 26px 1px #0000004a, inset 0 -16px 90px #C4453640; */
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px , inset 0 -16px 90px #a3bac9
+   
+  }
+  .card h2 {
+    margin: 0;
+    width: 100%;
+    font-size: 30px;
+    background-color: var(--seconde);
+    padding: 20px 0;
+    color: #EDDDD4;
+    box-shadow: inset 0px 5px 4px -4px #ece3dd61;
+  }
+  .card h3 {
+    margin: 20px 0;
+    font-size: 42px;
+    text-shadow: 3px 2px 2px #b9c0bf38;
+  }
+  .card h3 span {
+    font-size: 20px;
+  }
+  .card p {
+    font-style: italic;
+    margin: 0 0 30px 0;
+  }
+  .card ul {
+    text-align: left;
+    padding: 0 50px;
+    margin: 0;
+  }
+  .card ul li {
+    display: block;
+  }
+  .card ul li:not(:last-child) {
+    margin-bottom: 10px;
+  }
+  .card ul li.aval::before {
+    font-family: "Font Awesome 5 Free";
+    content: "";
+    font-weight: 900;
+    font-size: 20px;
+    color: #197278;
+    width: 40px;
+    display: inline-block;
+  }
+  .card ul li.unaval::before {
+    font-family: "Font Awesome 5 Free";
+    content: "";
+    font-weight: 900;
+    font-size: 20px;
+    color: #C44536;
+    width: 40px;
+    display: inline-block;
+  }
+  .card .select1 {
+    cursor: pointer;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    font-weight: 700;
+    background: #3e3e3e;
+    color: #efefef;
+    font-size: 15px;
+    font-family: inherit;
+    box-shadow: 0 8px 18px 4px #283d3b4d;
+  }
+  .card .select1::before {
+    font-family: "Font Awesome 5 Free";
+    content: "";
+    font-weight: 900;
+    margin-right: 15px;
+  }
+  .card-1, .card-3 {
+    position: relative;
+    transform: scale(0.9);
+  }
+  .card-1 {
+    left: 40px;
+    margin-left: -60px;
+    z-index: 0;
+  }
+  .card-1 h2 {
+    background-color: var(--principal);
+  }
+  .card-2 {
+    z-index: 1;
+  }
+  .card-3 {
+    left: -40px;
+    margin-right: -60px;
+    z-index: 0;
+  }
+  .card-3 h2 {
+    background-color: #2d84be;
+  }
+  
+  .hot-badge::after {
+    content: "HOT";
+    position: absolute;
+    background: linear-gradient(to right, #004573, #004573);
+    padding: 5px 54px;
+    box-shadow: 0 0 5px 3px #715e006e;
+    top: 17px;
+    right: -46px;
+    color: var(--troisieme);
+    font-family: "Nunito", sans-serif;
+    font-size: 16px;
+    transform: rotateZ(45deg);
+  }
+  
+  .creator-link:link, .creator-link:visited {
+    text-decoration: none;
+    color: #d8d8d8;
+    background: #2d2d2d;
+    text-shadow: 0 1px 3px black;
+    position: fixed;
+    bottom: 40px;
+    right: -54px;
+    padding: 5px 0px;
+    margin: 0 auto;
+    width: 230px;
+    text-align: center;
+    display: block;
+    font-size: 20px;
+    font-family: "Nunito", sans-serif;
+    margin-top: 50px;
+    transform: rotateZ(-45deg);
+    z-index: 10;
+    transition: 150ms;
+  }
+  .creator-link:hover {
+    background: #56251f;
+    color: white;
+  }
+
+  .pricing-banner {
+    background-color: var(--principal);
+    padding: 20px;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  }
+  
+  .pricing-banner h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .pricing-banner p {
+    color: #666;
+    font-size: 16px;
+  }
+  

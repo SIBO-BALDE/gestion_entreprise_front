@@ -20,7 +20,7 @@
 
 .ban_about_about_one{
     width: 100%;
-    height: auto;
+    height: 700px;
     
    
    
@@ -55,7 +55,7 @@
    
 .btn_about_bottom {
     padding: 0.8em 1.75em;
-    background-color: #cccccc00 !important;
+    background-color: var(--principal) !important;
     border-radius: 6px;
     border: 3px solid var(--seconde) !important;
     transition: .5s;
@@ -86,7 +86,7 @@
     left: 25%;
     z-index: -1;
     transition: .5s ease-out;
-    background-color: var(--principal) !important;
+    background-color: #cccccc30 !important;
    
    }
    
@@ -185,9 +185,13 @@ border-bottom: 5px solid var(--seconde);
 
 /* **************************Nos objectifs debut***************************** */
 .objectif_content_flex{
-    display: flex;
+    /* display: flex; */
     /* grid-template-columns: 40% 60%; */
-    justify-content: space-around;
+    /* justify-content: space-around; */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 0 auto !important;
+    justify-items: center;
 }
 .content_numero_object{
     width: 30px ;

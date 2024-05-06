@@ -94,22 +94,22 @@ export default function Footer() {
             </div>
            
             <div>
-                <h5>Adresse</h5>
+                <h4>Adresse</h4>
                 <Link to={'/about'}style={{textDecoration:'none', color:'white'}} >Dakar,Sacré Coeur Rue 44</Link><br />
                 <Link to={'/about'} style={{textDecoration:'none', color:'white'}} >Lundi-Vendredi: 8h-17h</Link>
             </div>
             <div>
-                <h5>Qui sommes nous ?</h5>
+                <h4>Qui sommes nous ?</h4>
                 <Link to={'/about'}style={{textDecoration:'none', color:'white'}} >A propos de nous</Link><br />
                 <Link to={'/about'} style={{textDecoration:'none', color:'white'}} >Nos objectifs</Link>
             </div>
             <div>
-                <h5>Nous contacter</h5>
+                <h4>Nous contacter</h4>
                 <Link to={'#'} style={{textDecoration:'none', color:'white'}}>77301 72 72 </Link>
                 <Link to={'#'} style={{textDecoration:'none', color:'white'}} >contact@barakagate.com</Link>
             </div>
             <div>
-                <h5>Sécurité</h5>
+                <h4>Sécurité</h4>
                 <Link to={'/confidentialite'} style={{textDecoration:'none', color:'white'}}>Politiques de confidentialité</Link><br />
                 <Link to={'/conditions'} style={{textDecoration:'none', color:'white'}}>Condition d’utilisation</Link>
             </div>
@@ -118,7 +118,7 @@ export default function Footer() {
             <hr />
         </div>
         <section className='footer_bottom_home'>
-            <div className='copyright_footer_home'>
+            <div className='copyright_footer_home mt-4'>
                 <p>Copyright  <FontAwesomeIcon icon={regularIcons.faCopyright} /> 2024 BARAKA GATE /
                 <Link to={'https://kevacom.com/'}  style={{textDecoration:'none', color:'#FFB703'}}>KEVACOM</Link>
                 

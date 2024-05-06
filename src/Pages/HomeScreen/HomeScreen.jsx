@@ -139,9 +139,9 @@ export default function HomeScreen() {
       <section style={{paddingTop:'50px', backgroundColor:'#004573',paddingBottom:'90px'}}>
         <Underline  text='Nos engagments' color='white'/>
         <div className='' style={{marginTop:'70px'}}>
-            <div className="conteneur_losange_home">
+            <div className="conteneur_losange_home container">
 
-                <div style={{marginLeft:'70px'}}>
+                <div className='content_midle_home_correct' >
                 <div className="losange ">
                   <FontAwesomeIcon icon={faBullseye}  id='icon_font_home_engament' className='icon_onetwo_home'/> 
                 </div>
@@ -159,19 +159,19 @@ export default function HomeScreen() {
                             <span style={{color:'#FFB703'}}>  BARAKA</span>
                                 GATE
                          </strong><br />
-                                Notre vision est de révolutionner la <br />
-                                façon dont les entreprises évaluent <br />
-                                et développent leurs équipes. Nous <br />
-                                aspirons à devenir le leader mondial <br /> en 
-                                fournissant une plateforme en <br /> ligne 
-                                innovante et intuitive,<br /> permettant 
+                                Notre vision est de révolutionner la 
+                                façon dont les entreprises évaluent 
+                                et développent leurs équipes. Nous 
+                                aspirons à devenir le leader mondial  en 
+                                fournissant une plateforme en  ligne 
+                                innovante et intuitive, permettant 
                                 à chaque.
 
                       </p>
                 </div>
                 </div>
 
-                <div style={{marginLeft:'70px'}}>
+                <div className='content_midle_home_correct' >
                 <div className="losange" id='losange'> 
                     <FontAwesomeIcon icon={regularIcons.faGem} id='icon_font_home_engament' className='icon_onetwo_home1' />
                 </div>
@@ -183,13 +183,13 @@ export default function HomeScreen() {
                         <div><h5 className='' ><strong style={{color:'#FFB703'}}>Nos valeurs</strong></h5></div>
                 </div>
                 <div className='mt-4' style={{borderLeft:'3px solid #FFB703', height:'240px', marginBottom:'25px' }}>
-                    <p className='me-3 ms-3 text-white '>Chez  
+                    <p className='me-3 ms-3 text-white' style={{textAlign:'justify'}}>Chez  
                         <strong style={{color:'#FFFF'}}>
                         <span style={{color:'#FFB703'}}>  BARAKA</span> GATE</strong> <br />
-                        Nos valeurs sont bien plus qu'une <br />
-                        simple déclaration.Elles sont le <br /> 
-                        fondement de tout ce que nous<br /> 
-                        faisons et guident chaque aspect <br /> 
+                        Nos valeurs sont bien plus qu'une
+                        simple déclaration.Elles sont le 
+                        fondement de tout ce que nous 
+                        faisons et guident chaque aspect 
                         de notre entreprise.                      
                       </p>
                       <div>
@@ -239,7 +239,7 @@ export default function HomeScreen() {
                 </div>
                 </div>
 
-                <div style={{marginLeft:'70px'}}>
+                <div className='content_midle_home_correct' >
                 <div className="losange"> 
                     <FontAwesomeIcon icon={regularIcons.faPaperPlane} id='icon_font_home_engament' className='icon_onetwo_home' />
                 </div>
@@ -251,19 +251,19 @@ export default function HomeScreen() {
                         <div style={{textAlign:'left'}}><h5 className='' ><strong style={{color:'#FFB703'}}>Notre mission</strong></h5></div>
                 </div>
                 <div className='mt-4' style={{borderLeft:'3px solid #FFB703', height:'240px'}}>
-                    <p className='ms-3 text-white '>Chez 
+                    <p className='ms-3 text-white ' style={{textAlign:'justify'}}>Chez 
                         <strong style={{color:'#FFFF' , marginBottom:'25px'}} >
                             <span style={{color:'#FFB703'}}>  BARAKA</span > GATE
                         </strong> <br />
-                        Notre mission est de fournir <br />
-                        aux entreprises du monde<br />
-                        entier les outils et les<br />
-                         ressources nécessaires <br />
-                         pour optimiser la performance<br />
-                         de leurs équipes.Nous nous <br />
-                         engageons à offrir une plateforme <br />
-                         en ligne conviviale et innovante<br />
-                          qui permet à chaque.<br />
+                        Notre mission est de fournir 
+                        aux entreprises du monde
+                        entier les outils et les
+                         ressources nécessaires 
+                         pour optimiser la performance
+                         de leurs équipes.Nous nous 
+                         engageons à offrir une plateforme 
+                         en ligne conviviale et innovante
+                          qui permet à chaque.
                       
                       </p>
                 </div>
@@ -391,7 +391,7 @@ export default function HomeScreen() {
                     <Image src={baraka6} className='cardtemoinhome1img' />
                     </div>
                         <div className='cardtemoinhome2'>
-                            <h6 className='text-center title-temoinhome text-light'>Gaïus YOKOSSId</h6>
+                            <h6 className='text-center title-temoinhome text-light'>Gaïus YOKOSSID</h6>
                             <p className='text-center text-light paratextcontenthome'>M. Baraka</p>
                             <div className='d-flex justify-content-center pb-5'>
                                 <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>
@@ -468,7 +468,7 @@ export default function HomeScreen() {
                     <Image src={baraka14} className='cardtemoinhome1img' />
                 </div>
                 <div className='cardtemoinhome2'>
-                            <h6 className='text-center title-temoinhome text-light'>Jolin CADETe</h6>
+                            <h6 className='text-center title-temoinhome text-light'>Jolin CADET</h6>
                             <p className='text-center text-light paratextcontenthome'>Mister Smart</p>
                             <div className='d-flex justify-content-center pb-5'>
                                 <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>
@@ -484,7 +484,7 @@ export default function HomeScreen() {
                     <Image src={baraka14} className='cardtemoinhome1img' />
                 </div>
                 <div className='cardtemoinhome2'>
-                            <h6 className='text-center title-temoinhome text-light'>Jolin CADETe</h6>
+                            <h6 className='text-center title-temoinhome text-light'>Jolin CADET</h6>
                             <p className='text-center text-light paratextcontenthome'>Mister Smart</p>
                             <div className='d-flex justify-content-center pb-5'>
                                 <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>
@@ -500,7 +500,7 @@ export default function HomeScreen() {
                     <Image src={baraka14} className='cardtemoinhome1img' />
                 </div>
                 <div className='cardtemoinhome2'>
-                            <h6 className='text-center title-temoinhome text-light'>Jolin CADETe</h6>
+                            <h6 className='text-center title-temoinhome text-light'>Jolin CADET</h6>
                             <p className='text-center text-light paratextcontenthome'>Mister Smart</p>
                             <div className='d-flex justify-content-center pb-5'>
                                 <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>

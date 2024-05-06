@@ -10,6 +10,10 @@ import DashboardUser from './Pages/Dashboards/DashboardUser/DashboardUser';
 import { AuthProvider } from './Pages/Auth/AuthContex';
 import ProtectedRoutes from './Pages/Utils/ProtectedRoutes';
 import GestionMessageDetail from './Pages/CRUD/GestionMessage/GestionMessageDetail';
+import PageError from './Pages/PageError/PageError';
+import Slides from './Components/User_Components/Slides/Slides';
+import TarifScreen from './Pages/TarifScreen/TarifScreen';
+import ContactDevis from './Pages/ContactDevis/ContactDevis';
 
 
 
@@ -24,14 +28,19 @@ function App() {
       <Route path="modeles" element={<ModeleScreen />}></Route>
       <Route path="contact" element={<ContactScreen />}></Route>
       <Route path="login" element={<Login />}></Route>
-
-      <Route  element={<ProtectedRoutes />}>
+      <Route path="error" element={<PageError />}></Route>
+      <Route path="slide" element={<Slides />}></Route>
+      <Route path="tarif" element={<TarifScreen />}></Route>
+      <Route path="devis_contact" element={<ContactDevis />}></Route>
+      
+      {/* <Route  element={<ProtectedRoutes />}> */}
       <Route path="dashbordAdmin" element={<DashbordAdmin />}></Route>
       <Route path="dashbordUser" element={<DashboardUser />}></Route>
       <Route path="/messagedetail/:id" element={<GestionMessageDetail />} />
+     
 
 
-      </Route>
+      {/* </Route> */}
 
       </Routes>
       </AuthProvider>

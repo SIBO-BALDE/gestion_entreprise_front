@@ -19,6 +19,8 @@ import axios from "axios";
 import GestionEvaluationAdmin from "../../CRUD/GestionEvaluationAdmin/GestionEvaluationAdmin";
 import Pagination from "../../../Components/User_Components/Pagination/Pagination";
 import GestionFeedback from "../../CRUD/GestionFeedback/GestionFeedback";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -357,6 +359,23 @@ export default function DashbordAdmin() {
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
+
+  const navigate = useNavigate();
+  
+  const role = localStorage.getItem("rolecle");
+  const token = localStorage.getItem("tokencle");
+
+  useEffect(() => {
+   
+    if ( role !== "Admin") {
+      Swal.fire({
+        icon: "error",
+        title: "Oops!",
+        text: "Acces interdit, connecter vous en tant qu'admin pour avoir accée au dashboard!",
+      });
+      navigate("/"); 
+    }
+  }, [ role , navigate]);
 
  
 

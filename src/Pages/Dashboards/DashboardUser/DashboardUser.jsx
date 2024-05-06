@@ -1,5 +1,5 @@
 
-import React, {  useState } from "react";
+import React, {  useEffect, useState } from "react";
 import "./DashboardUser.css";
 import NavbarAdmin from "../../../Components/Admin_Components/NavbarAdmin/NavbarAdmin";
 import SideBarUser from "../../../Components/User_Components/SideBarUser/SideBarUser";
@@ -18,6 +18,8 @@ import GestionFeedbackEvaluation from "../../CRUD_USER/GestionFeedbackEvaluation
 import { Image } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBellConcierge, faFeed, faHome, faQuestion } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 
@@ -188,7 +190,22 @@ export default function DashboardUser() {
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
+  const navigate = useNavigate();
+  
+  const role = localStorage.getItem("rolecle");
+  const token = localStorage.getItem("tokencle");
 
+  useEffect(() => {
+   
+    if ( role !== "Participant") {
+      Swal.fire({
+        icon: "error",
+        title: "Oops!",
+        text: "Acces interdit, connecter vous en tant qu'user pour avoir accée au dashboard!",
+      });
+      navigate("/"); 
+    }
+  }, [ role , navigate]);
  
 
 

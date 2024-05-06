@@ -10,7 +10,7 @@ export default function ButtonWashapp() {
 
     const handleClickWatshappButton = async () => {
    
-        let  phoneNumber = 774935677 ; 
+        let  phoneNumber = 773017272 ; 
         Swal.fire({
           title: 'Êtes-vous sûr?',
           text: "De vouloir communiquer avec l'admin?",

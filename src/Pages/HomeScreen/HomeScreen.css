@@ -150,10 +150,15 @@
 
 /* **************************nos engagements debut ***************************** */
 .conteneur_losange_home {
-    display: flex;
-    justify-content: center;
+    display: grid;
+   
+    grid-template-columns: repeat(3, 1fr);
+    margin: 0 auto !important;
+    gap:20px;
+   
     
 }
+
 
 .losange {
     width: 140px;
@@ -161,23 +166,16 @@
     background-color: var(--principal);
     border: 3px solid var(--seconde);
     transform: rotate(45deg);
-    margin: 0 30px;
+    margin: 0 10px;
     display: flex;
     justify-content:center ;
     align-items: center;
-    /* animation: rotate 5s linear infinite; */
-    /* animation: rotation 5s infinite linear; */
+    
+   
 }
 
 
-  /* @keyframes rotation {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  } */
+
   #icon_font_home_engament{
     animation: none !important;
   }
