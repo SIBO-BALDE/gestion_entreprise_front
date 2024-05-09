@@ -549,7 +549,7 @@ const ajouterQuestion = async (e) => {
     const display = searchValue === "" ? questions :  filtered; 
 
   const [currentPage, setCurrentPage] = useState(1);
-  const questionParPage= 1;
+  const questionParPage= 5;
 
   const indexOfLast = currentPage* questionParPage;
   const indexOfFirst = indexOfLast - questionParPage;
@@ -783,12 +783,16 @@ const ajouterQuestion = async (e) => {
                     }}
                   >
                     {/* recuperer la categorie selectionner par défaut pour la modifier */}
+                    <option value="">Sélectionner un événement</option>
                   {events &&
                       events.map((resp, index) => {
                         return (
+                          
                           <option key={index} value={resp.id}>
                             {resp.titre}
                           </option>
+                         
+                          
                         );
                       })}
                   </Form.Select>

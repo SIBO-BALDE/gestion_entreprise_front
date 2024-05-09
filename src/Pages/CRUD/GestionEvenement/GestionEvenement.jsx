@@ -1,5 +1,6 @@
 
 import {
+  faComment,
   faEye,
   faMagnifyingGlass,
   faPenToSquare,
@@ -21,18 +22,28 @@ import Pagination from "../../../Components/User_Components/Pagination/Paginatio
 export default function GestionEvenement({ id }) {
   // const [show, setShow] = useState(false);
   const [showEvent, setShowEvent] = useState(false);
+  let displayedUsers = {};
 
   const [showEditModalEvents, setShowEditModalEvents] = useState(false);
+
+  const [showAdd, setShowAdd] = useState(false);
+  const handleClosAdd = () => setShowAdd(false); 
+  const handleshowAdd = () => setShowAdd(true);
 
   const handleCloseEdit = () => setShowEvent(false);
   const handleShowEdit = () => setShowEvent(true);
   const handleShowEditEvent = () => showEditModalEvents(true);
   const handleCloseEditEvents = () => setShowEditModalEvents(false);
+
+
   
   
 
 
   const [events, setEvents] = useState([]);
+  const [reponses, setReponses] = useState([]);
+  const [reponsesData, setReponsesData] = useState([]);
+
   // etat pour ajout categorie
   const [eventData, setEventData] = useState({
     titre: "",
@@ -280,15 +291,49 @@ const currentEvents = filteredEvents.slice(
 const totalPaginationPages = Math.ceil(events.length /  eventsParPage);
 
 
-  
+const fetchFeedbackResponses = async (evenement_id) => {
+  console.log("Evenement ID:", evenement_id);
+  // console.log("User ID:", user_id);
 
- 
+  try {
+    const token = localStorage.getItem("tokencle");
+    const response = await axios.get(
+      `http://localhost:8000/api/evenement/questions-reponses/${evenement_id}`,
+      
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log("response endpoint :", response);
+    console.log("response.data :", response.data);
+    console.log("response.data.questions :", response.data.questions);
+    console.log("response.data.questions.nom :", response.data.questions.nom);
+    // console.log("Réponses user :", response.data.reponsefeedbacks.user);
+    setReponses(response.data.questions);
+    setReponsesData(response.data.questions)
+    // Traitez les données de réponse ici, vous pouvez les stocker dans un état pour les afficher dans votre composant
+  } catch (error) {
+    console.error("Erreur lors de la récupération des réponses aux questions de l'événement :", error);
+  }
+};
 
- 
+const handleButtonClick = async (evenement_id) => {
+  // Récupérer l'ID de l'utilisateur
+  console.log("Evenement ID:", evenement_id);
+  // const user_id = localStorage.getItem("user_id"); 
 
-  
+  // Appeler la fonction pour récupérer les réponses aux questions de l'événement pour cet utilisateur
+  await fetchFeedbackResponses(evenement_id);
 
- 
+  // Afficher le modal pour donner un feedback à l'événement
+  setShowAdd(true);
+};
+
+
+
+
 
   return (
     <div className="container">
@@ -343,6 +388,9 @@ const totalPaginationPages = Math.ceil(events.length /  eventsParPage);
             <tr>
               
               <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+              Reponses
+              </th>
+              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
               Titre
               </th>
               <th style={{ backgroundColor: "#004573", color: "#fff" }}>
@@ -373,6 +421,20 @@ const totalPaginationPages = Math.ceil(events.length /  eventsParPage);
 
                 {currentEvents && currentEvents.map((eventEl) => (
                   <tr key={ eventEl && eventEl.id}>
+                    <td className="">
+                 
+                  <Button
+                    style={{
+                      backgroundColor: "#fff",
+                      border: "1px solid #004573",
+                      color: "#004573",
+                    }}
+                    onClick={() => handleButtonClick(eventEl.id)}
+                    // onClick={() => supprimerEvent(eventEl.id)}
+                  >
+                    <FontAwesomeIcon icon={faComment} />
+                  </Button>
+                    </td>
                     <td>{ eventEl && eventEl.titre}</td>
                     <td>{ eventEl && eventEl.description}</td>
                     <td>{ eventEl && eventEl.date_debut}</td>
@@ -404,7 +466,7 @@ const totalPaginationPages = Math.ceil(events.length /  eventsParPage);
                   >
                     <FontAwesomeIcon icon={faTrash} />
                   </Button>
-                </td>
+                    </td>
                   </tr>
                 ))}
 
@@ -649,6 +711,34 @@ const totalPaginationPages = Math.ceil(events.length /  eventsParPage);
       {/* modal fin modifier maison */}
      
       {/* modal fin modifier event */}
+
+
+
+      <Modal show={showAdd} onHide={handleClosAdd} id="buttonModifier">
+        <Modal.Header closeButton>
+          <Modal.Title>Liste des réponses par rapport à l'événement</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        {reponses.map((reponse, index) => (
+  <div key={index} className="card mb-3">
+    <div className="card-body">
+      <h5 className="card-title">Question: {reponse.nom}</h5>
+      {/* Afficher les réponses pour cette question */}
+      {reponse.reponsefeedbacks.map((feedback, feedbackIndex) => (
+        <div key={feedbackIndex} className="card-text">
+          <p>Réponse: {feedback.nom}</p>
+          {/* Afficher l'utilisateur associé à cette réponse */}
+          <p>Utilisateur: {feedback.user.prenom} {feedback.user.nom}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+))}
+
+        </Modal.Body>
+      </Modal>
+
+
     </div>
   );
 }

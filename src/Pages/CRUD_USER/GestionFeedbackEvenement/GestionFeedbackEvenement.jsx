@@ -9,7 +9,7 @@ export default function GestionFeedbackEvenement() {
 
   const [showAdd, setShowAdd] = useState(false);
   const [questions, setQuestions] = useState([]);
-  const [responses, setResponses] = useState({});
+  const [responses, setResponses] = useState([]);
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
 
@@ -42,64 +42,117 @@ export default function GestionFeedbackEvenement() {
   const handleClosAdd = () => setShowAdd(false); 
   const handleshowAdd = () => setShowAdd(true);
 
-  const [reponsesData, SetReponsesData] = useState({
-    nom:'',
-    questionsfeedbacks_id:''
-  });
+ 
 
+  // const ajouterReponseEvenement = async () => {
+  //   const token = localStorage.getItem("tokencle");
+  //   const role = localStorage.getItem("rolecle");
+  
+  //   try {
+  //     if (token && role === "Participant") {
+  //       // Créer un tableau pour stocker les réponses sous forme d'objets
+  //       const reponsesData = Object.entries(responses).map(([questionId, reponse]) => ({
+  //         nom: reponse,
+      
+  //         questionsfeedbacks_id: parseInt(questionId) 
+          
+  //       }));
+  
+        
+  
+  //       // Envoyez le tableau des réponses au backend
+  //       const response = await axios.post(
+  //         "http://localhost:8000/api/reponsefeedback/create",
+  //         reponsesData,
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       );
+  
+  //       // Vérifiez si la requête a réussi
+  //       if (response.status === 200) {
+  //         // Ajoutez la nouvelle réponse à la liste 
+  //         console.log(response, 'response qu reponse au questions')
+  //         // setResponses([...responses, ...response.data]);
+
+  //         // Réinitialisez les valeurs du formulaire après avoir ajouté la réponse
+  //         // setResponses({}); // Réinitialisez l'état des réponses après avoir ajouté avec succès
+  //         // Swal.fire({
+  //         //   icon: "success",
+  //         //   title: "Succès!",
+  //         //   text: "Réponses ajoutées avec succès!",
+  //         // });
+  //         // Fermez le modal
+  //         // handleClosAdd();
+  //       } else {
+  //         console.error("Erreur dans l'ajout de la réponse");
+  //       }
+  //     }
+  //   } catch (error) {
+  //     // Gestion des erreurs Axios
+  //     console.error("Erreur Axios:", error);
+  //   }
+  // };
+  
+  
   const ajouterReponseEvenement = async () => {
     const token = localStorage.getItem("tokencle");
     const role = localStorage.getItem("rolecle");
   
     try {
       if (token && role === "Participant") {
-        // Créer un tableau pour stocker les réponses sous forme d'objets
-        // const reponsesData = Object.entries(responses).map(([questionId, reponse, userId]) => ({
-        //   nom: reponse,
-        //   user_id	:userId,
-        //   questionsfeedbacks_id: parseInt(questionId) 
-          
-        // }));
+        // Créer un tableau pour stocker les promesses de requêtes axios
+        const requests = [];
   
-        // Vérifiez si toutes les réponses ont été saisies
-        // if (reponsesData.length !== questions.length) {
-        //   console.error("Toutes les réponses n'ont pas été saisies.");
-        //   return;
-        // }
-  
-        // Envoyez le tableau des réponses au backend
-        const response = await axios.post(
-          "http://localhost:8000/api/reponsefeedback/create",
-          reponsesData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
+        // Ajouter chaque réponse à une promesse de requête axios
+        for (const [questionId, reponse] of Object.entries(responses)) {
+          const request = axios.post(
+            "http://localhost:8000/api/reponsefeedback/create",
+            {
+              reponses: [{
+                nom: reponse,
+                questionsfeedbacks_id: questionId
+              }],
             },
-          }
-        );
-  
-        // Vérifiez si la requête a réussi
-        if (response.status === 200) {
-          // Ajoutez la nouvelle réponse à la liste 
-          console.log(response, 'response qu reponse au questions')
-          // setResponses([...responses, ...response.data]);
-
-          // Réinitialisez les valeurs du formulaire après avoir ajouté la réponse
-          // setResponses({}); // Réinitialisez l'état des réponses après avoir ajouté avec succès
-          // Swal.fire({
-          //   icon: "success",
-          //   title: "Succès!",
-          //   text: "Réponses ajoutées avec succès!",
-          // });
-          // Fermez le modal
-          // handleClosAdd();
-        } else {
-          console.error("Erreur dans l'ajout de la réponse");
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          requests.push(request);
         }
+  
+        // Attendre que toutes les promesses soient résolues
+        const responsesArray = await Promise.all(requests);
+  
+        // Vérifier si toutes les réponses ont été ajoutées avec succès
+        const isSuccess = responsesArray.every(response => response.status === 200);
+       
+  
+        if (isSuccess) {
+          console.log("Toutes les réponses ont été ajoutées avec succès");
+          Swal.fire({
+            icon: "success",
+            title: "Succès!",
+            text: "Réponses envoyées avec succès!",
+          });
+          handleClosAdd();
+        } else {
+          console.error("Erreur lors de l'ajout de certaines réponses");
+        }
+         // Afficher les données retournées par chaque requête axios dans la console
+      responsesArray.forEach(response => {
+        console.log("Données retournées par la requête :", response.data);
+      });
+  
+        // Réinitialiser les réponses après l'ajout
+        setResponses([]);
       }
     } catch (error) {
-      // Gestion des erreurs Axios
-      console.error("Erreur Axios:", error);
+      console.error("Erreur Axios :", error);
     }
   };
   
