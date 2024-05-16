@@ -71,7 +71,7 @@ export default function Footer() {
             title: "Succès!",
             text: "newsletter envoyé avec  succée!",
           });
-          setEmailData('')
+          setEmailData("")
         } else {
           console.error("Erreur dans lajout de email");
         }

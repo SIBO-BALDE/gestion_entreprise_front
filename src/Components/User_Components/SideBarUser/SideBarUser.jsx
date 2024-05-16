@@ -1,5 +1,5 @@
 
-import { faEnvelope,faMessage, faUser } from '@fortawesome/free-regular-svg-icons';
+import { faComments, faEnvelope,faMessage, faUser } from '@fortawesome/free-regular-svg-icons';
 import { faGauge, faGear, faHouse, faLayerGroup, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react'
@@ -27,6 +27,16 @@ const links = [
       path: "feedbackevalu",
       text: "Feedback Evaluation",
       icon: faHouse,
+    },
+    {
+      path: "feedbackreponse",
+      text: "Reponses Feedback",
+      icon: faComments,
+    },
+    {
+      path: "valuationreponse",
+      text: "Reponses Evaluation",
+      icon: faComments,
     },
     
     
@@ -131,8 +141,9 @@ export default function SideBarUser({ isOpen, name, handleChangePath }) {
             {" "}
             <Image src={logo} alt="" id="image-contenu" className='border' />
           </div>
-          <p className="text-center"><Link to={'/'} style={{textDecoration:'none', color:'white'}}>{utilisateur.prenom} {utilisateur.nom}</Link></p>
-          <hr />
+          <h6 className="text-center mt-3"><Link to={'/'} style={{textDecoration:'none', color:'white'}}>{utilisateur.prenom} {utilisateur.nom}</Link></h6>
+          <p className=" text-white text-center">{utilisateur.email}</p>
+          <hr className=" text-white"/>
         </div>
         <div id="content-try-content" className=''>
           {links.map((link, index) => (

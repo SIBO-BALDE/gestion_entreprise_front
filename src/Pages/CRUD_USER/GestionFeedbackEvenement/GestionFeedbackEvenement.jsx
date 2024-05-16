@@ -1,11 +1,15 @@
-import { faEye } from '@fortawesome/free-solid-svg-icons'
+import { faEye, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
 import Swal from 'sweetalert2';
+import { useAuth } from '../../Auth/AuthContex';
+import Pagination from '../../../Components/User_Components/Pagination/Pagination';
+
 
 export default function GestionFeedbackEvenement() {
+  const { handleSubmission } = useAuth();
 
   const [showAdd, setShowAdd] = useState(false);
   const [questions, setQuestions] = useState([]);
@@ -150,6 +154,7 @@ export default function GestionFeedbackEvenement() {
   
         // Réinitialiser les réponses après l'ajout
         setResponses([]);
+        handleSubmission();
       }
     } catch (error) {
       console.error("Erreur Axios :", error);
@@ -204,6 +209,7 @@ export default function GestionFeedbackEvenement() {
   };
   
   const fetchEventQuestions = async (evenement_id) => {
+    console.log(evenement_id , 'evenenement_id')
     try {
       const token = localStorage.getItem("tokencle");
       const response = await axios.get(
@@ -223,22 +229,43 @@ export default function GestionFeedbackEvenement() {
       setQuestions([]); // Réinitialiser les questions en cas d'erreur
     }
   };
+
+  //  pour le champ recherche
+const [searchValue, setSearchValue] = useState("");
+
+// function la recherche
+const handleSearchChange = (event) => {
+  setSearchValue(event.target.value);
+};
+  const filteredEvents = events.filter(
+    (eventEl) =>
+      eventEl &&
+      eventEl.titre &&
+      eventEl.titre.toLowerCase().includes(searchValue.toLowerCase())
+  );
+  const displayEvents = searchValue === "" ? events : filteredEvents;
+  
+  
+    const [currentPage, setCurrentPage] = useState(1);
+  const  eventsParPage= 3;
+  
+  // pagination
+  const indexOfLastEvent = currentPage* eventsParPage;
+  const indexOfFirstEvent = indexOfLastEvent -  eventsParPage;
+  const currentEvents = filteredEvents.slice(
+    indexOfFirstEvent,
+    indexOfLastEvent
+  );
+  
+  const totalPaginationPages = Math.ceil(events.length /  eventsParPage);
+  
+  
   
   
   return (
     <div>
-      <div className="d-flex justify-content-between mt-5">
-        <div>
-          {/* <Button
-            variant="primary"
-            onClick={handleshowAdd}
-            className="ms-4"
-            style={{ backgroundColor: "#004573", border: "none" }}
-            id="buttonAjouter"
-          >
-           Donner un feedback à un évenement
-          </Button> */}
-        </div>
+       <div className="d-flex justify-content-between mt-5">
+        
         <div className="flex-grow-1 d-flex justify-content-end ">
           <div className="champsRecherche mt-2 mb-3 w-50">
             <Form>
@@ -246,8 +273,22 @@ export default function GestionFeedbackEvenement() {
                 className="input-group flex-nowrap "
                 style={{ borderColor: "#004573" }}
               >
-                
-
+                <Form.Control
+                  type="search"
+                  className="form-control w-50   "
+                  placeholder="Rechercher un évenement"
+                  aria-label="user"
+                  aria-describedby="addon-wrapping"
+                  value={searchValue}
+                  onChange={handleSearchChange}
+                />
+                <span
+                  className="input-group-text text-white me-4"
+                  id="addon-wrapping"
+                  style={{ backgroundColor: "#004573" }}
+                >
+                  <FontAwesomeIcon icon={faMagnifyingGlass} />
+                </span>
               </div>
             </Form>
           </div>
@@ -278,8 +319,8 @@ export default function GestionFeedbackEvenement() {
             </tr>
           </thead>
           <tbody>
-            {events &&
-              events.map((eventEl) => ( 
+            {
+              currentEvents && currentEvents.map((eventEl) => ( 
               <tr key={eventEl.id} >
                 <td>{ eventEl && eventEl.titre}</td>
                     <td>{ eventEl && eventEl.date_debut}</td>
@@ -302,6 +343,11 @@ export default function GestionFeedbackEvenement() {
             ))}
           </tbody>
         </table>
+        <Pagination
+          currentPage={currentPage}
+          totalPaginationPages={totalPaginationPages}
+          setCurrentPage={setCurrentPage}
+          />  
       </div>
 
       <>
@@ -318,7 +364,7 @@ export default function GestionFeedbackEvenement() {
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               {eventQuestions.map((question) => ( // Utiliser eventQuestions au lieu de questions
                 <div key={question.id}>
-                  <h6 className='mt-3'>{question.nom} ?</h6>
+                  <h6 className='mt-3'> {question.id}-{question.nom} ?</h6>
                   <Form.Control
                     type="text"
                     placeholder=""

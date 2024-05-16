@@ -283,13 +283,14 @@ export default function HomeScreen() {
                boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius:'25px'}} data-aos="fade-right">
                 <div><FontAwesomeIcon  icon={faHandshake} style={{fontSize:'60px', color:'#FFB703'}}  /></div>
                 <div>
-                    <h6 style={{fontWeight:'bold'}}  className='mt-2 mb-2'>Sondage sur l’engagement des employés</h6>
+                    <h6 style={{fontWeight:'bold'}}  className='mt-2 mb-2'><Link to={'/tarif'} style={{textDecoration:'none', color:'black'}}>Evaluation 360 degrés</Link></h6>
                     <p style={{textAlign:'justify'}}>Évaluez et améliorez l’expérience de vos 
                         collaborateurs grâce à notre modèle de
                         sondage gratuit 
                         sur...</p>
                 </div>
             </div>
+
             <div className='pt-2 pb-2 pe-3 ps-3 card_modele_home' style={{width:'320px', height:'250px', borderTop:'3px solid #FFB703', 
                boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius:'25px'}} data-aos="fade-bottom">
                 <div><FontAwesomeIcon  icon={faChartLine} style={{fontSize:'60px', color:'#FFB703'}} /></div>

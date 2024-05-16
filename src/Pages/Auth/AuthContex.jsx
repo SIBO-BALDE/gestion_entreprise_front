@@ -25,7 +25,12 @@ export const AuthProvider = ({ children })=>{
       setUserRole(role);
       setUserToken(authToken); // Stockez le token lors de la connexion
     };
-  
+
+      const [submissionCount, setSubmissionCount] = useState(0);
+
+  const handleSubmission = () => {
+    setSubmissionCount(prevCount => prevCount + 1);
+  }
 
     const logout = () => {
       setIsAuthenticated(false);
@@ -33,12 +38,13 @@ export const AuthProvider = ({ children })=>{
       setUserToken(null); // Supprimez le token lors de la déconnexion
     };
     return (
-        <AuthContext.Provider value={{ isAuthentificated, userRole, UserToken, login,  logout }}>
+        <AuthContext.Provider value={{ isAuthentificated, userRole, UserToken, login,  logout,  submissionCount, handleSubmission }}>
           {children}
         </AuthContext.Provider>
       );
     };
     export const useAuth = () => useContext(AuthContext);
+    
 
 
 

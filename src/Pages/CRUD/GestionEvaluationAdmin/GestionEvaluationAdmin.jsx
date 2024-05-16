@@ -1,4 +1,4 @@
-import { faEye, faMagnifyingGlass, faPenToSquare, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faFolderOpen, faMagnifyingGlass, faPenToSquare, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react'
 import { Button, Form } from 'react-bootstrap';
@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { FormControl, FormGroup, FormLabel } from 'react-bootstrap';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import Pagination from '../../../Components/User_Components/Pagination/Pagination';
 
 export default function GestionEvaluationAdmin() {
   const [showEvaluation, setShowEvaluation]=useState(false)
@@ -115,10 +116,36 @@ export default function GestionEvaluationAdmin() {
     };
 
     
+// archiver 
 
-   
+const archiverEvaluation = async (evenementId) => {
+  const token = localStorage.getItem("tokencle");
+  const role = localStorage.getItem("rolecle");
+  
+  if (token && role === 'Admin') {
+    try {
+      // Envoie une requête POST à l'endpoint pour archiver l'évaluation avec l'evenementId spécifié
+      const response = await axios.put(
+        `http://localhost:8000/api/archiver/evaluation/${evenementId}`,
+        
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-   
+      console.log("Évaluation archivée avec succès :", response.data);
+      
+      // Gérer la mise à jour de l'état de l'application ou de l'interface utilisateur si nécessaire
+    } catch (error) {
+      console.error("Erreur lors de l'archivage de l'évaluation :", error);
+    }
+  }
+};
+
+
+    
     const [categories, setCategories] = useState([]);
 
 
@@ -148,24 +175,12 @@ export default function GestionEvaluationAdmin() {
     fetchCategories();
   }, []);
 
-
- 
-
-
-   
   
-
-
- 
-  const [evaluations, setEvaluations]=useState([])
     
   const [evaluationData, setEvaluationData] = useState({
     titre: '',
     questions: [{ nom: '', categorie_id: '', reponses: [] }]
 }); 
-
-
-
 
 
 
@@ -215,30 +230,10 @@ const ajouterEvaluation = async () => {
 };
 
   
-  
-
-  
-
-
      
 
      const [selectedCategories, setSelectedCategories] = useState([]);
-  // Gérer la sélection de catégories
-//   const handleCategorySelect = (questionIndex, categorieId) => {
-//     setSelectedCategories(prevSelectedCategories => {
-//         const updatedCategories = { ...prevSelectedCategories };
-//         if (!updatedCategories[questionIndex]) {
-//             updatedCategories[questionIndex] = [];
-//         }
-//         const isSelected = updatedCategories[questionIndex].includes(categorieId);
-//         if (isSelected) {
-//             updatedCategories[questionIndex] = updatedCategories[questionIndex].filter(id => id !== categorieId);
-//         } else {
-//             updatedCategories[questionIndex] = [...updatedCategories[questionIndex], categorieId];
-//         }
-//         return updatedCategories;
-//     });
-// };
+  
 
 
 const handleCategorySelect = (questionIndex, categoryId) => {
@@ -259,6 +254,82 @@ const handleCategorySelect = (questionIndex, categoryId) => {
   });
 };
 
+
+const [evaluations, setEvaluations] = useState([]);
+
+const fetchEvaluations = async () => {
+  const role = localStorage.getItem("rolecle");
+  const token = localStorage.getItem("tokencle");
+  try {
+    // if (token) {
+      const response = await axios.get(
+        "http://localhost:8000/api/evaluations",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response , 'liste evaluations')
+      setEvaluations(response.data.evaluations);
+
+      console.log(evaluations);
+   
+  } catch (error) {
+    console.error("Erreur lors de la récupération des catégories:", error);
+  }
+};
+useEffect(() => {
+  fetchEvaluations();
+}, []);
+
+
+
+
+
+
+const formatDate = (createdAt) => {
+  const date = new Date(createdAt);
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+};
+
+
+
+
+ //  pour le champ recherche
+ const [searchValue, setSearchValue] = useState("");
+
+ // function la recherche
+ const handleSearchChange = (nom) => {
+   setSearchValue(nom.target.value);
+ };
+ 
+ // faire le filtre des maison par addrsse
+ const filteredEvaluation = evaluations.filter(
+   (evaluation) =>
+     evaluation &&
+     evaluation.titre &&
+     evaluation.titre.toLowerCase().includes(searchValue.toLowerCase())
+ );
+ const displayEvaluation= searchValue === "" ? evaluations : filteredEvaluation;
+ 
+ 
+   const [currentPage, setCurrentPage] = useState(1);
+ const evaluationParPage= 6;
+ 
+ // pagination
+ const indexOfLastEvaluation = currentPage*  evaluationParPage;
+ const indexOfFirstEvaluation = indexOfLastEvaluation -   evaluationParPage;
+ const currentEvaluations = filteredEvaluation.slice(
+   indexOfFirstEvaluation,
+   indexOfLastEvaluation
+ );
+ 
+ const totalPaginationPages = Math.ceil(evaluations.length /   evaluationParPage);
   
 
 
@@ -294,8 +365,8 @@ const handleCategorySelect = (questionIndex, categoryId) => {
                   placeholder="Rechercher une évaluation"
                   aria-label="user"
                   aria-describedby="addon-wrapping"
-                  // value={searchValue}
-                  // onChange={handleSearchChange}
+                  value={searchValue}
+                  onChange={handleSearchChange}
                 />
                 <span
                   className="input-group-text text-white me-4"
@@ -334,214 +405,153 @@ const handleCategorySelect = (questionIndex, categoryId) => {
                   marginLeft: "3rem",
                 }}
               >
-                Action
+                Archiver
               </th>
             </tr>
           </thead>
           <tbody>
-            {/* {currentMaisons &&
-              currentMaisons.map((maison) => {  key={maison.id} {maison.image && (*/}
-                {/* return ( */}
-                  <tr >
-                    
+            
+                {currentEvaluations &&  currentEvaluations.map((evaluation) => (
+                   <tr key={evaluation.id} >
+                   <td>{evaluation.titre} </td>
+                   <td>{formatDate(evaluation.created_at)}</td>
+                  
+                   <td className=" d-flex justify-content-evenly">
+                     <Button
+                       variant="primary"
+                       onClick={archiverEvaluation}
+                       
+                       style={{
+                         backgroundColor: "#fff",
+                         border: "1px solid #004573",
+                         color: "#004573",
+                       }}
+                       id="buttonModifier"
+                     >
+                       <FontAwesomeIcon icon={faFolderOpen} />
+                     </Button>
+                     
+                   </td>
+                 </tr>
+                )
 
-                    {/* {maison && <td>{maison.addresse || "N/A"}</td>} {maison.superficie}m2 {maison.prix} */}
-                    
-                    <td>360 degres</td>
-                    <td>24/5/2022</td>
-                   
-                    {/* <td className=" d-flex justify-content-evenly">
-                      <Button
-                        variant="primary"
-                        // onClick={handleShowEdit}
-                        // onClick={() => handleShowEditMaisons(maison)}
-                        style={{
-                          backgroundColor: "#fff",
-                          border: "1px solid #004573",
-                          color: "#004573",
-                        }}
-                        id="buttonModifier"
-                      >
-                        <FontAwesomeIcon icon={faPenToSquare} />
-                      </Button>
-                      <Button
-                        // onClick={() => supprimerMaison(maison.id)}
-                        style={{
-                          backgroundColor: "#fff",
-                          border: "1px solid #004573",
-                          color: "#004573",
-                        }}
-                      >
-                        <FontAwesomeIcon icon={faTrash} />
-                      </Button>
-
-                      <Button
-                        style={{
-                          backgroundColor: "#fff",
-                          border: "1px solid #004573",
-                          color: "#004573",
-                        }}
-                      >
-                        <Link
-                          // to={`/detailmaisonadmin/${maison.id} || '' `}
-                          style={{ color: "#004573" }}
-                        >
-                          <FontAwesomeIcon icon={faEye} />
-                        </Link>
-                      </Button>
-                    </td> */}
-                  </tr>
-                {/* ); */}
-              {/* })} */}
+                )
+                 
+                }
+               
           </tbody>
         </table>
-        {/* <Pagination
+        <Pagination
           currentPage={currentPage}
           totalPaginationPages={totalPaginationPages}
           setCurrentPage={setCurrentPage}
-        /> */}
+        />
       </div>
 
-      {/* modal debut  ajouter participant*/}
+      {/* modal debut  ajouter evaluation*/}
       <>
-        <Modal show={showEvaluation} onHide={handleCloseEvaluation} id="buttonAjouter">
-          <Modal.Header closeButton>
-            <Modal.Title>Ajouter une évaluation</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form>
-              <FormGroup>
+      <Modal show={showEvaluation} onHide={handleCloseEvaluation} id="buttonAjouter">
+    <Modal.Header closeButton>
+        <Modal.Title>Ajouter une évaluation</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+        <Form>
+            <FormGroup>
                 <FormLabel>Titre de l'évaluation:</FormLabel>
-                <FormControl type="text"
-
-                    value={evaluationData.titre} // Assurez-vous que la valeur est liée à l'état
+                <FormControl 
+                    type="text"
+                    value={evaluationData.titre} 
                     onChange={(e) => setEvaluationData({ ...evaluationData, titre: e.target.value })} 
-                  required />
-                  </FormGroup>
-                  
-              {/* 
-              {questions.map(question => (  
-  <div key={question.id}>  */}
-    <FormControl 
-      type="hidden" 
-      name="evaluation_id" 
-      id="evaluation_id"
-      // value={question.nom} // Accédez à la propriété nom de la question
-      // onChange={(e) => setEvaluationData({ ...evaluationData, nom: e.target.value })} 
-    />
-  {/* </div>
-))} */}
+                    required 
+                />
+            </FormGroup>
 
-              <div id="questions-container">
-                 {questions.map(question => (
-                    <div className="question" key={question.index}>
+            <div id="questions-container">
+                {questions.map((question, index) => (
+                    <div className="question mt-2" key={index}>
                         <FormLabel>Question:</FormLabel>
-                        <FormControl type="text" 
-                        value={questions[question.index].nom} // Utilisez la valeur depuis l'état local
-                        onChange={(e) => {
-                            const updatedQuestions = [...questions];
-                            updatedQuestions[question.index].nom = e.target.value; // Mettez à jour le nom de la question dans l'état local
-                            setQuestions(updatedQuestions);
-                        }}
-                        
+                        <FormControl 
+                            type="text" 
+                            value={questions[index].nom} 
+                            onChange={(e) => {
+                                const updatedQuestions = [...questions];
+                                updatedQuestions[index].nom = e.target.value;
+                                setQuestions(updatedQuestions);
+                            }} 
                         />
                         <h6 className='m-3'>Choisissez la catégorie</h6>
-                          <div style={{ display: "flex", flexDirection: "row", justifyContent: 'center', gap: '20px' }} className='mb-3 mt-3'>
-                          {categories.map(categorie => (
-    <div key={categorie.id} style={{ display: "flex", alignItems: "center" }}>
-        <Form.Check
-            type="checkbox"
-            value={categorie.id}
-            label={categorie.nom}
-            onChange={() => handleCategorySelect(question.index, categorie.id)}
-            checked={selectedCategories[question.index]?.includes(categorie.id)}
-            disabled={selectedCategories[question.index]?.length > 0 && !selectedCategories[question.index]?.includes(categorie.id)}
-        />
-    </div>
-))}
-
-                          </div>
-                        <Button type="button" className="add-response" onClick={() => addResponse(question.index)}>Ajouter une réponse</Button>
-                        {/* <div className="responses">
-                                          {[...Array(question.responseCount)].map((_, index) => (
-                                              <FormControl key={index} type="text" name={`reponse[${question.index}][]`} placeholder={`Réponse ${index + 1}`} />
-                                          ))}
-                        </div> */}
-                        <div className="responses">
-    {[...Array(question.responseCount)].map((_, index) => (
-        <FormControl 
-            key={index} 
-            type="text" 
-            name={`reponse[${question.index}][]`} 
-            placeholder={`Réponse ${index + 1}`} 
-            // value={question.reponses[index] || ''} // Utilisez la valeur de la réponse depuis l'état local
-            value={question.reponses && question.reponses[index] ? question.reponses[index] : ''}
-
-            onChange={(e) => {
-            // legui
-                // const updatedQuestions = [...questions];
-                // updatedQuestions[question.index].reponses[index] = e.target.value; // Mettez à jour la réponse dans l'état local
-              //   if (updatedQuestions[question.index]) {
-              //     updatedQuestions[question.index].reponses[index] = e.target.value;
-              // }
-
-              const updatedQuestions = [...questions]; // Copiez les questions existantes pour éviter la mutation directe de l'état
-
-// Vérifiez si updatedQuestions[question.index] est défini avant de le modifier
-updatedQuestions[question.index] = updatedQuestions[question.index] ? {...updatedQuestions[question.index]} : {}; 
-
-// Mettez à jour la réponse si la question est définie, sinon créez un nouvel objet pour la question
-updatedQuestions[question.index].reponses = updatedQuestions[question.index]?.reponses ? [...updatedQuestions[question.index].reponses] : [];
-updatedQuestions[question.index].reponses[index] = e.target.value;
-
-setQuestions(updatedQuestions);
-
-            }}
-        />
-    ))}
+                        <div style={{ display: "flex", flexDirection: "row", justifyContent: 'center', gap: '20px' }} className='mb-3 mt-3'>
+                            {categories.map(categorie => (
+                                <div key={categorie.id} style={{ display: "flex", alignItems: "center" }}>
+                                    <Form.Check
+                                        type="checkbox"
+                                        value={categorie.id}
+                                        label={categorie.nom}
+                                        onChange={() => handleCategorySelect(index, categorie.id)}
+                                        checked={selectedCategories[index]?.includes(categorie.id)}
+                                        disabled={selectedCategories[index]?.length > 0 && !selectedCategories[index]?.includes(categorie.id)}
+                                    />
+                                </div>
+                            ))}
                         </div>
-
-                      
-
-                        <Button  variant='danger' className="remove-question" onClick={() => removeQuestion(question.index)}><FontAwesomeIcon icon={faTrash} /> </Button>
+                        <Button type="button" className="add-response me-2" onClick={() => addResponse(index)} style={{backgroundColor:'#004573', border:'none'}}><FontAwesomeIcon icon={faPlus} /> </Button><span>Ajouter une reponse</span>
+                        <div className="responses mb-3">
+                            {[...Array(question.responseCount)].map((_, responseIndex) => (
+                                <FormControl 
+                                    key={responseIndex} 
+                                    type="text" 
+                                    name={`reponse[${index}][]`} 
+                                    placeholder={`Réponse ${responseIndex + 1}`} 
+                                    value={question.reponses && question.reponses[responseIndex] ? question.reponses[responseIndex] : ''}
+                                    onChange={(e) => {
+                                        const updatedQuestions = [...questions];
+                                        updatedQuestions[index] = updatedQuestions[index] ? {...updatedQuestions[index]} : {};
+                                        updatedQuestions[index].reponses = updatedQuestions[index]?.reponses ? [...updatedQuestions[index].reponses] : [];
+                                        updatedQuestions[index].reponses[responseIndex] = e.target.value;
+                                        setQuestions(updatedQuestions);
+                                    }}
+                                    className='mt-3'
+                                />
+                            ))}
+                        </div>
+                        <Button variant='danger' className="remove-question mb-3" onClick={() => removeQuestion(index)}><FontAwesomeIcon icon={faTrash} /></Button>
                     </div>
-                 ))}
-              </div>
-              <Button type="button" id="add-question" onClick={addQuestion}>Ajouter une question</Button>
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button
-              variant="secondary"
-              onClick={ajouterEvaluation}
-              style={{
+                ))}
+            </div>
+            <Button type="button" id="add-question" onClick={addQuestion} className='me-2' style={{backgroundColor:'#004573', border:'none'}}><FontAwesomeIcon icon={faPlus} /></Button><span>Ajouter une question</span>
+        </Form>
+    </Modal.Body>
+    <Modal.Footer>
+        <Button
+            variant="secondary"
+            onClick={ajouterEvaluation}
+            style={{
                 backgroundColor: "#004573",
                 border: "none",
                 width: "130px",
-              }}
-            >
-              Ajouter
-            </Button>
-            <Button
-              variant="primary"
-              onClick={handleCloseEvaluation}
-              style={{
+            }}
+        >
+            Ajouter
+        </Button>
+        <Button
+            variant="primary"
+            onClick={handleCloseEvaluation}
+            style={{
                 backgroundColor: "#fff",
                 border: "1px solid #004573",
                 width: "130px",
                 color: "#004573",
-              }}
-            >
-              Fermer
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </>
-      {/* modal fin ajouter maison */}
+            }}
+        >
+            Fermer
+        </Button>
+    </Modal.Footer>
+</Modal>
 
-      {/* modal debut modifier maison */}
+      </>
      
-      {/* modal fin modifier maison */}
+
+    
     </div>
     </div>
   )

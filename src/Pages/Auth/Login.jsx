@@ -123,7 +123,11 @@ export default function Login() {
 
     if (userRole=== "Admin") {
       navigate ("/dashbordAdmin");
-    } else {
+    }else if(userRole=== "SuperAdmin"){
+      navigate ("/dashbordSuperAdmin");
+
+    }
+     else {
       navigate("/dashbordUser");
     }
 

@@ -1,8 +1,15 @@
+:root{
+    --principal:#004573;
+    --seconde:#FFB703;
+    --troisieme:#FFF;
+    --optionel:#ebf0f4;
+    
+} 
 .container_devis_form {
-    max-width: 500px;
+    max-width: 100%;
     margin: 50px auto;
     padding: 20px;
-    background-color: #fff;
+    background-color: var(--troisieme);
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
@@ -16,10 +23,6 @@
     margin-bottom: 20px;
 }
 
-.input-group label {
-    display: block;
-    margin-bottom: 5px;
-}
 
 .input-group input,
 .input-group textarea {
@@ -37,7 +40,7 @@
     display: block;
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
+    background-color: var(--principal) !important;
     border: none;
     color: #fff;
     border-radius: 5px;
@@ -45,5 +48,6 @@
 }
 
 button:hover {
-    background-color: #0056b3;
+    /* background-color: var(--principal) !important;
+    border: 1px sold var(--seconde) !important; */
 }

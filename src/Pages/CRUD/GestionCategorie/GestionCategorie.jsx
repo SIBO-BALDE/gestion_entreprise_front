@@ -93,7 +93,7 @@ export default function GestionCategorie() {
     const role = localStorage.getItem("rolecle");
     const token = localStorage.getItem("tokencle");
     try {
-      if (token || role === "Admin") {
+      // if (token || role === "Admin") {
         const response = await axios.get(
           "http://localhost:8000/api/categories",
           {
@@ -102,10 +102,11 @@ export default function GestionCategorie() {
             },
           }
         );
+        console.log(response , 'category resp')
         setCategories(response.data.categories);
 
         console.log(categories);
-      }
+      // }
     } catch (error) {
       console.error("Erreur lors de la récupération des catégories:", error);
     }
@@ -239,7 +240,7 @@ const displayCategories= searchValue === "" ? categories : filteredCategorie;
 
 
   const [currentPage, setCurrentPage] = useState(1);
-const  categorieParPage= 3;
+const  categorieParPage= 5;
 
 // pagination
 const indexOfLastCategorie = currentPage* categorieParPage;
@@ -413,7 +414,7 @@ const totalPaginationPages = Math.ceil(categories.length /  categorieParPage);
             </Button>
             <Button
               variant="primary"
-              // onClick={handleCancleAdd}
+              onClick={handleCloseCategories}
               style={{
                 backgroundColor: "#fff",
                 border: "1px solid #004573",
@@ -471,7 +472,7 @@ const totalPaginationPages = Math.ceil(categories.length /  categorieParPage);
           </Button>
           <Button
             variant="primary"
-            // onClick={handleCancleEdit}
+            onClick={handleCloseEditCategories}
             style={{
               backgroundColor: "#fff",
               border: "1px solid #004573",

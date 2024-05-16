@@ -1,7 +1,7 @@
 import { faEnvelope,faMessage, faUser } from '@fortawesome/free-regular-svg-icons';
-import { faBuilding, faGauge, faGear, faHouse, faLayerGroup, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faBuilding, faCalendarDay, faComment, faFileLines, faFlaskVial, faGauge, faGear, faHouse, faLayerGroup, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './SideBar.css';
 import { Button, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -23,6 +23,27 @@ const links = [
       text: "Dashboard Admin",
       icon: faGauge,
     },
+
+
+    {
+      path: "gestioncategorie",
+      text: "Gestion Catégories",
+      icon: faLayerGroup,
+    },
+    {
+      path: "gestionentreprise",
+      text: "Gestion Entreprises",
+      icon: faBuilding,
+    },
+
+
+    {
+      path: "gestionevenement",
+      text: "Gestion Evenements",
+      icon: faCalendarDay,
+      
+    },
+
     {
       path: "gestionuser",
       text: "Gestion Participants",
@@ -31,48 +52,67 @@ const links = [
     {
       path: "gestionevaluation",
       text: "Gestion Evaluations",
-      icon: faUser,
+      icon: faFlaskVial,
     },
     {
       path: "gestionfeedback",
       text: "Gestion Feedbacks",
-      icon: faUser,
-    },
-    {
-      path: "gestionevenement",
-      text: "Gestion Evenements",
-      icon: faHouse,
+      icon: faComment,
     },
     
-    {
-      path: "gestionentreprise",
-      text: "Gestion Entreprises",
-      icon: faBuilding,
-    },
-    
-    {
-      path: "gestioncategorie",
-      text: "Gestion Catégories",
-      icon: faLayerGroup,
-    },
-   
-    {
-      path: "gestionnewletter",
-      text: "Gestion Newsletters",
-      icon: faEnvelope,
-    },
-    {
-      path: "gestionmessage",
-      text: "Gestion Messages",
-      icon: faMessage,
-    },
   ];
+
+
+  
 
  
   
 
   
 export default function SideBar({ isOpen, name, handleChangePath }) {
+
+
+
+  const [utilisateur, setUtilisateur] = useState([]);
+  const userInformations = () =>{
+    const token = localStorage.getItem("tokencle");
+    const role = localStorage.getItem("rolecle");
+    
+    // if (token || role==='Participant') {
+      
+
+      axios
+        .post(
+          "http://localhost:8000/api/me",
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+
+        .then((response) => {
+          const userData = response.data;
+          setUtilisateur(userData);
+          console.log(userData, "userdATA Dashboarduser");
+        })
+        .catch((error) => {
+          console.error(
+            "Erreur lors de la récupération des informations de l'utilisateur :",
+            error
+          );
+        });
+    
+  }
+
+
+  useEffect(() => {
+    // Récupérez le token et le role  du localStorage
+    userInformations();
+    
+    
+  }, []);
 
   // const { token, role, logout } = useAuth();
 
@@ -128,8 +168,10 @@ export default function SideBar({ isOpen, name, handleChangePath }) {
             {" "}
             <Image src={logo} alt="" id="image-contenu" className='border' />
           </div>
-          <p className="text-center"><Link to={'/'} style={{textDecoration:'none', color:'white'}}>BARAKA GATE</Link></p>
-          <hr />
+          <h6 className="text-center mt-3"><Link to={'/'} style={{textDecoration:'none', color:'white'}}>{utilisateur.prenom} {utilisateur.nom}</Link></h6>
+          <p className="text-center text-white">{utilisateur.email}</p>
+          {/* <p className="text-center text-white">{utilisateur.id}</p> */}
+          <hr className=" text-white"/>
         </div>
         <div id="content-try-content" className=''>
           {links.map((link, index) => (

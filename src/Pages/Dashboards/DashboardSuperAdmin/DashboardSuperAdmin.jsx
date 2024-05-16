@@ -1,11 +1,13 @@
+
+
 import React, {  useEffect, useState } from "react";
-import "./DashboardAdmin.css";
-import NavbarAdmin from "../../../Components/Admin_Components/NavbarAdmin/NavbarAdmin";
-import SideBars from "../../../Components/Admin_Components/SideBar/SideBar";
+import "./DashboardSuperAdmin.css";
+import NavbarSuperAdmin from "../../../Components/Admin_Components/NavbarSuperAdmin/NavbarSuperAdmin";
+import SideBarSuperAdmin from "../../../Components/Admin_Components/SideBarSuperAdmin/SideBarSuperAdmin";
 import GestionUser from "../../CRUD/GestionUsers/GestionUser";
 import GestionMessage from "../../CRUD/GestionMessage/GestionMessage";
 import GestionCategorie from "../../CRUD/GestionCategorie/GestionCategorie";
-import Tableaux from "../../../Components/Admin_Components/Tableaux/Tableaux";
+import TableauxSuperAdmin from "../../../Components/Admin_Components/TableauSuperAdmin/TableauSuperAdmin";
 // import axios from "axios";
 // import { useNavigate } from "react-router-dom";
 // import { useAuth } from "../Authentification/AuthContext";
@@ -22,6 +24,8 @@ import GestionFeedback from "../../CRUD/GestionFeedback/GestionFeedback";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import GestionDevis from "../../CRUD/GestionDevis/GestionDevis";
+import GestionAdmin from "../../GestionAdmin/GestionAdmin";
+import GestionEntrepriseAdmin from "../../GestionEntrepriseAdmin/GestionEntrepriseAdmin";
 
 
 
@@ -60,85 +64,85 @@ useEffect(() => {
 }, []);
 
   //  Lister les entreprises
-  const fetchEntreprises = async () => {
-    const role = localStorage.getItem("rolecle");
-    const token = localStorage.getItem("tokencle");
-    try {
-      if (token || role === "Admin") {
-        const response = await axios.get(
-          "http://localhost:8000/api/entreprises",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setEntreprises(response.data.entreprises);
+  // const fetchEntreprises = async () => {
+  //   const role = localStorage.getItem("rolecle");
+  //   const token = localStorage.getItem("tokencle");
+  //   try {
+  //     if (token || role === "Admin") {
+  //       const response = await axios.get(
+  //         "http://localhost:8000/api/entreprises",
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       );
+  //       setEntreprises(response.data.entreprises);
 
-        console.log(entreprises);
-      }
-    } catch (error) {
-      console.error("Erreur lors de la récupération des catégories:", error);
-    }
-  };
-  useEffect(() => {
-    fetchEntreprises();
-  }, []);
-  //  Lister les users
-  const fetchUsers = async () => {
-    const role = localStorage.getItem("rolecle");
-    const token = localStorage.getItem("tokencle");
-    try {
-      if (token || role === "Admin") {
-        const response = await axios.get(
-          "http://localhost:8000/api/users_participants",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setUsers(response.data.participants);
+  //       console.log(entreprises);
+  //     }
+  //   } catch (error) {
+  //     console.error("Erreur lors de la récupération des catégories:", error);
+  //   }
+  // };
+  // useEffect(() => {
+  //   fetchEntreprises();
+  // }, []);
+  // //  Lister les users
+  // const fetchUsers = async () => {
+  //   const role = localStorage.getItem("rolecle");
+  //   const token = localStorage.getItem("tokencle");
+  //   try {
+  //     if (token || role === "Admin") {
+  //       const response = await axios.get(
+  //         "http://localhost:8000/api/users_participants",
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       );
+  //       setUsers(response.data.participants);
 
-        console.log(users ,'ici users du users');
-      }
-    } catch (error) {
-      console.error("Erreur lors de la récupération des catégories:", error);
-    }
-  };
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+  //       console.log(users ,'ici users du users');
+  //     }
+  //   } catch (error) {
+  //     console.error("Erreur lors de la récupération des catégories:", error);
+  //   }
+  // };
+  // useEffect(() => {
+  //   fetchUsers();
+  // }, []);
 
 
    // Liste evenements
    const [events, setEvents] = useState([]);
 
-   const fetchEvents = async () => {
-     const role = localStorage.getItem("rolecle");
-     const token = localStorage.getItem("tokencle");
-     try {
-       if (token || role === "Admin") {
-         const response = await axios.get(
-           "http://localhost:8000/api/evenements",
-           {
-             headers: {
-               Authorization: `Bearer ${token}`,
-             },
-           }
-         );
-         console.log(response , 'liste')
-         setEvents(response.data.evenements);
+  //  const fetchEvents = async () => {
+  //    const role = localStorage.getItem("rolecle");
+  //    const token = localStorage.getItem("tokencle");
+  //    try {
+  //      if (token || role === "Admin") {
+  //        const response = await axios.get(
+  //          "http://localhost:8000/api/evenements",
+  //          {
+  //            headers: {
+  //              Authorization: `Bearer ${token}`,
+  //            },
+  //          }
+  //        );
+  //        console.log(response , 'liste')
+  //        setEvents(response.data.evenements);
  
-         console.log(events);
-       }
-     } catch (error) {
-       console.error("Erreur lors de la récupération des catégories:", error);
-     }
-   };
-   useEffect(() => {
-     fetchEvents();
-   }, []);
+  //        console.log(events);
+  //      }
+  //    } catch (error) {
+  //      console.error("Erreur lors de la récupération des catégories:", error);
+  //    }
+  //  };
+  //  useEffect(() => {
+  //    fetchEvents();
+  //  }, []);
 
 
 
@@ -228,7 +232,7 @@ useEffect(() => {
       <div className="dashbord-content-main-one container" id="vv">
         <div>
         <div className="content-left-admin-dashbord border">
-          <h3 className="mb-2">Liste des Participants</h3>
+          <h3 className="mb-2">Liste des Admins</h3>
           <table className="table mb-5">
             <thead className="table-light" id="hearder-color">
               <tr>
@@ -270,54 +274,13 @@ useEffect(() => {
           setCurrentPage={setCurrentPage1}
           />  
         </div>
-        <div className="content-left-admin-dashbord border">
-          <h3 className="mb-2">Liste des Evenements</h3>
-          <table className="table mb-5">
-            <thead className="table-light" id="hearder-color">
-              <tr>
-                <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                  Nom
-                </th>
-                <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                  Description
-                </th>
-                <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                  Date debut
-                </th>
-                <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                  Date fin
-                </th>
-                
-              </tr>
-            </thead>
-            <tbody>
-            {currentEvents &&
-               currentEvents.map((eventEl) => ( 
-              <tr key={eventEl && eventEl.id} >
-                <td>{eventEl &&  eventEl.titre}</td>
-                <td>{eventEl &&  eventEl.description}</td>
-                <td>{eventEl &&  eventEl.date_debut}</td>
-                <td>{eventEl &&  eventEl.date_fin}</td>
-               
-              </tr>
-              ))} 
-            </tbody>
-          </table>
-          <Pagination
-           currentPage={currentPage}
-           totalPaginationPagesEvent={totalPaginationPagesEvent}
-           setCurrentPage={setCurrentPage}
-          
-          />  
-          
-          
-        </div>
+        
           
         </div>
         <div className="content-diagramme-circulaire-right-conten-2 border pt-4">
           <div className=" ">
             <p className="text-center mt-2  ">
-              <Tableaux />
+              <TableauxSuperAdmin />
             </p>
           </div>
         </div>
@@ -328,28 +291,25 @@ useEffect(() => {
 
 function RenderContent(name) {
   switch (name) {
-    case "dashbordAdmin":
+    case "dashbordSuperAdmin":
       return <KPI />;
-    case "gestionuser":
-      return <GestionUser />;
-    case "gestionevenement":
-      return <GestionEvenement />;
-    case "gestionentreprise":
-      return <GestionEntreprise />;
-    case "gestioncategorie":
-      return <GestionCategorie />;
+    case "gestioaentrepriseAdmin":
+      return <GestionEntrepriseAdmin />;
+    case "gestioadmin":
+      return <GestionAdmin />;
+    case "gestionnewletter":
+      return <GestionNewsletter />;
+    case "gestionmessage":
+      return <GestionMessage />;
+    case "gestiondevis":
+      return <GestionDevis />;
     
-    case "gestionevaluation":
-      return <GestionEvaluationAdmin />;
-    
-    case "gestionfeedback":
-      return <GestionFeedback />;
     default:
       return <KPI />;
   }
 }
 
-export default function DashbordAdmin() {
+export default function DashboardSuperAdmin() {
   // l'etat pour verifier si le sidebar est ouvert ou pas
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [name, setName] = useState("dashbordAdmin");
@@ -366,11 +326,11 @@ export default function DashbordAdmin() {
 
   useEffect(() => {
    
-    if ( role !== "Admin") {
+    if ( role !== "SuperAdmin") {
       Swal.fire({
         icon: "error",
         title: "Oops!",
-        text: "Acces interdit, connecter vous en tant qu'admin pour avoir accée au dashboard!",
+        text: "Acces interdit, connecter vous en tant que SuperAdmin pour avoir accée au dashboard!",
       });
       navigate("/"); 
     }
@@ -394,7 +354,7 @@ export default function DashbordAdmin() {
         }`}
       >
         <div className="contentsidebar">
-          <SideBars
+          <SideBarSuperAdmin
             isOpen={isSidebarOpen}
             name={name}
             handleChangePath={handleChangePath}
@@ -403,7 +363,7 @@ export default function DashbordAdmin() {
         </div>
         <div className="secondecontent">
           <div className="">
-            <NavbarAdmin onMenuClick={toggleSidebar} />
+            <NavbarSuperAdmin onMenuClick={toggleSidebar} />
           </div>
           {/* <Tableaux /> */}
           {/* contenue selon le lien clicker */}
@@ -413,3 +373,4 @@ export default function DashbordAdmin() {
     </div>
   );
 }
+

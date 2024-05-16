@@ -350,14 +350,14 @@ const ajouterQuestion = async (e) => {
     e.preventDefault();
     const role = localStorage.getItem("rolecle");
     const token = localStorage.getItem('tokencle')
-    // if(questionData.nom === "" || questionData.feddback_id ){
-    //   Swal.fire({
-    //     icon: "error",
-    //     title: "Oops!",
-    //     text: "les champs sont  obligatoires!",
-    //   });
-    //   return
-    // }
+    if(questionData.nom === "" || questionData.feddback_id ){
+      Swal.fire({
+        icon: "error",
+        title: "Oops!",
+        text: "les champs sont  obligatoires!",
+      });
+      return
+    }
     
       try {
         if (token || role==="Admin"){
@@ -814,7 +814,7 @@ const ajouterQuestion = async (e) => {
             </Button>
             <Button
               variant="primary"
-              // onClick={handleCancleAdd}
+              onClick={handleCloseFeeds2}
               style={{
                 backgroundColor: "#fff",
                 border: "1px solid #004573",

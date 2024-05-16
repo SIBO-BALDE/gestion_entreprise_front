@@ -32,7 +32,7 @@ export default function GestionNewsletter({ id }) {
     const role = localStorage.getItem("rolecle");
     const token = localStorage.getItem("tokencle");
     try {
-      if (token || role === "Admin") {
+      if (token || role === "SuperAdmin") {
         const response = await axios.get(
           "http://localhost:8000/api/newsletters",
           {
@@ -103,7 +103,7 @@ const totalPaginationPages = Math.ceil(emails.length /   emailParPage);
   const token = localStorage.getItem("tokencle");
   
   try {
-    if (token || role === "Admin"){
+    if (token || role === "SuperAdmin"){
       const response = await axios.delete(
         `http://localhost:8000/api/newsletter/${id}/soft-delete`,
         {

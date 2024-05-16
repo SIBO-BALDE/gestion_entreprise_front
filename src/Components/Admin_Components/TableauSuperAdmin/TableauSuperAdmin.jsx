@@ -1,10 +1,11 @@
+
 import { faBellConcierge, faBuilding, faCalendar, faFeed, faQuestion, faUsers } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
-import "./Tableaux.css";
+import "./TableauSuperAdmin.css";
 import axios from 'axios';
 
-export default function Tableaux() {
+export default function TableauSuperAdmin() {
 
   // tableau ou stocker la liste des users
   const [users, setUsers] = useState([]);
@@ -103,7 +104,7 @@ export default function Tableaux() {
             <FontAwesomeIcon icon={faUsers} id="icon-content-admin" />
           </div>
           <div>
-            <h4>Nombre de participants</h4>
+            <h4>Nombre d'admin</h4>
           </div>
         </div>
         <h1 className="text-center mt-1 ">{users.length}</h1>
@@ -145,3 +146,4 @@ export default function Tableaux() {
     </div>
   )
 }
+

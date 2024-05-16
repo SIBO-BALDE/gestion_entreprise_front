@@ -53,7 +53,7 @@ export default function ModeleScreen() {
                 <div>
                     <h6 
                     style={{fontWeight:'bold', textAlign:'justify'}}  className='mt-3 mb-2'>
-                        <Link to={'/login'} style={{textDecoration:'none', color:'black'}}>Evaluation 360 degrés</Link>
+                        <Link to={'/tarif'} style={{textDecoration:'none', color:'black'}}>Evaluation 360 degrés</Link>
                     </h6>
                     <p style={{textAlign:'justify'}}>Évaluez et améliorez l’expérience de vos
                     collaborateurs grâce à notre modèle de

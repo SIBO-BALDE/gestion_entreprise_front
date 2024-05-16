@@ -10,11 +10,14 @@ import React, { useEffect, useState } from "react";
 // import axios from "axios";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { useAuth } from  '../../Auth/AuthContex'
-import Pagination from "../../../Components/User_Components/Pagination/Pagination";
+import { continents, countries, languages } from 'countries-list'
+import { getCountryCode, getCountryData, getCountryDataList, getEmojiFlag } from 'countries-list'
+// import { useAuth } from  '../../Auth/AuthContex'
+import Pagination from "../../Components/User_Components/Pagination/Pagination";
+import { emailPattern } from "../Regex/Regex";
 // import Pagination from "../../Components/Pagination/Pagination";
 
-export default function GestionEntreprise() {
+export default function GestionEntrepriseAdmin() {
   const [showEntreprise, setshowEntreprise] = useState(false);
   const [showEditModalEntreprises, setShowEditModaEntreprises] = useState(false);
 
@@ -22,22 +25,43 @@ export default function GestionEntreprise() {
   const handleshowEntreprise = () => setshowEntreprise(true);
   const handleCloseEditEntreprises = () => setShowEditModaEntreprises(false);
 
- 
+// recuperer la lsite des pay sur l'api country list
+  const [selectedCountry, setSelectedCountry] = useState('');
+  const countryOptions = Object.values(countries).map(country => (
+    <option key={country.name} value={country.name}>
+      {country.name}
+    </option>
+  ));
+
+  
 
   const [entreprises, setEntreprises] = useState([]);
   // etat pour ajout entreprise
   const [entrepriseData, setEntrepriseData] = useState({ 
     nom: "",
+    email: "",
+    pays:"",
+    ville:"",
+    adresse:"",
+    numeroTelUn:"",
+    numeroTelDeux:"",
+
+
+
   
   });
-  const { userRole, userToken } = useAuth();
+  
+  
   // function pour ajouter une entreprise
   const ajouterEntreprise = async () => {
     const token = localStorage.getItem("tokencle");
     const role = localStorage.getItem("rolecle");
    
   
-    if(entrepriseData.nom === ""){
+    if(entrepriseData.nom === "" || entrepriseData.email === "" 
+    || entrepriseData.pays === "" || entrepriseData.ville === "" 
+    || entrepriseData.adresse === "" || entrepriseData.numeroTelUn === "" 
+     || entrepriseData.numeroTelDeux === ""){
       Swal.fire({
         icon: "error",
         title: "Oops!",
@@ -46,10 +70,18 @@ export default function GestionEntreprise() {
       console.log(entrepriseData, 'entreprisedata')
       return
     }
+    if (!entrepriseData.email.match(emailPattern)) {
+      Swal.fire({
+          icon: "error",
+          title: "Oops!",
+          text: "L'e-mail  invalide!",
+      });
+      return;
+  }
     try {
-      if (token && role === "Admin") {
+      if (token && role === "SuperAdmin") {
         const response = await axios.post(
-          "http://localhost:8000/api/entreprise/create",
+          "http://localhost:8000/api/entrepriseAbonement/create",
 
           entrepriseData,
           {
@@ -64,9 +96,16 @@ export default function GestionEntreprise() {
           // Ajoutez la nouvelle maison à la liste existante
           console.log(response, 'response entreprise')
           setEntreprises([...entreprises, response.data]);
+          console.log(entreprises ,'entreprises ajout')
           // Réinitialisez les valeurs du formulaire après avoir ajouté la maison
           setEntrepriseData({
             nom: "",
+            email: "",
+            pays:"",
+            ville:"",
+            adresse:"",
+            numeroTelUn:"",
+            numeroTelDeux:"",
            
           });
           Swal.fire({
@@ -92,18 +131,20 @@ export default function GestionEntreprise() {
     const role = localStorage.getItem("rolecle");
     const token = localStorage.getItem("tokencle");
     try {
-      if (token || role === "Admin") {
+      if (token || role === "SuperAdmin") {
         const response = await axios.get(
-          "http://localhost:8000/api/entreprises",
+          "http://localhost:8000/api/listes/entrepriseAbonement",
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
-        setEntreprises(response.data.entreprises);
+        console.log(entreprises, 'entrepriseAbonement entre avant');
+        setEntreprises(response.data.EntrepriseAbonement);
 
-        console.log(entreprises);
+        console.log(entreprises, 'entrepriseAbonement entre apres');
+        console.log(response, 'entrepriseAbonement resp'); 
       }
     } catch (error) {
       console.error("Erreur lors de la récupération des catégories:", error);
@@ -115,8 +156,14 @@ export default function GestionEntreprise() {
 
   //  etat pour modifier entreprise
  const [editentrepriseData, setEditentrepriseData] = useState({
-  id: null,
-  nom: "",
+    id: null,
+    nom: "",
+    email: "",
+    pays:"",
+    ville:"",
+    adresse:"",
+    numeroTelUn:"",
+    numeroTelDeux:"",
   
 });
 
@@ -125,6 +172,12 @@ export default function GestionEntreprise() {
     setEditentrepriseData({
       id: entreprise.id,
       nom: entreprise.nom,
+      email: entreprise.email,
+      pays:entreprise.pays,
+      ville:entreprise.ville,
+      adresse:entreprise.adresse,
+      numeroTelUn:entreprise.numeroTelUn,
+      numeroTelDeux:entreprise.numeroTelDeux,
      
     });
     setShowEditModaEntreprises(true);
@@ -135,9 +188,9 @@ export default function GestionEntreprise() {
     const role = localStorage.getItem("rolecle");
     const token = localStorage.getItem("tokencle");
     try {
-      if (token || role === "Admin") {
+      if (token || role === "SuperAdmin") {
           const response = await axios.post(
-          `http://localhost:8000/api/entreprise/update/${editentrepriseData.id}`,
+          `http://localhost:8000/api/entrepriseAbonement/update/${editentrepriseData.id}`,
           editentrepriseData,
           {
             headers: {
@@ -176,9 +229,9 @@ export default function GestionEntreprise() {
     const token = localStorage.getItem("tokencle");
    
     try {
-      if (token || role === "Admin"){
+      if (token || role === "SuperAdmin"){
         const response = await axios.delete(
-          `http://localhost:8000/api/entreprises/${id}/soft-delete`,
+          `http://localhost:8000/api/entrepriseAbonements/${id}/soft-delete`,
           {
             headers: {
               'Content-Type': 'multipart/form-data',
@@ -228,7 +281,7 @@ const handleSearchChange = (nom) => {
 };
 
 // faire le filtre des maison par addrsse
-const filteredEntreprise = entreprises.filter(
+const filteredEntreprise =  entreprises && entreprises.filter(
   (entreprise) =>
     entreprise &&
     entreprise.nom &&
@@ -243,12 +296,12 @@ const  entrepriseParPage= 5;
 // pagination
 const indexOfLastEntreprise = currentPage* entrepriseParPage;
 const indexOfFirstEntreprise = indexOfLastEntreprise -  entrepriseParPage;
-const currentEntreprises = filteredEntreprise.slice(
+const currentEntreprises =  filteredEntreprise && filteredEntreprise.slice(
   indexOfFirstEntreprise,
   indexOfLastEntreprise
 );
 
-const totalPaginationPages = Math.ceil(entreprises.length /  entrepriseParPage);
+const totalPaginationPages = Math.ceil( entreprises && entreprises.length /  entrepriseParPage);
   
 
   return (
@@ -305,6 +358,24 @@ const totalPaginationPages = Math.ceil(entreprises.length /  entrepriseParPage);
               <th style={{ backgroundColor: "#004573", color: "#fff" }}>
                 Titre
               </th>
+              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+                Email
+              </th>
+              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+                Pays
+              </th>
+              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+                Ville
+              </th>
+              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+                Addresse
+              </th>
+              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+                Telephone n°1
+              </th>
+              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+              Telephone n°2
+              </th>
 
               <th
                 className="d-flex  justify-content-center "
@@ -323,6 +394,12 @@ const totalPaginationPages = Math.ceil(entreprises.length /  entrepriseParPage);
             {currentEntreprises && currentEntreprises.map((entreprise) => ( 
               <tr key={entreprise && entreprise.id} >
                 <td style={{ color: "black" }} >{entreprise && entreprise.nom}</td>
+                <td style={{ color: "black" }} >{entreprise && entreprise.email}</td>
+                <td style={{ color: "black" }} >{entreprise && entreprise.pays}</td>
+                <td style={{ color: "black" }} >{entreprise && entreprise.ville}</td>
+                <td style={{ color: "black" }} >{entreprise && entreprise.adresse}</td>
+                <td style={{ color: "black" }} >{entreprise && entreprise.numeroTelUn}</td>
+                <td style={{ color: "black" }} >{entreprise && entreprise.numeroTelDeux}</td>
                 <td className="d-flex justify-content-evenly">
                   <Button
                     variant="primary"
@@ -371,27 +448,126 @@ const totalPaginationPages = Math.ceil(entreprises.length /  entrepriseParPage);
           </Modal.Header>
           <Modal.Body>
             <Form>
+              <div className="d-flex" style={{gap:'15px'}}>
               <Form.Group
                 className="mb-3"
                 controlId="exampleForm.ControlInput1"
               >
-                <Form.Label>Titre</Form.Label>
+                <Form.Label>Nom</Form.Label>
                 <Form.Control
                   value={entrepriseData.nom}
                   onChange={(e) => {
                     setEntrepriseData({ ...entrepriseData, nom: e.target.value });
-                  //   validateField("titre", e.target.value);
                   }}
                   type="text"
                   placeholder=""
                 />
-                {/* {errors.titre && (
-                  <p className="error-message">{errors.titre}</p>
-                )}
-                {successeds.titre && (
-                  <p className="success-message">{successeds.titre}</p>
-                )} */}
+                
               </Form.Group>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  value={entrepriseData.email}
+                  onChange={(e) => {
+                    setEntrepriseData({ ...entrepriseData, email: e.target.value });
+                  }}
+                  type="email"
+                  placeholder=""
+                />
+                
+              </Form.Group>
+
+              </div>
+              <div className="d-flex" style={{gap:'15px'}}>
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Label>Telephone 1</Form.Label>
+                  <Form.Control
+                    value={entrepriseData.numeroTelUn}
+                    onChange={(e) => {
+                      setEntrepriseData({ ...entrepriseData, numeroTelUn: e.target.value });
+                    }}
+                    type="text"
+                    placeholder=""
+                  />
+                  
+                </Form.Group>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Label>Telephone 2</Form.Label>
+                <Form.Control
+                  value={entrepriseData.numeroTelDeux}
+                  onChange={(e) => {
+                    setEntrepriseData({ ...entrepriseData, numeroTelDeux: e.target.value });
+                  }}
+                  type="text"
+                  placeholder=""
+                />
+                
+              </Form.Group>
+
+              </div>
+              {/* pays */}
+              <div className="d-flex" style={{gap:'15px'}}>
+              <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Label>Adresse</Form.Label>
+                  <Form.Control
+                    value={entrepriseData.adresse}
+                    onChange={(e) => {
+                      setEntrepriseData({ ...entrepriseData, adresse: e.target.value });
+                    }}
+                    type="text"
+                    placeholder=""
+                  />
+                  
+                </Form.Group>
+                {/* pays */}
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Label>Ville</Form.Label>
+                  <Form.Control
+                    value={entrepriseData.ville}
+                    onChange={(e) => {
+                      setEntrepriseData({ ...entrepriseData, ville: e.target.value });
+                    }}
+                    type="text"
+                    placeholder=""
+                  />
+                  
+                </Form.Group>
+              </div>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlSelect1">
+                  <Form.Label>Pays</Form.Label>
+                  <Form.Control
+                    as="select"
+                    value={entrepriseData.pays}
+                      onChange={(e) => {
+                        setEntrepriseData({
+                          ...entrepriseData,
+                          pays: e.target.value,
+                        });
+                        
+                      }}
+                  >
+                    <option value="">Sélectionnez un pays</option>
+                    {countryOptions}
+                  </Form.Control>
+              </Form.Group>
+
+              
+              
 
               
             </Form>
@@ -436,8 +612,8 @@ const totalPaginationPages = Math.ceil(entreprises.length /  entrepriseParPage);
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Titre</Form.Label>
+            {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Nom</Form.Label>
               <Form.Control
                 type="text"
                 placeholder=""
@@ -450,7 +626,125 @@ const totalPaginationPages = Math.ceil(entreprises.length /  entrepriseParPage);
                   })
                 }
               />
-            </Form.Group>
+            </Form.Group> */}
+
+            <div className="d-flex" style={{gap:'15px'}}>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Label>Nom</Form.Label>
+                <Form.Control
+                  value={editentrepriseData.nom}
+                  onChange={(e) => {
+                    setEditentrepriseData({ ...editentrepriseData, nom: e.target.value });
+                  }}
+                  type="text"
+                  placeholder=""
+                />
+                
+              </Form.Group>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  value={editentrepriseData.email}
+                  onChange={(e) => {
+                    setEditentrepriseData({ ...editentrepriseData, email: e.target.value });
+                  }}
+                  type="email"
+                  placeholder=""
+                />
+                
+              </Form.Group>
+
+              </div>
+              <div className="d-flex" style={{gap:'15px'}}>
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Label>Telephone 1</Form.Label>
+                  <Form.Control
+                    value={editentrepriseData.numeroTelUn}
+                    onChange={(e) => {
+                      setEditentrepriseData({ ...editentrepriseData, numeroTelUn: e.target.value });
+                    }}
+                    type="text"
+                    placeholder=""
+                  />
+                  
+                </Form.Group>
+              <Form.Group
+                className="mb-3"
+                controlId="exampleForm.ControlInput1"
+              >
+                <Form.Label>Telephone 2</Form.Label>
+                <Form.Control
+                  value={editentrepriseData.numeroTelDeux}
+                  onChange={(e) => {
+                    setEditentrepriseData({ ...editentrepriseData, numeroTelDeux: e.target.value });
+                  }}
+                  type="text"
+                  placeholder=""
+                />
+                
+              </Form.Group>
+
+              </div>
+              {/* pays */}
+              <div className="d-flex" style={{gap:'15px'}}>
+              <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Label>Adresse</Form.Label>
+                  <Form.Control
+                    value={editentrepriseData.adresse}
+                    onChange={(e) => {
+                      setEditentrepriseData({ ...editentrepriseData, adresse: e.target.value });
+                    }}
+                    type="text"
+                    placeholder=""
+                  />
+                  
+                </Form.Group>
+                {/* pays */}
+                <Form.Group
+                  className="mb-3"
+                  controlId="exampleForm.ControlInput1"
+                >
+                  <Form.Label>Ville</Form.Label>
+                  <Form.Control
+                    value={editentrepriseData.ville}
+                    onChange={(e) => {
+                      setEditentrepriseData({ ...editentrepriseData, ville: e.target.value });
+                    }}
+                    type="text"
+                    placeholder=""
+                  />
+                  
+                </Form.Group>
+              </div>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlSelect1">
+                  <Form.Label>Pays</Form.Label>
+                  <Form.Control
+                    as="select"
+                    value={editentrepriseData.pays}
+                      onChange={(e) => {
+                        setEditentrepriseData({
+                          ...editentrepriseData,
+                          pays: e.target.value,
+                        });
+                        
+                      }}
+                  >
+                    <option value="">Sélectionnez un pays</option>
+                    {countryOptions}
+                  </Form.Control>
+              </Form.Group>
             
           </Form>
         </Modal.Body>

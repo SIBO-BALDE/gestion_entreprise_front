@@ -1,3 +1,4 @@
+
 import {
   faEye,
   faLock,
@@ -12,106 +13,79 @@ import { Button, Form, Image } from "react-bootstrap";
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
-import { emailPattern } from "../../Regex/Regex";
+import { emailPattern } from "../../Pages/Regex/Regex";
 
 import Swal from "sweetalert2";
 import axios from "axios";
-import Pagination from "../../../Components/User_Components/Pagination/Pagination";
+import Pagination from "../../Components/User_Components/Pagination/Pagination";
 
 
 
-export default function GestionUser({ id }) {
+export default function GestionAdmin({ id }) {
   // const [show, setShow] = useState(false);
   const [showUser, setShowUser] = useState(false);
+  const [showBlokUser, setShowBlokUser] = useState(false);
   const [showEditModalUsers, setShowEditModalUsers] = useState(false);
 
   const handleCloseEdit = () => setShowUser(false);
   const handleShowEdit = () => setShowUser(true);
   const handleCloseEditUser = () => setShowEditModalUsers(false);
-  const [showBlokUser, setShowBlokUser] = useState(false);
-
   const handleCloseBlokUser = () => setShowBlokUser(false);
   const handleShowBlokUser = () => setShowBlokUser(true);
-
 
   // tableau ou stocker la liste des users
   const [users, setUsers] = useState([]);
   const [usersBlock, setUsersBlock] = useState([]);
 
-  const [categories, setCategories] = useState([]);
+  
   const [entreprises, setEntreprises] = useState([]);
 
+;
 
-  
-  //  Lister les categories
-  const fetchCategories = async () => {
-    const role = localStorage.getItem("rolecle");
-    const token = localStorage.getItem("tokencle");
-    try {
-      if (token || role === "Admin") {
-        const response = await axios.get(
-          "http://localhost:8000/api/categories",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setCategories(response.data.categories);
-
-        console.log(categories);
-      }
-    } catch (error) {
-      console.error("Erreur lors de la récupération des catégories:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
-    //  Lister les entreprises
-    const fetchEntreprises = async () => {
-      const role = localStorage.getItem("rolecle");
-      const token = localStorage.getItem("tokencle");
-      try {
-        if (token || role === "Admin") {
-          const response = await axios.get(
-            "http://localhost:8000/api/entreprises",
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          setEntreprises(response.data.entreprises);
-  
-          console.log(entreprises);
+//   Lister les entreprises
+const fetchEntreprises = async () => {
+  const role = localStorage.getItem("rolecle");
+  const token = localStorage.getItem("tokencle");
+  try {
+    if (token || role === "SuperAdmin") {
+      const response = await axios.get(
+        "http://localhost:8000/api/listes/entrepriseAbonement",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      } catch (error) {
-        console.error("Erreur lors de la récupération des catégories:", error);
-      }
-    };
-    useEffect(() => {
-      fetchEntreprises();
-    }, []);
+      );
+      console.log(entreprises, 'entrepriseAbonement entre avant');
+      setEntreprises(response.data.EntrepriseAbonement);
+
+      console.log(entreprises, 'entrepriseAbonement entre apres');
+      console.log(response, 'entrepriseAbonement resp'); 
+    }
+  } catch (error) {
+    console.error("Erreur lors de la récupération des catégories:", error);
+  }
+};
+useEffect(() => {
+  fetchEntreprises();
+}, []);
     //  Lister les users
     const fetchUsers = async () => {
       const role = localStorage.getItem("rolecle");
       const token = localStorage.getItem("tokencle");
       try {
-        if (token || role === "Admin") {
+        if (token || role === "SuperAdmin") {
           const response = await axios.get(
-            "http://localhost:8000/api/participants",
+            "http://localhost:8000/api/listes/admins",
             {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
             }
           );
-          setUsers(response.data.participants);
+          setUsers(response.data.Admins);
   
-          console.log(users ,'ici users du users');
+          console.log(response ,'liste admin');
         }
       } catch (error) {
         console.error("Erreur lors de la récupération des catégories:", error);
@@ -119,6 +93,32 @@ export default function GestionUser({ id }) {
     };
     useEffect(() => {
       fetchUsers();
+    }, []);
+    //  Lister les users blocked
+    const fetchUsersBlock = async () => {
+      const role = localStorage.getItem("rolecle");
+      const token = localStorage.getItem("tokencle");
+      try {
+        if (token || role === "SuperAdmin") {
+          const response = await axios.get(
+            "http://localhost:8000/api/listes/admin/bloquer",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          setUsersBlock(response.data.Admin);
+  
+          console.log(response ,'liste admin blok');
+          console.log(usersBlock ,' blok');
+        }
+      } catch (error) {
+        console.error("Erreur lors de la récupération des catégories:", error);
+      }
+    };
+    useEffect(() => {
+      fetchUsersBlock();
     }, []);
 
   
@@ -128,8 +128,7 @@ export default function GestionUser({ id }) {
     prenom: "",
     email: "",
     password: "",
-    categorie_id: "",
-    entreprise_id: "",
+    entreprise_abonements_id: "",
     
   });
 
@@ -139,21 +138,19 @@ export default function GestionUser({ id }) {
     nom: "",
     prenom: "",
     email: "",
-    categorie_id: "",
-    entreprise_id: "",
+    entreprise_abonements_id: "",
   });
 
   
 // Funtion qui permet de recuperer les information du user sur le quel on a cliquer
   const handleShowEditUsers = (user) => {
-    if (user && user.categorie_id) {
+    if (user && user.entreprise_abonements_id) {
       setEditUserData({
         id: user.id,
         nom: user.nom,
         prenom: user.prenom,
         email: user.email,
-        categorie_id: user.categorie_id,
-        entreprise_id: user.entreprise_id,
+        entreprise_abonements_id: user.entreprise_abonements_id,
       });
       setShowEditModalUsers(true);
     } else {
@@ -168,7 +165,7 @@ export default function GestionUser({ id }) {
     const token = localStorage.getItem('tokencle')
     
     if(userData.nom === "" || userData.prenom === "" || userData.email === "" 
-    || userData.categorie_id === "" || userData.password === "" || userData.entreprise_id === ""){
+     || userData.password === "" || userData.entreprise_abonements_id === ""){
       Swal.fire({
         icon: "error",
         title: "Oops!",
@@ -195,9 +192,9 @@ export default function GestionUser({ id }) {
     }
     
       try {
-        if (token || role==="Admin"){
+        if (token || role==="SuperAdmin"){
           const response = await axios.post(
-            "http://localhost:8000/api/participant/create",
+            "http://localhost:8000/api/admin/create",
             userData,
             {
               headers: {
@@ -215,14 +212,6 @@ export default function GestionUser({ id }) {
             console.log(response.status, "status 420")
             return;
           }
-          // if(response.status === 421){
-          //   Swal.fire({
-          //     icon: "error",
-          //     title: "Oops!",
-          //     text: "Le numero existe déja!",
-          //   });
-          //   return;
-          // }
   
           if (response.status === 200) {
             setUsers([...users, response.data]);
@@ -231,8 +220,7 @@ export default function GestionUser({ id }) {
               prenom: "",
               email: "",
               password: "",
-              categorie_id: "",
-              entreprise_id: "",
+              entreprise_abonements_id: "",
             });
   
             Swal.fire({
@@ -240,7 +228,6 @@ export default function GestionUser({ id }) {
               title: "Succès!",
               text: "user ajoutée avec succès!",
             });
-            console.log(response, "response ok"); 
   
             handleCloseEdit();
             fetchUsers();
@@ -266,7 +253,7 @@ export default function GestionUser({ id }) {
     const token = localStorage.getItem('tokencle')
     const role = localStorage.getItem("rolecle");
     if(editUserData.nom === "" || editUserData.prenom === "" || editUserData.email === "" 
-    || editUserData.categorie_id === ""  || editUserData.entreprise_id === ""){
+     || editUserData.entreprise_abonements_id === ""){
       Swal.fire({
         icon: "error",
         title: "Oops!",
@@ -284,10 +271,10 @@ export default function GestionUser({ id }) {
     }
       try {
         
-          if (token || role==="Admin"){
+          if (token || role==="SuperAdmin"){
 
             const response = await axios.post(
-              `http://localhost:8000/api/participant/update/${editUserData.id}`,
+              `http://localhost:8000/api/admin/update/${editUserData.id}`,
               editUserData,
               {
                 headers: {
@@ -330,14 +317,14 @@ export default function GestionUser({ id }) {
     
   
 
-
+// bloquer
   const supprimerUser = async (id) => {
     const token = localStorage.getItem('tokencle');
     const role = localStorage.getItem("rolecle");
     try {
-        if (token || role === "Admin") {
+        if (token || role === "SuperAdmin") {
             const response = await axios.post(
-                `http://localhost:8000/api/participant/${id}/bloquer`,
+                `http://localhost:8000/api/admin/${id}/bloquer`,
                 {}, // Passer un objet vide en tant que corps de la requête
                 {
                     headers: {
@@ -345,6 +332,7 @@ export default function GestionUser({ id }) {
                     },
                 }
             );
+            
             if (response.status === 200) {
                 // Bloquer l'utilisateur avec succès
                 const userId = response.data.id; // Assurez-vous de récupérer l'ID correctement
@@ -355,7 +343,7 @@ export default function GestionUser({ id }) {
 
                 Swal.fire({
                     title: 'Êtes-vous sûr?',
-                    text: "De vouloir bloquer l'utilisateur?",
+                    text: "De vouloir bloquer l'admin?",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#004573',
@@ -366,7 +354,7 @@ export default function GestionUser({ id }) {
                         Swal.fire({
                             icon: "success",
                             title: "Succès!",
-                            text: "Utilisateur bloqué avec succès!",
+                            text: "l'admin bloqué avec succès!",
                         });
                     }
                 });
@@ -382,41 +370,14 @@ export default function GestionUser({ id }) {
 };
 
 
-//  Lister les users blocked
-const fetchUsersBlock = async () => {
-  const role = localStorage.getItem("rolecle");
-  const token = localStorage.getItem("tokencle");
-  try {
-    if (token || role === "Admin") {
-      const response = await axios.get(
-        "http://localhost:8000/api/liste/participants/bloquer",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setUsersBlock(response.data.participants);
-
-      console.log(response ,'liste participant blok');
-      console.log(usersBlock ,' blok');
-    }
-  } catch (error) {
-    console.error("Erreur lors de la récupération des catégories:", error);
-  }
-};
-useEffect(() => {
-  fetchUsersBlock();
-}, []);
-
-
+// debloquer
 const debloquerUser = async (id) => {
   const token = localStorage.getItem('tokencle');
   const role = localStorage.getItem("rolecle");
   try {
-      if (token || role === "Admin") {
+      if (token || role === "SuperAdmin") {
           const response = await axios.post(
-              `http://localhost:8000/api/participant/${id}/debloquer`,
+              `http://localhost:8000/api/admin/${id}/debloquer`,
               {}, // Passer un objet vide en tant que corps de la requête
               {
                   headers: {
@@ -429,10 +390,9 @@ const debloquerUser = async (id) => {
               // Débloquer l'utilisateur avec succès
               const userId = response.data.id; // Assurez-vous de récupérer l'ID correctement
               console.log("Admin débloqué avec succès :", userId);
-
               Swal.fire({
                 title: 'Êtes-vous sûr?',
-                text: "De vouloir debloquer le participant?",
+                text: "De vouloir debloquer l'admin?",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#004573',
@@ -443,7 +403,7 @@ const debloquerUser = async (id) => {
                     Swal.fire({
                         icon: "success",
                         title: "Succès!",
-                        text: "participant debloqué avec succès!",
+                        text: "l'admin debloqué avec succès!",
                     });
                 }
             });
@@ -465,6 +425,9 @@ const debloquerUser = async (id) => {
       console.error("Une erreur s'est produite :", error);
   }
 };
+
+
+
 
 
 
@@ -498,8 +461,6 @@ const debloquerUser = async (id) => {
  );
 
  const totalPaginationPagesUser = Math.ceil(users.length / usersParPage);
-
-
 
  //  pour le champ recherche
  const [searchValueUserBlock, setSearchValueUserBlock] = useState("");
@@ -546,7 +507,7 @@ const debloquerUser = async (id) => {
             style={{ backgroundColor: "#004573", border: "none" }}
             id="buttonAjouter"
           >
-            Ajouter un participant
+            Ajouter un administrateur
           </Button>
         </div>
         <div>
@@ -571,7 +532,7 @@ const debloquerUser = async (id) => {
             Liste Admin bloqué
           </Button>
         </div>
-        
+
         <div className="flex-grow-1 d-flex justify-content-end ">
           <div className="champsRecherche mt-2 mb-3 w-50">
             <Form>
@@ -582,7 +543,7 @@ const debloquerUser = async (id) => {
                 <Form.Control
                   type="search"
                   className="form-control w-50   "
-                  placeholder="Rechercher participant"
+                  placeholder="Rechercher un admin"
                   aria-label="user"
                   aria-describedby="addon-wrapping"
                   value={searchValueUser}
@@ -601,7 +562,7 @@ const debloquerUser = async (id) => {
         </div>
       </div>
       <div className="mt-4 ms-3  me-3">
-        <h3>Liste des participants</h3>
+        <h3>Liste des administrateurs</h3>
         <table className="table border  border-1">
           <thead
             className=""
@@ -619,9 +580,7 @@ const debloquerUser = async (id) => {
               <th style={{ backgroundColor: "#004573", color: "#fff" }}>
                 Email
               </th>
-              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                Catégorie
-              </th>
+              
               <th style={{ backgroundColor: "#004573", color: "#fff" }}>
                 Entreprise
               </th>
@@ -646,8 +605,7 @@ const debloquerUser = async (id) => {
                 <td>{user &&  user.nom}</td>
                 <td>{user &&  user.prenom}</td>
                 <td>{user &&  user.email}</td>
-                <td>{user &&  user.categorie.nom}</td>
-                <td>{user &&  user.entreprise.nom}</td>
+                <td>{user &&   user.entreprise_abonement && user.entreprise_abonement.nom}</td>
 
                     <td className=" d-flex justify-content-evenly">
                       <Button
@@ -693,7 +651,7 @@ const debloquerUser = async (id) => {
       <>
         <Modal show={showUser} onHide={handleCloseEdit} id="buttonAjouter">
           <Modal.Header closeButton>
-            <Modal.Title>Ajouter un participant</Modal.Title>
+            <Modal.Title>Ajouter un admin</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
@@ -780,34 +738,6 @@ const debloquerUser = async (id) => {
                 </Form.Group>
 
               </div>
-              <div className="d-flex justify-content-around">
-                  <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput5"
-                >
-                  <Form.Label>Categorie</Form.Label>
-                  <Form.Select
-                    aria-label="Default select example"
-                    value={userData.categorie_id}
-                    onChange={(e) => {
-                      setUserData({
-                        ...userData,
-                        categorie_id: e.target.value,
-                      });
-                      
-                    }}
-                  >
-                    <option>Choisir une catégorie</option>
-                    {categories &&
-                      categories.map((cat, index) => {
-                        return (
-                          <option key={index} value={cat.id}>
-                            {cat.nom}
-                          </option>
-                        );
-                      })}
-                  </Form.Select>
-                  </Form.Group>
                   <Form.Group
                   className="mb-3"
                   controlId="exampleForm.ControlInput6"
@@ -815,11 +745,11 @@ const debloquerUser = async (id) => {
                   <Form.Label>Entreprise</Form.Label>
                   <Form.Select
                     aria-label="Default select example"
-                    value={userData.entreprise_id}
+                    value={userData.entreprise_abonements_id}
                     onChange={(e) => {
                       setUserData({
                         ...userData,
-                        entreprise_id: e.target.value,
+                        entreprise_abonements_id: e.target.value,
                       });
                       
                     }}
@@ -835,7 +765,6 @@ const debloquerUser = async (id) => {
                       })}
                   </Form.Select>
                   </Form.Group>
-              </div>
               
               {/* <div className="d-flex justify-content-around"> */}
            
@@ -922,7 +851,7 @@ const debloquerUser = async (id) => {
                   
                 </Form.Group>
               </div>
-              <div className="d-flex justify-content-around" style={{gap:'10px'}}>
+              
                 <Form.Group
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
@@ -942,33 +871,6 @@ const debloquerUser = async (id) => {
                   />
                  
                 </Form.Group>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput5"
-                >
-                  <Form.Label>Categorie</Form.Label>
-                  <Form.Select
-                      aria-label="Default select example"
-                      value={editUserData.categorie_id}
-                      onChange={(e) => {
-                        setEditUserData({
-                          ...editUserData,
-                          categorie_id: e.target.value,
-                        });
-                      }}
-                    >
-                    <option>Choisir une catégorie</option>
-                    {categories &&
-                      categories.map((cat, index) => {
-                        return (
-                          <option key={index} value={cat.id}>
-                            {cat.nom}
-                          </option>
-                        );
-                      })}
-                  </Form.Select>
-                  </Form.Group>
-              </div>
               <Form.Group
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
@@ -977,11 +879,11 @@ const debloquerUser = async (id) => {
                   <Form.Select
                     aria-label="Default select example"
                     // value={editUserData.categories_id}
-                    value={editUserData.entreprise_id || ""}
+                    value={editUserData.entreprise_abonements_id || ""}
                     onChange={(e) => {
                       setEditUserData({
                         ...editUserData,
-                        entreprise_id: e.target.value,
+                        entreprise_abonements_id: e.target.value,
                       });
                      
                     }}
@@ -1030,10 +932,14 @@ const debloquerUser = async (id) => {
      
       {/* modal fin modifier user */}
 
-      {/* participant blok */}
-      <Modal show={showBlokUser} onHide={handleCloseBlokUser} id="buttonAjouter" size="lg">
+
+
+      {/* user blok */}
+
+      <div >
+        <Modal show={showBlokUser} onHide={handleCloseBlokUser} id="buttonAjouter" size="lg">
           <Modal.Header closeButton>
-            <Modal.Title>Liste des participants bloqué</Modal.Title>
+            <Modal.Title>Liste des admins bloqué</Modal.Title>
           </Modal.Header>
           <Modal.Body>
           <table className="table border  border-1">
@@ -1053,9 +959,7 @@ const debloquerUser = async (id) => {
               <th style={{ backgroundColor: "#004573", color: "#fff" }}>
                 Email
               </th>
-              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                Catégorie
-              </th>
+              
               <th style={{ backgroundColor: "#004573", color: "#fff" }}>
                 Entreprise
               </th>
@@ -1080,8 +984,7 @@ const debloquerUser = async (id) => {
                 <td>{user &&  user.nom}</td>
                 <td>{user &&  user.prenom}</td>
                 <td>{user &&  user.email}</td>
-                <td>{user &&  user.categorie.nom}</td>
-                <td>{user &&  user.entreprise.nom}</td>
+                <td>{user &&   user.entreprise_abonement && user.entreprise_abonement.nom}</td>
 
                     <td className=" d-flex justify-content-evenly">
                       
@@ -1104,7 +1007,6 @@ const debloquerUser = async (id) => {
             
           </tbody>
         </table>
-          
         <Pagination
           currentPage={currentPage}
           totalPaginationPages={totalPaginationPages}
@@ -1113,8 +1015,10 @@ const debloquerUser = async (id) => {
           </Modal.Body>
           
         </Modal>
-      {/* participant blok */}
+      </div>
+      {/* user blok */}
     </div>
   );
 }
+
 

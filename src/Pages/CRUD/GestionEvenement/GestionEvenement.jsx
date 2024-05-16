@@ -278,7 +278,7 @@ const displayEvents = searchValue === "" ? events : filteredEvents;
 
 
   const [currentPage, setCurrentPage] = useState(1);
-const  eventsParPage= 3;
+const  eventsParPage= 5;
 
 // pagination
 const indexOfLastEvent = currentPage* eventsParPage;
@@ -588,7 +588,7 @@ const handleButtonClick = async (evenement_id) => {
             </Button>
             <Button
               variant="primary"
-              // onClick={handleCancleAdd}
+              onClick={handleCloseEdit}
               style={{
                 backgroundColor: "#fff",
                 border: "1px solid #004573",
@@ -696,7 +696,7 @@ const handleButtonClick = async (evenement_id) => {
           </Button>
           <Button
             variant="primary"
-            // onClick={handleCancleEdit}
+            onClick={handleCloseEditEvents}
             style={{
               backgroundColor: "#fff",
               border: "1px solid #004573",
