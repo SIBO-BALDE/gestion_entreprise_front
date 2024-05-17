@@ -227,7 +227,16 @@ export default function GestionEntrepriseAdmin() {
   const supprimerEntrepriseEl = async (id) => { 
     const role = localStorage.getItem("rolecle");
     const token = localStorage.getItem("tokencle");
-   
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: "De vouloir supprimer l'événement?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#004573',
+      cancelButtonColor: '#f00020',
+      confirmButtonText: "Oui, j'accepte!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
     try {
       if (token || role === "SuperAdmin"){
         const response = await axios.delete(
@@ -247,28 +256,21 @@ export default function GestionEntrepriseAdmin() {
           );
   
           setEntreprises(updatedEntreprises);
-          Swal.fire({
-            title: 'Êtes-vous sûr?',
-            text: "De vouloir supprimer cette entreprise?",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#004573',
-            cancelButtonColor: '#f00020',
-            confirmButtonText: "Oui, j'accepte!",
-        }).then((result) => {
-            if (result.isConfirmed) {
                 Swal.fire({
                     icon: "success",
                     title: "Succès!",
                     text: "entreprise supprimer avec succès!",
                 });
-            }
-        });
+            
         } else {
           console.error("Erreur lors de la suppression de la catégorie");
         }
       }
-    } catch (error) {}
+    } catch (error) {
+
+    }
+  }
+  });
   };
 
    
@@ -371,10 +373,10 @@ const totalPaginationPages = Math.ceil( entreprises && entreprises.length /  ent
                 Addresse
               </th>
               <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                Telephone n°1
+                Telephone Portable
               </th>
               <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-              Telephone n°2
+              Telephone Fixe
               </th>
 
               <th
@@ -453,7 +455,7 @@ const totalPaginationPages = Math.ceil( entreprises && entreprises.length /  ent
                 className="mb-3"
                 controlId="exampleForm.ControlInput1"
               >
-                <Form.Label>Nom</Form.Label>
+                <Form.Label>Nom de l'entreprise</Form.Label>
                 <Form.Control
                   value={entrepriseData.nom}
                   onChange={(e) => {
@@ -486,7 +488,7 @@ const totalPaginationPages = Math.ceil( entreprises && entreprises.length /  ent
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label>Telephone 1</Form.Label>
+                  <Form.Label>Numero Portable</Form.Label>
                   <Form.Control
                     value={entrepriseData.numeroTelUn}
                     onChange={(e) => {
@@ -501,7 +503,7 @@ const totalPaginationPages = Math.ceil( entreprises && entreprises.length /  ent
                 className="mb-3"
                 controlId="exampleForm.ControlInput1"
               >
-                <Form.Label>Telephone 2</Form.Label>
+                <Form.Label>Télephone fixe</Form.Label>
                 <Form.Control
                   value={entrepriseData.numeroTelDeux}
                   onChange={(e) => {
@@ -666,7 +668,7 @@ const totalPaginationPages = Math.ceil( entreprises && entreprises.length /  ent
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label>Telephone 1</Form.Label>
+                  <Form.Label>Telephone portable</Form.Label>
                   <Form.Control
                     value={editentrepriseData.numeroTelUn}
                     onChange={(e) => {
@@ -681,7 +683,7 @@ const totalPaginationPages = Math.ceil( entreprises && entreprises.length /  ent
                 className="mb-3"
                 controlId="exampleForm.ControlInput1"
               >
-                <Form.Label>Telephone 2</Form.Label>
+                <Form.Label>Téléphone fixe</Form.Label>
                 <Form.Control
                   value={editentrepriseData.numeroTelDeux}
                   onChange={(e) => {

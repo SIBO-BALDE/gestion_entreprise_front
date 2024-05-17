@@ -101,6 +101,16 @@ const totalPaginationPages = Math.ceil(emails.length /   emailParPage);
  const supprimerNewsletter = async (id) => {
   const role = localStorage.getItem("rolecle");
   const token = localStorage.getItem("tokencle");
+  Swal.fire({
+    title: 'Êtes-vous sûr?',
+    text: "De vouloir supprimer l'e mail?",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#004573',
+    cancelButtonColor: '#f00020',
+    confirmButtonText: "Oui, j'accepte!",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
   
   try {
     if (token || role === "SuperAdmin"){
@@ -121,28 +131,20 @@ const totalPaginationPages = Math.ceil(emails.length /   emailParPage);
         );
 
         setEmails(updatedEmails);
-        Swal.fire({
-          title: 'Êtes-vous sûr?',
-          text: "De vouloir supprimer le newsletter?",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#004573',
-          cancelButtonColor: '#f00020',
-          confirmButtonText: "Oui, j'accepte!",
-      }).then((result) => {
-          if (result.isConfirmed) {
+      
               Swal.fire({
                   icon: "success",
                   title: "Succès!",
                   text: "newsletter supprimer avec succès!",
               });
-          }
-      });
+         
       } else {
         console.error("Erreur lors de la suppression de la newsletter");
       }
     }
   } catch (error) {}
+}
+});
 };
 
   

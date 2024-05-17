@@ -63,57 +63,7 @@ useEffect(() => {
   fetchCategories();
 }, []);
 
-  //  Lister les entreprises
-  // const fetchEntreprises = async () => {
-  //   const role = localStorage.getItem("rolecle");
-  //   const token = localStorage.getItem("tokencle");
-  //   try {
-  //     if (token || role === "Admin") {
-  //       const response = await axios.get(
-  //         "http://localhost:8000/api/entreprises",
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
-  //       setEntreprises(response.data.entreprises);
-
-  //       console.log(entreprises);
-  //     }
-  //   } catch (error) {
-  //     console.error("Erreur lors de la récupération des catégories:", error);
-  //   }
-  // };
-  // useEffect(() => {
-  //   fetchEntreprises();
-  // }, []);
-  // //  Lister les users
-  // const fetchUsers = async () => {
-  //   const role = localStorage.getItem("rolecle");
-  //   const token = localStorage.getItem("tokencle");
-  //   try {
-  //     if (token || role === "Admin") {
-  //       const response = await axios.get(
-  //         "http://localhost:8000/api/users_participants",
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
-  //       setUsers(response.data.participants);
-
-  //       console.log(users ,'ici users du users');
-  //     }
-  //   } catch (error) {
-  //     console.error("Erreur lors de la récupération des catégories:", error);
-  //   }
-  // };
-  // useEffect(() => {
-  //   fetchUsers();
-  // }, []);
-
+ 
 
    // Liste evenements
    const [events, setEvents] = useState([]);
@@ -166,7 +116,7 @@ useEffect(() => {
 
 
     const [currentPage1, setCurrentPage1] = useState(1);
-  const usersParPage= 2;
+  const usersParPage= 10;
 
   // pagination
   const indexOfLastUser = currentPage1* usersParPage;
@@ -199,7 +149,7 @@ useEffect(() => {
 
 
     const [currentPage, setCurrentPage] = useState(1);
-  const eventsParPage= 2;
+  const eventsParPage= 10;
 
 
   const indexOfLastEvent = currentPage* eventsParPage;
@@ -210,6 +160,34 @@ useEffect(() => {
   );
 
   const totalPaginationPagesEvent = Math.ceil(events.length / eventsParPage);
+
+
+
+   //  Lister les users
+   const fetchUsers = async () => {
+    const role = localStorage.getItem("rolecle");
+    const token = localStorage.getItem("tokencle");
+    try {
+      if (token || role === "SuperAdmin") {
+        const response = await axios.get(
+          "http://localhost:8000/api/listes/admins",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setUsers(response.data.Admins);
+
+        console.log(response ,'liste admin user dasboard');
+      }
+    } catch (error) {
+      console.error("Erreur lors de la récupération des catégories:", error);
+    }
+  };
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
 
 
@@ -232,7 +210,7 @@ useEffect(() => {
       <div className="dashbord-content-main-one container" id="vv">
         <div>
         <div className="content-left-admin-dashbord border">
-          <h3 className="mb-2">Liste des Admins</h3>
+          <h3 className="mb-2">Liste des Clients</h3>
           <table className="table mb-5">
             <thead className="table-light" id="hearder-color">
               <tr>
@@ -246,9 +224,7 @@ useEffect(() => {
                 <th style={{ backgroundColor: "#004573", color: "#fff" }}>
                   Email
                 </th>
-                <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                  Catégorie
-                </th>
+                
                 <th style={{ backgroundColor: "#004573", color: "#fff" }}>
                   Entreprise
                 </th>
@@ -261,8 +237,8 @@ useEffect(() => {
                 <td>{user &&  user.nom}</td>
                 <td>{user &&  user.prenom}</td>
                 <td>{user &&  user.email}</td>
-                <td>{user &&  user.categorie.nom}</td>
-                <td>{user &&  user.entreprise.nom}</td>
+                {/* <td>{user &&  user.categorie.nom}</td> */}
+                <td>{user &&  user.entreprise_abonement.nom}</td>
               </tr>
               ))} 
               

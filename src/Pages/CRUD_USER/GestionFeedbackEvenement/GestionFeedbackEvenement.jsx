@@ -180,7 +180,7 @@ export default function GestionFeedbackEvenement() {
     try {
       if (token || role === "Admin") {
         const response = await axios.get(
-          "http://localhost:8000/api/evenements",
+          "http://localhost:8000/api/evenements/admin",
           {
             headers: {
               Authorization: `Bearer ${token}`,

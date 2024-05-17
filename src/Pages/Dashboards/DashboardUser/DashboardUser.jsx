@@ -37,9 +37,9 @@ function KPIUser() {
     const role = localStorage.getItem("rolecle");
     const token = localStorage.getItem("tokencle");
     try {
-      if (token || role === "Admin") {
+      if (token || role === "Participant") {
         const response = await axios.get(
-          "http://localhost:8000/api/evenements",
+          "http://localhost:8000/api/evenements/admin",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -98,20 +98,20 @@ const [evaluations, setEvaluations] = useState([]);
     const role = localStorage.getItem("rolecle");
     const token = localStorage.getItem("tokencle");
     try {
-      // if (token) {
+      if (token && role === "Participant") {
         const response = await axios.get(
-          "http://localhost:8000/api/evaluations",
+          "http://localhost:8000/api/evaluations/admin",
           {
-            // headers: {
-            //   Authorization: `Bearer ${token}`,
-            // },
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
         );
         console.log(response , 'liste evaluations')
-        setEvaluations(response.data.evaluations);
+        setEvaluations(response.data.valuation);
   
         console.log(evaluations);
-     
+      }
     } catch (error) {
       console.error("Erreur lors de la récupération des catégories:", error);
     }
@@ -285,8 +285,8 @@ const [currentPage2, setCurrentPage2] = useState(1);
           </tbody>
         </table>
         <Pagination
-          currentPage2={currentPage2}
-          totalPaginationPages2={totalPaginationPages2}
+          currentPage={currentPage2}
+          totalPaginationPages={totalPaginationPages2}
           setCurrentPage={setCurrentPage}
         />
           <div>

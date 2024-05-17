@@ -174,7 +174,16 @@ export default function GestionEntreprise() {
   const supprimerEntrepriseEl = async (id) => { 
     const role = localStorage.getItem("rolecle");
     const token = localStorage.getItem("tokencle");
-   
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: "De vouloir supprimer l'entreprise?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#004573',
+      cancelButtonColor: '#f00020',
+      confirmButtonText: "Oui, j'accepte!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
     try {
       if (token || role === "Admin"){
         const response = await axios.delete(
@@ -192,30 +201,20 @@ export default function GestionEntreprise() {
           const updatedEntreprises = entreprises.filter(
             (entrepriseEl) => entrepriseEl.id !== id
           );
-  
           setEntreprises(updatedEntreprises);
-          Swal.fire({
-            title: 'Êtes-vous sûr?',
-            text: "De vouloir supprimer cette entreprise?",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#004573',
-            cancelButtonColor: '#f00020',
-            confirmButtonText: "Oui, j'accepte!",
-        }).then((result) => {
-            if (result.isConfirmed) {
                 Swal.fire({
                     icon: "success",
                     title: "Succès!",
                     text: "entreprise supprimer avec succès!",
                 });
-            }
-        });
         } else {
           console.error("Erreur lors de la suppression de la catégorie");
         }
       }
     } catch (error) {}
+
+  }
+});
   };
 
    

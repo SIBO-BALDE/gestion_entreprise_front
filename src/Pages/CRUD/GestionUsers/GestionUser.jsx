@@ -334,6 +334,16 @@ export default function GestionUser({ id }) {
   const supprimerUser = async (id) => {
     const token = localStorage.getItem('tokencle');
     const role = localStorage.getItem("rolecle");
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: "De vouloir bloque le participant?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#004573',
+      cancelButtonColor: '#f00020',
+      confirmButtonText: "Oui, j'accepte!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
     try {
         if (token || role === "Admin") {
             const response = await axios.post(
@@ -351,25 +361,12 @@ export default function GestionUser({ id }) {
                 console.log("Utilisateur bloqué avec succès :", userId);
 
                 // Supprimer l'utilisateur de la liste des utilisateurs
-                setUsers(users.filter((user) => user.id !== userId));
-
-                Swal.fire({
-                    title: 'Êtes-vous sûr?',
-                    text: "De vouloir bloquer l'utilisateur?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#004573',
-                    cancelButtonColor: '#f00020',
-                    confirmButtonText: "Oui, j'accepte!",
-                }).then((result) => {
-                    if (result.isConfirmed) {
+                setUsers(users.filter((user) => user.id !== userId))
                         Swal.fire({
                             icon: "success",
                             title: "Succès!",
                             text: "Utilisateur bloqué avec succès!",
                         });
-                    }
-                });
                 fetchUsers();
                 fetchUsersBlock()
             } else {
@@ -379,6 +376,8 @@ export default function GestionUser({ id }) {
     } catch (error) {
         console.error("Une erreur s'est produite :", error);
     }
+  }
+});
 };
 
 
@@ -413,6 +412,16 @@ useEffect(() => {
 const debloquerUser = async (id) => {
   const token = localStorage.getItem('tokencle');
   const role = localStorage.getItem("rolecle");
+  Swal.fire({
+    title: 'Êtes-vous sûr?',
+    text: "De vouloir bloque le participant?",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#004573',
+    cancelButtonColor: '#f00020',
+    confirmButtonText: "Oui, j'accepte!",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
   try {
       if (token || role === "Admin") {
           const response = await axios.post(
@@ -428,42 +437,25 @@ const debloquerUser = async (id) => {
           if (response.status === 200) {
               // Débloquer l'utilisateur avec succès
               const userId = response.data.id; // Assurez-vous de récupérer l'ID correctement
-              console.log("Admin débloqué avec succès :", userId);
-
-              Swal.fire({
-                title: 'Êtes-vous sûr?',
-                text: "De vouloir debloquer le participant?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#004573',
-                cancelButtonColor: '#f00020',
-                confirmButtonText: "Oui, j'accepte!",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire({
-                        icon: "success",
-                        title: "Succès!",
-                        text: "participant debloqué avec succès!",
-                    });
-                }
-            });
-
+              
               Swal.fire({
                   icon: "success",
                   title: "Succès!",
-                  text: "Admin débloqué avec succès!",
+                  text: "participant débloqué avec succès!",
               });
 
               fetchUsers();
               fetchUsersBlock();
               handleCloseBlokUser();
           } else {
-              console.error("Erreur lors du déblocage de l'admin");
+              console.error("Erreur lors du déblocage du user");
           }
       }
   } catch (error) {
       console.error("Une erreur s'est produite :", error);
   }
+}
+});
 };
 
 
@@ -568,7 +560,7 @@ const debloquerUser = async (id) => {
             style={{ backgroundColor: "#004573", border: "none" }}
             id="buttonAjouter"
           >
-            Liste Admin bloqué
+            Liste participant bloqué
           </Button>
         </div>
         
@@ -1034,7 +1026,36 @@ const debloquerUser = async (id) => {
       <Modal show={showBlokUser} onHide={handleCloseBlokUser} id="buttonAjouter" size="lg">
           <Modal.Header closeButton>
             <Modal.Title>Liste des participants bloqué</Modal.Title>
+
+            
           </Modal.Header>
+          <div className="flex-grow-1 d-flex justify-content-end ">
+          <div className="champsRecherche mt-2 mb-3 w-50">
+            <Form>
+              <div
+                className="input-group flex-nowrap "
+                style={{ borderColor: "#004573" }}
+              >
+                <Form.Control
+                  type="search"
+                  className="form-control w-50   "
+                  placeholder="Rechercher participant bloquer"
+                  aria-label="user"
+                  aria-describedby="addon-wrapping"
+                  value={searchValueUserBlock}
+                  onChange={handleSearchChangeBlok}
+                />
+                <span
+                  className="input-group-text text-white me-4"
+                  id="addon-wrapping"
+                  style={{ backgroundColor: "#004573" }}
+                >
+                  <FontAwesomeIcon icon={faMagnifyingGlass} />
+                </span>
+              </div>
+            </Form>
+          </div>
+            </div>
           <Modal.Body>
           <table className="table border  border-1">
           <thead
@@ -1074,8 +1095,8 @@ const debloquerUser = async (id) => {
           <tbody>
             
 
-          { usersBlock &&
-              usersBlock.map((user) => ( 
+          { currentUsersBlok &&
+              currentUsersBlok.map((user) => ( 
               <tr key={user && user.id} >
                 <td>{user &&  user.nom}</td>
                 <td>{user &&  user.prenom}</td>

@@ -321,6 +321,17 @@ useEffect(() => {
   const supprimerUser = async (id) => {
     const token = localStorage.getItem('tokencle');
     const role = localStorage.getItem("rolecle");
+
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: "De vouloir bloquer l'admin?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#004573',
+      cancelButtonColor: '#f00020',
+      confirmButtonText: "Oui, j'accepte!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
     try {
         if (token || role === "SuperAdmin") {
             const response = await axios.post(
@@ -341,23 +352,14 @@ useEffect(() => {
                 // Supprimer l'utilisateur de la liste des utilisateurs
                 setUsers(users.filter((user) => user.id !== userId));
 
-                Swal.fire({
-                    title: 'Êtes-vous sûr?',
-                    text: "De vouloir bloquer l'admin?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#004573',
-                    cancelButtonColor: '#f00020',
-                    confirmButtonText: "Oui, j'accepte!",
-                }).then((result) => {
-                    if (result.isConfirmed) {
+                   
                         Swal.fire({
                             icon: "success",
                             title: "Succès!",
                             text: "l'admin bloqué avec succès!",
                         });
-                    }
-                });
+                    
+               
                 fetchUsers();
                 fetchUsersBlock()
             } else {
@@ -367,6 +369,8 @@ useEffect(() => {
     } catch (error) {
         console.error("Une erreur s'est produite :", error);
     }
+  }
+});
 };
 
 
@@ -374,6 +378,17 @@ useEffect(() => {
 const debloquerUser = async (id) => {
   const token = localStorage.getItem('tokencle');
   const role = localStorage.getItem("rolecle");
+
+  Swal.fire({
+    title: 'Êtes-vous sûr?',
+    text: "De vouloir debloquer l'admin?",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#004573',
+    cancelButtonColor: '#f00020',
+    confirmButtonText: "Oui, j'accepte!",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
   try {
       if (token || role === "SuperAdmin") {
           const response = await axios.post(
@@ -390,23 +405,12 @@ const debloquerUser = async (id) => {
               // Débloquer l'utilisateur avec succès
               const userId = response.data.id; // Assurez-vous de récupérer l'ID correctement
               console.log("Admin débloqué avec succès :", userId);
-              Swal.fire({
-                title: 'Êtes-vous sûr?',
-                text: "De vouloir debloquer l'admin?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#004573',
-                cancelButtonColor: '#f00020',
-                confirmButtonText: "Oui, j'accepte!",
-            }).then((result) => {
-                if (result.isConfirmed) {
                     Swal.fire({
                         icon: "success",
                         title: "Succès!",
                         text: "l'admin debloqué avec succès!",
                     });
-                }
-            });
+                
 
               Swal.fire({
                   icon: "success",
@@ -424,6 +428,8 @@ const debloquerUser = async (id) => {
   } catch (error) {
       console.error("Une erreur s'est produite :", error);
   }
+}
+});
 };
 
 
@@ -507,7 +513,7 @@ const debloquerUser = async (id) => {
             style={{ backgroundColor: "#004573", border: "none" }}
             id="buttonAjouter"
           >
-            Ajouter un administrateur
+            Ajouter un admin client
           </Button>
         </div>
         <div>
@@ -597,8 +603,6 @@ const debloquerUser = async (id) => {
             </tr>
           </thead>
           <tbody>
-            
-
           { currentUsers &&
               currentUsers.map((user) => ( 
               <tr key={user && user.id} >
@@ -651,7 +655,7 @@ const debloquerUser = async (id) => {
       <>
         <Modal show={showUser} onHide={handleCloseEdit} id="buttonAjouter">
           <Modal.Header closeButton>
-            <Modal.Title>Ajouter un admin</Modal.Title>
+            <Modal.Title>Ajouter un  admin client</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
@@ -660,7 +664,7 @@ const debloquerUser = async (id) => {
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
-                  <Form.Label>Nom</Form.Label>
+                  <Form.Label>Nom du client</Form.Label>
                   <Form.Control
                     value={userData.nom}
                     onChange={(e) => {
@@ -680,7 +684,7 @@ const debloquerUser = async (id) => {
                   className="mb-3"
                   controlId="exampleForm.ControlInput2"
                 >
-                  <Form.Label>Prenom</Form.Label>
+                  <Form.Label>Prenom du client</Form.Label>
                   <Form.Control
                     value={userData.prenom}
                     onChange={(e) => {
@@ -941,6 +945,34 @@ const debloquerUser = async (id) => {
           <Modal.Header closeButton>
             <Modal.Title>Liste des admins bloqué</Modal.Title>
           </Modal.Header>
+
+          <div className="flex-grow-1 d-flex justify-content-end ">
+          <div className="champsRecherche mt-2 mb-3 w-50">
+            <Form>
+              <div
+                className="input-group flex-nowrap "
+                style={{ borderColor: "#004573" }}
+              >
+                <Form.Control
+                  type="search"
+                  className="form-control w-50   "
+                  placeholder="Rechercher un admin bloqué"
+                  aria-label="user"
+                  aria-describedby="addon-wrapping"
+                  value={searchValueUserBlock}
+                  onChange={handleSearchChangeBlok}
+                />
+                <span
+                  className="input-group-text text-white me-4"
+                  id="addon-wrapping"
+                  style={{ backgroundColor: "#004573" }}
+                >
+                  <FontAwesomeIcon icon={faMagnifyingGlass} />
+                </span>
+              </div>
+            </Form>
+          </div>
+        </div>
           <Modal.Body>
           <table className="table border  border-1">
           <thead
@@ -978,8 +1010,8 @@ const debloquerUser = async (id) => {
           <tbody>
             
 
-          { usersBlock &&
-              usersBlock.map((user) => ( 
+          { currentUsersBlok &&
+              currentUsersBlok.map((user) => ( 
               <tr key={user && user.id} >
                 <td>{user &&  user.nom}</td>
                 <td>{user &&  user.prenom}</td>

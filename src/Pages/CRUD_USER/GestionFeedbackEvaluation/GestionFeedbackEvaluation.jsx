@@ -35,9 +35,7 @@ export default function GestionFeedbackEvaluation() {
 
   const [selectedReponse, setSelectedReponse] = useState({});
 
-  // const handleRadioChange = (questionId, reponseId) => {
-  //   setSelectedReponse({ ...selectedReponse, [questionId]: reponseId });
-  // };
+ 
   const handleRadioChange = (questionId, reponseId) => {
     setSelectedReponse(prevSelectedReponse => ({ ...prevSelectedReponse, [questionId]: reponseId }));
   };
@@ -45,7 +43,7 @@ export default function GestionFeedbackEvaluation() {
 
   console.log("Contenu de selectedReponse après la mise à jour à", selectedReponse);
 
-  // const idsDesReponses = Object.values(selectedReponse).map(reponse => parseInt(reponse, 10));
+  
 
 
   
@@ -111,23 +109,25 @@ export default function GestionFeedbackEvaluation() {
     const role = localStorage.getItem("rolecle");
     const token = localStorage.getItem("tokencle");
     try {
-      // if (token) {
+      if (token && role === "Participant") {
         const response = await axios.get(
-          "http://localhost:8000/api/evaluations",
+          "http://localhost:8000/api/evaluations/admin",
           {
-            // headers: {
-            //   Authorization: `Bearer ${token}`,
-            // },
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
         );
         console.log(response , 'liste evaluations')
-        setEvaluations(response.data.evaluations);
+        setEvaluations(response.data.valuation);
   
         console.log(evaluations);
+      }
      
     } catch (error) {
       console.error("Erreur lors de la récupération des catégories:", error);
     }
+    
   };
 
 
@@ -191,14 +191,15 @@ const formatDate = (createdAt) => {
     try {
       if (token || role === "Participant") {
         const response = await axios.get(
-          "http://localhost:8000/api/categories",
+          "http://localhost:8000/api/categories/admin",
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
-        setCategories(response.data.categories);
+        console.log(response, 'response cat')
+        setCategories(response.data.Categorie);
 
         console.log(categories);
       }
@@ -217,29 +218,7 @@ const formatDate = (createdAt) => {
 
   const [reponsesQuestion, setReponsesQuestion] = useState([]);
 
-   //  Lister les users
-  //  const fetchReponsesQuestion = async (CategorieId) => {
-  //   const role = localStorage.getItem("rolecle");
-  //   const token = localStorage.getItem("tokencle");
-  //   try {
-      
-  //       const response = await axios.get(
-  //         `http://localhost:8000/api/categories/questions-and-reponses/${CategorieId}`,
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
-  //       // setReponsesQuestion(response.data);
-  //       console.log(response, 'response evalu r q')
-
-  //       console.log(users ,'ici users du users');
-     
-  //   } catch (error) {
-  //     console.error("Erreur lors de la récupération des catégories:", error);
-  //   }
-  // };
+   
 
   const handleButtonClick = async (CategorieId, event) => {
     event.preventDefault(); 
@@ -249,17 +228,7 @@ const formatDate = (createdAt) => {
    
   };
 
-  // seconde option
-  // const handleButtonClick = async (categorieId, event) => {
-  //   event.preventDefault(); 
-  //   await fetchReponsesQuestion(categorieId);
-  //   // Filtrer les utilisateurs en fonction de l'ID de la catégorie sélectionnée
-  //   const filteredUsers = users.filter(user => user.categorie_id === categorieId);
-  //   // Mettre à jour la liste des utilisateurs avec les utilisateurs filtrés
-  //   setUsers(filteredUsers);
-  //   setShow(true);
-  //   setShowAdd(false);
-  // };
+  
   
   
 
@@ -305,67 +274,20 @@ const fetchUsers = async () => {
          },
        }
      );
+     console.log(response ,'response user select');
      setUsers(response.data.participants);
 
-     console.log(users ,'ici users du users');
+     
    }
  } catch (error) {
    console.error("Erreur lors de la récupération des catégories:", error);
  }
 };
-// const fetchUsers = async () => {
-//   const token = localStorage.getItem("tokencle");
-//   try {
-//     const response = await axios.get(
-//       "http://localhost:8000/api/participant/entreprse",
-//       {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//         },
-//       }
-//     );
-//     const users = response.data.participants;
-
-//     // Récupérer l'ID de la catégorie sélectionnée à partir de l'état
-//     const categorieId = selectedCategoryId;
-
-//     let filteredUsers = users;
-//     if (categorieId) {
-//       // Filtrer les utilisateurs en fonction de l'ID de la catégorie sélectionnée
-//       filteredUsers = users.filter(user => user.categorie_id === categorieId);
-//     }
-
-//     // Récupérer les noms de catégorie pour chaque utilisateur
-//     for (const user of filteredUsers) {
-//       const categorieResponse = await axios.get(
-//         `http://localhost:8000/api/categories/${user.categorie_id}`,
-//         {
-//           headers: {
-//             Authorization: `Bearer ${token}`,
-//           },
-//         }
-//       );
-//       // Ajouter le nom de la catégorie à chaque utilisateur
-//       user.nom_categorie = categorieResponse.data.nom;
-//     }
-
-//     // Mettre à jour l'état des utilisateurs avec les utilisateurs filtrés
-//     setUsers(filteredUsers);
-//     console.log("Utilisateurs récupérés :", filteredUsers);
-//   } catch (error) {
-//     console.error("Erreur lors de la récupération des utilisateurs :", error);
-//   }
-// };
-
-
-
-
-
 
 
   useEffect(() => {
     fetchUsers();
-    // fetchReponsesQuestion();
+    
   }, [])
 
 
@@ -392,17 +314,7 @@ const handleUserSelectChange = (event) => {
   return (
     <div>
       <div className="d-flex justify-content-between mt-5">
-        {/* <div>
-          <Button
-            variant="primary"
-            onClick={handleshowAdd}
-            className="ms-4"
-            style={{ backgroundColor: "#004573", border: "none" }}
-            id="buttonAjouter"
-          >
-            Evaluer un participant
-          </Button>
-        </div> */}
+        
         
         <div className="flex-grow-1 d-flex justify-content-end ">
           <div className="champsRecherche mt-2 mb-3 w-50">
@@ -500,91 +412,7 @@ const handleUserSelectChange = (event) => {
           setCurrentPage={setCurrentPage}
         />
           <div>
-          {/* <div className="d-flex justify-content-between mt-5">
-       
-        
-        <div className="flex-grow-1 d-flex justify-content-end ">
-          <div className="champsRecherche mt-2 mb-3 w-50">
-            <Form>
-              <div
-                className="input-group flex-nowrap "
-                style={{ borderColor: "#004573" }}
-              >
-                <Form.Control
-                  type="search"
-                  className="form-control w-50   "
-                  placeholder="Rechercher un évaluation reçu"
-                  aria-label="user"
-                  aria-describedby="addon-wrapping"
-                  // value={searchValue}
-                  // onChange={handleSearchChange}
-                />
-                <span
-                  className="input-group-text text-white me-4"
-                  id="addon-wrapping"
-                  style={{ backgroundColor: "#004573" }}
-                >
-                  <FontAwesomeIcon icon={faMagnifyingGlass} />
-                </span>
-              </div>
-            </Form>
-          </div>
-        </div>
-      </div> */}
-            {/* <h3>Liste des  évaluations reçu</h3>
-            <table className="table border  border-1">
-          <thead
-            className=""
-            id="hearder-color"
-            style={{ backgroundColor: "#004573" }}
-          >
-            <tr>
-              
-              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-              Date
-              </th>
-              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-              Catégorie
-              </th>
-              
-              <th
-                className="d-flex  justify-content-center "
-                style={{
-                  backgroundColor: "#004573",
-                  color: "#fff",
-                  marginLeft: "3rem",
-                }}
-              >
-                Action
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>20/02/2024</td>
-              <td>Collegue</td>
-              <td className="d-flex justify-content-evenly">
-                <Button
-                            style={{
-                              backgroundColor: "#fff",
-                              border: "1px solid #004573",
-                              color: "#004573",
-                            }}
-                            // onClick={() => supprimerEvent(eventEl.id)}
-                          >
-                            <FontAwesomeIcon icon={faEye} />
-                </Button>
-
-              </td>
-            </tr>
-          </tbody>
           
-            </table> */}
-            {/* <Pagination
-              ={currentPageE}
-              totalPaginationPages={totalPaginationPages}
-              setCurrentPageE={setCurrentPageE}
-              />   */}
           </div>
 
       </div>

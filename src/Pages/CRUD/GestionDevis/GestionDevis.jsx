@@ -2,15 +2,23 @@
 
 
 import {
+  faBuilding,
+  faCalendarDay,
+  faComment,
+  faEnvelope,
     faEye,
     faMagnifyingGlass,
+    faMessage,
     faPenToSquare,
+    faPhone,
     faTrash,
+    faUser,
   } from "@fortawesome/free-solid-svg-icons";
   import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
   import { Button, Form, Modal } from "react-bootstrap";
   import React, { useEffect, useState } from "react";
   // import axios from "axios";
+  import './GestionDevis.css';
   import Swal from "sweetalert2";
   import axios from "axios";
   import { Link } from "react-router-dom";
@@ -22,7 +30,22 @@ import {
   
   
     const [messages, setMessages] = useState([]);
+    const [show, setShow] = useState(false);
+    const [selectedMessage, setSelectedMessage] = useState(null);
+
+
+    
      //  Lister les message
+     const handleCloseShow = () => setShow(false);
+    //  const handleShow = () => setShow(true);
+
+    const handleShow = (message)=>{
+      setSelectedMessage(message);
+      setShow(true);
+      console.log(message, 'id message')
+      console.log(selectedMessage, 'selectmessage')
+    };
+    
   
     useEffect(() => {
       const fetchMessage= async () => {
@@ -55,7 +78,16 @@ import {
     const supprimerMessage = async (id) => {
       const role = localStorage.getItem("rolecle");
       const token = localStorage.getItem("tokencle");
-     
+      Swal.fire({
+        title: 'Êtes-vous sûr?',
+        text: "De vouloir supprimer l'événement?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#004573',
+        cancelButtonColor: '#f00020',
+        confirmButtonText: "Oui, j'accepte!",
+      }).then(async (result) => {
+        if (result.isConfirmed) {
       try {
         if (token || role === "Admin"){
           const response = await axios.delete(
@@ -75,28 +107,22 @@ import {
             );
     
             setMessages(updatedCategories);
-            Swal.fire({
-              title: 'Êtes-vous sûr?',
-              text: "De vouloir supprimer ce message?",
-              icon: 'warning',
-              showCancelButton: true,
-              confirmButtonColor: '#004573',
-              cancelButtonColor: '#f00020',
-              confirmButtonText: "Oui, j'accepte!",
-          }).then((result) => {
-              if (result.isConfirmed) {
+            
                   Swal.fire({
                       icon: "success",
                       title: "Succès!",
                       text: "message supprimer avec succès!",
                   });
-              }
-          });
+              
           } else {
             console.error("Erreur lors de la suppression de la catégorie");
           }
         }
-      } catch (error) {}
+      } catch (error) {
+
+      }
+     }
+    });
     };
   
   
@@ -129,6 +155,14 @@ import {
   );
   
   const totalPaginationPages = Math.ceil(messages.length /  messageParPage);
+  const formatDate = (createdAt) => {
+    const date = new Date(createdAt);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+  };
     
    
     
@@ -214,12 +248,11 @@ import {
                         border: "1px solid #004573",
                         color: "#004573",
                       }}
+                     
+                      onClick={() => handleShow(messageel)}
                     >
-                      <Link
-                        style={{ color: "#004573" }}
-                        to={`/abonnementdetail/${messageel.id || ''}`}>
                         <FontAwesomeIcon icon={faEye} />
-                      </Link>
+                      
                     </Button>
                   </td>
                 </tr>
@@ -234,7 +267,112 @@ import {
           />
         </div>
   
-    
+    {/* detail */}
+
+    {/* <Modal
+        show={show}
+        onHide={handleCloseShow}
+        id="buttonModifier"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Modifier user</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+         
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            // onClick={modifierUser}
+            style={{
+              backgroundColor: "#004573",
+              border: "none",
+              width: "130px",
+            }}
+          >
+            Modifier
+          </Button>
+          <Button
+            variant="primary"
+            onClick={handleCloseShow}
+            style={{
+              backgroundColor: "#fff",
+              border: "1px solid #004573",
+              width: "130px",
+              color: "#004573",
+            }}
+          >
+            Fermer
+          </Button>
+        </Modal.Footer>
+      </Modal> */}
+
+    <Modal show={show} onHide={handleCloseShow} id="buttonModifier" size="lg">
+      <Modal.Header closeButton>
+        <Modal.Title>Details du message</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        {selectedMessage && (
+          <div className="col-xl-6 col-lg-7 col-md-12">
+              
+            <div className=" profile-header">
+              <div className="body">
+                
+                <div className="  devi-content-main-detail">
+                  <div className="col-lg-4 col-md-4 col-12 " style={{ border:'1px solid green'}}>
+                    <div className="profile-image float-md-right d-flex justify-content-center  
+                    align-content-center align-items-center" style={{width:'150px',
+                    height:'150px',
+                    borderRadius:'50%',
+                    border:'3px solid #004573',}}>
+                      
+                      <FontAwesomeIcon icon={faMessage}  style={{width:'100px',
+                        height:'100px', color:'#004573'}}/>
+                    </div>
+                  </div>
+                  <div className="col-lg-8 col-md-8 col-12 lg  CONTENT1" style={{paddingLeft:'50px', border:'1px solid red'}}>
+                    
+                    <h4 className="m-t-0 m-b-0  mt-2">
+                        <span><FontAwesomeIcon icon={faUser} style={{color:'#004573',marginRight:'10px'}} /> </span>
+                      <strong>{ selectedMessage && selectedMessage.prenom} { selectedMessage && selectedMessage.nom} </strong>
+                    </h4>
+                    <h4 className="m-t-0 m-b-0  mt-2">
+                        <span><FontAwesomeIcon icon={faEnvelope} style={{color:'#004573',marginRight:'10px'}} /> </span>
+                      <strong>{ selectedMessage && selectedMessage.email} </strong>
+                    </h4>
+                    <h4 className="m-t-0 m-b-0  mt-2">
+                        <span><FontAwesomeIcon icon={faPhone} style={{color:'#004573',marginRight:'10px'}} /> </span>
+                      <strong>{ selectedMessage && selectedMessage.numeroTelephone} </strong>
+                    </h4>
+                    <h4 className="m-t-0 m-b-0  mt-2">
+                        <span><FontAwesomeIcon icon={faBuilding} style={{color:'#004573',marginRight:'10px'}} /> </span>
+                      <strong>{ selectedMessage && selectedMessage.entreprise} </strong>
+                    </h4>
+                    <h4 className="m-t-0 m-b-0  mt-2">
+                        <span><FontAwesomeIcon icon={faUser} style={{color:'#004573',marginRight:'10px'}} /> </span>
+                      <strong>{ selectedMessage && selectedMessage.poste} </strong>
+                    </h4>
+                    <h4 className="m-t-0 m-b-0 mt-2">
+                    <span><FontAwesomeIcon icon={faCalendarDay} style={{color:'#004573',marginRight:'10px'}} /> </span>
+                      <strong>{formatDate( selectedMessage && selectedMessage.created_at)} </strong>
+                    </h4>
+                    <p className=" mt-2">
+                    <span style={{color:'#004573',marginRight:'10px', fontSize:'25px'}}>
+                    <FontAwesomeIcon icon={faComment} />
+                    
+                    </span>
+                   { selectedMessage && selectedMessage.message}
+                      </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </Modal.Body>
+      
+    </Modal>
+
       </div>
     );
   }

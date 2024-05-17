@@ -1,4 +1,4 @@
-import { faEye, faFolderOpen, faMagnifyingGlass, faPenToSquare, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faFolderOpen, faMagnifyingGlass, faPenToSquare, faPlus, faTrash, faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react'
 import { Button, Form } from 'react-bootstrap';
@@ -118,31 +118,55 @@ export default function GestionEvaluationAdmin() {
     
 // archiver 
 
-const archiverEvaluation = async (evenementId) => {
+const archiverEvaluation = async (evenement_id) => {
   const token = localStorage.getItem("tokencle");
   const role = localStorage.getItem("rolecle");
+  console.log("0 evenementId :", evenement_id);
+  Swal.fire({
+    title: 'Êtes-vous sûr?',
+    text: "De vouloir archiver l'évaluation?",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#004573',
+    cancelButtonColor: '#f00020',
+    confirmButtonText: "Oui, j'accepte!",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
   
   if (token && role === 'Admin') {
+    console.log("one evenementId :", evenement_id);
     try {
-      // Envoie une requête POST à l'endpoint pour archiver l'évaluation avec l'evenementId spécifié
+      console.log("evenementId seconde :", evenement_id);
+      // Envoie une requête PUT à l'endpoint pour archiver l'évaluation avec l'evenementId spécifié
       const response = await axios.put(
-        `http://localhost:8000/api/archiver/evaluation/${evenementId}`,
-        
+        `http://localhost:8000/api/archiver/evaluation/${evenement_id}`,
+        {}, // Données vides car il semble que vous n'envoyez pas de données supplémentaires
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
+            Swal.fire({
+                icon: "success",
+                title: "Succès!",
+                text: "l'évaluation a été archiver avec succès!",
+            });
+        
+      fetchEvaluations()
 
       console.log("Évaluation archivée avec succès :", response.data);
+      console.log("Évaluation evenementId :", evenement_id);
       
       // Gérer la mise à jour de l'état de l'application ou de l'interface utilisateur si nécessaire
     } catch (error) {
       console.error("Erreur lors de l'archivage de l'évaluation :", error);
     }
   }
+}
+});
 };
+
 
 
     
@@ -173,6 +197,7 @@ const archiverEvaluation = async (evenementId) => {
   };
   useEffect(() => {
     fetchCategories();
+    
   }, []);
 
   
@@ -221,6 +246,7 @@ const ajouterEvaluation = async () => {
             title: "Succès!",
             text: "Question évaluation ajouté avec succée!",
           });
+          fetchEvaluations();
          
           handleCloseEvaluation();
       } catch (error) {
@@ -419,7 +445,23 @@ const formatDate = (createdAt) => {
                    <td className=" d-flex justify-content-evenly">
                      <Button
                        variant="primary"
-                       onClick={archiverEvaluation}
+                       
+                      //  onClick={() => archiverEvaluation(evaluation.id)}
+                       
+                       style={{
+                         backgroundColor: "#fff",
+                         border: "1px solid #004573",
+                         color: "#004573",
+                       }}
+                       id="buttonModifier"
+                     >
+                       {/* <FontAwesomeIcon icon={faUserEdit} /> */}
+                       <FontAwesomeIcon icon={faPenToSquare} />
+                     </Button>
+                     <Button
+                       variant="primary"
+                       
+                       onClick={() => archiverEvaluation(evaluation.id)}
                        
                        style={{
                          backgroundColor: "#fff",

@@ -34,13 +34,13 @@ const links = [
     },
     {
       path: "gestioadmin",
-      text: "Gestion Admin",
+      text: "Gestion Client",
       icon: faUser,
     },
   
     {
       path: "gestiondevis",
-      text: "Gestion Dévis",
+      text: "Demande d'utilisaton",
       icon: faFileLines
     },
     

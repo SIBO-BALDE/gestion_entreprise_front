@@ -2,6 +2,8 @@
 import {
   faComment,
   faEye,
+  faFolderOpen,
+  faLockOpen,
   faMagnifyingGlass,
   faPenToSquare,
   faTrash,
@@ -27,6 +29,7 @@ export default function GestionEvenement({ id }) {
   const [showEditModalEvents, setShowEditModalEvents] = useState(false);
 
   const [showAdd, setShowAdd] = useState(false);
+  const [showEventBlok, setShowEventBlok] = useState(false);
   const handleClosAdd = () => setShowAdd(false); 
   const handleshowAdd = () => setShowAdd(true);
 
@@ -34,6 +37,10 @@ export default function GestionEvenement({ id }) {
   const handleShowEdit = () => setShowEvent(true);
   const handleShowEditEvent = () => showEditModalEvents(true);
   const handleCloseEditEvents = () => setShowEditModalEvents(false);
+
+
+  const handleCloseEventBlok = () => setShowEventBlok(false);
+  const handleShowEventBlok = () => setShowEventBlok(true);
 
 
   
@@ -149,49 +156,63 @@ export default function GestionEvenement({ id }) {
    const supprimerEvent = async (id) => {
     const role = localStorage.getItem("rolecle");
     const token = localStorage.getItem("tokencle");
-   
-    try {
-      if (token || role === "Admin"){
-        const response = await axios.delete(
-          `http://localhost:8000/api/evenements/${id}/soft-delete`,
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-       
-        if (response.status === 200) {
-          // Filtrez la liste des catégories pour exclure celle qui vient d'être supprimée
-          const updatedEvents = events.filter(
-            (evet) => evet.id !== id
-          );
   
-          setEvents(updatedEvents);
-          Swal.fire({
-            title: 'Êtes-vous sûr?',
-            text: "De vouloir supprimer un evenement?",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#004573',
-            cancelButtonColor: '#f00020',
-            confirmButtonText: "Oui, j'accepte!",
-        }).then((result) => {
-            if (result.isConfirmed) {
-                Swal.fire({
-                    icon: "success",
-                    title: "Succès!",
-                    text: "evenement supprimer avec succès!",
-                });
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: "De vouloir supprimer l'événement?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#004573',
+      cancelButtonColor: '#f00020',
+      confirmButtonText: "Oui, j'accepte!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        if (token && role === 'Admin') {
+          try {
+            // Suppression de l'événement
+            const response = await axios.delete(
+              `http://localhost:8000/api/evenements/${id}/soft-delete`,
+              {
+                headers: {
+                  'Content-Type': 'multipart/form-data',
+                  Authorization: `Bearer ${token}`,
+                },
+              }
+            );
+  
+            if (response.status === 200) {
+              // Mettre à jour la liste des événements
+              fetchEvents(); // Mettre à jour la liste des événements actifs
+              fetchEventsBlok(); // Mettre à jour la liste des événements archivés
+  
+              Swal.fire({
+                icon: "success",
+                title: "Succès!",
+                text: "L'événement a été supprimé avec succès!",
+              });
+  
+              console.log("Événement supprimé avec succès :", response.data);
+            } else {
+              console.error("Erreur lors de la suppression de l'événement");
+              Swal.fire({
+                icon: "error",
+                title: "Erreur!",
+                text: "Une erreur est survenue lors de la suppression de l'événement.",
+              });
             }
-        });
-        } else {
-          console.error("Erreur lors de la suppression de la catégorie");
+          } catch (error) {
+            console.error("Erreur lors de la suppression de l'événement :", error);
+            Swal.fire({
+              icon: "error",
+              title: "Erreur!",
+              text: "Une erreur est survenue lors de la suppression de l'événement.",
+            });
+          }
         }
       }
-    } catch (error) {}
+    });
   };
+  
 
   //  etat pour modifier categorie
  const [editEventData, setEditEventData] = useState({
@@ -277,18 +298,49 @@ const filteredEvents = events.filter(
 const displayEvents = searchValue === "" ? events : filteredEvents;
 
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage1, setCurrentPage1] = useState(1);
 const  eventsParPage= 5;
 
 // pagination
-const indexOfLastEvent = currentPage* eventsParPage;
-const indexOfFirstEvent = indexOfLastEvent -  eventsParPage;
-const currentEvents = filteredEvents.slice(
-  indexOfFirstEvent,
-  indexOfLastEvent
+const indexOfLastEvent = currentPage1 * eventsParPage;
+const indexOfFirstEvent = indexOfLastEvent - eventsParPage;
+const currentEvents = filteredEvents.slice(indexOfFirstEvent, indexOfLastEvent);
+
+const totalPaginationPagesEvent = Math.ceil(events.length /  eventsParPage);
+//  pour le champ recherche
+const [searchValueBlok, setSearchValueBlok] = useState("");
+const [eventsBlok, setEventsBlok] = useState([]);
+
+
+// function la recherche
+const handleSearchChangeBlok = (event) => {
+  setSearchValueBlok(event.target.value);
+};
+
+// faire le filtre des maison par addrsse
+const filteredEventsBlok = eventsBlok.filter(
+  (eventEl) =>
+    eventEl &&
+    eventEl.titre &&
+    eventEl.titre.toLowerCase().includes(searchValueBlok.toLowerCase())
+);
+const displayEventsBlok = searchValueBlok === "" ? eventsBlok : filteredEventsBlok;
+
+
+  const [currentPage, setCurrentPage] = useState(1);
+const  eventsBlokParPage= 5;
+
+// pagination
+const indexOfLastEventBlok = currentPage * eventsBlokParPage; // Utiliser currentPage au lieu de currentPage1
+const indexOfFirstEventBlok = indexOfLastEventBlok - eventsBlokParPage;
+const currentEventsBlok = filteredEventsBlok.slice(
+  indexOfFirstEventBlok,
+  indexOfLastEventBlok
 );
 
-const totalPaginationPages = Math.ceil(events.length /  eventsParPage);
+const totalPaginationPages = Math.ceil(
+  eventsBlok.length / eventsBlokParPage
+);
 
 
 const fetchFeedbackResponses = async (evenement_id) => {
@@ -333,6 +385,87 @@ const handleButtonClick = async (evenement_id) => {
 
 
 
+const fetchEventsBlok = async () => {
+  const role = localStorage.getItem("rolecle");
+  const token = localStorage.getItem("tokencle");
+  try {
+    if (token || role === "Admin") {
+      const response = await axios.get(
+        "http://localhost:8000/api/listes/evenements/archives",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response , 'liste archive events')
+      setEventsBlok(response.data.evenements);
+
+      console.log(eventsBlok, 'blok event');
+    }
+  } catch (error) {
+    console.error("Erreur lors de la récupération des catégories:", error);
+  }
+};
+useEffect(() => {
+  fetchEventsBlok();
+}, []);
+
+// archiver 
+
+const archiverEvaluation = async (id) => {
+  const token = localStorage.getItem("tokencle");
+  const role = localStorage.getItem("rolecle");
+  console.log("0 evenementId :", id);
+  
+  Swal.fire({
+    title: 'Êtes-vous sûr?',
+    text: "De vouloir archiver l'évenement?",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#004573',
+    cancelButtonColor: '#f00020',
+    confirmButtonText: "Oui, j'accepte!",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        icon: "success",
+        title: "Succès!",
+        text: "L'événement a été archivé avec succès!",
+      });
+
+      if (token && role === 'Admin') {
+        try {
+          const response = await axios.post(
+            `http://localhost:8000/api/archiver/evenement/${id}`,
+            {},
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          fetchEvents(); // Mettre à jour la liste des événements actifs
+          fetchEventsBlok(); // Mettre à jour la liste des événements archivés
+
+          console.log("Évaluation archivée avec succès :", response.data);
+        } catch (error) {
+          console.error("Erreur lors de l'archivage de l'évaluation :", error);
+        }
+      }
+    }
+  });
+};
+
+
+
+// fecht blok events
+
+
+
+
+
 
 
   return (
@@ -347,6 +480,17 @@ const handleButtonClick = async (evenement_id) => {
             id="buttonAjouter"
           >
             Ajouter un évenement
+          </Button>
+        </div>
+        <div>
+          <Button
+            variant="primary"
+            onClick={handleShowEventBlok}
+            className="ms-4"
+            style={{ backgroundColor: "#004573", border: "none" }}
+            id="buttonAjouter"
+          >
+            Liste des évenements archivés
           </Button>
         </div>
         <div className="flex-grow-1 d-flex justify-content-end ">
@@ -415,9 +559,6 @@ const handleButtonClick = async (evenement_id) => {
             </tr>
           </thead>
           <tbody>
-            {/* {currentMaisons &&
-              currentMaisons.map((maison) => {  key={maison.id} {maison.image && (*/}
-                {/* return ( */}
 
                 {currentEvents && currentEvents.map((eventEl) => (
                   <tr key={ eventEl && eventEl.id}>
@@ -466,6 +607,16 @@ const handleButtonClick = async (evenement_id) => {
                   >
                     <FontAwesomeIcon icon={faTrash} />
                   </Button>
+                  <Button
+                    style={{
+                      backgroundColor: "#fff",
+                      border: "1px solid #004573",
+                      color: "#004573",
+                    }}
+                    onClick={() => archiverEvaluation(eventEl.id)}
+                  >
+                    <FontAwesomeIcon icon={faFolderOpen} />
+                  </Button>
                     </td>
                   </tr>
                 ))}
@@ -473,10 +624,11 @@ const handleButtonClick = async (evenement_id) => {
           </tbody>
         </table>
         <Pagination
-          currentPage={currentPage}
-          totalPaginationPages={totalPaginationPages}
-          setCurrentPage={setCurrentPage}
-          />  
+            currentPage={currentPage1} // Assurez-vous que c'est currentPage1 pour la première pagination
+            totalPaginationPages={totalPaginationPagesEvent}
+            setCurrentPage={setCurrentPage1}
+/>
+ 
       </div>
 
       {/* modal debut  ajouter event*/}
@@ -737,6 +889,97 @@ const handleButtonClick = async (evenement_id) => {
 
         </Modal.Body>
       </Modal>
+
+
+
+      {/* blok */}
+
+      <Modal show={showEventBlok} onHide={handleCloseEventBlok} id="buttonAjouter" size="lg">
+          <Modal.Header closeButton>
+          
+            <Modal.Title>Liste des evenements archives</Modal.Title>
+          </Modal.Header>
+          <div className="flex-grow-1 d-flex justify-content-end ">
+          <div className="champsRecherche mt-2 mb-3 w-50">
+            <Form>
+              <div
+                className="input-group flex-nowrap "
+                style={{ borderColor: "#004573" }}
+              >
+                <Form.Control
+                  type="search"
+                  className="form-control w-50   "
+                  placeholder="Rechercher un évenement bloquer"
+                  aria-label="user"
+                  aria-describedby="addon-wrapping"
+                  value={searchValueBlok}
+                  onChange={handleSearchChangeBlok}
+                />
+                <span
+                  className="input-group-text text-white me-4"
+                  id="addon-wrapping"
+                  style={{ backgroundColor: "#004573" }}
+                >
+                  <FontAwesomeIcon icon={faMagnifyingGlass} />
+                </span>
+              </div>
+            </Form>
+          </div>
+          </div>
+          <Modal.Body>
+          <table className="table border  border-1">
+          <thead
+            className=""
+            id="hearder-color"
+            style={{ backgroundColor: "#004573" }}
+          >
+            <tr>
+              
+              
+              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+              Titre
+              </th>
+              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+               Dsecription
+              </th>
+              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+               Date de début
+              </th>
+              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+                Date de fin
+              </th>
+              
+            </tr>
+          </thead>
+          <tbody>
+          
+                {currentEventsBlok && currentEventsBlok.map((eventEl) => (
+                  <tr key={ eventEl && eventEl.id}>
+                    
+                    <td>{ eventEl && eventEl.titre}</td>
+                    <td>{ eventEl && eventEl.description}</td>
+                    <td>{ eventEl && eventEl.date_debut}</td>
+                    <td>{ eventEl && eventEl.date_fin}</td>
+                    <td className="d-flex justify-content-evenly">
+                      {/* Vos boutons d'action ici */}
+                    </td>
+                    
+                  </tr>
+                ))}
+
+          </tbody>
+        </table>
+        <Pagination
+          currentPage={currentPage}
+          totalPaginationPages={totalPaginationPages}
+          setCurrentPage={setCurrentPage}
+          />  
+      
+        
+          </Modal.Body>
+          
+        </Modal>
+      {/* blok */}
 
 
     </div>

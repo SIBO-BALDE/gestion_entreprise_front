@@ -60,282 +60,8 @@ export default function GestionFeedback() {
         fetchEvents();
       }, []);
 
-// 
-
-    //   const [feeds, setFeeds] = useState([]);
-    
-    // //   etat pour ajouter un evenement
-    //   const [feedbackData, setFeedbackData] = useState({
-    //     id: null,
-    //     titre: "",
-    //     evenement_id: "",
-        
-    //   });
-
-  //     // const ajouterFeed = async (e) => {
-  //     //   e.preventDefault();
-  //     //   const role = localStorage.getItem("rolecle");
-  //     //   const token = localStorage.getItem('tokencle')
-        
-        
-        
-  //     //     try {
-  //     //       if (token || role==="Admin"){
-  //     //         const response = await axios.post(
-  //     //           "http://localhost:8000/api/fedddback/create",
-  //     //           feedbackData,
-  //     //           {
-  //     //             headers: {
-  //     //               "Content-Type": "multipart/form-data",
-  //     //               Authorization: `Bearer ${token}`,
-  //     //             },
-  //     //           }
-  //     //         );
-      
-  //     //         if (response.status === 200) {
-  //     //           console.log(response ,'res feed admin')
-  //     //           setFeeds([...feeds, response.data]);
-  //     //           setFeedbackData({
-  //     //             titre: "",
-  //     //             evenement_id: "",
-                  
-  //     //           });
-      
-  //     //           Swal.fire({
-  //     //             icon: "success",
-  //     //             title: "Succès!",
-  //     //             text: "user ajoutée avec succès!",
-  //     //           });
-      
-  //     //           handleCloseFeeds();
-  //     //           fetchFeedbacks()
-      
-               
-  //     //         } else {
-  //     //           console.error("Erreur dans l'ajout de la maison");
-  //     //         }
-  //     //       }
-            
-  //     //     } catch (error) {
-  //     //       console.error("Erreur Axios:", error);
-  //     //     }
-        
-      
-  //     // };
-
-      
-  //   // Modifier feeds
-  //   // const [editFeedsData, setEditFeedsData] = useState({
-  //   //   id: null,
-  //   //   titre: "",
-  //   //   evenement_id: "",
-      
-  //   // });
-
-  //     // const handleShowEditFeeds = (feed) => {
-  //     //   if (feed && feed.evenement_id) {
-  //     //     setEditFeedsData((prevEditFeedsData) => {
-  //     //       // Mettre à jour les valeurs de editFeedsData avec les valeurs de feed
-  //     //       return {
-  //     //         ...prevEditFeedsData,
-  //     //         id: feed.id,
-  //     //         titre: feed.titre,
-  //     //         evenement_id: feed.evenement_id,
-  //     //       };
-  //     //     });
-      
-  //     //     setShow(true);
-  //     //     console.log(feed.id, "feed.id");
-  //     //     console.log(editFeedsData.id, "editFeedsData.id"); 
-  //     //     console.log(editFeedsData.titre, "editFeedsData.titre");
-  //     //     console.log(editFeedsData.evenement_id, "evenement_id");
-  //     //   } else {
-  //     //     console.error("question non définie pour la question à modifier.");
-         
-  //     //   }
-  //     // };
-      
-      
-  //     // const modifierFeeds= async (id) => {
-  //     //   const token = localStorage.getItem('tokencle')
-  //     //   const role = localStorage.getItem("rolecle");
-  //     //   if(editFeedsData.titre === "" || editFeedsData.evenement_id==="" ){
-  //     //     Swal.fire({
-  //     //       icon: "error",
-  //     //       title: "Oops!",
-  //     //       text: "les champs sont  obligatoires!",
-  //     //     });
-  //     //     return
-  //     //   }
-        
-  //     //     try {
-            
-  //     //         if (token || role==="Admin"){
-    
-  //     //           const response = await axios.post(
-  //     //             `http://localhost:8000/api/fedddback/update/${editFeedsData.id}`,
-  //     //             editFeedsData,
-  //     //             {
-  //     //               headers: {
-  //     //                 "Content-Type": "multipart/form-data",
-  //     //                 Authorization: `Bearer ${token}`
-  //     //               },
-  //     //             }
-  //     //           );
-               
-      
-  //     //           if (response.status === 200) {
-  //     //             console.log(response, 'response modif feed')
-  //     //             const dataEv = response.data.feedbacks
-  //     //             const updatedFeeds = feeds.map((feed) =>
-                  
-  //     //               feed.id === editFeedsData.id ? response.data.feedbacks : feed
-  //     //             );
-  //     //             // console.log('updatedMaisons:', updatedMaisons);
-      
-  //     //             setQuestions(updatedFeeds);
-  //     //             // setEditQuestionData(response.data.feedbacks);
-  //     //             fetchFeedbacks();
-  //     //             handleClose();
-  //     //             Swal.fire({
-  //     //               icon: "success",
-  //     //               title: "Succès!",
-  //     //               text: "feedback mise à jour avec succès!",
-  //     //             });
-               
-  //     //             // console.log('Valeur de categories_id après la requête:', editQuestionData.categorie_id);
-  //     //           } else {
-  //     //             console.error("Erreur lors de la modification du feedback");
-  //     //           }
-              
-  //     //       }
-  //     //     } catch (error) {
-  //     //       console.error("Erreur Axios:", error);
-  //     //     }
-  //     //   }
-
-  //     //  Lister les categories
-  // // const fetchFeedbacks = async () => {
-  // //   const role = localStorage.getItem("rolecle");
-  // //   const token = localStorage.getItem("tokencle");
-  // //   try {
-  // //     if (token || role === "Admin") {
-  // //       const response = await axios.get(
-  // //         "http://localhost:8000/api/fedddbacks",
-  // //         {
-  // //           headers: {
-  // //             Authorization: `Bearer ${token}`,
-  // //           },
-  // //         }
-  // //       );
-  // //       setFeeds(response.data.feedbacks);
-
-  // //       console.log(response.data.feedbacks ,'feeds response liste');
-  // //       console.log(feeds ,'feeds liste');
-  // //     }
-  // //   } catch (error) {
-  // //     console.error("Erreur lors de la récupération des catégories:", error);
-  // //   }
-  // // };
-
-  // // useEffect(() => {
-  // //   fetchFeedbacks();
-  // // }, []);
-
-  // // const supprimerFeedback = async (id) => {
-  // //   const role = localStorage.getItem("rolecle");
-  // //   const token = localStorage.getItem("tokencle");
-   
-  // //   try {
-  // //     if (token || role === "Admin"){
-  // //       const response = await axios.delete(
-  // //         `http://localhost:8000/api/fedddbacks/${id}/soft-delete`,
-  // //         {
-  // //           headers: {
-  // //             'Content-Type': 'multipart/form-data',
-  // //             Authorization: `Bearer ${token}`,
-  // //           },
-  // //         }
-  // //       );
-       
-  // //       if (response.status === 200) {
-  // //         // Filtrez la liste des catégories pour exclure celle qui vient d'être supprimée
-  // //         const updatedFeedbacks = feeds.filter(
-  // //           (feed) => feed.id !== id
-  // //         );
-  
-  // //         setFeeds(updatedFeedbacks);
-  // //         Swal.fire({
-  // //           title: 'Êtes-vous sûr?',
-  // //           text: "De vouloir supprimer cette feedback?",
-  // //           icon: 'warning',
-  // //           showCancelButton: true,
-  // //           confirmButtonColor: '#004573',
-  // //           cancelButtonColor: '#f00020',
-  // //           confirmButtonText: "Oui, j'accepte!",
-  // //       }).then((result) => {
-  // //           if (result.isConfirmed) {
-  // //               Swal.fire({
-  // //                   icon: "success",
-  // //                   title: "Succès!",
-  // //                   text: "feedback supprimer avec succès!",
-  // //               });
-  // //           }
-  // //       });
-  // //       fetchFeedbacks();
-  // //       } else {
-  // //         console.error("Erreur lors de la suppression de la question");
-  // //       }
-  // //     }
-  // //   } catch (error) {
-  // //     console.error(error, "Erreur lors de la suppression de la question axios");
-
-  // //   }
-  // // };
 
   
-  //   //  pour le champ recherche
-  //   const [searchValueFeed, setSearchValueFeed] = useState("");
-
-  //   // function la recherche
-  //   const handleSearchChangeFeed = (titre) => {
-  //     setSearchValueFeed(titre.target.value);
-  //   };
-  
-  //   // faire le filtre des maison par addrsse
-  //   const filteredFeeds = feeds.filter(
-  //     (feed) =>
-  //       feed &&
-  //       feed.titre &&
-  //       feed.titre.toLowerCase().includes(searchValueFeed.toLowerCase())
-  //   );
-
-  //   const displayFeeds = searchValueFeed === "" ? feeds :  filteredFeeds; 
-
-  // const [currentPageFeed, setCurrentPageFeed] = useState(1);
-  // const feedsParPage= 1;
-
-  // // pagination
-  // const indexOfLastFeed = currentPageFeed* feedsParPage;
-  // const indexOfFirstFeed = indexOfLastFeed - feedsParPage;
-  // const currentFeeds = filteredFeeds.slice(
-  //   indexOfFirstFeed,
-  //   indexOfLastFeed
-  // );
-
-  // const totalPaginationPagesFeeds = Math.ceil(feeds.length / feedsParPage);
-  
-  
-
- 
-  
-
-
-
-
-
-
-
 
 //   ajouter question
 const [questions, setQuestions] = useState([]);
@@ -563,7 +289,16 @@ const ajouterQuestion = async (e) => {
    const supprimerQuestion = async (id) => {
     const role = localStorage.getItem("rolecle");
     const token = localStorage.getItem("tokencle");
-   
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: "De vouloir supprimer la question?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#004573',
+      cancelButtonColor: '#f00020',
+      confirmButtonText: "Oui, j'accepte!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
     try {
       if (token || role === "Admin"){
         const response = await axios.delete(
@@ -583,23 +318,12 @@ const ajouterQuestion = async (e) => {
           );
   
           setQuestions(updatedQuestion);
-          Swal.fire({
-            title: 'Êtes-vous sûr?',
-            text: "De vouloir supprimer cette question?",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#004573',
-            cancelButtonColor: '#f00020',
-            confirmButtonText: "Oui, j'accepte!",
-        }).then((result) => {
-            if (result.isConfirmed) {
                 Swal.fire({
                     icon: "success",
                     title: "Succès!",
                     text: "question supprimer avec succès!",
                 });
-            }
-        });
+            
         } else {
           console.error("Erreur lors de la suppression de la question");
         }
@@ -608,6 +332,8 @@ const ajouterQuestion = async (e) => {
       console.error(error, "Erreur lors de la suppression de la question axios");
 
     }
+     }
+    });
   };
 
   

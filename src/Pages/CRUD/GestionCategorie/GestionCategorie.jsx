@@ -177,7 +177,16 @@ export default function GestionCategorie() {
   const supprimerCategory = async (id) => {
     const role = localStorage.getItem("rolecle");
     const token = localStorage.getItem("tokencle");
-    
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: "De vouloir supprimer la ctegorie?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#004573',
+      cancelButtonColor: '#f00020',
+      confirmButtonText: "Oui, j'accepte!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
     try {
       if (token || role === "Admin"){
         const response = await axios.delete(
@@ -195,30 +204,19 @@ export default function GestionCategorie() {
           const updatedCategories = categories.filter(
             (category) => category.id !== id
           );
-  
           setCategories(updatedCategories);
-          Swal.fire({
-            title: 'Êtes-vous sûr?',
-            text: "De vouloir supprimer une catégorie?",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#004573',
-            cancelButtonColor: '#f00020',
-            confirmButtonText: "Oui, j'accepte!",
-        }).then((result) => {
-            if (result.isConfirmed) {
                 Swal.fire({
                     icon: "success",
                     title: "Succès!",
                     text: "catégorie supprimer avec succès!",
                 });
-            }
-        });
         } else {
           console.error("Erreur lors de la suppression de la catégorie");
         }
       }
     } catch (error) {}
+  }
+});
   };
 
   //  pour le champ recherche

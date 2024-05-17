@@ -91,7 +91,7 @@ useEffect(() => {
     try {
       if (token || role === "Admin") {
         const response = await axios.get(
-          "http://localhost:8000/api/users_participants",
+          "http://localhost:8000/api/participants",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -99,6 +99,7 @@ useEffect(() => {
           }
         );
         setUsers(response.data.participants);
+        console.log(response, 'response. user admin')
 
         console.log(users ,'ici users du users');
       }
@@ -305,7 +306,7 @@ useEffect(() => {
           </table>
           <Pagination
            currentPage={currentPage}
-           totalPaginationPagesEvent={totalPaginationPagesEvent}
+           totalPaginationPages={totalPaginationPagesEvent}
            setCurrentPage={setCurrentPage}
           
           />  
