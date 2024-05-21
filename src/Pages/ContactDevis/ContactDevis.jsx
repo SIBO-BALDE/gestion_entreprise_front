@@ -193,136 +193,7 @@ const ajouterMessage = async (e) => {
 
 
   return (
-    // <div className='d-flex'>
-    //   <div>hello</h1></div>
-    //     <div className="container_devis_form">
-    //     <form action="#" >
-    //         <h2 className='content_title_devis'>Pour plus d'information remplissez ce formulaire</h2>
-
-            
-
-    //         <div className='d-flex justify-around'>
-    //         <div className="input-group">
-    //             <label >Prenom:</label>
-    //             <input type="text" id="name" name="name" required 
-    //             value={messageData.prenom}
-    //             onChange={(e) =>{
-    //              setMessageData({...messageData, prenom: e.target.value})
-    //              validateField("prenom", e.target.value);
-               
-    //             }}
-    //             />
-    //             <p style={{ color: "red" }}>{errors.prenom}</p>
-    //             <p style={{ color: "green" }}>{successeds.prenom}</p>
-    //         </div>
-    //         <div className="input-group">
-    //             <label >Nom:</label>
-    //             <input type="text" id="text" name="text" required 
-    //             value={messageData.nom}
-    //             onChange={(e) =>{
-    //              setMessageData({...messageData, nom: e.target.value})
-    //              validateField("nom", e.target.value);
-               
-    //             }}
-    //             />
-    //             <p style={{ color: "red" }}>{errors.nom}</p>
-    //             <p style={{ color: "green" }}>{successeds.nom}</p>
-                
-    //         </div>
-    //         </div>
-
-    //         <div className='d-flex justify-around'>
-    //         <div className="input-group">
-    //             <label >Email:</label>
-    //             <input type="email" id="email" name="email" required
-
-    //             value={messageData.email}
-    //             onChange={(e) =>{
-    //              setMessageData({...messageData, email: e.target.value})
-    //              validateField("email", e.target.value);
-               
-    //             }}
-    //             />
-    //             <p style={{ color: "red" }}>{errors.email}</p>
-    //             <p style={{ color: "green" }}>{successeds.email}</p>
-    //         </div>
-    //         <div className="input-group">
-    //             <label >Télephone:</label>
-    //             <input type="text" id="tel" name="tel" required 
-    //                 value={messageData.numeroTelephone}
-    //                 onChange={(e) =>{
-    //                 setMessageData({...messageData, numeroTelephone: e.target.value})
-    //                 validateField("numeroTelephone", e.target.value);
-
-    //                 }}
-    //                 />
-    //                 <p style={{ color: "red" }}>{errors.numeroTelephone}</p>
-    //                 <p style={{ color: "green" }}>{successeds.numeroTelephone}</p>
-
-    //         </div>
-
-    //         </div>
-    //         <div className='d-flex justify-around'>
-    //         <div className="input-group">
-    //             <label >Entreprise:</label>
-    //             <input type="text" id="text" name="text" required
-    //             value={messageData.entreprise}
-    //             onChange={(e) =>{
-    //             setMessageData({...messageData, entreprise: e.target.value})
-    //             validateField("entreprise", e.target.value);
-
-    //             }}
-    //             />
-    //             <p style={{ color: "red" }}>{errors.entreprise}</p>
-    //             <p style={{ color: "green" }}>{successeds.entreprise}</p> 
-
-                
-    //         </div>
-    //         <div className="input-group d-flex flex-column">
-    //           <div>
-    //             <label >Poste:</label>
-    //           </div>
-    //           <div>
-    //               <select id="poste" name="poste" className="form-control" required 
-    //                   value={messageData.poste}
-    //                   onChange={(e) => {
-    //                       setMessageData({...messageData, poste: e.target.value});
-    //                       validateField("poste", e.target.value);
-    //                   }}
-    //                   // style={{height:'38px',width:'100%'}}
-    //               >
-    //                   <option value="">poste</option>
-    //                   <option value="Poste 1">Directeur</option>
-    //                   <option value="Poste 2">Comptable</option>
-    //                   <option value="Poste 3">Commercial</option>
-    //                   {/* Ajoutez autant d'options que nécessaire */}
-    //               </select>
-    //           </div>
-
-    //         {/* <p style={{ color: "red" }}>{errors.poste}</p>
-    //         <p style={{ color: "green" }}>{successeds.poste}</p> */}
-    //         </div>
-    //         </div>
-
-            
-
-    //         <div className="input-group">
-    //             <label >Message:</label>
-    //             <textarea id="message" name="message" rows="5" required
-    //             value={messageData.message}
-    //             onChange={(e) =>{
-    //             setMessageData({...messageData, message: e.target.value})
-    //             validateField("message", e.target.value);
-
-    //             }}
-                
-    //             ></textarea>
-    //         </div>
-    //         <Button type="submit" className='content_title_devis_button_content' onClick={ajouterMessage}>Demander devis</Button>
-    //     </form>
-    //     </div>
-      
-    // </div>
+    
     <div className='d-flex container' style={{gap:'20px'}}>
       
       <div className="container_devis_form">
@@ -440,7 +311,7 @@ const ajouterMessage = async (e) => {
               </Form.Group>
             </Col>
           </Row>
-          <Button type="submit" className='content_title_devis_button_content mt-3' onClick={ajouterMessage}>Demander devis</Button>
+          <Button type="submit" className='content_title_devis_button_content mt-3' onClick={ajouterMessage}>Demande d'abonnement</Button>
         </Form>
       </div>
       <div className='' style={{width:'700px' ,height:'700px'}}>

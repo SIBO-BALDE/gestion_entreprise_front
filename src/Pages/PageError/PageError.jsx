@@ -2,7 +2,7 @@ import React from 'react'
 import './PageError.css';
 import { Link } from 'react-router-dom';
 import { Image } from 'react-bootstrap';
-// import error1 from './../../Images/'
+import error1 from './../../Images/avatar2.jpg'
 
 
 export default function PageError() {
@@ -60,11 +60,20 @@ export default function PageError() {
         </svg>
       </div>
       <div className="error-code">404</div> */}
-      <div>
-        <Image />
+      <div className='erreor-content-main'>
+        <Image src={error1} className='image-erreor-content' />
       </div>
-      <div className="error-desc">Désolée, Ce modéle n'est pas encore disponible.
-       <br />Merci de patienter on vous feras savoir dés quil est disponible <span><Link to={'/'}>Accueil</Link></span></div>
+      <div className="error-desc" style={{backgroundColor:'#FFE7DD'}}>
+        <h1 style={{ color:'#004573'}}>Bienvenue!</h1>
+        <p>
+        Désolée, Ce modéle n'est pas encore disponible pour le moment.
+       <br />Merci de patienter on vous feras savoir dés qu'il est disponible. 
+       <br /><span>
+        <Link to={'/'} style={{textDecoration:'none', color:'#004573', fontWeight:'bolder'}}>Cliquer ici </Link>
+        pour revenir à la page d'accueil
+        </span>
+        </p>
+      </div>
     </div>
 
   )

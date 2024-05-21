@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 // import './SideBar.css';
 import { Button, Image } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import logo from '../../../Images/logo.png'
+import logo from '../../../Images/LOGO_TYPE.png'
 import "./SideBarUse.css";
 import Swal from 'sweetalert2';
 import axios from 'axios';

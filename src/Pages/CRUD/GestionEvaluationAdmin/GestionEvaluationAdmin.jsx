@@ -356,6 +356,61 @@ const formatDate = (createdAt) => {
  );
  
  const totalPaginationPages = Math.ceil(evaluations.length /   evaluationParPage);
+
+//  modification evaluation
+ const [showEditEvaluation, setShowEditEvaluation] = useState(false);
+const [currentEvaluation, setCurrentEvaluation] = useState(null);
+
+const handleShowEditEvaluation = (evaluation) => {
+  setCurrentEvaluation(evaluation);
+  setShowEditEvaluation(true);
+};
+const handleCloseEditEvaluation = () => setShowEditEvaluation(false);
+const handleCloseshowEditEvaluation = () => setShowEditEvaluation(false);
+
+// const modifierEvaluation = async () => {
+//   const token = localStorage.getItem("tokencle");
+//   const role = localStorage.getItem("rolecle");
+//   if (token && role === 'Admin' && currentEvaluation) {
+//     try {
+//       const requestData = {
+//         titre: currentEvaluation.titre,
+//         questions: currentEvaluation.questions.map(question => ({
+//           nom: question.nom.trim(),
+//           categorie_id: selectedCategories[question.index][0],
+//           reponses: question.reponses ? question.reponses.map(reponse => reponse.trim()) : []
+//         }))
+//       };
+
+//       const response = await axios.put(
+//         `http://localhost:8000/api/Questionsevaluation/update/${currentEvaluation.id}`,
+//         requestData,
+//         {
+//           headers: {
+//             Authorization: `Bearer ${token}`,
+//           },
+//         }
+//       );
+
+//       Swal.fire({
+//         icon: "success",
+//         title: "Succès!",
+//         text: "Évaluation modifiée avec succès!",
+//       });
+//       fetchEvaluations();
+//       handleCloseEditEvaluation();
+//     } catch (error) {
+//       console.error("Erreur lors de la modification de l'évaluation :", error);
+//     }
+//   }
+// };
+
+
+
+
+
+
+
   
 
 
@@ -446,7 +501,7 @@ const formatDate = (createdAt) => {
                      <Button
                        variant="primary"
                        
-                      //  onClick={() => archiverEvaluation(evaluation.id)}
+                      //  onClick={() => handleShowEditEvaluation(evaluation)}
                        
                        style={{
                          backgroundColor: "#fff",
@@ -591,6 +646,58 @@ const formatDate = (createdAt) => {
 </Modal>
 
       </>
+
+
+      {/* modifier une evaluation  */}
+      <>
+      <Modal show={showEditEvaluation} onHide={handleCloseshowEditEvaluation} id="buttonAjouter">
+    <Modal.Header closeButton>
+        <Modal.Title>Modifier une évaluation</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+        <Form>
+            <FormGroup>
+                <FormLabel>Titre de l'évaluation:</FormLabel>
+                <FormControl 
+                    type="text"
+                    value={evaluationData.titre} 
+                    onChange={(e) => setEvaluationData({ ...evaluationData, titre: e.target.value })} 
+                    required 
+                />
+            </FormGroup>
+
+            
+        </Form>
+    </Modal.Body>
+    <Modal.Footer>
+        <Button
+            variant="secondary"
+            // onClick={modifierEvaluation}
+            style={{
+                backgroundColor: "#004573",
+                border: "none",
+                width: "130px",
+            }}
+        >
+            Modifier
+        </Button>
+        <Button
+            variant="primary"
+            // onClick={handleCloseEvaluation}
+            style={{
+                backgroundColor: "#fff",
+                border: "1px solid #004573",
+                width: "130px",
+                color: "#004573",
+            }}
+        >
+            Fermer
+        </Button>
+    </Modal.Footer>
+</Modal>
+
+      </>
+      {/* modifier une evaluation  */}
      
 
     

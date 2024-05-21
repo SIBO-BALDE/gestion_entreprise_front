@@ -183,6 +183,55 @@ const ajouterQuestion = async (e) => {
       evenement_id: "",
     });
 
+    const modifierQuestion = async (id) => {
+      const token = localStorage.getItem('tokencle');
+      const role = localStorage.getItem('rolecle');
+    
+      if (editQuestionData.nom === "" || editQuestionData.evenement_id === "") {
+        Swal.fire({
+          icon: "error",
+          title: "Oops!",
+          text: "les champs sont  obligatoires!",
+        });
+        return;
+      }
+    
+      try {
+        if (token || role === "Admin") {
+          const response = await axios.post(
+            `http://localhost:8000/api/questionsfeedback/update/${editQuestionData.id}`,
+            editQuestionData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+    
+          if (response.status === 200) {
+            const updatedQuestion = questions.map((quesk) =>
+              quesk.id === editQuestionData.id ? response.data.questionsfeedback : quesk
+            );
+    
+            setQuestions(updatedQuestion); 
+    
+            Swal.fire({
+              icon: "success",
+              title: "Succès!",
+              text: "question mise à jour avec succès!",
+            });
+    
+            handleCloseFeedsEdit();
+          } else {
+            console.error("Erreur lors de la modification de la user");
+          }
+        }
+      } catch (error) {
+        console.error("Erreur Axios:", error);
+      }
+    };
+
       
 
 
@@ -207,54 +256,7 @@ const ajouterQuestion = async (e) => {
  
 
 
-          const modifierQuestion = async (id) => {
-            const token = localStorage.getItem('tokencle');
-            const role = localStorage.getItem('rolecle');
-          
-            if (editQuestionData.nom === "" || editQuestionData.evenement_id === "") {
-              Swal.fire({
-                icon: "error",
-                title: "Oops!",
-                text: "les champs sont  obligatoires!",
-              });
-              return;
-            }
-          
-            try {
-              if (token || role === "Admin") {
-                const response = await axios.post(
-                  `http://localhost:8000/api/questionsfeedback/update/${editQuestionData.id}`,
-                  editQuestionData,
-                  {
-                    headers: {
-                      "Content-Type": "multipart/form-data",
-                      Authorization: `Bearer ${token}`,
-                    },
-                  }
-                );
-          
-                if (response.status === 200) {
-                  const updatedQuestion = questions.map((quesk) =>
-                    quesk.id === editQuestionData.id ? response.data.questionsfeedback : quesk
-                  );
-          
-                  setQuestions(updatedQuestion); 
-          
-                  Swal.fire({
-                    icon: "success",
-                    title: "Succès!",
-                    text: "question mise à jour avec succès!",
-                  });
-          
-                  handleCloseFeedsEdit();
-                } else {
-                  console.error("Erreur lors de la modification de la user");
-                }
-              }
-            } catch (error) {
-              console.error("Erreur Axios:", error);
-            }
-          };
+         
           
     
           const [searchValue, setSearchValue] = useState("");

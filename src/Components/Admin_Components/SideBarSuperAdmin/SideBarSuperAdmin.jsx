@@ -6,7 +6,7 @@ import React, { useContext } from 'react'
 import './SideBarSuperAdmin.css';
 import { Button, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import logo from '../../../Images/logo.png';
+import logo from '../../../Images/LOGO_TYPE.png';
 import { useAuth } from "../../../Pages/Auth/AuthContex";
 import { createContext } from 'react';
 import Swal from 'sweetalert2';
@@ -62,51 +62,51 @@ const links = [
   
 export default function SideBarSuperAdmin({ isOpen, name, handleChangePath }) {
 
-  // const { token, role, logout } = useAuth();
-
+  
+    
   const navigate = useNavigate();
 
-  // const handleLogout = async () => {
+  const handleLogout = async () => {
     
-  //   try {
-  //     const token = localStorage.getItem("tokencle");
-  //       const role = localStorage.getItem("rolecle");
-  //     if (token || role === "Admin") {
-  //       // Utilisez votre instance Axios configurée
-  //       const response = await axios.post(
-  //         "http://localhost:8000/api/logout",
-  //         {},
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
+    try {
+      const token = localStorage.getItem("tokencle");
+        const role = localStorage.getItem("rolecle");
+      if (token || role === "SuperAdmin") {
+        // Utilisez votre instance Axios configurée
+        const response = await axios.post(
+          "http://localhost:8000/api/logout",
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
   
-  //       if (response.status === 200) {
-  //         // Appel de la fonction logout depuis authContext
+        if (response.status === 200) {
+          // Appel de la fonction logout depuis authContext
          
-  //         localStorage.removeItem("tokencle");
-  //         localStorage.removeItem("rolecle");
+          localStorage.removeItem("tokencle");
+          localStorage.removeItem("rolecle");
   
-  //         Swal.fire({
-  //           title: "Déconnexion réussie!",
-  //           text: "Vous êtes déconnecté avec succès.",
-  //           icon: "success",
-  //         });
-  //         navigate("/login");
-  //       } else {
-  //         Swal.fire({
-  //           icon: "error",
-  //           title: "Oops!",
-  //           text: "Échec de déconnexion!",
-  //         });
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.error("Erreur lors de la déconnexion :", error);
-  //   }
-  // };
+          Swal.fire({
+            title: "Déconnexion réussie!",
+            text: "Vous êtes déconnecté avec succès.",
+            icon: "success",
+          });
+          navigate("/login");
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops!",
+            text: "Échec de déconnexion!",
+          });
+        }
+      }
+    } catch (error) {
+      console.error("Erreur lors de la déconnexion :", error);
+    }
+  };
   return (
     <div>
        <div style={{ display: !isOpen ? "block" : "none", border:'none' }}>
@@ -145,7 +145,7 @@ export default function SideBarSuperAdmin({ isOpen, name, handleChangePath }) {
           <div className="d-flex  justify-content-center">
             <Button className="logout d-flex justify-content-center align-items-center " 
             id="logout" 
-            // onClick={handleLogout}
+            onClick={handleLogout}
             >
               <FontAwesomeIcon
                 icon={faSignOutAlt}

@@ -15,7 +15,7 @@ export default function GestionFeedbackEvaluation() {
   const [niveau, setNiveau] = useState(''); //
 
   const handleClosAdd = () => setShowAdd(false); 
-  const handleshowAdd = () => setShowAdd(true);
+  // const handleshowAdd = () => setShowAdd(true);
   const [commentaire, setCommentaire] = useState(''); 
 
 
@@ -188,28 +188,52 @@ const formatDate = (createdAt) => {
   const fetchCategories = async () => {
     const role = localStorage.getItem("rolecle");
     const token = localStorage.getItem("tokencle");
+   
     try {
       if (token || role === "Participant") {
         const response = await axios.get(
-          "http://localhost:8000/api/categories/admin",
+          'http://localhost:8000/api/categories/admin',
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
+       
         console.log(response, 'response cat')
         setCategories(response.data.Categorie);
 
         console.log(categories);
+        
       }
     } catch (error) {
       console.error("Erreur lors de la récupération des catégories:", error);
     }
   };
-  useEffect(() => {
-    fetchCategories();
-  }, []);
+ 
+  const [evaluationData, setEvaluationData] = useState(null);
+
+  const fetchEvaluationDetail = async (evaluationId) => {
+    try {
+        const response = await axios.get(`http://localhost:8000/api/evaluation/${evaluationId}`);
+        setEvaluationData(response.data);
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+    }
+};
+useEffect(() => {
+  fetchCategories();
+}, []);
+
+
+const handleEvaluationClickDetail = async (evaluationId ,event) => {
+  event.preventDefault();
+  setShowAdd(true)
+  await fetchReponsesQuestion(evaluationId);
+  console.log(evaluationId, 'evaluationId')
+}
+
+
 
 
   
@@ -221,17 +245,16 @@ const formatDate = (createdAt) => {
    
 
   const handleButtonClick = async (CategorieId, event) => {
-    event.preventDefault(); 
+    event.preventDefault();
+    setSelectedCategoryId(CategorieId);
     await fetchReponsesQuestion(CategorieId);
+   
     setShow(true);
     setShowAdd(false);
-   
   };
 
   
   
-  
-
   const fetchReponsesQuestion = async (CategorieId) => {
     console.log(CategorieId, 'categorieId')
     try {
@@ -261,19 +284,22 @@ const [users, setUsers] = useState([]);
 const [selectedCategoryId, setSelectedCategoryId] = useState(null);
 
 //  Lister les users
-const fetchUsers = async () => {
+const fetchUsers = async (categoryId) => {
  const role = localStorage.getItem("rolecle");
  const token = localStorage.getItem("tokencle");
  try {
-   if (token || role === "Participant") {
+   if (token && role === "Participant") {
      const response = await axios.get(
-       "http://localhost:8000/api/participant/entreprse",
+      
+      `http://localhost:8000/api/participant/entreprse/${categoryId}`,
+      
        {
          headers: {
            Authorization: `Bearer ${token}`,
          },
        }
      );
+    
      console.log(response ,'response user select');
      setUsers(response.data.participants);
 
@@ -285,10 +311,11 @@ const fetchUsers = async () => {
 };
 
 
-  useEffect(() => {
-    fetchUsers();
-    
-  }, [])
+useEffect(() => {
+  if (selectedCategoryId) {
+    fetchUsers(selectedCategoryId);
+  }
+}, [selectedCategoryId]);
 
 
 
@@ -299,6 +326,7 @@ const fetchUsers = async () => {
 const handleUserSelectChange = (event) => {
   setSelectedUserId(event.target.value);
 };
+
 
 
   
@@ -383,8 +411,8 @@ const handleUserSelectChange = (event) => {
                    <td className=" d-flex justify-content-evenly">
                      <Button
                        variant="primary"
-                       // onClick={handleShowEdit}
-                       onClick={handleshowAdd}
+                       
+                       onClick={(event) => handleEvaluationClickDetail(evaluation.id , event)}
                        
                        style={{
                          backgroundColor: "#fff",
@@ -470,7 +498,8 @@ const handleUserSelectChange = (event) => {
               ))}
             </Form.Select>
           </Form.Group>
-          {reponsesQuestion.map((question) => (
+           {reponsesQuestion && reponsesQuestion.map((question) => (
+            (evaluationSelectionneeId !== null && evaluationSelectionneeId === question.evaluation_id) && (
             <div key={question.id} style={{ marginBottom: '20px' }}>
               <Form.Group controlId={`question-${question.id}`}>
                 <Form.Label>{question.id}-{question.nom} ?</Form.Label>
@@ -487,6 +516,7 @@ const handleUserSelectChange = (event) => {
                 ))}
               </Form.Group>
             </div>
+             )
           ))}
           <Form.Group controlId="niveau">
             <Form.Label>Niveau :</Form.Label>

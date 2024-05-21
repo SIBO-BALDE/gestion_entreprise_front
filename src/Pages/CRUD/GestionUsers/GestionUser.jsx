@@ -29,9 +29,11 @@ export default function GestionUser({ id }) {
   const handleShowEdit = () => setShowUser(true);
   const handleCloseEditUser = () => setShowEditModalUsers(false);
   const [showBlokUser, setShowBlokUser] = useState(false);
+  const [showUserDetails, setShowUserDetails] = useState(false);
 
   const handleCloseBlokUser = () => setShowBlokUser(false);
   const handleShowBlokUser = () => setShowBlokUser(true);
+  const handleCloseDetails = () => setShowUserDetails(false);
 
 
   // tableau ou stocker la liste des users
@@ -525,6 +527,76 @@ const debloquerUser = async (id) => {
  const totalPaginationPages = Math.ceil(usersBlock.length / usersBlokParPage);
 
 
+
+
+ const [userQuestionsAndAnswers, setUserQuestionsAndAnswers] = useState([]);
+ console.log({userQuestionsAndAnswers: Object.keys(userQuestionsAndAnswers?.[0] ?? {})});
+
+ const fetchUserQuestionsAndAnswers = async (id) => {
+   const token = localStorage.getItem("tokencle");
+   const role = localStorage.getItem("rolecle");
+   
+   try {
+     if (token && role === "Admin") {
+       const response = await axios.get(`http://localhost:8000/api/users/evaluations/${id}`, {
+         headers: {
+           Authorization: `Bearer ${token}`,
+         },
+       });
+       console.log(response, 'response fetchquestionAnswer');
+       
+       if (response.data && response.data.user && Array.isArray(response.data.user)) {
+         console.log("Données de l'API récupérées :", response.data.user);
+         return response.data.user;
+       } else {
+         console.error("La réponse de l'API n'est pas un tableau ou est vide :", response.data.user);
+         return [];
+       }
+     }
+   } catch (error) {
+     console.error("Erreur lors de la récupération des questions et réponses:", error);
+   }
+   return [];
+};
+
+
+
+
+const handleShowUserDetails = async (user) => {
+  if (user && user.categorie_id) {
+    setEditUserData({
+      id: user.id,
+      nom: user.nom,
+      prenom: user.prenom,
+      email: user.email,
+      categorie_id: user.categorie_id,
+      entreprise_id: user.entreprise_id,
+    });
+
+    try {
+      const questionsAndAnswers = await fetchUserQuestionsAndAnswers(user.id);
+      console.log(questionsAndAnswers, 'questionsAndAnswers')
+      setUserQuestionsAndAnswers(questionsAndAnswers);
+      console.log(userQuestionsAndAnswers, 'userQuestionsAndAnswers')
+      setShowUserDetails(true);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des questions et réponses:", error);
+      // Gérer l'erreur, par exemple, afficher un message à l'utilisateur
+    }
+  } else {
+    console.error("Catégorie non définie pour l'utilisateur à modifier.");
+    // Autres actions nécessaires en cas d'erreur...
+  }
+};
+
+ 
+
+      let commentaire = null;
+      let niveau = null;
+      let evaluateur = null;
+      let questionCounter = 1;
+
+
   
 
   return (
@@ -603,6 +675,9 @@ const debloquerUser = async (id) => {
             <tr>
               
               <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+               Voir les reponses des participant
+              </th>
+              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
                Nom
               </th>
               <th style={{ backgroundColor: "#004573", color: "#fff" }}>
@@ -635,6 +710,19 @@ const debloquerUser = async (id) => {
           { currentUsers &&
               currentUsers.map((user) => ( 
               <tr key={user && user.id} >
+                <td>
+                  <Button
+                  variant="primary"
+                  onClick={() => handleShowUserDetails(user)}
+                  style={{
+                    backgroundColor: "#fff",
+                    border: "1px solid #004573",
+                    color: "#004573",
+                  }}
+                >
+                  <FontAwesomeIcon icon={faEye} />
+                </Button>
+                </td>
                 <td>{user &&  user.nom}</td>
                 <td>{user &&  user.prenom}</td>
                 <td>{user &&  user.email}</td>
@@ -1135,6 +1223,105 @@ const debloquerUser = async (id) => {
           
         </Modal>
       {/* participant blok */}
+
+
+      <Modal show={showUserDetails} onHide={handleCloseDetails}>
+      <Modal.Header closeButton>
+        <Modal.Title>Evaluation reçu</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        {/* first */}
+       
+          {/* <div>
+            {userQuestionsAndAnswers && userQuestionsAndAnswers.length > 0 ? (
+            
+            Object.keys(userQuestionsAndAnswers?.[0] ?? {}).map((key, index) => {
+              const item = userQuestionsAndAnswers?.[0]?.[key];
+
+              return (
+                <div key={index} className="card mb-3">
+                  <div className="card-body">
+                    <p className="card-text"><strong>Commentaire:</strong> {item?.commentaire}</p>
+                    <p className="card-text"><strong>Niveau:</strong> {item?.niveau}</p>
+                    <p className="card-text"><strong>Évaluation:</strong> {item?.evaluation.titre}</p>
+                    <p className="card-text"><strong>Évaluateur:</strong> {item?.user.prenom} {item?.user.nom}</p>
+                    {item?.questions_reponses?.map((qr, qrIndex) => (
+                      <div key={qrIndex} className="mt-2">
+                        <p className="card-text"><strong> {qrIndex + 1}-Réponse:</strong> {qr?.reponse?.reponse}</p>
+                        <p className="card-text"><strong >{qrIndex + 1}-Question:</strong> {qr?.reponse?.questions_evaluation?.nom}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })
+          ) : (
+            <div className="card-body">
+              <p className="text-danger">Aucune évaluation reçue concernant cette personne.</p>
+            </div>
+          )}
+          
+            
+
+
+          </div> */}
+
+          {/* seconde */}
+          <div>
+            {userQuestionsAndAnswers && userQuestionsAndAnswers.length > 0 ? (
+              <>
+                {/* Initialiser les variables pour stocker le commentaire et le niveau */}
+                
+
+                {/* Boucle sur chaque clé de la première entrée du tableau */}
+                {Object.keys(userQuestionsAndAnswers[0] ?? {}).map((key, index) => {
+                  const item = userQuestionsAndAnswers[0][key];
+
+                  // Vérifier si le commentaire et le niveau n'ont pas déjà été affichés
+                  if (index === 0) {
+                    commentaire = item?.commentaire;
+                    niveau = item?.niveau;
+                    evaluateur = `${item?.user.prenom} ${item?.user.nom}`;
+                  }
+
+                  return (
+                    <div key={index} className=" ">
+                      {/* Afficher le commentaire et le niveau uniquement s'ils n'ont pas déjà été affichés */}
+                      {index === 0 && (
+                          <>
+                           <p className="card-text"><strong>Évaluateur:</strong> {evaluateur}</p>
+                            <p className="card-text"><strong>Commentaire:</strong> {commentaire}</p>
+                            <p className="card-text"><strong>Niveau:</strong> {niveau}</p>
+                          </>
+                        )}
+                      <div className="card mb-3 p-3">
+                        
+
+                        <p className="card-text"><strong>Évaluation:</strong> {item?.evaluation.titre}</p>
+                        {/* <p className="card-text"><strong>Évaluateur:</strong> {item?.user.prenom} {item?.user.nom}</p> */}
+                        {item?.questions_reponses?.map((qr, qrIndex) => (
+                          <div key={qrIndex} className="mt-2">
+                            <p className="card-text"><strong>{questionCounter++}-Question:</strong> {qr?.reponse?.questions_evaluation?.nom}</p>
+                            <p className="card-text"><strong>Réponse:</strong> {qr?.reponse?.reponse}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </>
+            ) : (
+              <div className="card-body">
+                <p className="text-danger">Aucune évaluation reçue concernant cette personne.</p>
+              </div>
+            )}
+</div>
+
+        
+      </Modal.Body>
+      
+    </Modal>
+
     </div>
   );
 }

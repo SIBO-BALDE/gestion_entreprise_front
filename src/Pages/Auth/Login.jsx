@@ -81,73 +81,156 @@ export default function Login() {
   };
 
 
-  const Handlelogin = async (e) =>{
-    e.preventDefault();
+//   const Handlelogin = async (e) =>{
+//     e.preventDefault();
 
     
     
-    validateField("email", email);
-    validateField("password", password);
+//     validateField("email", email);
+//     validateField("password", password);
 
 
-    if (validationStatus) {
-      const credentials = {
-        email,
-        password,
-      }
-    try {
-      const response = await axios.post('http://localhost:8000/api/login'
-    , credentials
-  )
-  console.log(credentials, 'credential')
-  console.log(response, 'response')
-  if (response.data.status === 402) {
-    Swal.fire({
-      icon: "error",
-      title: "Oops!",
-      text: "Ce compte a ete bloqué!",
-    });
-    return
+//     if (validationStatus) {
+//       const credentials = {
+//         email,
+//         password,
+//       }
+//     try {
+//       const response = await axios.post('http://localhost:8000/api/login'
+//     , credentials
+//   )
+//   console.log(credentials, 'credential')
+//   console.log(response, 'response')
+//   if (response.data.status === 402) {
+//     Swal.fire({
+//       icon: "error",
+//       title: "Oops!",
+//       text: "Ce compte a ete bloqué!",
+//     });
+//     return
     
-  }
-  if(response.status === 200){
-    const data = response.data;
-    const tokenauth= data.token
-    const userRole=response.data.roles[0]
+//   }
+//   if(response.status === 200){
+//     const data = response.data;
+//     const tokenauth= data.token
+//     const userRole=response.data.roles[0]
 
-    console.log(tokenauth, 'cest le token')
-    console.log(userRole, 'cest le role')
-    localStorage.setItem("tokencle", tokenauth);
-    localStorage.setItem("rolecle", userRole);
-    login(userRole);
+//     console.log(tokenauth, 'cest le token')
+//     console.log(userRole, 'cest le role')
+//     localStorage.setItem("tokencle", tokenauth);
+//     localStorage.setItem("rolecle", userRole);
+//     login(userRole);
 
-    if (userRole=== "Admin") {
-      navigate ("/dashbordAdmin");
-    }else if(userRole=== "SuperAdmin"){
-      navigate ("/dashbordSuperAdmin");
+//     if (userRole=== "Admin") {
+//       navigate ("/dashbordAdmin");
+//     }else if(userRole=== "SuperAdmin"){
+//       navigate ("/dashbordSuperAdmin");
 
-    }
-     else {
-      navigate("/dashbordUser");
-    }
+//     }
+//      else {
+//       navigate("/dashbordUser");
+//     }
 
     
-  }
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops!",
-        text: "Ce compte n'hesite pas!",
-      });
-      console.log(error)
+//   }
+//     } catch (error) {
+//       Swal.fire({
+//         icon: "error",
+//         title: "Oops!",
+//         text: "Ce compte n'hesite pas!",
+//       });
+//       console.log(error)
       
-    }
-  }
-}
+//     }
+//   }
+// }
 
  
 
   // }
+
+  const Handlelogin = async (e) => {
+    e.preventDefault();
+  
+    // Vérification si les champs sont vides
+    if (!email || !password) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops!",
+        text: "Les champs ne peuvent pas être vides!",
+      });
+      return;
+    }
+  
+    // Vérification du format de l'email
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops!",
+        text: "Le format de l'email n'est pas valide!",
+      });
+      return;
+    }
+  
+    // Vérification de la longueur du mot de passe
+    if (password.length < 8) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops!",
+        text: "Le mot de passe doit comporter au moins 8 caractères!",
+      });
+      return;
+    }
+  
+    const credentials = {
+      email,
+      password,
+    };
+  
+    try {
+      const response = await axios.post('http://localhost:8000/api/login', credentials);
+      console.log(credentials, 'credentials');
+      console.log(response, 'response');
+  
+      if (response.data.status === 402) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops!",
+          text: "Ce compte a été bloqué!",
+        });
+        return;
+      }
+  
+      if (response.status === 200) {
+        const data = response.data;
+        const tokenauth = data.token;
+        const userRole = response.data.roles[0];
+  
+        console.log(tokenauth, 'cest le token');
+        console.log(userRole, 'cest le role');
+        localStorage.setItem("tokencle", tokenauth);
+        localStorage.setItem("rolecle", userRole);
+        login(userRole);
+  
+        if (userRole === "Admin") {
+          navigate("/dashbordAdmin");
+        } else if (userRole === "SuperAdmin") {
+          navigate("/dashbordSuperAdmin");
+        } else {
+          navigate("/dashbordUser");
+        }
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops!",
+        text: "Ce compte n'existe pas!",
+      });
+      console.log(error);
+    }
+  };
+  
 
   return (
    <div className='wrapper_content_form'>
@@ -165,8 +248,8 @@ export default function Login() {
               validateField("email", e.target.value);
             }}
             />
-            <p style={{ color: "red" }}>{errors.email}</p>
-            <p style={{ color: "green" }}>{successeds.email}</p>
+            {/* <p style={{ color: "red" }}>{errors.email}</p>
+            <p style={{ color: "green" }}>{successeds.email}</p> */}
           </div>
           <div className="input_container_content_main_middle">
             <FontAwesomeIcon icon={faLock} className="icon_login_content_middle mt-2" />
@@ -184,8 +267,8 @@ export default function Login() {
               {showPassword ? < FontAwesomeIcon icon={faEyeSlash} /> : < FontAwesomeIcon icon={faEye} />}
             </span>
           </div>
-              <p style={{ color: "red" }}>{errors.password}</p>
-              <p style={{ color: "green" }}>{successeds.password}</p>
+              {/* <p style={{ color: "red" }}>{errors.password}</p>
+              <p style={{ color: "green" }}>{successeds.password}</p> */}
           
           <Button className='btn_login_baraka' onClick={Handlelogin}>Se connecter</Button>
         </form>
