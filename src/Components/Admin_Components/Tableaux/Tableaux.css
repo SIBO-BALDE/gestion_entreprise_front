@@ -38,3 +38,10 @@
   .text-chiffres {
     /* margin-bottom: 50px; */
   }
+  .content_tab_admin_statistique{
+    display: flex !important;
+    justify-content: space-around !important;
+    gap: 30px;
+    width: 100% !important;
+
+  }

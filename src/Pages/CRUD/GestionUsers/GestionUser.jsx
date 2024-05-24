@@ -13,6 +13,8 @@ import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
 import { emailPattern } from "../../Regex/Regex";
+import * as XLSX from 'xlsx';
+
 
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -259,6 +261,96 @@ export default function GestionUser({ id }) {
     
   
   };
+
+  // telecharger
+  const [file, setFile] = useState(null);
+  const [message, setMessage] = useState('');
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const role = localStorage.getItem("rolecle");
+    const token = localStorage.getItem("tokencle");
+
+    if (!file) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops!",
+        text: "Veuillez sélectionner un fichier Excel!",
+      });
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      if (token || role === "Admin") {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const data = new Uint8Array(e.target.result);
+          const workbook = XLSX.read(data, { type: 'array' });
+          const sheetName = workbook.SheetNames[0];
+          const sheet = workbook.Sheets[sheetName];
+          const users = XLSX.utils.sheet_to_json(sheet);
+
+          // Envoyer le fichier directement au serveur
+          axios.post('http://localhost:8000/api/import/participants', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: `Bearer ${token}`,
+            }
+          })
+          .then((response) => {
+            Swal.fire({
+              icon: "success",
+              title: "Succès!",
+              text: "Liste utilisateur téléversée avec succès!",
+            });
+            console.log(response.data);
+            // Mettez à jour les données si nécessaire
+            fetchUsers();
+            fetchCategories();
+            fetchEntreprises();
+          })
+          .catch((error) => {
+            if (error.response && error.response.status === 422) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops!",
+                text: "L'email existe déjà!",
+              });
+            
+            }  else if(error.response && error.response.status === 423) {
+              Swal.fire({
+                icon: "error",
+                title: "Oops!",
+                text: "Le mot de passe doit avoir au mmoins 8 caracteres!",
+              });
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "Oops!",
+                text: "Une erreur s'est produite lors téleversement de la liste",
+              });
+            }
+            console.error(error);
+          });
+        };
+        reader.readAsArrayBuffer(file);
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops!",
+        text: "Une erreur s'est produite lors du traitement du fichier.",
+      });
+      console.error(error);
+    }
+  };
  
 
   
@@ -481,7 +573,7 @@ const debloquerUser = async (id) => {
 
 
    const [currentPage1, setCurrentPage1] = useState(1);
- const usersParPage= 3;
+ const usersParPage= 5;
 
  // pagination
  const indexOfLastUser = currentPage1* usersParPage;
@@ -543,7 +635,7 @@ const debloquerUser = async (id) => {
            Authorization: `Bearer ${token}`,
          },
        });
-       console.log(response, 'response fetchquestionAnswer');
+       console.log(response, 'response fetchquestionAnswer voir');
        
        if (response.data && response.data.user && Array.isArray(response.data.user)) {
          console.log("Données de l'API récupérées :", response.data.user);
@@ -591,9 +683,9 @@ const handleShowUserDetails = async (user) => {
 
  
 
-      let commentaire = null;
-      let niveau = null;
-      let evaluateur = null;
+      // let commentaire = null;
+      // let niveau = null;
+      // let evaluateur = null;
       let questionCounter = 1;
 
 
@@ -601,7 +693,7 @@ const handleShowUserDetails = async (user) => {
 
   return (
     <div className="container">
-      <div className="d-flex justify-content-between mt-5">
+      <div className="d-flex justify-content-around mt-1">
         <div>
           <Button
             variant="primary"
@@ -614,7 +706,7 @@ const handleShowUserDetails = async (user) => {
           </Button>
         </div>
         <div>
-        <Form.Control
+        {/* <Form.Control
             variant="primary"
            
             className="ms-4"
@@ -622,9 +714,23 @@ const handleShowUserDetails = async (user) => {
             id="buttonAjouter"
             type="file"
             placeholder="Téléverser liste participant"
-           />
+           /> */}
+           {/* <h2>Téléverser un fichier Excel d'utilisateurs</h2> */}
+      <Form onSubmit={handleSubmit}>
+        <div className="d-flex">
+        <div><input type="file" accept=".xlsx, .xls, .csv" onChange={handleFileChange}
+        style={{ backgroundColor: "#fff", border: "1px solid  #004573", color:'white', width:'200px',
+        borderTopLeftRadius:'10px', borderBottomLeftRadius:'10px', padding:'2px 2px' }} /></div>
+        <div><button type="submit" 
+        style={{ backgroundColor: "#004573", border: "none", color:'white', 
+          borderTopRightRadius:'10px', borderBottomRightRadius:'10px', padding:'5px'}}>
+          Téléverser</button></div>
+
         </div>
-        <div>
+      </Form>
+      {message && <p>{message}</p>}
+        </div>
+        <div className="">
           <Button
             variant="primary"
             onClick={handleShowBlokUser}
@@ -636,7 +742,10 @@ const handleShowUserDetails = async (user) => {
           </Button>
         </div>
         
-        <div className="flex-grow-1 d-flex justify-content-end ">
+        
+      </div>
+      <div className="mt-4 ms-3  me-3">
+      <div className="flex-grow-1 d-flex justify-content-end ">
           <div className="champsRecherche mt-2 mb-3 w-50">
             <Form>
               <div
@@ -663,8 +772,6 @@ const handleShowUserDetails = async (user) => {
             </Form>
           </div>
         </div>
-      </div>
-      <div className="mt-4 ms-3  me-3">
         <h3>Liste des participants</h3>
         <table className="table border  border-1">
           <thead
@@ -957,7 +1064,7 @@ const handleShowUserDetails = async (user) => {
         id="buttonModifier"
       >
         <Modal.Header closeButton>
-          <Modal.Title>Modifier user</Modal.Title>
+          <Modal.Title>Modifier un participant</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {editUserData && editUserData.nom && (
@@ -1225,7 +1332,7 @@ const handleShowUserDetails = async (user) => {
       {/* participant blok */}
 
 
-      <Modal show={showUserDetails} onHide={handleCloseDetails}>
+      <Modal show={showUserDetails} onHide={handleCloseDetails} size="lg">
       <Modal.Header closeButton>
         <Modal.Title>Evaluation reçu</Modal.Title>
       </Modal.Header>
@@ -1267,55 +1374,39 @@ const handleShowUserDetails = async (user) => {
           </div> */}
 
           {/* seconde */}
+
+          
           <div>
-            {userQuestionsAndAnswers && userQuestionsAndAnswers.length > 0 ? (
-              <>
-                {/* Initialiser les variables pour stocker le commentaire et le niveau */}
-                
+          {userQuestionsAndAnswers.length > 0 && userQuestionsAndAnswers.map((item, index) => {
+                return Object.keys(item).map((userId) => {
+                    const userData = item[userId];
+                    let questionCounter = 1; // Initialize question counter inside the map function
 
-                {/* Boucle sur chaque clé de la première entrée du tableau */}
-                {Object.keys(userQuestionsAndAnswers[0] ?? {}).map((key, index) => {
-                  const item = userQuestionsAndAnswers[0][key];
-
-                  // Vérifier si le commentaire et le niveau n'ont pas déjà été affichés
-                  if (index === 0) {
-                    commentaire = item?.commentaire;
-                    niveau = item?.niveau;
-                    evaluateur = `${item?.user.prenom} ${item?.user.nom}`;
-                  }
-
-                  return (
-                    <div key={index} className=" ">
-                      {/* Afficher le commentaire et le niveau uniquement s'ils n'ont pas déjà été affichés */}
-                      {index === 0 && (
-                          <>
-                           <p className="card-text"><strong>Évaluateur:</strong> {evaluateur}</p>
-                            <p className="card-text"><strong>Commentaire:</strong> {commentaire}</p>
-                            <p className="card-text"><strong>Niveau:</strong> {niveau}</p>
-                          </>
-                        )}
-                      <div className="card mb-3 p-3">
-                        
-
-                        <p className="card-text"><strong>Évaluation:</strong> {item?.evaluation.titre}</p>
-                        {/* <p className="card-text"><strong>Évaluateur:</strong> {item?.user.prenom} {item?.user.nom}</p> */}
-                        {item?.questions_reponses?.map((qr, qrIndex) => (
-                          <div key={qrIndex} className="mt-2">
-                            <p className="card-text"><strong>{questionCounter++}-Question:</strong> {qr?.reponse?.questions_evaluation?.nom}</p>
-                            <p className="card-text"><strong>Réponse:</strong> {qr?.reponse?.reponse}</p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  );
-                })}
-              </>
-            ) : (
-              <div className="card-body">
-                <p className="text-danger">Aucune évaluation reçue concernant cette personne.</p>
-              </div>
-            )}
-</div>
+                    return (
+                        <div key={`${index}-${userId}`} className=" ">
+                            <div className="card mb-3 p-3">
+                            <h5 className="card-text" style={{color:'#004573'}}><strong>Évaluation:</strong> {userData?.evaluation.titre}</h5>
+                                <p className="card-text"><strong>Évaluateur:</strong> {userData?.user.prenom} {userData?.user.nom}</p>
+                                
+                                {userData?.questions_reponses?.map((qr, qrIndex) => (
+                                    <div key={qrIndex} className="mt-1 mb-4">
+                                        <p className="card-text ">
+                                            <strong>{questionCounter++}-Question:</strong> {qr?.reponse?.questions_evaluation?.nom}
+                                        </p>
+                                        <p className="card-text">
+                                            <strong>Réponse:</strong> {qr?.reponse?.reponse}
+                                        </p>
+                                    </div>
+                                ))}
+                                <p className="card-text mt-3"><strong>Commentaire:</strong> {userData?.commentaire}</p>
+                                <p className="card-text"><strong>Niveau:</strong> {userData?.niveau}</p>
+                            </div>
+                        </div>
+                    );
+                });
+            })}
+           
+          </div>
 
         
       </Modal.Body>

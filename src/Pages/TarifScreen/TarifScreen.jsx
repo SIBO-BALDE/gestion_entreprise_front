@@ -5,6 +5,7 @@ import Footer from '../../Components/User_Components/Footer/Footer';
 import Underline from '../../Components/User_Components/Underline/Underline';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import ButtonWashapp from '../../Components/User_Components/Buttons/ButtonWatsapp/ButtonWashapp';
 
 export default function TarifScreen() {
   return (
@@ -16,6 +17,9 @@ export default function TarifScreen() {
       <h4 className='text-white'>Découvrez nos offres exclusives</h4>
     </div>
     <div style={{height:'10px', width:'100%', backgroundColor:'#FFB703'}}></div>
+    <div>
+            <ButtonWashapp/>
+      </div>
     </div>
     <div className='content_container_price'>
         <Underline text='Les differents plan pour vos business'/>

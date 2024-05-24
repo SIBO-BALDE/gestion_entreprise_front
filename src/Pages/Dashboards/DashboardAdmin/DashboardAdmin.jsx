@@ -22,6 +22,9 @@ import GestionFeedback from "../../CRUD/GestionFeedback/GestionFeedback";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import GestionDevis from "../../CRUD/GestionDevis/GestionDevis";
+import Chart from "../../../Components/Admin_Components/Chart/Chart";
+import Chart1 from "../../../Components/Admin_Components/Chart/Chart1";
+import Chart2 from "../../../Components/Admin_Components/Chart/Chart2";
 
 
 
@@ -225,103 +228,23 @@ useEffect(() => {
 
 
   return (
-    <div className="contenueprincipal container ">
-      <div className="dashbord-content-main-one container" id="vv">
-        <div>
-        <div className="content-left-admin-dashbord border">
-          <h3 className="mb-2">Liste des Participants</h3>
-          <table className="table mb-5">
-            <thead className="table-light" id="hearder-color">
-              <tr>
-                
-                <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                  Prenom
-                </th>
-                <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                  Nom
-                </th>
-                <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                  Email
-                </th>
-                <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                  Catégorie
-                </th>
-                <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                  Entreprise
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-            { currentUsers &&
-              currentUsers.map((user) => ( 
-              <tr key={user && user.id} >
-                <td>{user &&  user.nom}</td>
-                <td>{user &&  user.prenom}</td>
-                <td>{user &&  user.email}</td>
-                <td>{user &&  user.categorie.nom}</td>
-                <td>{user &&  user.entreprise.nom}</td>
-              </tr>
-              ))} 
-              
-            </tbody>
-          </table>
-          <Pagination
-          currentPage={currentPage1}
-          totalPaginationPages={totalPaginationPagesUser}
-          setCurrentPage={setCurrentPage1}
-          />  
-        </div>
-        <div className="content-left-admin-dashbord border">
-          <h3 className="mb-2">Liste des Evenements</h3>
-          <table className="table mb-5">
-            <thead className="table-light" id="hearder-color">
-              <tr>
-                <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                  Nom
-                </th>
-                <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                  Description
-                </th>
-                <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                  Date debut
-                </th>
-                <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                  Date fin
-                </th>
-                
-              </tr>
-            </thead>
-            <tbody>
-            {currentEvents &&
-               currentEvents.map((eventEl) => ( 
-              <tr key={eventEl && eventEl.id} >
-                <td>{eventEl &&  eventEl.titre}</td>
-                <td>{eventEl &&  eventEl.description}</td>
-                <td>{eventEl &&  eventEl.date_debut}</td>
-                <td>{eventEl &&  eventEl.date_fin}</td>
-               
-              </tr>
-              ))} 
-            </tbody>
-          </table>
-          <Pagination
-           currentPage={currentPage}
-           totalPaginationPages={totalPaginationPagesEvent}
-           setCurrentPage={setCurrentPage}
+    <div className="contenueprincipal container">
+      <div className="dashbord-content-main-one-admin container w-100" id="">
           
-          />  
-          
-          
-        </div>
-          
-        </div>
-        <div className="content-diagramme-circulaire-right-conten-2 border pt-4">
-          <div className=" ">
+      <div className="content-diagramme-circulaire-right-conten-2-admin  pt-4 w-100">
             <p className="text-center mt-2  ">
               <Tableaux />
             </p>
+          
+        </div>
+        <div className="">
+          <div className="d-flex justify-center">
+         <div> <Chart /></div>
+          <div><Chart1 /></div>
+          <div><Chart2 /></div>
           </div>
         </div>
+        
       </div>
     </div>
   );
@@ -406,7 +329,7 @@ export default function DashbordAdmin() {
           <div className="">
             <NavbarAdmin onMenuClick={toggleSidebar} />
           </div>
-          {/* <Tableaux /> */}
+          
           {/* contenue selon le lien clicker */}
           {RenderContent(name)}
         </div>

@@ -40,6 +40,7 @@ import { Link } from 'react-router-dom';
 // import Typewriter from 'typewriter-effect';
 import { useEffect } from 'react';
 import { Typewriter } from 'react-simple-typewriter'
+import ButtonWashapp from '../../Components/User_Components/Buttons/ButtonWatsapp/ButtonWashapp';
 
 export default function AboutScreen() {
   const handleType = (count) => {
@@ -83,8 +84,11 @@ export default function AboutScreen() {
         </div>
         
        </div>
-          
+       
         </div>
+        <div>
+            <ButtonWashapp/>
+      </div>
        {/**************************** Banniere fin ****************************/}
 
       {/**************************** Comment sa marche debut ****************************/}

@@ -493,6 +493,7 @@ ul.timeline-list li:before {
       flex-wrap: wrap;
       gap: 20px;
       overflow-x: auto;
+     /* animation-fill-mode: forwards; */
       
     
   }
@@ -503,6 +504,50 @@ ul.timeline-list li:before {
   @keyframes scroll {
     0% { transform: translateX(0); }
     100% { transform: translateX(calc(-250px * 7))}
+    
+  }
+  .Section_partenaire{
+    scrollbar-width: thin;
+
+    ::-webkit-scrollbar {
+        width: 0px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: #CCCCCC;
+        border-radius: 0px;
+        -webkit-border-radius: 0px;
+        -moz-border-radius: 0px;
+        -ms-border-radius: 0px;
+        -o-border-radius: 0px;
+    }
+
+    ::-moz-scrollbar {
+        width: 4px;
+    }
+
+    ::-moz-scrollbar-thumb {
+        background-color: #CCCCCC;
+        border-radius: 4px;
+    }
+
+    ::-ms-scrollbar {
+        width: 4px;
+    }
+
+    ::-ms-scrollbar-thumb {
+        background-color: #CCCCCC;
+        border-radius: 4px;
+    }
+  }
+
+  .Section_partenaire::-webkit-scrollbar-track {
+    height: 20px;
+    background-color: #FFB703;
+  }
+
+  .Section_partenaire::-webkit-scrollbar-thumb {
+    background-color: #FFB703;
   }
 
   

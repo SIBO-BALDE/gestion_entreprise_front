@@ -13,6 +13,7 @@ import { faChartLine, faUserTie } from '@fortawesome/free-solid-svg-icons';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { Link } from 'react-router-dom';
+import ButtonWashapp from '../../Components/User_Components/Buttons/ButtonWatsapp/ButtonWashapp';
 
 export default function ModeleScreen() {
     useEffect(() => {
@@ -39,6 +40,9 @@ export default function ModeleScreen() {
         </div> */}
         <div class="loader"></div>
        </div>
+       <div>
+            <ButtonWashapp/>
+      </div>
      </header>
      <main>
      <Underline  text='Nos differents modéles'/>

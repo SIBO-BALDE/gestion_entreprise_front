@@ -118,10 +118,10 @@ export default function GestionFeedbackEvaluation() {
             },
           }
         );
-        console.log(response , 'liste evaluations')
+        console.log(response)
         setEvaluations(response.data.valuation);
   
-        console.log(evaluations);
+        console.log(evaluations, 'liste evaluations fetch');
       }
      
     } catch (error) {
@@ -168,7 +168,7 @@ const formatDate = (createdAt) => {
  
  
    const [currentPage, setCurrentPage] = useState(1);
- const evaluationParPage= 2;
+ const evaluationParPage= 7;
  
  // pagination
  const indexOfLastEvaluation = currentPage*  evaluationParPage;
@@ -211,74 +211,13 @@ const formatDate = (createdAt) => {
     }
   };
  
-  const [evaluationData, setEvaluationData] = useState(null);
-
-  const fetchEvaluationDetail = async (evaluationId) => {
-    try {
-        const response = await axios.get(`http://localhost:8000/api/evaluation/${evaluationId}`);
-        setEvaluationData(response.data);
-    } catch (error) {
-        console.error('There was a problem with the fetch operation:', error);
-    }
-};
-useEffect(() => {
-  fetchCategories();
-}, []);
-
-
-const handleEvaluationClickDetail = async (evaluationId ,event) => {
-  event.preventDefault();
-  setShowAdd(true)
-  await fetchReponsesQuestion(evaluationId);
-  console.log(evaluationId, 'evaluationId')
-}
-
-
-
+  useEffect(() => {
+    fetchCategories();
+    
+    }, []);
+ 
 
   
-
-  
-
-  const [reponsesQuestion, setReponsesQuestion] = useState([]);
-
-   
-
-  const handleButtonClick = async (CategorieId, event) => {
-    event.preventDefault();
-    setSelectedCategoryId(CategorieId);
-    await fetchReponsesQuestion(CategorieId);
-   
-    setShow(true);
-    setShowAdd(false);
-  };
-
-  
-  
-  const fetchReponsesQuestion = async (CategorieId) => {
-    console.log(CategorieId, 'categorieId')
-    try {
-      const token = localStorage.getItem("tokencle");
-      const response = await axios.get(
-        `http://localhost:8000/api/categories/questions-and-reponses/${CategorieId}`,
-        {
-          // headers: {
-          //   Authorization: `Bearer ${token}`,
-          // },
-        }
-      );
-       setReponsesQuestion(response.data);
-       console.log(response, 'response evalu r q')
-
-       console.log(users ,'ici users du users');
-     
-    } catch (error) {
-      console.error("Erreur lors de la récupération des questions et reponses de  l'évaluation:", error);
-      
-    }
-  };
-
-
   // tableau ou stocker la liste des users
 const [users, setUsers] = useState([]);
 const [selectedCategoryId, setSelectedCategoryId] = useState(null);
@@ -302,6 +241,7 @@ const fetchUsers = async (categoryId) => {
     
      console.log(response ,'response user select');
      setUsers(response.data.participants);
+     console.log(categoryId, 'category fetchusers');
 
      
    }
@@ -329,14 +269,84 @@ const handleUserSelectChange = (event) => {
 
 
 
+
   
 
+const [evaluationData, setEvaluationData] = useState(null);
+
+const fetchEvaluationDetail = async (evaluationId) => {
+  try {
+      const response = await axios.get(`http://localhost:8000/api/evaluation/${evaluationId}`);
+      setEvaluationData(response.data);
+     
+  } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+  }
+};
+
+const handleEvaluationClickDetail = async (evaluationId, event) => {
+  setEvaluationSelectionneeId(evaluationId);
+    setShowAdd(true);
+    await fetchEvaluationDetail(evaluationId);
+    console.log(evaluationId, "evaluationId clicked btn detail");
+  
+};
+
+
+  const [reponsesQuestion, setReponsesQuestion] = useState([]);
+
+  const fetchReponsesQuestion = async (CategorieId, evaluationId) => {
+  console.log(CategorieId, 'categorieId');
+  console.log(evaluationId, 'evaluationId');
+  try {
+    const token = localStorage.getItem("tokencle");
+    const response = await axios.get(
+      `http://localhost:8000/api/categories/questions-and-reponses/${CategorieId}/${evaluationId}`,
+      {
+        // headers: {
+        //   Authorization: `Bearer ${token}`,
+        // },
+      }
+    );
+    setReponsesQuestion(response.data);
+    console.log(response, 'response des question reponse')
+    
+    console.log(CategorieId, 'cat id qr ');
+    console.log(evaluationId, 'eval id qr ');
+  } catch (error) {
+    console.error("Erreur lors de la récupération des questions et reponses de  l'évaluation:", error);
+  }
+};
 
 
 
+// const handleButtonClick = async (CategorieId, event) => {
+//   event.preventDefault();
+//   setSelectedCategoryId(CategorieId);
+//   if (evaluationSelectionneeId !== null) {
+//     await fetchReponsesQuestion(CategorieId, evaluationSelectionneeId);
+//     setShow(true);
+//     setShowAdd(false);
+//   } else {
+//     console.log("L'évaluation sélectionnée n'est pas définie.");
+//     setReponsesQuestion([]);
+//   }
+// };
 
 
-
+const handleButtonClick = async (CategorieId, event) => {
+  event.preventDefault();
+  setSelectedCategoryId(CategorieId);
+  if (evaluationSelectionneeId !== null) {
+    console.log("Les IDs correspondent, récupération des questions et réponses...");
+    await fetchReponsesQuestion(CategorieId, evaluationSelectionneeId);
+    setShow(true);
+    setShowAdd(false);
+  } else {
+    console.log("L'évaluation sélectionnée n'est pas définie.");
+    setReponsesQuestion([]);
+  }
+};
 
 
   return (
@@ -503,7 +513,7 @@ const handleUserSelectChange = (event) => {
             <div key={question.id} style={{ marginBottom: '20px' }}>
               <Form.Group controlId={`question-${question.id}`}>
                 <Form.Label>{question.id}-{question.nom} ?</Form.Label>
-                {question.reponses.map((reponse) => (
+                {question?.reponses_evaluation?.map((reponse) => (
                   <Form.Check
                     key={reponse.id}
                     type="radio"
@@ -579,7 +589,7 @@ const handleUserSelectChange = (event) => {
             width: "130px",
           }}
         >
-          Ajouter
+          Envoyer
         </Button>
         <Button
           variant="primary"

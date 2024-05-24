@@ -46,10 +46,12 @@
     box-shadow: 0px 3px 3px 0px rgba(0, 0, 0, 0.09);
   
   }
-  .dashbord-content-main-one {
-    display: grid;
+  .dashbord-content-main-one-admin {
+    /* display: grid;
     grid-template-columns: 65% 35%;
-    gap: 20px;
+    gap: 20px; */
+    display: block !important;
+    flex-direction: column;
   }
   .content-left-admin-dashbord {
     /* margin-top: 10px; */
@@ -84,9 +86,11 @@
     background-color: var(--principal);
   }
   
-  .content-diagramme-circulaire-right-conten-2 {
+  .content-diagramme-circulaire-right-conten-2-admin {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px;
     border-radius: 20px;
+    width: 100% !important;
+    /* border: 1px solid red !important; */
     /* margin-top: 30px; */
     /* background-color: var(--principal); */
   }

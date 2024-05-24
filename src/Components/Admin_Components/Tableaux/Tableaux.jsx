@@ -95,7 +95,7 @@ export default function Tableaux() {
 
 
   return (
-    <div className=''>
+    <div className='content_tab_admin_statistique'>
       {/* <div className="content-diagramme-circulaire-right-conten-2  pt-4 "> */}
         <div className="card1-admin  pt-2 ps-1">
         <div className="d-flex justify-content-around mt-2 ">
