@@ -1,41 +1,91 @@
-:root{
-    --principal:#004573;
-    --seconde:#FFB703;
-    --troisieme:#FFF;
-    
-}  
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    text-decoration: none;
-    list-style: none !important;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+:root {
+  --principal: #004573;
+  --seconde: #FFB703;
+  --troisieme: #FFF;
 }
-  
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none !important;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/* Définition de mainContentRight en dehors des styles spécifiques à la barre de navigation */
+.mainContentRight {
+  /* Positionne l'élément à droite de la barre de navigation */
+  margin-right: 10px; /* Ajustez la marge à droite selon vos besoins */
+}
+
+.logouticon {
+  font-size: 30px;
+  color: var(--principal);
+}
+
+/* Styles spécifiques à la barre de navigation */
+.mainContent {
+  position: fixed;
+  top: 0;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.09);
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: var(--troisieme);
+  z-index: 100;
+}
+
+.mainContent.with-sidebar {
+  left: 250px; 
+  right: 0;
+}
+
+.mainContent.full-width {
+  left: 0;
+  right: 0;
+}
+
+.mainContent .mainContentRight-icon1 {
+  margin: 10px;
+  font-size: 1.5rem;
+  color: var(--principal);
+ 
+}
+.mainContentRight-icon1:hover{
+  cursor: pointer;
+}
+.mainContentRight-icon:hover{
+  cursor: pointer;
+}
+
+
+.mainContentRight-icon {
+  font-size: 1.5rem;
+  margin: 10px; 
+  color: var(--principal);
+  margin-right: 250px;
+}
+
+.main-content {
+  margin-top: 60px; 
+  padding: 20px;
+  /* overflow-y: auto; */
+}
+
+.main-content.with-sidebar {
+  /* margin-left: 250px;  */
+}
+
+.main-content.full-width {
+  /* margin-left: 0; */
+}
+
+@media screen and (max-width: 1337px) {
   .mainContent {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.09);
-    padding: 10px; 
-    box-sizing: border-box; 
+    display: none !important;
   }
-  
-  .mainContent .mainContentLeft i {
-    margin: 10px; 
-    font-size: 2.5rem;
-  }
-  
-  .mainContent .mainContentRight i {
-    font-size: 2.5rem;
-    margin: 10px; /* Ajustez la marge selon vos préférences */
-  }
-  @media screen and (max-width: 1337px) {
-    .mainContent{
-      display:none !important;
-    }
-  }
-  
+}

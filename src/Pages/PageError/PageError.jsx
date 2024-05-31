@@ -2,79 +2,69 @@ import React from 'react'
 import './PageError.css';
 import { Link } from 'react-router-dom';
 import { Image } from 'react-bootstrap';
-import error1 from './../../Images/avatar2.jpg'
+import error1 from './../../Images/ErrorImage1.jpeg'
+import error3 from './../../Images/LOGO_FOND_BLEU-removebg-preview.png'
+import { Typewriter } from 'react-simple-typewriter'
 
 
 export default function PageError() {
+  const handleType = (count) => {
+    console.log(count)
+  }
+  const handleDone = () => {
+    console.log(`Done after 5 loops!`)
+  }
+  const handleType2 = (counttwo) => {
+    console.log(counttwo)
+  }
+  const handleDone2 = () => {
+    console.log(`Done after 5 loops!`)
+  }
   return (
-    // <div className="error-container">
-    //   <div className="animate-404">
-    //     <svg id="cogs" src="http://www.w3.org/2000/svg"  viewBox="0 0 225 184">
-
-    // <path id="cog3" d="M163.1,48.3c-3.4,0.9-6.7,2.1-9.8,3.4c2.6,12-7.6,15.9-14.8,10.8c-2.8,1.9-4.8,4.6-5.7,8.3
-    //   c7.6,5.1,3.8,18.7-6.5,17.5c0,3.9,0,7.8,0,11.7c11-1.1,13.4,12.5,6.5,18.4c1.9,2.8,2.8,6.7,6.5,7.6c6.5-5.5,16.5-0.5,13.9,10.8
-    //   c3.1,1.2,6.4,2.5,9.8,3.4c1.4-9.5,15.7-9.5,17.2,0c3.4-0.9,6.7-2.1,9.8-3.4c-2.6-12,7.6-15.9,14.8-10.8c2.8-1.9,4.8-4.6,5.7-8.3
-    //   c-7.6-5.1-3.8-18.7,6.5-17.5c0-3.9,0-7.8,0-11.7c-11,0.9-13.4-12.5-6.5-18.4c-1.9-2.8-2.6-6.7-6.5-7.4c-6.5,5.5-16.5,0.5-13.9-10.8
-    //   c-3.1-1.2-6.4-2.5-9.8-3.4C177.9,58.2,165.5,58.2,163.1,48.3z M188.7,94.2c0,9.5-7.6,17.3-17,17.3c-9.5,0-17-7.8-17-17.3
-    //   c0-9.5,7.6-17.3,17-17.3C181.1,76.7,188.7,84.5,188.7,94.2z"/>
-    // <path id="cog2" d="M85.1,7.3c-3.4,0.9-6.7,2.1-9.8,3.4c2.6,12-7.6,15.9-14.8,10.8c-2.8,1.9-4.8,4.6-5.7,8.3
-    //   c7.6,5.1,3.8,18.7-6.5,17.5c0,3.9,0,7.8,0,11.7c11-1.1,13.4,12.5,6.5,18.4c1.9,2.8,2.8,6.7,6.5,7.6c6.5-5.5,16.5-0.5,13.9,10.8
-    //   c3.1,1.2,6.4,2.5,9.8,3.4c1.4-9.5,15.7-9.5,17.2,0c3.4-0.9,6.7-2.1,9.8-3.4c-2.6-12,7.6-15.9,14.8-10.8c2.8-1.9,4.8-4.6,5.7-8.3
-    //   c-7.6-5.1-3.8-18.7,6.5-17.5c0-3.9,0-7.8,0-11.7c-11,0.9-13.4-12.5-6.5-18.4c-1.9-2.8-2.6-6.7-6.5-7.4c-6.5,5.5-16.5,0.5-13.9-10.8
-    //   c-3.1-1.2-6.4-2.5-9.8-3.4C99.9,17.2,87.5,17.2,85.1,7.3z M110.7,53.2c0,9.5-7.6,17.3-17,17.3c-9.5,0-17-7.8-17-17.3
-    //   s7.6-17.3,17-17.3C103.1,35.7,110.7,43.5,110.7,53.2z"/>
-    // <path id="cog1" d="M46.1,86.3c-3.4,0.9-6.7,2.1-9.8,3.4c2.6,12-7.6,15.9-14.8,10.8c-2.8,1.9-4.8,4.6-5.7,8.3
-    //   c7.6,5.1,3.8,18.7-6.5,17.5c0,3.9,0,7.8,0,11.7c11-1.1,13.4,12.5,6.5,18.4c1.9,2.8,2.8,6.7,6.5,7.6c6.5-5.5,16.5-0.5,13.9,10.8
-    //   c3.1,1.2,6.4,2.5,9.8,3.4c1.4-9.5,15.7-9.5,17.2,0c3.4-0.9,6.7-2.1,9.8-3.4c-2.6-12,7.6-15.9,14.8-10.8c2.8-1.9,4.8-4.6,5.7-8.3
-    //   c-7.6-5.1-3.8-18.7,6.5-17.5c0-3.9,0-7.8,0-11.7c-11,0.9-13.4-12.5-6.5-18.4c-1.9-2.8-2.6-6.7-6.5-7.4c-6.5,5.5-16.5,0.5-13.9-10.8
-    //   c-3.1-1.2-6.4-2.5-9.8-3.4C60.9,96.2,48.5,96.2,46.1,86.3z M71.7,132.2c0,9.5-7.6,17.3-17,17.3c-9.5,0-17-7.8-17-17.3
-    //   s7.6-17.3,17-17.3C64.1,114.7,71.7,122.5,71.7,132.2z"/>
-    //     </svg>
-    //   </div>
-    //   <div className="error-code">404</div>
-    //   <div className="error-desc">Désolée, Ce modéle n'est pas encore disponible.
-    //    <br />Merci de patienter on vous feras savoir dés quil est disponible <span><Link to={'/'}>Accueil</Link></span></div>
-    // </div>
-    <div className="error-container d-flex">
-      {/* <div className="animate-404">
-        <svg id="cogs" src="http://www.w3.org/2000/svg"  viewBox="0 0 225 184">
-
-    <path id="cog3" d="M163.1,48.3c-3.4,0.9-6.7,2.1-9.8,3.4c2.6,12-7.6,15.9-14.8,10.8c-2.8,1.9-4.8,4.6-5.7,8.3
-      c7.6,5.1,3.8,18.7-6.5,17.5c0,3.9,0,7.8,0,11.7c11-1.1,13.4,12.5,6.5,18.4c1.9,2.8,2.8,6.7,6.5,7.6c6.5-5.5,16.5-0.5,13.9,10.8
-      c3.1,1.2,6.4,2.5,9.8,3.4c1.4-9.5,15.7-9.5,17.2,0c3.4-0.9,6.7-2.1,9.8-3.4c-2.6-12,7.6-15.9,14.8-10.8c2.8-1.9,4.8-4.6,5.7-8.3
-      c-7.6-5.1-3.8-18.7,6.5-17.5c0-3.9,0-7.8,0-11.7c-11,0.9-13.4-12.5-6.5-18.4c-1.9-2.8-2.6-6.7-6.5-7.4c-6.5,5.5-16.5,0.5-13.9-10.8
-      c-3.1-1.2-6.4-2.5-9.8-3.4C177.9,58.2,165.5,58.2,163.1,48.3z M188.7,94.2c0,9.5-7.6,17.3-17,17.3c-9.5,0-17-7.8-17-17.3
-      c0-9.5,7.6-17.3,17-17.3C181.1,76.7,188.7,84.5,188.7,94.2z"/>
-    <path id="cog2" d="M85.1,7.3c-3.4,0.9-6.7,2.1-9.8,3.4c2.6,12-7.6,15.9-14.8,10.8c-2.8,1.9-4.8,4.6-5.7,8.3
-      c7.6,5.1,3.8,18.7-6.5,17.5c0,3.9,0,7.8,0,11.7c11-1.1,13.4,12.5,6.5,18.4c1.9,2.8,2.8,6.7,6.5,7.6c6.5-5.5,16.5-0.5,13.9,10.8
-      c3.1,1.2,6.4,2.5,9.8,3.4c1.4-9.5,15.7-9.5,17.2,0c3.4-0.9,6.7-2.1,9.8-3.4c-2.6-12,7.6-15.9,14.8-10.8c2.8-1.9,4.8-4.6,5.7-8.3
-      c-7.6-5.1-3.8-18.7,6.5-17.5c0-3.9,0-7.8,0-11.7c-11,0.9-13.4-12.5-6.5-18.4c-1.9-2.8-2.6-6.7-6.5-7.4c-6.5,5.5-16.5,0.5-13.9-10.8
-      c-3.1-1.2-6.4-2.5-9.8-3.4C99.9,17.2,87.5,17.2,85.1,7.3z M110.7,53.2c0,9.5-7.6,17.3-17,17.3c-9.5,0-17-7.8-17-17.3
-      s7.6-17.3,17-17.3C103.1,35.7,110.7,43.5,110.7,53.2z"/>
-    <path id="cog1" d="M46.1,86.3c-3.4,0.9-6.7,2.1-9.8,3.4c2.6,12-7.6,15.9-14.8,10.8c-2.8,1.9-4.8,4.6-5.7,8.3
-      c7.6,5.1,3.8,18.7-6.5,17.5c0,3.9,0,7.8,0,11.7c11-1.1,13.4,12.5,6.5,18.4c1.9,2.8,2.8,6.7,6.5,7.6c6.5-5.5,16.5-0.5,13.9,10.8
-      c3.1,1.2,6.4,2.5,9.8,3.4c1.4-9.5,15.7-9.5,17.2,0c3.4-0.9,6.7-2.1,9.8-3.4c-2.6-12,7.6-15.9,14.8-10.8c2.8-1.9,4.8-4.6,5.7-8.3
-      c-7.6-5.1-3.8-18.7,6.5-17.5c0-3.9,0-7.8,0-11.7c-11,0.9-13.4-12.5-6.5-18.4c-1.9-2.8-2.6-6.7-6.5-7.4c-6.5,5.5-16.5,0.5-13.9-10.8
-      c-3.1-1.2-6.4-2.5-9.8-3.4C60.9,96.2,48.5,96.2,46.1,86.3z M71.7,132.2c0,9.5-7.6,17.3-17,17.3c-9.5,0-17-7.8-17-17.3
-      s7.6-17.3,17-17.3C64.1,114.7,71.7,122.5,71.7,132.2z"/>
-        </svg>
-      </div>
-      <div className="error-code">404</div> */}
+    
+    <div className="error-container">
       <div className='erreor-content-main'>
         <Image src={error1} className='image-erreor-content' />
       </div>
-      <div className="error-desc" style={{backgroundColor:'#FFE7DD'}}>
-        <h1 style={{ color:'#004573'}}>Bienvenue!</h1>
-        <p>
-        Désolée, Ce modéle n'est pas encore disponible pour le moment.
-       <br />Merci de patienter on vous feras savoir dés qu'il est disponible. 
-       <br /><span>
-        <Link to={'/'} style={{textDecoration:'none', color:'#004573', fontWeight:'bolder'}}>Cliquer ici </Link>
-        pour revenir à la page d'accueil
-        </span>
-        </p>
+      <div className="error-desc" style={{backgroundColor:'#004573', paddingLeft:'20px',  paddingRight:'20px'}}>
+        <div >
+          <div style={{height:'420px'}}>
+            <Image src={error3} className=''style={{height:'100%'}} />
+          </div>
+          <div>
+              <h2 style={{color:'#FFB703',fontWeight:'bold'}}>
+              <span style={{  fontWeight: 'bold' }}>
+                        
+                        <Typewriter
+                          words={['Bienvenue! à MYFEEDBACK360']}
+                          loop={true}
+                          cursor
+                          cursorStyle='_'
+                          typeSpeed={70}
+                          deleteSpeed={50}
+                          delaySpeed={1000}
+                          onLoopDone={handleDone}
+                          onType={handleType}
+                        />
+              </span>
+                </h2>
+              <p style={{ color:'#fff',textAlign:'justify'}}>
+              Alerte rouge! Nos ingénieurs travaillent activement sur la mise au point de nouveaux
+              modèles d'évaluation. Ils ne sont pas encore prêts, mais ne désespérez pas! Nous vous 
+              tiendrons informés dès qu'ils seront opérationnels. Merci de votre soutien!
+                Merci de patienter on vous feras savoir dés qu'il est disponible.
+              </p>
+              <p style={{ color:'#fff'}}><Link to={'/'} style={{textDecoration:'none', color:'#FFB703', fontWeight:'bolder'}}>Cliquer ici </Link>
+              pour revenir à la page d'accueil</p>
+          </div>
+
+        </div>
       </div>
+      
+
     </div>
+
+    
 
   )
 }

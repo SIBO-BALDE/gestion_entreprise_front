@@ -26,6 +26,8 @@ import { useNavigate } from "react-router-dom";
 import GestionDevis from "../../CRUD/GestionDevis/GestionDevis";
 import GestionAdmin from "../../GestionAdmin/GestionAdmin";
 import GestionEntrepriseAdmin from "../../GestionEntrepriseAdmin/GestionEntrepriseAdmin";
+import LoadingBox from "../../../Components/LoadingBox/LoadingBox";
+import Abonnement from "../../CRUD/Abonnement/Abonnement";
 
 
 
@@ -33,7 +35,9 @@ import GestionEntrepriseAdmin from "../../GestionEntrepriseAdmin/GestionEntrepri
 function KPI() {
 
     // tableau ou stocker la liste des users
+    const [loading, setLoading] = useState(true);
     const [users, setUsers] = useState([]);
+  
 
     const [categories, setCategories] = useState([]);
     const [entreprises, setEntreprises] = useState([]);
@@ -52,6 +56,7 @@ function KPI() {
         }
       );
       setCategories(response.data.categories);
+      setLoading(false)
 
       console.log(categories);
     }
@@ -65,8 +70,7 @@ useEffect(() => {
 
  
 
-   // Liste evenements
-   const [events, setEvents] = useState([]);
+  
 
   //  const fetchEvents = async () => {
   //    const role = localStorage.getItem("rolecle");
@@ -129,37 +133,7 @@ useEffect(() => {
   const totalPaginationPagesUser = Math.ceil(users.length / usersParPage);
 
 
-  //  pour le champ recherche des evenements
-  const [searchValueEvent, setSearchValueEvent] = useState("");
-
-   // function la recherche
-   const handleSearchChangeEvent = (eventElement) => {
-    setSearchValueUser(eventElement.target.value);
-  };
-
-   // faire le filtre des maison par addrsse
-   const filteredEvents = events.filter(
-    (eventEl) =>
-      eventEl &&
-      eventEl.titre &&
-      eventEl.titre.toLowerCase().includes(searchValueEvent.toLowerCase())
-  );
-
-  const displayEvents = searchValueEvent === "" ? events : filteredEvents;
-
-
-    const [currentPage, setCurrentPage] = useState(1);
-  const eventsParPage= 10;
-
-
-  const indexOfLastEvent = currentPage* eventsParPage;
-  const indexOfFirstEvent = indexOfLastEvent - eventsParPage;
-  const currentEvents = filteredEvents.slice(
-    indexOfFirstEvent,
-    indexOfLastEvent
-  );
-
-  const totalPaginationPagesEvent = Math.ceil(events.length / eventsParPage);
+ 
 
 
 
@@ -178,6 +152,7 @@ useEffect(() => {
           }
         );
         setUsers(response.data.Admins);
+        setLoading(false)
 
         console.log(response ,'liste admin user dasboard');
       }
@@ -192,26 +167,23 @@ useEffect(() => {
 
 
 
+
+
+
+
+
  
-   
-
-
- 
-
-  
- 
-
-  
-
-
 
   return (
     <div className="contenueprincipal container ">
-      <div className="dashbord-content-main-one container" id="vv">
-        <div>
-        <div className="content-left-admin-dashbord border">
+      {loading ? (
+        <LoadingBox />
+         ) : (
+      <div className="dashbord-content-main-one container" id="vv" style={{marginTop:'80px'}}>
+        <div >
+        <div className="content-left-admin-dashbord border" style={{height:'100%'}}>
           <h3 className="mb-2">Liste des Clients</h3>
-          <table className="table mb-5">
+          <table className="table mb-5 table-content-main">
             <thead className="table-light" id="hearder-color">
               <tr>
                 
@@ -225,9 +197,7 @@ useEffect(() => {
                   Email
                 </th>
                 
-                <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                  Entreprise
-                </th>
+                
               </tr>
             </thead>
             <tbody>
@@ -237,8 +207,7 @@ useEffect(() => {
                 <td>{user &&  user.nom}</td>
                 <td>{user &&  user.prenom}</td>
                 <td>{user &&  user.email}</td>
-                {/* <td>{user &&  user.categorie.nom}</td> */}
-                <td>{user &&  user.entreprise_abonement.nom}</td>
+                
               </tr>
               ))} 
               
@@ -250,17 +219,16 @@ useEffect(() => {
           setCurrentPage={setCurrentPage1}
           />  
         </div>
-        
-          
         </div>
         <div className="content-diagramme-circulaire-right-conten-2 border pt-4">
-          <div className=" ">
+          <div className="">
             <p className="text-center mt-2  ">
               <TableauxSuperAdmin />
             </p>
           </div>
         </div>
-      </div>
+      </div>)}
+      
     </div>
   );
 }
@@ -279,6 +247,8 @@ function RenderContent(name) {
       return <GestionMessage />;
     case "gestiondevis":
       return <GestionDevis />;
+    case "gestionaAbonnement":
+      return <Abonnement />;
     
     default:
       return <KPI />;

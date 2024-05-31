@@ -1,6 +1,7 @@
 
 import {
   faEye,
+  faEyeSlash,
   faLock,
   faLockOpen,
   faMagnifyingGlass,
@@ -18,10 +19,13 @@ import { emailPattern } from "../../Pages/Regex/Regex";
 import Swal from "sweetalert2";
 import axios from "axios";
 import Pagination from "../../Components/User_Components/Pagination/Pagination";
+import LoadingBox from "../../Components/LoadingBox/LoadingBox";
+import './GestionAdmin.css';
 
 
 
 export default function GestionAdmin({ id }) {
+  const [loading, setLoading] = useState(true);
   // const [show, setShow] = useState(false);
   const [showUser, setShowUser] = useState(false);
   const [showBlokUser, setShowBlokUser] = useState(false);
@@ -39,6 +43,44 @@ export default function GestionAdmin({ id }) {
 
   
   const [entreprises, setEntreprises] = useState([]);
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+
+
+
+  const [abonnement, setAbonnement] = useState([]);
+
+
+
+  const fetchAbonnement = async () => {
+      const role = localStorage.getItem("rolecle");
+      const token = localStorage.getItem("tokencle");
+      try {
+        
+          const response = await axios.get(
+            "http://localhost:8000/api/listes/abonements",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          setAbonnement(response.data.Abonnements);
+          console.log(response)
+          setLoading(false)
+  
+          console.log(response ,'liste abonnement');
+        
+      } catch (error) {
+        console.error("Erreur lors de la récupération des catégories:", error);
+      }
+    };
+    useEffect(() => {
+      fetchAbonnement();
+    }, []);
 
 ;
 
@@ -58,6 +100,7 @@ const fetchEntreprises = async () => {
       );
       console.log(entreprises, 'entrepriseAbonement entre avant');
       setEntreprises(response.data.EntrepriseAbonement);
+      setLoading(false)
 
       console.log(entreprises, 'entrepriseAbonement entre apres');
       console.log(response, 'entrepriseAbonement resp'); 
@@ -84,8 +127,9 @@ useEffect(() => {
             }
           );
           setUsers(response.data.Admins);
+          setLoading(false)
   
-          console.log(response ,'liste admin');
+          console.log(response ,'liste admin user change abonn');
         }
       } catch (error) {
         console.error("Erreur lors de la récupération des catégories:", error);
@@ -109,6 +153,7 @@ useEffect(() => {
             }
           );
           setUsersBlock(response.data.Admin);
+          setLoading(false)
   
           console.log(response ,'liste admin blok');
           console.log(usersBlock ,' blok');
@@ -128,29 +173,41 @@ useEffect(() => {
     prenom: "",
     email: "",
     password: "",
-    entreprise_abonements_id: "",
+    // entreprise_abonements_id: "",
+    abonnement_id:'',
+    date_debut_abonnement:'',
+    date_fin_abonnement:'',
+    entreprise_abonements_id:'',
     
   });
 
   //  etat initialiser à vide au depart pour modifier categorie
   const [editUserData, setEditUserData] = useState({
-    id: null,
     nom: "",
     prenom: "",
     email: "",
-    entreprise_abonements_id: "",
+    password: "",
+    // entreprise_abonements_id: "",
+    abonnement_id:'',
+    date_debut_abonnement:'',
+    date_fin_abonnement:'',
+    entreprise_abonements_id:'',
   });
 
   
 // Funtion qui permet de recuperer les information du user sur le quel on a cliquer
   const handleShowEditUsers = (user) => {
-    if (user && user.entreprise_abonements_id) {
+    if (user && user.nom) {
       setEditUserData({
         id: user.id,
         nom: user.nom,
         prenom: user.prenom,
         email: user.email,
         entreprise_abonements_id: user.entreprise_abonements_id,
+        date_debut_abonnement:user.date_debut_abonnement,
+        date_fin_abonnement:user.date_fin_abonnement,
+        abonnement_id:user.abonnement_id,
+       
       });
       setShowEditModalUsers(true);
     } else {
@@ -165,7 +222,9 @@ useEffect(() => {
     const token = localStorage.getItem('tokencle')
     
     if(userData.nom === "" || userData.prenom === "" || userData.email === "" 
-     || userData.password === "" || userData.entreprise_abonements_id === ""){
+     || userData.password === "" || userData.abonnement_id === ""  || 
+     userData.date_debut_abonnement === "" || userData.date_fin_abonnement === "" 
+      || userData.entreprise_abonements_id === "" ){
       Swal.fire({
         icon: "error",
         title: "Oops!",
@@ -215,13 +274,21 @@ useEffect(() => {
   
           if (response.status === 200) {
             setUsers([...users, response.data]);
+            console.log(response, 'ajout admin')
+            setLoading(false)
             setUserData({
               nom: "",
               prenom: "",
               email: "",
               password: "",
-              entreprise_abonements_id: "",
+              // entreprise_abonements_id: "",
+              abonnement_id:'',
+              date_debut_abonnement:'',
+              date_fin_abonnement:'',
+              entreprise_abonements_id:'',
+              
             });
+            
   
             Swal.fire({
               icon: "success",
@@ -244,9 +311,6 @@ useEffect(() => {
     
   
   };
- 
-
-  
  
   // Modifier user
   const modifierUser = async (id) => {
@@ -296,8 +360,10 @@ useEffect(() => {
   
               setUsers(updatedUsers);
               setEditUserData(response.data.participants);
+              setLoading(false)
               fetchUsers();
               handleCloseEditUser();
+             
               Swal.fire({
                 icon: "success",
                 title: "Succès!",
@@ -351,6 +417,7 @@ useEffect(() => {
 
                 // Supprimer l'utilisateur de la liste des utilisateurs
                 setUsers(users.filter((user) => user.id !== userId));
+                setLoading(false)
 
                    
                         Swal.fire({
@@ -410,13 +477,7 @@ const debloquerUser = async (id) => {
                         title: "Succès!",
                         text: "l'admin debloqué avec succès!",
                     });
-                
-
-              Swal.fire({
-                  icon: "success",
-                  title: "Succès!",
-                  text: "Admin débloqué avec succès!",
-              });
+                    setLoading(false)
 
               fetchUsers();
               fetchUsersBlock();
@@ -456,7 +517,7 @@ const debloquerUser = async (id) => {
 
 
    const [currentPage1, setCurrentPage1] = useState(1);
- const usersParPage= 3;
+ const usersParPage= 6;
 
  // pagination
  const indexOfLastUser = currentPage1* usersParPage;
@@ -503,6 +564,10 @@ const debloquerUser = async (id) => {
   
 
   return (
+    <div className="mt-4">
+      {loading ? (
+        <LoadingBox />
+         ) : (
     <div className="container">
       <div className="d-flex justify-content-between mt-5">
         <div>
@@ -516,7 +581,7 @@ const debloquerUser = async (id) => {
             Ajouter un admin client
           </Button>
         </div>
-        <div>
+        {/* <div>
         <Form.Control
             variant="primary"
            
@@ -526,7 +591,7 @@ const debloquerUser = async (id) => {
             type="file"
             placeholder="Téléverser liste participant"
            />
-        </div>
+        </div> */}
         <div>
           <Button
             variant="primary"
@@ -586,10 +651,11 @@ const debloquerUser = async (id) => {
               <th style={{ backgroundColor: "#004573", color: "#fff" }}>
                 Email
               </th>
-              
               <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                Entreprise
+                Entrerise
               </th>
+              
+              
               <th
                 className="d-flex  justify-content-center "
                 style={{
@@ -609,7 +675,8 @@ const debloquerUser = async (id) => {
                 <td>{user &&  user.nom}</td>
                 <td>{user &&  user.prenom}</td>
                 <td>{user &&  user.email}</td>
-                <td>{user &&   user.entreprise_abonement && user.entreprise_abonement.nom}</td>
+                <td>{user &&  user.entreprise_abonement?.nom}</td>
+                
 
                     <td className=" d-flex justify-content-evenly">
                       <Button
@@ -652,80 +719,60 @@ const debloquerUser = async (id) => {
       </div>
 
       {/* modal debut  ajouter participant*/}
-      <>
-        <Modal show={showUser} onHide={handleCloseEdit} id="buttonAjouter">
-          <Modal.Header closeButton>
-            <Modal.Title>Ajouter un  admin client</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form>
-              <div className="d-flex justify-content-around " style={{gap:'10px'}}>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
-                  <Form.Label>Nom du client</Form.Label>
-                  <Form.Control
-                    value={userData.nom}
-                    onChange={(e) => {
-                      setUserData({
-                        ...userData,
-                        nom: e.target.value,
-                      });
-                      //
-                    }}
-                    type="text"
-                    placeholder=""
-                    
-                  />
-                 
-                </Form.Group>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput2"
-                >
-                  <Form.Label>Prenom du client</Form.Label>
-                  <Form.Control
-                    value={userData.prenom}
-                    onChange={(e) => {
-                      setUserData({
-                        ...userData,
-                        prenom: e.target.value,
-                      });
-                    
-                    }}
-                    type="text"
-                    placeholder=""
-                  />
-                 
-                </Form.Group>
-                
-              </div>
-              <div className="d-flex justify-content-around" style={{gap:'10px'}}>
-              <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput3"
-                >
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    value={userData.email}
-                    onChange={(e) => {
-                      setUserData({
-                        ...userData,
-                        email: e.target.value,
-                      });
-                     
-                    }}
-                    type="email"
-                    placeholder=""
-                  />
-                  
-                </Form.Group>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput4"
-                >
-                  <Form.Label>Mot de passe</Form.Label>
+      <Modal show={showUser} onHide={handleCloseEdit} id="buttonAjouter">
+      <Modal.Header closeButton>
+        <Modal.Title>Ajouter un admin client</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <div className="d-flex justify-content-around" style={{ gap: '10px' }}>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                <Form.Label>Nom du client</Form.Label>
+                <Form.Control
+                  value={userData.nom}
+                  onChange={(e) => {
+                    setUserData({
+                      ...userData,
+                      nom: e.target.value,
+                    });
+                  }}
+                  type="text"
+                  placeholder=""
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
+                <Form.Label>Prenom du client</Form.Label>
+                <Form.Control
+                  value={userData.prenom}
+                  onChange={(e) => {
+                    setUserData({
+                      ...userData,
+                      prenom: e.target.value,
+                    });
+                  }}
+                  type="text"
+                  placeholder=""
+                />
+              </Form.Group>
+            </div>
+            <div className="d-flex justify-content-around" style={{ gap: '10px' }}>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  value={userData.email}
+                  onChange={(e) => {
+                    setUserData({
+                      ...userData,
+                      email: e.target.value,
+                    });
+                  }}
+                  type="email"
+                  placeholder=""
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput4">
+                <Form.Label>Mot de passe</Form.Label>
+                <div className="password-container">
                   <Form.Control
                     value={userData.password}
                     onChange={(e) => {
@@ -733,74 +780,125 @@ const debloquerUser = async (id) => {
                         ...userData,
                         password: e.target.value,
                       });
-                      
                     }}
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     placeholder=""
                   />
-                  
-                </Form.Group>
+                  <span className="password-toggle" onClick={togglePasswordVisibility} style={{color:'#004573'}}>
+                    {showPassword ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} />}
+                  </span>
+                </div>
+              </Form.Group>
+            </div>
+            <div className="d-flex justify-content-around" style={{ gap: '10px' }}>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput6">
+              <Form.Label>Type abonnement</Form.Label>
+              <Form.Select
+                aria-label="Default select example"
+                value={userData.abonnement_id}
+                onChange={(e) => {
+                  setUserData({
+                    ...userData,
+                    abonnement_id: e.target.value,
+                  });
+                }}
+              >
+                <option>Choisir une abonnement</option>
+                {abonnement &&
+                  abonnement.map((abonel, index) => (
+                    <option key={index} value={abonel.id}>
+                      {abonel.formule}
+                    </option>
+                  ))}
+              </Form.Select>
+            </Form.Group>
 
-              </div>
-                  <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput6"
-                >
-                  <Form.Label>Entreprise</Form.Label>
-                  <Form.Select
-                    aria-label="Default select example"
-                    value={userData.entreprise_abonements_id}
-                    onChange={(e) => {
-                      setUserData({
-                        ...userData,
-                        entreprise_abonements_id: e.target.value,
-                      });
-                      
-                    }}
-                  >
-                    <option>Choisir une entreprise</option>
-                    {entreprises &&
-                      entreprises.map((entrepriseel, index) => {
-                        return (
-                          <option key={index} value={entrepriseel.id}>
-                            {entrepriseel.nom}
-                          </option>
-                        );
-                      })}
-                  </Form.Select>
-                  </Form.Group>
+            {/* entreprise */}
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput6">
+              <Form.Label>Entreprise</Form.Label>
+              <Form.Select
+                aria-label="Default select example"
+                value={userData.entreprise_abonements_id}
+                onChange={(e) => {
+                  setUserData({
+                    ...userData,
+                    entreprise_abonements_id: e.target.value,
+                  });
+                }}
+              >
+                <option>Choisir une abonnement</option>
+                {entreprises &&
+                  entreprises.map((entreprise, index) => (
+                    <option key={index} value={entreprise.id}>
+                      {entreprise.nom}
+                    </option>
+                  ))}
+              </Form.Select>
+            </Form.Group>
               
-              {/* <div className="d-flex justify-content-around"> */}
-           
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button
-              variant="secondary"
-              onClick={ajouterUser}
-              style={{
-                backgroundColor: "#004573",
-                border: "none",
-                width: "130px",
-              }}
-            >
-              Ajouter
-            </Button>
-            <Button
-              variant="primary"
-              onClick={handleCloseEdit}
-              style={{
-                backgroundColor: "#fff",
-                border: "1px solid #004573",
-                width: "130px",
-                color: "#004573",
-              }}
-            >
-              Fermer
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </>
+            </div>
+
+
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
+                <Form.Label>Date debut</Form.Label>
+                <Form.Control
+                className="date-input"
+                style={{width:'100%'}}
+                  value={userData.date_debut_abonnement}
+                  onChange={(e) => {
+                    setUserData({
+                      ...userData,
+                      date_debut_abonnement: e.target.value,
+                    });
+                  }}
+                  type="date"
+                  placeholder=""
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput4">
+                <Form.Label>Date fin</Form.Label>
+                <Form.Control
+                className="date-input"
+                  value={userData.date_fin_abonnement}
+                  onChange={(e) => {
+                    setUserData({
+                      ...userData,
+                      date_fin_abonnement: e.target.value,
+                    });
+                  }}
+                  type="date"
+                  placeholder=""
+                />
+              </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={ajouterUser}
+            style={{
+              backgroundColor: "#004573",
+              border: "none",
+              width: "130px",
+            }}
+          >
+            Ajouter
+          </Button>
+          <Button
+            variant="primary"
+            onClick={handleCloseEdit}
+            style={{
+              backgroundColor: "#fff",
+              border: "1px solid #004573",
+              width: "130px",
+              color: "#004573",
+            }}
+          >
+            Fermer
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       {/* modal fin ajouter user */}
 
       {/* modal debut modifier user */}
@@ -1049,6 +1147,8 @@ const debloquerUser = async (id) => {
         </Modal>
       </div>
       {/* user blok */}
+    </div>
+    )}
     </div>
   );
 }

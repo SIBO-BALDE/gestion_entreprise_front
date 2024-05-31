@@ -94,6 +94,34 @@ export default function Tableaux() {
     }, []);
 
 
+
+const [evaluationDataRecu, setEvaluationDataRecu]=useState([])
+
+const fetchEvaluationUserRecu = async () => {
+  const role = localStorage.getItem("rolecle");
+    const token = localStorage.getItem("tokencle");
+  try {
+    if (token || role === "Admin") {
+      const response = await axios.get('http://localhost:8000/api/listes/total/utlisateur/evaluer',
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+      );
+      setEvaluationDataRecu(response.data.evaluators);
+      console.log(response, 'listes/total/utlisateur/evaluer')
+      console.log(evaluationDataRecu, 'evaluation data Recu length')
+    }
+  } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+  }
+};
+useEffect(()=>{
+  fetchEvaluationUserRecu ();
+},[])
+
+
   return (
     <div className='content_tab_admin_statistique'>
       {/* <div className="content-diagramme-circulaire-right-conten-2  pt-4 "> */}
@@ -139,7 +167,7 @@ export default function Tableaux() {
             <h4>Nombre de participant évalué</h4>
           </div>
         </div>
-        <h1 className="text-center mt-1 ">{events.length}</h1>
+        <h1 className="text-center mt-1 ">{evaluationDataRecu.length}</h1>
       </div>
         {/* </div> */}
     </div>

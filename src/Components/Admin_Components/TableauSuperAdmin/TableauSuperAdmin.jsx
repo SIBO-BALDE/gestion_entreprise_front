@@ -10,25 +10,24 @@ export default function TableauSuperAdmin() {
   // tableau ou stocker la liste des users
   const [users, setUsers] = useState([]);
   const [entreprises, setEntreprises] = useState([]);
+  const [abonnement, setAbonnement] = useState([]);
 
   const fetchUsers = async () => {
     const role = localStorage.getItem("rolecle");
     const token = localStorage.getItem("tokencle");
     try {
-      if (token || role === "Admin") {
+      if (token || role === "SuperAdmin") {
         const response = await axios.get(
-          "http://localhost:8000/api/users_participants",
+          "http://localhost:8000/api/listes/admins",
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
-        setUsers(response.data.participants);
-        const tabuser =response.data.participants
-        console.log(tabuser, 'tabuser')
+        setUsers(response.data.Admins);
 
-        console.log(users ,'ici users du users');
+        console.log(response ,'liste admin');
       }
     } catch (error) {
       console.error("Erreur lors de la récupération des catégories:", error);
@@ -38,111 +37,88 @@ export default function TableauSuperAdmin() {
     fetchUsers();
   }, []);
 
-    //  Lister les entreprises
-    const fetchEntreprises = async () => {
-      const role = localStorage.getItem("rolecle");
-      const token = localStorage.getItem("tokencle");
-      try {
-        if (token || role === "Admin") {
-          const response = await axios.get(
-            "http://localhost:8000/api/entreprises",
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          setEntreprises(response.data.entreprises);
-  
-          console.log(entreprises);
-        }
-      } catch (error) {
-        console.error("Erreur lors de la récupération des catégories:", error);
+  const fetchEntreprises = async () => {
+    const role = localStorage.getItem("rolecle");
+    const token = localStorage.getItem("tokencle");
+    try {
+      if (token || role === "SuperAdmin") {
+        const response = await axios.get(
+          "http://localhost:8000/api/listes/entrepriseAbonement",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(entreprises, 'entrepriseAbonement entre avant');
+        setEntreprises(response.data.EntrepriseAbonement);
+
+        console.log(entreprises, 'entrepriseAbonement entre apres');
+        console.log(response, 'entrepriseAbonement resp'); 
       }
-    };
-    useEffect(() => {
-      fetchEntreprises();
-    }, []);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des catégories:", error);
+    }
+  };
+  useEffect(() => {
+    fetchEntreprises();
+  }, []);
+
+  const fetchAbonnement = async () => {
+    const role = localStorage.getItem("rolecle");
+    const token = localStorage.getItem("tokencle");
+    try {
+      
+        const response = await axios.get(
+          "http://localhost:8000/api/listes/abonements",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setAbonnement(response.data.Abonnements);
+        console.log(response)
+        
+
+        console.log(response ,'liste abonnement');
+      
+    } catch (error) {
+      console.error("Erreur lors de la récupération des catégories:", error);
+    }
+  };
+  useEffect(() => {
+    fetchAbonnement();
+  }, []);
 
 
-    // Liste evenements
-    const [events, setEvents] = useState([]);
-
-    const fetchEvents = async () => {
-      const role = localStorage.getItem("rolecle");
-      const token = localStorage.getItem("tokencle");
-      try {
-        if (token || role === "Admin") {
-          const response = await axios.get(
-            "http://localhost:8000/api/evenements",
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          console.log(response , 'liste')
-          setEvents(response.data.evenements);
-  
-          console.log(events);
-        }
-      } catch (error) {
-        console.error("Erreur lors de la récupération des catégories:", error);
-      }
-    };
-    useEffect(() => {
-      fetchEvents();
-    }, []);
+    
 
 
   return (
     <div className=''>
-      {/* <div className="content-diagramme-circulaire-right-conten-2  pt-4 "> */}
         <div className="card1-admin  pt-2 ps-1">
         <div className="d-flex justify-content-around mt-2 ">
           <div>
             <FontAwesomeIcon icon={faUsers} id="icon-content-admin" />
           </div>
           <div>
-            <h4>Nombre d'admin</h4>
+            <h4>Nombre de client</h4>
           </div>
         </div>
         <h1 className="text-center mt-1 ">{users.length}</h1>
-      </div>
-      <div className="card1-admin  pt-2 ps-1 ">
-        <div className="d-flex justify-content-around mt-2 ">
-          <div>
-            <FontAwesomeIcon icon={faBuilding} id="icon-content-admin" />
-          </div>
-          <div>
-            <h4> Nombre d'entreprises</h4>
-          </div>
         </div>
-        <h1 className="text-center mt-1 ">{entreprises.length}</h1>
-      </div>
-      <div className="card1-admin  pt-2 ps-1">
-        <div className="d-flex justify-content-around mt-2 ">
-          <div>
-            <FontAwesomeIcon icon={faCalendar} id="icon-content-admin" />
+        <div className="card1-admin  pt-2 ps-1 ">
+          <div className="d-flex justify-content-around mt-2 ">
+            <div>
+              <FontAwesomeIcon icon={faBuilding} id="icon-content-admin" />
+            </div>
+            <div>
+              <h4>Types d'abonnement</h4>
+            </div>
           </div>
-          <div>
-            <h4>Nombre d'evenements</h4>
-          </div>
+          <h1 className="text-center mt-1 ">{abonnement.length}</h1>
         </div>
-        <h1 className="text-center mt-1 ">{events.length}</h1>
-      </div>
-      <div className="card1-admin  pt-2 ps-1">
-        <div className="d-flex justify-content-around mt-2 ">
-          <div>
-            <FontAwesomeIcon icon={faUsers} id="icon-content-admin" />
-          </div>
-          <div>
-            <h4>Nombre de participant évalué</h4>
-          </div>
-        </div>
-        <h1 className="text-center mt-1 ">{events.length}</h1>
-      </div>
-        {/* </div> */}
     </div>
   )
 }

@@ -11,9 +11,11 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { useAuth } from  '../../Auth/AuthContex'
 import Pagination from "../../../Components/User_Components/Pagination/Pagination";
+import LoadingBox from "../../../Components/LoadingBox/LoadingBox";
 // import Pagination from "../../Components/Pagination/Pagination";
 
 export default function GestionCategorie() {
+  const [loading, setLoading] = useState(true);
   const [showCategories, setShowCategories] = useState(false);
   const [showEditModalCategories, setShowEditModalCategories] = useState(false);
 
@@ -65,6 +67,7 @@ export default function GestionCategorie() {
           // Ajoutez la nouvelle maison à la liste existante
           console.log(response, 'response categorie')
           setCategories([...categories, response.data]);
+          setLoading(false)
           // Réinitialisez les valeurs du formulaire après avoir ajouté la maison
           setCategoryData({
             nom: "",
@@ -104,6 +107,7 @@ export default function GestionCategorie() {
         );
         console.log(response , 'category resp')
         setCategories(response.data.categories);
+        setLoading(false)
 
         console.log(categories);
       // }
@@ -157,6 +161,7 @@ export default function GestionCategorie() {
               : category
           );
           setCategories(updatedCategories);
+          setLoading(false)
           handleCloseEditCategories();
           Swal.fire({
             icon: "success",
@@ -205,6 +210,7 @@ export default function GestionCategorie() {
             (category) => category.id !== id
           );
           setCategories(updatedCategories);
+          setLoading(false)
                 Swal.fire({
                     icon: "success",
                     title: "Succès!",
@@ -249,11 +255,16 @@ const currentCategories = filteredCategorie.slice(
 );
 
 const totalPaginationPages = Math.ceil(categories.length /  categorieParPage);
+
   
  
   
 
   return (
+    <div className="mt-4">
+      {loading ? (
+        <LoadingBox />
+         ) : (
     <div className="container">
       <div className="d-flex justify-content-between mt-5">
         <div>
@@ -483,6 +494,9 @@ const totalPaginationPages = Math.ceil(categories.length /  categorieParPage);
         </Modal.Footer>
       </Modal>
       {/* modal fin modifier maison */}
+    </div>
+     )}
+
     </div>
   );
 }

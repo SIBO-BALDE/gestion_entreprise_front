@@ -18,6 +18,8 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import GestionDevisDetail from './Pages/CRUD/GestionDevis/GsetionDevisDetail';
 import DashboardSuperAdmin from './Pages/Dashboards/DashboardSuperAdmin/DashboardSuperAdmin';
+import ForgotPassWord from './Components/User_Components/ForgotPassWord/ForgotPassWord';
+import EditPassWord from './Components/User_Components/EditPassWord/EditPassWord';
 
 
 
@@ -103,6 +105,8 @@ function App() {
       <Route path="dashbordUser" element={<DashboardUser />}></Route>
       <Route path="/messagedetail/:id" element={<GestionMessageDetail />} />
       <Route path="/abonnementdetail/:id" element={<GestionDevisDetail />} />
+      <Route path="/forgetpassword" element={<ForgotPassWord />} />
+      <Route path="/Editpassword" element={<EditPassWord />} />
      
 
 

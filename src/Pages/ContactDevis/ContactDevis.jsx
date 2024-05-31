@@ -1,121 +1,254 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './ContactDevis.css';
 import { Button, Col, Form, Image, Row } from 'react-bootstrap';
 import { emailPattern } from "../Regex/Regex";
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import imageForm from '../../Images/cc.jpg'
+import imageForm from '../../Images/devis_contact.jpeg'
+import { continents, countries, languages } from 'countries-list'
+import Underline from '../../Components/User_Components/Underline/Underline'
 
 export default function ContactDevis() {
-const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
+
+  const [loading, setLoading] = useState(true);
+  const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-8]{3})$/;
+  const phoneRegex2 = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-8]{3})$/;
+
 
 
 
     const [nom, setNom] = useState("");
     const [prenom, setPrenom] = useState("");
-  const [email, setEmail] = useState("");
-  const [numeroTelephone, setNumeroTelephone] = useState("");
-  const [entreprise, setEntreprise] = useState("");
-  const [poste, setPoste] = useState("");
+    const [email, setEmail] = useState("");
+    const [numeroTelephone, setNumeroTelephone] = useState("");
+    const [entreprise, setEntreprise] = useState("");
+    const [telephoneFixe, setTelephoneFixe] = useState("");
+    const [adressEntreprise, setAdressEntreprise] = useState("");
+    const [ville, setVille] = useState("");
+    const [pays, setPays] = useState("");
+    const [poste, setPoste] = useState("");
+    const [Abonnement_id, setAbonnement_id] = useState("");
+
+
+
+    // recuperer la lsite des pay sur l'api country list
+  const [selectedCountry, setSelectedCountry] = useState('');
+  const countryOptions = Object.values(countries).map(country => (
+    <option key={country.name} value={country.name}>
+      {country.name}
+    </option>
+  ));
   
 
   // Validation des checksamps
   const [errors, setErrors] = useState({
-    prenom: "",
+      prenom: "",
       nom: "",
       email: "",
       numeroTelephone: "",
       entreprise: "",
       poste: "",
+      telephoneFixe: "",
+      adressEntreprise: "",
+      pays: "",
   
   });
   
   const [successeds, setSuccesseds] = useState({
     prenom: "",
-      nom: "",
-      email: "",
-      numeroTelephone: "",
-      entreprise: "",
-      poste: "",
+    nom: "",
+    email: "",
+    numeroTelephone: "",
+    entreprise: "",
+    poste: "",
+    telephoneFixe: "",
+    addressEntreprise: "",
+    pays: "",
   });
   const [validationStatus, setValidationStatus] = useState(false);
 
   // function validation
+  // const validateField = (name, value) => {
+  //   let errorMessage = "";
+  //   let successMessage = "";
+  
+  //   if (name === "email") {
+  //     if (!value.trim()) {
+  //       errorMessage = "L'email est obligatoire";
+  //     } else if (!emailPattern.test(value)) {
+  //       errorMessage = "L'email  invalide";
+  //     } else {
+  //       successMessage = "L'adresse est valide";
+  //     }
+  //   }
+  //   if (name === "nom") {
+  //     if (!value.trim()) {
+  //       errorMessage = "Le nom est obligatoire";
+  //     } else if (value.trim().length < 2) {
+  //       errorMessage = "Le nom doit contenir au moins 2 lettres";
+  //     } else {
+  //       successMessage = "Le nom est valide";
+  //     }
+  //   }
+  //   if (name === "prenom") {
+  //     if (!value.trim()) {
+  //       errorMessage = "Le prenom est obligatoire";
+  //     } else if (value.trim().length < 2) {
+  //       errorMessage = "Le prenom doit contenir au moins 2 lettres";
+  //     } else {
+  //       successMessage = "Le prenom est valide";
+  //     }
+  //   }
+  //   if (name === "entreprise") {
+  //     if (!value.trim()) {
+  //       errorMessage = "L'entreprise est obligatoire";
+  //     } else if (value.trim().length < 2) {
+  //       errorMessage = "L'entreprise doit contenir au moins 2 lettres";
+  //     } else {
+  //       successMessage = "L'entreprise  valide";
+  //     }
+  //   }
+  //   if (name === "poste") {
+  //     if (!value.trim()) {
+  //       errorMessage = "Le poste est obligatoire";
+  //     } 
+  //      else {
+  //       successMessage = "L'entreprise  valide";
+  //     }
+  //   }
+  //   if (name === "numeroTelephone") {
+  //       if (!value.trim()) {
+  //         errorMessage = "numero est obligatoire";
+  //       } else if (!phoneRegex.test(value)) {
+  //         errorMessage = "numero  invalide";
+  //       } else {
+  //         successMessage = "numero  valide";
+  //       }
+  //     }
+  //   if (name === "telephoneFixe") {
+  //       if (!value.trim()) {
+  //         errorMessage = "numero est obligatoire";
+  //       } else if (!phoneRegex2.test(value)) {
+  //         errorMessage = "numero  invalide";
+  //       } else {
+  //         successMessage = "numero  valide";
+  //       }
+  //     }
+  //     if (name === "ville") {
+  //       if (!value.trim()) {
+  //         errorMessage = "La ville est obligatoire";
+  //       } 
+  //        else {
+  //         successMessage = "valide";
+  //       }
+  //     }
+  //     if (name === "adressEntreprise") {
+  //       if (!value.trim()) {
+  //         errorMessage = "adressEntreprise est obligatoire";
+  //       } 
+  //        else {
+  //         successMessage = "valide";
+  //       }
+  //     }
+  //     if (name === "pays") {
+  //       if (!value.trim()) {
+  //         errorMessage = "pays est obligatoire";
+  //       } 
+  //        else {
+  //         successMessage = "valide";
+  //       }
+  //     }
+  //     if (name === "Abonnement_id") {
+  //       if (!value.trim()) {
+  //         errorMessage = "Abonnement_id est obligatoire";
+  //       } 
+  //        else {
+  //         successMessage = "valide";
+  //       }
+  //     }
+    
+    
+  
+  
+  
+  //   // Mettez à jour le state en utilisant le nom du champ actuel
+  //   setErrors((prevErrors) => ({
+  //     ...prevErrors,
+  //     [name]: errorMessage,
+  //   }));
+  //   setSuccesseds((prevSuccess) => ({
+  //     ...prevSuccess,
+  //     [name]: successMessage,
+  //   }));
+  
+  //   const isValid = Object.values(errors).every((error) => !error);
+  //   setValidationStatus(isValid);
+  // };
+  
   const validateField = (name, value) => {
     let errorMessage = "";
-    let successMessage = "";
-  
+
     if (name === "email") {
-      if (!value.trim()) {
-        errorMessage = "L'email est obligatoire";
-      } else if (!emailPattern.test(value)) {
-        errorMessage = "L'email  invalide";
-      } else {
-        successMessage = "L'adresse est valide";
-      }
-    }
-    if (name === "nom") {
-      if (!value.trim()) {
-        errorMessage = "Le nom est obligatoire";
-      } else if (value.trim().length < 2) {
-        errorMessage = "Le nom doit contenir au moins 2 lettres";
-      } else {
-        successMessage = "Le nom est valide";
-      }
-    }
-    if (name === "prenom") {
-      if (!value.trim()) {
-        errorMessage = "Le prenom est obligatoire";
-      } else if (value.trim().length < 2) {
-        errorMessage = "Le prenom doit contenir au moins 2 lettres";
-      } else {
-        successMessage = "Le prenom est valide";
-      }
-    }
-    if (name === "entreprise") {
-      if (!value.trim()) {
-        errorMessage = "L'entreprise est obligatoire";
-      } else if (value.trim().length < 2) {
-        errorMessage = "L'entreprise doit contenir au moins 2 lettres";
-      } else {
-        successMessage = "L'entreprise  valide";
-      }
-    }
-    if (name === "poste") {
-      if (!value.trim()) {
-        errorMessage = "Le poste est obligatoire";
-      } 
-       else {
-        successMessage = "L'entreprise  valide";
-      }
-    }
-    if (name === "numeroTelephone") {
         if (!value.trim()) {
-          errorMessage = "numero est obligatoire";
-        } else if (!phoneRegex.test(value)) {
-          errorMessage = "numero  invalide";
-        } else {
-          successMessage = "numero  valide";
+            errorMessage = "L'email est obligatoire";
+        } else if (!emailPattern.test(value)) {
+            errorMessage = "L'email est invalide";
         }
-      }
-    
-    
-  
-  
-  
-    // Mettez à jour le state en utilisant le nom du champ actuel
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [name]: errorMessage,
-    }));
-    setSuccesseds((prevSuccess) => ({
-      ...prevSuccess,
-      [name]: successMessage,
-    }));
-  
-    const isValid = Object.values(errors).every((error) => !error);
-    setValidationStatus(isValid);
-  };
+    } else if (name === "nom") {
+        if (!value.trim()) {
+            errorMessage = "Le nom est obligatoire";
+        } else if (value.trim().length < 2) {
+            errorMessage = "Le nom doit contenir au moins 2 lettres";
+        }
+    } else if (name === "prenom") {
+        if (!value.trim()) {
+            errorMessage = "Le prenom est obligatoire";
+        } else if (value.trim().length < 2) {
+            errorMessage = "Le prenom doit contenir au moins 2 lettres";
+        }
+    } else if (name === "entreprise") {
+        if (!value.trim()) {
+            errorMessage = "L'entreprise est obligatoire";
+        } else if (value.trim().length < 2) {
+            errorMessage = "L'entreprise doit contenir au moins 2 lettres";
+        }
+    } else if (name === "poste") {
+        if (!value.trim()) {
+            errorMessage = "Le poste est obligatoire";
+        }
+    } else if (name === "numeroTelephone") {
+        if (!value.trim()) {
+            errorMessage = "Le numéro est obligatoire";
+        } else if (!phoneRegex.test(value)) {
+            errorMessage = "Le numéro est invalide";
+        }
+    } else if (name === "telephoneFixe") {
+        if (!value.trim()) {
+            errorMessage = "Le numéro est obligatoire";
+        } else if (!phoneRegex2.test(value)) {
+            errorMessage = "Le numéro est invalide";
+        }
+    } else if (name === "ville") {
+        if (!value.trim()) {
+            errorMessage = "La ville est obligatoire";
+        }
+    } else if (name === "adressEntreprise") {
+        if (!value.trim()) {
+            errorMessage = "L'adresse de l'entreprise est obligatoire";
+        }
+    } else if (name === "pays") {
+        if (!value.trim()) {
+            errorMessage = "Le pays est obligatoire";
+        }
+    } else if (name === "Abonnement_id") {
+        if (!value.trim()) {
+            errorMessage = "L'ID de l'abonnement est obligatoire";
+        }
+    }
+
+    return errorMessage;
+};
+
 
  
    // tableau ou stocker la liste des messages
@@ -128,82 +261,204 @@ const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/
       numeroTelephone: "",
       entreprise: "",
       poste: "",
-      message: "",
+      telephoneFixe: "",
+      adressEntreprise: "",
+      pays: "",
+      Abonnement_id: "",
     
     });
 
 
 // function pour ajouter une message
-const ajouterMessage = async (e) => {
-    e.preventDefault()
+// const ajouterMessage = async (e) => {
+//     e.preventDefault()
     
    
 
-    validateField("nom", prenom);
-    validateField("nom", nom);
-    validateField("numeroTelepnone", numeroTelephone);
-    validateField("entreprise", entreprise);
-    validateField("poste", poste);
+//     validateField("email", email);
+//     validateField("nom", prenom);
+//     validateField("nom", nom);
+//     validateField("numeroTelepnone", numeroTelephone);
+//     validateField("entreprise", entreprise);
+//     validateField("poste", poste);
+//     validateField("telephoneFixe", telephoneFixe);
+//     validateField("ville", ville);
+//     validateField("pays", pays);
+//     validateField("adressEntreprise", adressEntreprise);
+//     validateField("Abonnement_id", Abonnement_id);
     
    
 
 
-    if (validationStatus) {
+//     if (validationStatus) {
       
-    try {
-        const response = await axios.post(
-          "http://localhost:8000/api/ContactAbonementC/create",
+//     try {
+//         const response = await axios.post(
+//           "http://localhost:8000/api/ContactAbonementC/create",
 
-          messageData,
-        );
+//           messageData,
+//         );
 
-        // Vérifiez si la requête a réussi
-        if (response.status === 200) {
-          // Ajoutez la nouvelle maison à la liste existante
-          console.log(response, 'response abonnement')
-          setMessages([...messages, response.data]);
-          // Réinitialisez les valeurs du formulaire après avoir ajouté la maison
-          setMessageData({
-            prenom: "",
-            nom: "",
-            email: "",
-            entreprise: "",
-            poste: "",
-            numeroTelepnone: "",
-            message: "",
+//         // Vérifiez si la requête a réussi
+//         if (response.status === 200) {
+//           // Ajoutez la nouvelle maison à la liste existante
+//           console.log(response, 'response abonnement')
+//           setMessages([...messages, response.data]);
+//           // Réinitialisez les valeurs du formulaire après avoir ajouté la maison
+//           setMessageData({
+//             prenom: "",
+//             nom: "",
+//             email: "",
+//             entreprise: "",
+//             poste: "",
+//             numeroTelepnone: "",
+//             message: "",
+//             adressEntreprise: "",
+//             ville: "",
+//             pays: "",
+//             telephoneFixe: "",
+//             Abonnement_id: "",
            
-          });
-          Swal.fire({
-            icon: "success",
-            title: "Succès!",
-            text: "message envoyé avec succée!",
-          });
+//           });
+//           Swal.fire({
+//             icon: "success",
+//             title: "Succès!",
+//             text: "message envoyé avec succée!",
+//           });
           
          
-        } else {
-          console.error("Erreur dans lajout de abonnement");
-        }
+//         } else {
+//           console.error("Erreur dans lajout de abonnement");
+//         }
      
-    } catch (error) {
-      // Gestion des erreurs Axios
-      console.error("Erreur Axios:", error);
-    }
-  }
-}
+//     } catch (error) {
+//       // Gestion des erreurs Axios
+//       console.error("Erreur Axios:", error);
+//     }
+//   }
+// }
+// nouveau
+const ajouterMessage = async (e) => {
+  e.preventDefault();
 
+  
+
+  const emptyFields = Object.keys(messageData).filter(key => !messageData[key].trim());
+        if (emptyFields.length > 0) {
+            Swal.fire({
+                icon: "error",
+                title: "Erreur de validation",
+                text: "Veuillez remplir tous les champs"
+            });
+            return;
+        }
+
+
+
+        const fieldsToValidate = [
+          { name: "email", value: messageData.email },
+          { name: "nom", value: messageData.nom },
+          { name: "prenom", value: messageData.prenom },
+          { name: "numeroTelephone", value: messageData.numeroTelephone },
+          { name: "entreprise", value: messageData.entreprise },
+          { name: "poste", value: messageData.poste },
+          { name: "telephoneFixe", value: messageData.telephoneFixe },
+          { name: "ville", value: messageData.ville },
+          { name: "pays", value: messageData.pays },
+          { name: "adressEntreprise", value: messageData.adressEntreprise },
+          { name: "Abonnement_id", value: messageData.Abonnement_id }
+      ];
+
+      for (let field of fieldsToValidate) {
+          const error = validateField(field.name, field.value);
+          if (error) {
+              Swal.fire({
+                  icon: "error",
+                  title: `Erreur de validation`,
+                  text: error
+              });
+              return;
+          }
+      }
+
+
+  // If no validation errors, proceed with the request
+  try {
+      const response = await axios.post("http://localhost:8000/api/ContactAbonementC/create", messageData);
+
+      if (response.status === 200) {
+          setMessages([...messages, response.data]);
+          setMessageData({
+              prenom: "",
+              nom: "",
+              email: "",
+              entreprise: "",
+              poste: "",
+              numeroTelephone: "",
+              message: "",
+              adressEntreprise: "",
+              ville: "",
+              pays: "",
+              telephoneFixe: "",
+              Abonnement_id: "",
+          });
+          Swal.fire({
+              icon: "success",
+              title: "Succès!",
+              text: "Message envoyé avec succès!",
+          });
+      } else {
+          console.error("Erreur dans l'ajout de l'abonnement");
+      }
+  } catch (error) {
+      console.error("Erreur Axios:", error);
+  }
+};
+
+
+const [abonnement, setAbonnement] = useState([]);
+const fetchAbonnement = async () => {
+  const role = localStorage.getItem("rolecle");
+  const token = localStorage.getItem("tokencle");
+  try {
+    
+      const response = await axios.get(
+        "http://localhost:8000/api/listes/abonements",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setAbonnement(response.data.Abonnements);
+      console.log(response)
+      setLoading(false)
+
+      console.log(response ,'liste abonnement');
+    
+  } catch (error) {
+    console.error("Erreur lors de la récupération des catégories:", error);
+  }
+};
+useEffect(() => {
+  fetchAbonnement();
+}, []);
 
   return (
     
-    <div className='d-flex container' style={{gap:'20px'}}>
-      
-      <div className="container_devis_form">
+    <div  style={{backgroundColor:'#004573',padding:'20px'}}>
+     
+    <Underline text="Pour plus d'information remplissez ce formulaire" color='#fff' />
+      <div className='content_devis_main container'>
+      <div className='' style={{backgroundColor:'#FFF',paddingLeft:'10px' ,paddingRight:'10px', width:'100%' ,height:'645px', paddingTop:'27px',borderBottom:'7px solid #FFB703', borderBottomLeftRadius:'10px' , borderTopLeftRadius:'10px'}} >
         <Form onSubmit={ajouterMessage}>
-          <h2 className='content_title_devis'>Pour plus d'information remplissez ce formulaire</h2>
+          
           <Row>
             <Col>
               <Form.Group controlId="prenom">
-                <Form.Label>Prenom:</Form.Label>
+                <Form.Label className='' style={{color:'#004573'}}>Prenom:</Form.Label>
                 <Form.Control
+                style={{backgroundColor:'#FFF', borderBottom: '2px solid #004573',marginBottom:'10px'}}
                   type="text"
                   value={messageData.prenom}
                   onChange={(e) => {
@@ -216,8 +471,9 @@ const ajouterMessage = async (e) => {
             </Col>
             <Col>
               <Form.Group controlId="nom">
-                <Form.Label>Nom:</Form.Label>
+                <Form.Label className='' style={{color:'#004573'}}>Nom:</Form.Label>
                 <Form.Control
+                style={{backgroundColor:'#FFF', borderBottom: '2px solid #004573',marginBottom:'10px'}}
                   type="text"
                   value={messageData.nom}
                   onChange={(e) => {
@@ -228,12 +484,11 @@ const ajouterMessage = async (e) => {
                 <Form.Text style={{ color: "red" }}>{errors.nom}</Form.Text>
               </Form.Group>
             </Col>
-          </Row>
-          <Row>
             <Col>
               <Form.Group controlId="email">
-                <Form.Label>Email:</Form.Label>
+                <Form.Label className='' style={{color:'#004573'}}>Email:</Form.Label>
                 <Form.Control
+                style={{backgroundColor:'#FFF', borderBottom: '2px solid #004573',marginBottom:'10px'}}
                   type="email"
                   value={messageData.email}
                   onChange={(e) => {
@@ -244,10 +499,29 @@ const ajouterMessage = async (e) => {
                 <Form.Text style={{ color: "red" }}>{errors.email}</Form.Text>
               </Form.Group>
             </Col>
+          </Row>
+          <Row>
+            
+            <Col>
+              <Form.Group controlId="addressEntreprise">
+                <Form.Label className='' style={{color:'#004573'}}>Addresse :</Form.Label>
+                <Form.Control
+                style={{backgroundColor:'#FFF', borderBottom: '2px solid #004573',marginBottom:'10px'}}
+                  type="text"
+                  value={messageData.adressEntreprise}
+                  onChange={(e) => {
+                    setMessageData({ ...messageData, adressEntreprise: e.target.value });
+                    validateField("adressEntreprise", e.target.value);
+                  }}
+                />
+                <Form.Text style={{ color: "red" }}>{errors.adressEntreprise}</Form.Text>
+              </Form.Group>
+            </Col>
             <Col>
               <Form.Group controlId="numeroTelephone">
-                <Form.Label>Télephone:</Form.Label>
+                <Form.Label className='' style={{color:'#004573'}}>Télephone:</Form.Label>
                 <Form.Control
+                style={{backgroundColor:'#FFF', borderBottom: '2px solid #004573',marginBottom:'10px'}}
                   type="text"
                   value={messageData.numeroTelephone}
                   onChange={(e) => {
@@ -258,12 +532,32 @@ const ajouterMessage = async (e) => {
                 <Form.Text style={{ color: "red" }}>{errors.numeroTelephone}</Form.Text>
               </Form.Group>
             </Col>
+            <Col>
+              <Form.Group controlId="poste">
+                <Form.Label className='' style={{color:'#004573'}}>Telephone fixe</Form.Label>
+                <Form.Control
+                 style={{backgroundColor:'#FFF', borderBottom: '2px solid #004573',marginBottom:'10px'}}
+                  value={messageData.telephoneFixe}
+                  onChange={(e) => {
+                    setMessageData({ ...messageData, telephoneFixe: e.target.value });
+                    validateField("telephoneFixe", e.target.value);
+                  }}
+                >
+                  
+                </Form.Control>
+                <Form.Text style={{ color: "red" }}>{errors.telephoneFixe}</Form.Text>
+              </Form.Group>
+            </Col>
+            
           </Row>
+          
           <Row>
             <Col>
               <Form.Group controlId="entreprise">
-                <Form.Label>Entreprise:</Form.Label>
+                <Form.Label className='' style={{color:'#004573'}}>Entreprise:</Form.Label>
                 <Form.Control
+                
+                style={{backgroundColor:'#FFF', borderBottom: '2px solid #004573',marginBottom:'10px'}}
                   type="text"
                   value={messageData.entreprise}
                   onChange={(e) => {
@@ -276,8 +570,10 @@ const ajouterMessage = async (e) => {
             </Col>
             <Col>
               <Form.Group controlId="poste">
-                <Form.Label>Poste:</Form.Label>
+                <Form.Label className='' style={{color:'#004573'}}>Poste:</Form.Label>
                 <Form.Control
+                style={{backgroundColor:'#FFF', borderBottom: '2px solid #004573',marginBottom:'10px'}}
+               
                   as="select"
                   value={messageData.poste}
                   onChange={(e) => {
@@ -294,13 +590,86 @@ const ajouterMessage = async (e) => {
               </Form.Group>
             </Col>
           </Row>
+
+          <Row>
+            <Col>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlSelect1">
+                  <Form.Label className='' style={{color:'#004573'}}>Pays</Form.Label>
+                  <Form.Control
+                  style={{backgroundColor:'#FFF', borderBottom: '2px solid #004573',marginBottom:'10px'}}
+                    as="select"
+                    value={messageData.pays}
+                      onChange={(e) => {
+                        setMessageData({
+                          ...messageData,
+                          pays: e.target.value,
+                        });
+                        
+                      }}
+                  >
+                    <option value="">Sélectionnez un pays</option>
+                    {countryOptions}
+                  </Form.Control>
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group controlId="poste">
+                <Form.Label className=''style={{color:'#004573'}}>Ville</Form.Label>
+                <Form.Control
+                 style={{backgroundColor:'#FFF', borderBottom: '2px solid #004573',marginBottom:'10px'}}
+                  value={messageData.ville}
+                  onChange={(e) => {
+                    setMessageData({ ...messageData, ville: e.target.value });
+                    validateField("ville", e.target.value);
+                  }}
+                >
+                  
+                </Form.Control>
+                <Form.Text style={{ color: "red" }}>{errors.ville}</Form.Text>
+              </Form.Group>
+            </Col>
+          </Row>
+          <Row>
+            {/* cc */}
+            <Col>
+              <Form.Group controlId="poste">
+                <Form.Label className='' style={{color:'#004573'}}>Type d'abonnement</Form.Label>
+                <Form.Select
+                style={{backgroundColor:'#FFF', borderBottom: '2px solid #004573',marginBottom:'10px'}}
+                    aria-label="Default select example"
+                    value={messageData.Abonnement_id}
+                    onChange={(e) => {
+                      setMessageData({
+                        ...messageData,
+                        Abonnement_id: e.target.value,
+                      });
+                      
+                    }}
+                  >
+                    <option className='text-white'>Choisir une abonnement</option>
+                    {abonnement &&
+                      abonnement.map((abonel, index) => {
+                        return (
+                          <option key={index} value={abonel.id}>
+                            {abonel.formule}
+                          </option>
+                        );
+                      })}
+                  </Form.Select>
+                
+                <Form.Text style={{ color: "red" }}>{errors.abonnement_id}</Form.Text>
+              </Form.Group>
+            </Col>
+          </Row>
+
           <Row>
             <Col>
               <Form.Group controlId="message">
-                <Form.Label>Message:</Form.Label>
+                <Form.Label style={{color:'#004573'}}>Message:</Form.Label>
                 <Form.Control
+                style={{backgroundColor:'#FFF', borderBottom: '2px solid #004573',marginBottom:'10px'}}
                   as="textarea"
-                  rows={5}
+                  rows={3}
                   value={messageData.message}
                   onChange={(e) => {
                     setMessageData({ ...messageData, message: e.target.value });
@@ -314,10 +683,17 @@ const ajouterMessage = async (e) => {
           <Button type="submit" className='content_title_devis_button_content mt-3' onClick={ajouterMessage}>Demande d'abonnement</Button>
         </Form>
       </div>
-      <div className='' style={{width:'700px' ,height:'700px'}}>
+      <div className='' style={{width:'100%' ,height:'645px',borderBottom:'7px solid #FFB703', borderBottomRightRadius:'10px'}}>
+        <Image src={imageForm} className='imageForm-content-devis'style={{borderTopRightRadius:'10px'}} />
         
-        <Image src={imageForm} className='' style={{width:'100%', heigh:'100%'}} />
       </div>
+
+      </div>
+      
+
+
+
+           
     </div>
   )
 }

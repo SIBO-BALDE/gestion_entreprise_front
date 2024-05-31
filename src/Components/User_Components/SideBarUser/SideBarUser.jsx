@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 // import './SideBar.css';
 import { Button, Image } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import logo from '../../../Images/LOGO_TYPE.png'
+import logo from '../../../Images/LOGO FOND BLANC.jpg'
 import "./SideBarUse.css";
 import Swal from 'sweetalert2';
 import axios from 'axios';
@@ -132,14 +132,16 @@ export default function SideBarUser({ isOpen, name, handleChangePath }) {
       console.error("Erreur lors de la déconnexion :", error);
     }
   };
+
+
   return (
     <div>
-       <div style={{ display: !isOpen ? "block" : "none", border:'none' }}>
+       <div className={`sidebar ${isOpen ? 'sidebar-closed' : ''}`}>
       <div className="contentOneSidebar">
         <div className="contentimage">
-          <div className="d-flex justify-content-center ">
+          <div className="d-flex justify-content-center" >
             {" "}
-            <Image src={logo} alt="" id="image-contenu" className='border' />
+            <Image src={logo} alt="" id="image-contenu" className='border image-contenu-user' />
           </div>
           <h6 className="text-center mt-3"><Link to={'/'} style={{textDecoration:'none', color:'white'}}>{utilisateur.prenom} {utilisateur.nom}</Link></h6>
           <p className=" text-white text-center">{utilisateur.email}</p>

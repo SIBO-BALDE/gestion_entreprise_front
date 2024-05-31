@@ -31,7 +31,7 @@
   .contentsidebar{
     height: 100%;
     /* border: 1px solid #000; */
-    background-color: var(--seconde);
+    /* background-color: var(--seconde); */
 
   }
   .hidden {
@@ -90,9 +90,11 @@
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px;
     border-radius: 20px;
     width: 100% !important;
-    /* border: 1px solid red !important; */
-    /* margin-top: 30px; */
-    /* background-color: var(--principal); */
+    padding-top: 15px;
+    padding-bottom: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+    
   }
   thead #hearder-color{
     background-color: var(--principal) !important;

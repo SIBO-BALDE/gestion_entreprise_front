@@ -7,6 +7,8 @@ import {
   faComment,
   faEnvelope,
     faEye,
+    faLandMineOn,
+    faLocation,
     faMagnifyingGlass,
     faMessage,
     faPenToSquare,
@@ -23,10 +25,12 @@ import {
   import axios from "axios";
   import { Link } from "react-router-dom";
   import Pagination from "../../../Components/User_Components/Pagination/Pagination";
+import LoadingBox from "../../../Components/LoadingBox/LoadingBox";
   
   
   
   export default function GestionDevis() {
+    const [loading, setLoading] = useState(true);
   
   
     const [messages, setMessages] = useState([]);
@@ -61,11 +65,12 @@ import {
                 },
               }
             );
-            console.log(response, 'responmessage')
+            console.log(response, 'responmessage C')
             const tab=response.data.categories
             console.log(tab, 'tab message')
             setMessages(response.data.categories);
-            console.log(messages, 'messages apres');
+            setLoading(false)
+            console.log(messages, 'messages apres abonment');
           }
         } catch (error) {
           console.error("Erreur lors de la récupération des catégories:", error);
@@ -163,6 +168,7 @@ import {
 
     return `${year}-${month}-${day}`;
   };
+  
     
    
     
@@ -171,6 +177,10 @@ import {
   
   
     return (
+      <div className="m-4">
+         {loading ? (
+        <LoadingBox />
+         ) : (
       <div className="container">
         <div className="d-flex justify-content-between mt-5">
           <div>
@@ -186,7 +196,7 @@ import {
                   <Form.Control
                     type="search"
                     className="form-control w-50   "
-                    placeholder="Rechercher une demande dévis"
+                    placeholder="Rechercher une demande d'abonnement"
                     aria-label="user"
                     aria-describedby="addon-wrapping"
                     value={searchValue}
@@ -205,7 +215,7 @@ import {
           </div>
         </div>
         <div className="mt-4 ms-3  me-3">
-          <h3>Liste des demandes devis</h3>
+          <h3>Liste des demandes d'abonnements</h3>
           <table className="table border  border-1">
             <thead
               className=""
@@ -215,21 +225,28 @@ import {
                 <th style={{ backgroundColor: "#004573", color: "#fff" }}>Nom Prenom</th>
                 <th style={{ backgroundColor: "#004573", color: "#fff" }}>Email</th>
                 <th style={{ backgroundColor: "#004573", color: "#fff" }}>Téléphone</th>
+                <th style={{ backgroundColor: "#004573", color: "#fff" }}>Fixe</th>
                 <th style={{ backgroundColor: "#004573", color: "#fff" }}>Entreprise </th>
                 <th style={{ backgroundColor: "#004573", color: "#fff" }}>Poste</th>
+                <th style={{ backgroundColor: "#004573", color: "#fff" }}>Pays</th>
+                <th style={{ backgroundColor: "#004573", color: "#fff" }}>Ville</th>
+                
                 
                 <th className="d-flex  justify-content-center "style={{backgroundColor: "#004573",color: "#fff",marginLeft: "3rem", }}>Action</th>
               </tr>
             </thead>
             <tbody>
-             
                 {currentMessages.map((messageel) => (
                 <tr key={messageel.id}>
-                  <td>{messageel.prenom} {messageel.nom}</td>
+                  <td>{messageel.nom} {messageel.prenom} </td>
                   <td>{messageel.email}</td>
                   <td>{messageel.numeroTelephone}</td>
+                  <td>{messageel.telephoneFixe}</td>
                   <td>{messageel.entreprise}</td>
                   <td>{messageel.poste}</td>
+                  <td>{messageel.pays}</td>
+                  <td>{messageel.ville}</td>
+                  {/* <td></td> */}
                   {/* <td>{messageel.poste}</td> */}
                   <td className="d-flex justify-content-evenly">
                     <Button
@@ -309,17 +326,17 @@ import {
 
     <Modal show={show} onHide={handleCloseShow} id="buttonModifier" size="lg">
       <Modal.Header closeButton>
-        <Modal.Title>Details du message</Modal.Title>
+        <Modal.Title>Details du demande d'abonnement</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {selectedMessage && (
           <div className="col-xl-6 col-lg-7 col-md-12">
               
             <div className=" profile-header">
-              <div className="body">
+              <div className="">
                 
                 <div className="  devi-content-main-detail">
-                  <div className="col-lg-4 col-md-4 col-12 " style={{ border:'1px solid green'}}>
+                  <div className="col-lg-4 col-md-4 col-12  CONTENT2">
                     <div className="profile-image float-md-right d-flex justify-content-center  
                     align-content-center align-items-center" style={{width:'150px',
                     height:'150px',
@@ -330,39 +347,81 @@ import {
                         height:'100px', color:'#004573'}}/>
                     </div>
                   </div>
-                  <div className="col-lg-8 col-md-8 col-12 lg  CONTENT1" style={{paddingLeft:'50px', border:'1px solid red'}}>
+                  <div className="col-lg-8 col-md-8 col-12 lg  CONTENT1" >
                     
-                    <h4 className="m-t-0 m-b-0  mt-2">
+                    <div className="card p-3" style={{borderRight:'5px solid #004573'}}>
+                    <div className="two_content_detail">
+                    <h6 className="m-t-0 m-b-0  mt-2">
                         <span><FontAwesomeIcon icon={faUser} style={{color:'#004573',marginRight:'10px'}} /> </span>
                       <strong>{ selectedMessage && selectedMessage.prenom} { selectedMessage && selectedMessage.nom} </strong>
-                    </h4>
-                    <h4 className="m-t-0 m-b-0  mt-2">
+                    </h6>
+                    <h6 className="m-t-0 m-b-0  mt-2">
                         <span><FontAwesomeIcon icon={faEnvelope} style={{color:'#004573',marginRight:'10px'}} /> </span>
                       <strong>{ selectedMessage && selectedMessage.email} </strong>
-                    </h4>
-                    <h4 className="m-t-0 m-b-0  mt-2">
+                    </h6>
+
+                    </div>
+                    <div className="two_content_detail">
+                    <h6 className="m-t-0 m-b-0  mt-2">
                         <span><FontAwesomeIcon icon={faPhone} style={{color:'#004573',marginRight:'10px'}} /> </span>
                       <strong>{ selectedMessage && selectedMessage.numeroTelephone} </strong>
-                    </h4>
-                    <h4 className="m-t-0 m-b-0  mt-2">
+                    </h6>
+                    <h6 className="m-t-0 m-b-0  mt-2">
+                        <span><FontAwesomeIcon icon={faPhone} style={{color:'#004573',marginRight:'10px'}} /> </span>
+                      <strong>{ selectedMessage && selectedMessage.telephoneFixe} </strong>
+                    </h6>
+
+                    </div>
+
+                    <div className="two_content_detail">
+                    <h6 className="m-t-0 m-b-0  mt-2">
                         <span><FontAwesomeIcon icon={faBuilding} style={{color:'#004573',marginRight:'10px'}} /> </span>
                       <strong>{ selectedMessage && selectedMessage.entreprise} </strong>
-                    </h4>
-                    <h4 className="m-t-0 m-b-0  mt-2">
+                    </h6>
+                    <h6 className="m-t-0 m-b-0  mt-2">
+                        <span><FontAwesomeIcon icon={faLandMineOn} style={{color:'#004573',marginRight:'10px'}} /> </span>
+                      <strong>{ selectedMessage && selectedMessage.pays} </strong>
+                    </h6>
+
+                    </div>
+                    <div className="two_content_detail">
+                    <h6 className="m-t-0 m-b-0  mt-2">
+                        <span><FontAwesomeIcon icon={faBuilding} style={{color:'#004573',marginRight:'10px'}} /> </span>
+                      <strong>{ selectedMessage && selectedMessage.ville} </strong>
+                    </h6>
+                    <h6 className="m-t-0 m-b-0  mt-2">
+                        <span><FontAwesomeIcon icon={faLocation} style={{color:'#004573',marginRight:'10px'}} /> </span>
+                      <strong>{ selectedMessage && selectedMessage.adressEntreprise} </strong>
+                    </h6>
+
+                    </div>
+
+                   <div className="two_content_detail">
+                     <h6 className="m-t-0 m-b-0  mt-2">
                         <span><FontAwesomeIcon icon={faUser} style={{color:'#004573',marginRight:'10px'}} /> </span>
                       <strong>{ selectedMessage && selectedMessage.poste} </strong>
-                    </h4>
-                    <h4 className="m-t-0 m-b-0 mt-2">
+                    </h6>
+                    <h6 className="m-t-0 m-b-0 mt-2">
                     <span><FontAwesomeIcon icon={faCalendarDay} style={{color:'#004573',marginRight:'10px'}} /> </span>
                       <strong>{formatDate( selectedMessage && selectedMessage.created_at)} </strong>
-                    </h4>
-                    <p className=" mt-2">
-                    <span style={{color:'#004573',marginRight:'10px', fontSize:'25px'}}>
-                    <FontAwesomeIcon icon={faComment} />
-                    
-                    </span>
-                   { selectedMessage && selectedMessage.message}
+                    </h6>
+
+                   </div>
+                    <h6 className="m-t-0 m-b-0 mt-2">
+                    <span><FontAwesomeIcon icon={faCalendarDay} style={{color:'#004573',marginRight:'10px'}} /> </span>
+                      <strong>{selectedMessage && selectedMessage.abonnement.formule} </strong>
+                    </h6>
+
+                    </div>
+                    <p>Message:</p>
+                      <div className="card" style={{borderRight:'5px solid #004573'}}>
+                      <p className=" mt-2">
+                          <span style={{color:'#004573',marginRight:'10px', fontSize:'25px'}}>
+                          {/* <FontAwesomeIcon icon={faComment} /> */}
+                            </span>
+                          { selectedMessage && selectedMessage.message}
                       </p>
+                      </div>
                   </div>
                 </div>
               </div>
@@ -372,6 +431,9 @@ import {
       </Modal.Body>
       
     </Modal>
+
+      </div>
+      )}
 
       </div>
     );

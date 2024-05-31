@@ -15,10 +15,12 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
 import Pagination from "../../../Components/User_Components/Pagination/Pagination";
+import LoadingBox from "../../../Components/LoadingBox/LoadingBox";
 
 
 
 export default function GestionNewsletter({ id }) {
+  const [loading, setLoading] = useState(true);
 
 
   
@@ -44,6 +46,7 @@ export default function GestionNewsletter({ id }) {
         const newsl = response.data
         console.log(newsl, 'newsl')
         setEmails(response.data.newsletter);
+        setLoading(false)
 
         console.log(emails);
       }
@@ -83,7 +86,7 @@ const displayEmails= searchValue === "" ? emails : filteredEmails;
 
 
   const [currentPage, setCurrentPage] = useState(1);
-const  emailParPage= 3;
+const  emailParPage= 6;
 
 // pagination
 const indexOfLastEmail = currentPage*  emailParPage;
@@ -131,6 +134,7 @@ const totalPaginationPages = Math.ceil(emails.length /   emailParPage);
         );
 
         setEmails(updatedEmails);
+        setLoading(false)
       
               Swal.fire({
                   icon: "success",
@@ -151,6 +155,10 @@ const totalPaginationPages = Math.ceil(emails.length /   emailParPage);
   
 
   return (
+    <div className="mt-4">
+      {loading ? (
+        <LoadingBox/>
+         ) : (
     <div className="container">
       <div className="d-flex justify-content-between mt-5">
         <div>
@@ -166,7 +174,7 @@ const totalPaginationPages = Math.ceil(emails.length /   emailParPage);
                 <Form.Control
                   type="search"
                   className="form-control w-50   "
-                  placeholder="Rechercher une email"
+                  placeholder="Rechercher une email par date"
                   aria-label="user"
                   aria-describedby="addon-wrapping"
                   value={searchValue}
@@ -239,6 +247,9 @@ const totalPaginationPages = Math.ceil(emails.length /   emailParPage);
       </div>
 
   
+    </div>
+    )}
+
     </div>
   );
 }

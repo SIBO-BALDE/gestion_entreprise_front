@@ -1,9 +1,22 @@
 .devi-content-main-detail{
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    margin: 0 auto !important;
-    width: 100%;
+    display: flex;
+    /* grid-template-columns: repeat(2,1fr); */
+    /* margin: 0 auto !important; */
+    /* grid-template-columns: 40% 60% !important; */
+    justify-content: space-around;
+    width: 760px !important;
+    /* border: 1px solid green; */
 }
 .CONTENT1{
-    width: 50%;
+    width: 70%;
+    /* border: 1px solid red; */
+}
+.CONTENT2{
+    width: 30%;
+    /* border: 1px solid blue; */
+}
+.two_content_detail{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    /* gap: 20px; */
 }

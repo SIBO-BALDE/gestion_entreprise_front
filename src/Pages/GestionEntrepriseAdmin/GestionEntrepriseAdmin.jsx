@@ -15,9 +15,11 @@ import { getCountryCode, getCountryData, getCountryDataList, getEmojiFlag } from
 // import { useAuth } from  '../../Auth/AuthContex'
 import Pagination from "../../Components/User_Components/Pagination/Pagination";
 import { emailPattern } from "../Regex/Regex";
+import LoadingBox from "../../Components/LoadingBox/LoadingBox";
 // import Pagination from "../../Components/Pagination/Pagination";
 
 export default function GestionEntrepriseAdmin() {
+  const [loading, setLoading] = useState(true);
   const [showEntreprise, setshowEntreprise] = useState(false);
   const [showEditModalEntreprises, setShowEditModaEntreprises] = useState(false);
 
@@ -96,6 +98,7 @@ export default function GestionEntrepriseAdmin() {
           // Ajoutez la nouvelle maison à la liste existante
           console.log(response, 'response entreprise')
           setEntreprises([...entreprises, response.data]);
+          setLoading(false)
           console.log(entreprises ,'entreprises ajout')
           // Réinitialisez les valeurs du formulaire après avoir ajouté la maison
           setEntrepriseData({
@@ -142,6 +145,7 @@ export default function GestionEntrepriseAdmin() {
         );
         console.log(entreprises, 'entrepriseAbonement entre avant');
         setEntreprises(response.data.EntrepriseAbonement);
+        setLoading(false)
 
         console.log(entreprises, 'entrepriseAbonement entre apres');
         console.log(response, 'entrepriseAbonement resp'); 
@@ -207,6 +211,7 @@ export default function GestionEntrepriseAdmin() {
               : entrepriseEl
           );
           setEntreprises(updatedEntreprises);
+          setLoading(false)
           handleCloseEditEntreprises();
           Swal.fire({
             icon: "success",
@@ -256,6 +261,7 @@ export default function GestionEntrepriseAdmin() {
           );
   
           setEntreprises(updatedEntreprises);
+          setLoading(false)
                 Swal.fire({
                     icon: "success",
                     title: "Succès!",
@@ -307,7 +313,13 @@ const totalPaginationPages = Math.ceil( entreprises && entreprises.length /  ent
   
 
   return (
-    <div className="container">
+    
+    <div className="mt-4">
+      {loading ? (
+      <LoadingBox />
+       ) : (
+      <div className="container">
+      
       <div className="d-flex justify-content-between mt-5">
         <div>
           <Button
@@ -777,6 +789,10 @@ const totalPaginationPages = Math.ceil( entreprises && entreprises.length /  ent
         </Modal.Footer>
       </Modal>
       {/* modal fin modifier maison */}
+    
+      </div>
+     )}
     </div>
+ 
   );
 }

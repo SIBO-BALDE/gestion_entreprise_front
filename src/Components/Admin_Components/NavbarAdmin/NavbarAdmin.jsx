@@ -8,12 +8,12 @@ import { faBars, faBell } from '@fortawesome/free-solid-svg-icons';
 export default function NavbarAdmin({ onMenuClick }) {
  
   return (
-  <div className="mainContent " >
+  <div className={`mainContent`} >
   <div className="mainContentLeft" onClick={onMenuClick}>
-    <FontAwesomeIcon icon={faBars} className='ms-3' />
+    <FontAwesomeIcon icon={faBars} className='ms-3 mainContentRight-icon1' />
   </div>
   <div className="mainContentRight">
-  <FontAwesomeIcon icon={faBell} className='me-3' />
+  <FontAwesomeIcon icon={faBell} className='mainContentRight-icon' />
   </div>
 </div>
   )

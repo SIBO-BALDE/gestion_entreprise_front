@@ -18,6 +18,7 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
 import Pagination from "../../../Components/User_Components/Pagination/Pagination";
+import LoadingBox from "../../../Components/LoadingBox/LoadingBox";
 
 
 
@@ -41,6 +42,7 @@ export default function GestionEvenement({ id }) {
 
   const handleCloseEventBlok = () => setShowEventBlok(false);
   const handleShowEventBlok = () => setShowEventBlok(true);
+  const [loading, setLoading] = useState(true);
 
 
   
@@ -97,6 +99,7 @@ export default function GestionEvenement({ id }) {
           console.log(response, 'response categorie')
           setEvents([...events, response.data.Evenement
           ]);
+          setLoading(false)
           
           console.log(events, 'events event')
           // Réinitialisez les valeurs du formulaire après avoir ajouté la maison
@@ -140,6 +143,7 @@ export default function GestionEvenement({ id }) {
         );
         console.log(response , 'liste')
         setEvents(response.data.evenements);
+        setLoading(false)
 
         console.log(events);
       }
@@ -182,8 +186,9 @@ export default function GestionEvenement({ id }) {
   
             if (response.status === 200) {
               // Mettre à jour la liste des événements
-              fetchEvents(); // Mettre à jour la liste des événements actifs
-              fetchEventsBlok(); // Mettre à jour la liste des événements archivés
+              setLoading(false)
+              fetchEvents();
+              fetchEventsBlok(); 
   
               Swal.fire({
                 icon: "success",
@@ -263,6 +268,7 @@ export default function GestionEvenement({ id }) {
               : evtUp
           );
           setEvents(updatedEvents);
+          setLoading(false)
           handleCloseEditEvents();
           Swal.fire({
             icon: "success",
@@ -305,6 +311,7 @@ const  eventsParPage= 5;
 const indexOfLastEvent = currentPage1 * eventsParPage;
 const indexOfFirstEvent = indexOfLastEvent - eventsParPage;
 const currentEvents = filteredEvents.slice(indexOfFirstEvent, indexOfLastEvent);
+
 
 const totalPaginationPagesEvent = Math.ceil(events.length /  eventsParPage);
 //  pour le champ recherche
@@ -469,6 +476,10 @@ const archiverEvaluation = async (id) => {
 
 
   return (
+    <div className="mt-4">
+      {loading ? (
+        <LoadingBox />
+         ) : (
     <div className="container">
       <div className="d-flex justify-content-between mt-5">
         <div>
@@ -982,6 +993,8 @@ const archiverEvaluation = async (id) => {
       {/* blok */}
 
 
+    </div>
+)}
     </div>
   );
 }

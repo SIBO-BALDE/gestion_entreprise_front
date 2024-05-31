@@ -91,14 +91,9 @@ export default function ContactScreen() {
 
    // function pour ajouter une message
    const ajouterMessage = async () => {
-    
-    alert('okaazy')
-
     validateField("nom", nom);
     validateField("email", email);
    
-
-
     if (validationStatus) {
       
     try {

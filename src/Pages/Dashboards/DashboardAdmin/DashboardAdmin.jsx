@@ -25,6 +25,9 @@ import GestionDevis from "../../CRUD/GestionDevis/GestionDevis";
 import Chart from "../../../Components/Admin_Components/Chart/Chart";
 import Chart1 from "../../../Components/Admin_Components/Chart/Chart1";
 import Chart2 from "../../../Components/Admin_Components/Chart/Chart2";
+import AbonnementUser from "../../CRUD/AbonnementUser/AbonnementUser";
+import LoadingBox from "../../../Components/LoadingBox/LoadingBox";
+import ClassificationChart from "../../../Components/Admin_Components/Chart/ClassificationChart";
 
 
 
@@ -33,9 +36,12 @@ function KPI() {
 
     // tableau ou stocker la liste des users
     const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const [categories, setCategories] = useState([]);
     const [entreprises, setEntreprises] = useState([]);
+    const [evaluationDataQR, setEvaluationDataQR] = useState([]);
+    const [evaluationData, setEvaluationData] = useState([]);
  //  Lister les categories
  const fetchCategories = async () => {
   const role = localStorage.getItem("rolecle");
@@ -51,6 +57,7 @@ function KPI() {
         }
       );
       setCategories(response.data.categories);
+      setLoading(false)
 
       console.log(categories);
     }
@@ -77,6 +84,7 @@ useEffect(() => {
           }
         );
         setEntreprises(response.data.entreprises);
+        setLoading(false)
 
         console.log(entreprises);
       }
@@ -102,6 +110,7 @@ useEffect(() => {
           }
         );
         setUsers(response.data.participants);
+        setLoading(false)
         console.log(response, 'response. user admin')
 
         console.log(users ,'ici users du users');
@@ -133,6 +142,7 @@ useEffect(() => {
          );
          console.log(response , 'liste')
          setEvents(response.data.evenements);
+         setLoading(false)
  
          console.log(events);
        }
@@ -211,27 +221,87 @@ useEffect(() => {
 
   const totalPaginationPagesEvent = Math.ceil(events.length / eventsParPage);
 
+  const [reponsesQuestion, setReponsesQuestion] = useState([]);
+  const fetchReponsesQuestion = async (CategorieId, evaluationId) => {
+    
+    try {
+      const token = localStorage.getItem("tokencle");
+      const response = await axios.get(
+        `http://localhost:8000/api/categories/questions-and-reponses/${CategorieId}/${evaluationId}`,
+        {
+         
+        }
+      );
+      setReponsesQuestion(response.data);
+      setLoading(false)
+      console.log(response, 'rq dasboar admin')
+      
+      
+    } catch (error) {
+      console.error("Erreur lors de la récupération des questions et reponses de  l'évaluation:", error);
+    }
+  };
+
+
+  const [classificationData, setClassificationData] = useState(null);
+
+  // useEffect(() => {
+  //   // Remplacez l'URL par l'URL de votre backend
+  //   axios.get('http://localhost:8000/api//liste/user/evaluer/admin')
+  //     .then((response) => {
+  //       setClassificationData(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Erreur lors de la récupération des données de classification', error);
+  //     });
+  // }, []);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchClassificationData = async () => {
+      const token = localStorage.getItem('tokencle'); // Récupérer le token du localStorage
+      const role = localStorage.getItem('rolecle'); // Récupérer le rôle du localStorage
+
+      if (!token || role !== 'Admin') {
+        setError("Vous devez être connecté en tant qu'administrateur pour voir ces données");
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const response = await axios.get('http://localhost:8000/api/liste/user/evaluer/admin', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setClassificationData(response.data);
+        console.log(response,'reponse chart')
+      } catch (error) {
+        setError("Erreur lors de la récupération des données");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchClassificationData();
+  }, []);
 
 
 
- 
-   
 
 
- 
-
-  
- 
-
-  
 
 
+  // 
 
   return (
-    <div className="contenueprincipal container">
+    <div className="contenueprincipal container" style={{marginTop:'70px'}}>
+      {loading ? (
+        <LoadingBox />
+         ) : (
       <div className="dashbord-content-main-one-admin container w-100" id="">
           
-      <div className="content-diagramme-circulaire-right-conten-2-admin  pt-4 w-100">
+      <div className="content-diagramme-circulaire-right-conten-2-admin   w-100" >
             <p className="text-center mt-2  ">
               <Tableaux />
             </p>
@@ -242,10 +312,12 @@ useEffect(() => {
          <div> <Chart /></div>
           <div><Chart1 /></div>
           <div><Chart2 /></div>
+          {/* <ClassificationChart classificationData={classificationData} /> */}
           </div>
         </div>
         
       </div>
+      )}
     </div>
   );
 }
@@ -268,6 +340,7 @@ function RenderContent(name) {
     
     case "gestionfeedback":
       return <GestionFeedback />;
+    
     default:
       return <KPI />;
   }

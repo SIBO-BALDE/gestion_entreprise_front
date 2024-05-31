@@ -6,7 +6,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { Link, useLocation } from 'react-router-dom';
 import './NavbarUser.css';
 import { Image } from 'react-bootstrap';
-import logo from '../../Images/LOGO_TYPE.png';
+import logo from '../../Images/LOGO FOND BLANC.jpg';
 
 
 export default function NavbarUser() {

@@ -1,5 +1,6 @@
 import {
   faEye,
+  faEyeSlash,
   faLock,
   faLockOpen,
   faMagnifyingGlass,
@@ -19,10 +20,12 @@ import * as XLSX from 'xlsx';
 import Swal from "sweetalert2";
 import axios from "axios";
 import Pagination from "../../../Components/User_Components/Pagination/Pagination";
+import LoadingBox from "../../../Components/LoadingBox/LoadingBox";
 
 
 
 export default function GestionUser({ id }) {
+  const [loading, setLoading] = useState(true);
   // const [show, setShow] = useState(false);
   const [showUser, setShowUser] = useState(false);
   const [showEditModalUsers, setShowEditModalUsers] = useState(false);
@@ -44,9 +47,13 @@ export default function GestionUser({ id }) {
 
   const [categories, setCategories] = useState([]);
   const [entreprises, setEntreprises] = useState([]);
+  const [showPassword, setShowPassword] = useState(false);
 
 
-  
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   //  Lister les categories
   const fetchCategories = async () => {
     const role = localStorage.getItem("rolecle");
@@ -62,6 +69,7 @@ export default function GestionUser({ id }) {
           }
         );
         setCategories(response.data.categories);
+        setLoading(false)
 
         console.log(categories);
       }
@@ -89,6 +97,7 @@ export default function GestionUser({ id }) {
             }
           );
           setEntreprises(response.data.entreprises);
+          setLoading(false)
   
           console.log(entreprises);
         }
@@ -114,6 +123,7 @@ export default function GestionUser({ id }) {
             }
           );
           setUsers(response.data.participants);
+          setLoading(false)
   
           console.log(users ,'ici users du users');
         }
@@ -219,17 +229,11 @@ export default function GestionUser({ id }) {
             console.log(response.status, "status 420")
             return;
           }
-          // if(response.status === 421){
-          //   Swal.fire({
-          //     icon: "error",
-          //     title: "Oops!",
-          //     text: "Le numero existe déja!",
-          //   });
-          //   return;
-          // }
+          
   
           if (response.status === 200) {
             setUsers([...users, response.data]);
+            setLoading(false)
             setUserData({
               nom: "",
               prenom: "",
@@ -262,7 +266,7 @@ export default function GestionUser({ id }) {
   
   };
 
-  // telecharger
+  // telecharger fichier exel 
   const [file, setFile] = useState(null);
   const [message, setMessage] = useState('');
 
@@ -403,6 +407,7 @@ export default function GestionUser({ id }) {
   
               setUsers(updatedUsers);
               setEditUserData(response.data.participants);
+              setLoading(false)
               fetchUsers();
               handleCloseEditUser();
               Swal.fire({
@@ -424,7 +429,7 @@ export default function GestionUser({ id }) {
     
   
 
-
+// supprimer user
   const supprimerUser = async (id) => {
     const token = localStorage.getItem('tokencle');
     const role = localStorage.getItem("rolecle");
@@ -456,6 +461,7 @@ export default function GestionUser({ id }) {
 
                 // Supprimer l'utilisateur de la liste des utilisateurs
                 setUsers(users.filter((user) => user.id !== userId))
+                setLoading(false)
                         Swal.fire({
                             icon: "success",
                             title: "Succès!",
@@ -490,6 +496,7 @@ const fetchUsersBlock = async () => {
         }
       );
       setUsersBlock(response.data.participants);
+      setLoading(false)
 
       console.log(response ,'liste participant blok');
       console.log(usersBlock ,' blok');
@@ -530,8 +537,8 @@ const debloquerUser = async (id) => {
           
           if (response.status === 200) {
               // Débloquer l'utilisateur avec succès
-              const userId = response.data.id; // Assurez-vous de récupérer l'ID correctement
-              
+              const userId = response.data.id;
+              setLoading(false)
               Swal.fire({
                   icon: "success",
                   title: "Succès!",
@@ -590,12 +597,12 @@ const debloquerUser = async (id) => {
  //  pour le champ recherche
  const [searchValueUserBlock, setSearchValueUserBlock] = useState("");
 
- // function la recherche
+ // function la recherche des participant bloquer
  const handleSearchChangeBlok = (event) => {
    setSearchValueUserBlock(event.target.value);
  };
 
- // faire le filtre des maison par addrsse
+ // faire le filtre des participant par nom bloquer
  const filteredUsersBlok = usersBlock.filter(
    (user) =>
      user &&
@@ -638,8 +645,10 @@ const debloquerUser = async (id) => {
        console.log(response, 'response fetchquestionAnswer voir');
        
        if (response.data && response.data.user && Array.isArray(response.data.user)) {
+        setLoading(false)
          console.log("Données de l'API récupérées :", response.data.user);
          return response.data.user;
+         
        } else {
          console.error("La réponse de l'API n'est pas un tableau ou est vide :", response.data.user);
          return [];
@@ -682,16 +691,70 @@ const handleShowUserDetails = async (user) => {
 };
 
  
-
-      // let commentaire = null;
-      // let niveau = null;
-      // let evaluateur = null;
       let questionCounter = 1;
+
+      // function pour recuperer le niveau et l'afficher insuffisant moyen bien et exelent selon l'intervale du  pourcentage
+      const comparePourcentages = (pourcentageA, pourcentageB) => {
+        const nombreA = parseInt(pourcentageA, 10);
+        const nombreB = parseInt(pourcentageB, 10);
+        return nombreA - nombreB;
+      };
+
+      const getNiveauLabel = (niveau) => {
+        if (niveau.includes('%')) {
+          // Comparaison des pourcentages en tant que chaînes
+          if (comparePourcentages(niveau, '0%') >= 0 && comparePourcentages(niveau, '49%') <= 0) {
+            return 'Insuffisant';
+          } else if (comparePourcentages(niveau, '50%') >= 0 && comparePourcentages(niveau, '59%') <= 0) {
+            return 'Moyen';
+          } else if (comparePourcentages(niveau, '60%') >= 0 && comparePourcentages(niveau, '79%') <= 0) {
+            return 'Bien';
+          } else if (comparePourcentages(niveau, '80%') >= 0 && comparePourcentages(niveau, '100%') <= 0) {
+            return 'Excellent';
+          } else {
+            return 'Non évalué';
+          }
+        } else {
+          // Si la chaîne ne contient pas le symbole de pourcentage (%), vous pouvez ajouter le traitement supplémentaire ici
+          return 'Non évalué';
+        }
+      };
+      
+      
+      const processEvaluation = (evaluation) => {
+        return {
+          ...evaluation,
+          niveauLabel: getNiveauLabel(evaluation.niveau) 
+        };
+      };
+      
+      const processEvaluations = (evaluations) => {
+        return evaluations.map(evaluation => {
+          return {
+            ...processEvaluation(evaluation), // Traitement de chaque évaluation
+            questions_reponses: evaluation.questions_reponses.map(qr => {
+              return {
+                ...qr,
+                reponses: qr.reponses.map(reponse => {
+                  return {
+                    ...reponse,
+                    niveauLabel: getNiveauLabel(reponse.niveau) // Ajoutez le label du niveau ici pour chaque réponse
+                  };
+                })
+              };
+            })
+          };
+        });
+      };
 
 
   
 
   return (
+    <div className="" style={{marginTop:'70px'}}>
+       {loading ? (
+        <LoadingBox />
+         ) : (
     <div className="container">
       <div className="d-flex justify-content-around mt-1">
         <div>
@@ -706,25 +769,21 @@ const handleShowUserDetails = async (user) => {
           </Button>
         </div>
         <div>
-        {/* <Form.Control
-            variant="primary"
-           
-            className="ms-4"
-            style={{ backgroundColor: "#004573", border: "none", color:'white', width:'250px' }}
-            id="buttonAjouter"
-            type="file"
-            placeholder="Téléverser liste participant"
-           /> */}
-           {/* <h2>Téléverser un fichier Excel d'utilisateurs</h2> */}
+        
       <Form onSubmit={handleSubmit}>
         <div className="d-flex">
-        <div><input type="file" accept=".xlsx, .xls, .csv" onChange={handleFileChange}
-        style={{ backgroundColor: "#fff", border: "1px solid  #004573", color:'white', width:'200px',
-        borderTopLeftRadius:'10px', borderBottomLeftRadius:'10px', padding:'2px 2px' }} /></div>
-        <div><button type="submit" 
-        style={{ backgroundColor: "#004573", border: "none", color:'white', 
-          borderTopRightRadius:'10px', borderBottomRightRadius:'10px', padding:'5px'}}>
-          Téléverser</button></div>
+        <div>
+          <input type="file" accept=".xlsx, .xls, .csv" onChange={handleFileChange}
+            style={{ backgroundColor: "#fff", border: "1px solid  #004573", color:'#004573', width:'200px',
+            borderTopLeftRadius:'10px', borderBottomLeftRadius:'10px', padding:'2px 2px' }} />
+        </div>
+        <div>
+          <button type="submit" 
+              style={{ backgroundColor: "#004573", border: "none", color:'white', 
+              borderTopRightRadius:'10px', borderBottomRightRadius:'10px', padding:'5px'}}>
+              Téléverser
+          </button>
+          </div>
 
         </div>
       </Form>
@@ -876,186 +935,151 @@ const handleShowUserDetails = async (user) => {
           />  
       </div>
 
-      {/* modal debut  ajouter participant*/}
-      <>
-        <Modal show={showUser} onHide={handleCloseEdit} id="buttonAjouter">
-          <Modal.Header closeButton>
-            <Modal.Title>Ajouter un participant</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form>
-              <div className="d-flex justify-content-around " style={{gap:'10px'}}>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
-                  <Form.Label>Nom</Form.Label>
-                  <Form.Control
-                    value={userData.nom}
-                    onChange={(e) => {
-                      setUserData({
-                        ...userData,
-                        nom: e.target.value,
-                      });
-                      //
-                    }}
-                    type="text"
-                    placeholder=""
-                    
-                  />
-                 
-                </Form.Group>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput2"
-                >
-                  <Form.Label>Prenom</Form.Label>
-                  <Form.Control
-                    value={userData.prenom}
-                    onChange={(e) => {
-                      setUserData({
-                        ...userData,
-                        prenom: e.target.value,
-                      });
-                    
-                    }}
-                    type="text"
-                    placeholder=""
-                  />
-                 
-                </Form.Group>
-                
+      {/********************************** * modal debut  ajouter participant************************************/}
+      <Modal show={showUser} onHide={handleCloseEdit} id="buttonAjouter">
+      <Modal.Header closeButton>
+        <Modal.Title>Ajouter un participant</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form>
+          <div className="d-flex justify-content-around" style={{ gap: '10px' }}>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Nom</Form.Label>
+              <Form.Control
+                value={userData.nom}
+                onChange={(e) => {
+                  setUserData({
+                    ...userData,
+                    nom: e.target.value,
+                  });
+                }}
+                type="text"
+                placeholder=""
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
+              <Form.Label>Prenom</Form.Label>
+              <Form.Control
+                value={userData.prenom}
+                onChange={(e) => {
+                  setUserData({
+                    ...userData,
+                    prenom: e.target.value,
+                  });
+                }}
+                type="text"
+                placeholder=""
+              />
+            </Form.Group>
+          </div>
+          <div className="d-flex justify-content-around" style={{ gap: '10px' }}>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                value={userData.email}
+                onChange={(e) => {
+                  setUserData({
+                    ...userData,
+                    email: e.target.value,
+                  });
+                }}
+                type="email"
+                placeholder=""
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput4">
+              <Form.Label>Mot de passe</Form.Label>
+              <div className="password-container">
+                <Form.Control
+                  value={userData.password}
+                  onChange={(e) => {
+                    setUserData({
+                      ...userData,
+                      password: e.target.value,
+                    });
+                  }}
+                  type={showPassword ? "text" : "password"}
+                  placeholder=""
+                />
+                <span className="password-toggle" onClick={togglePasswordVisibility}>
+                  {showPassword ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} />}
+                </span>
               </div>
-              <div className="d-flex justify-content-around" style={{gap:'10px'}}>
-              <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput3"
-                >
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    value={userData.email}
-                    onChange={(e) => {
-                      setUserData({
-                        ...userData,
-                        email: e.target.value,
-                      });
-                     
-                    }}
-                    type="email"
-                    placeholder=""
-                  />
-                  
-                </Form.Group>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput4"
-                >
-                  <Form.Label>Mot de passe</Form.Label>
-                  <Form.Control
-                    value={userData.password}
-                    onChange={(e) => {
-                      setUserData({
-                        ...userData,
-                        password: e.target.value,
-                      });
-                      
-                    }}
-                    type="password"
-                    placeholder=""
-                  />
-                  
-                </Form.Group>
-
-              </div>
-              <div className="d-flex justify-content-around">
-                  <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput5"
-                >
-                  <Form.Label>Categorie</Form.Label>
-                  <Form.Select
-                    aria-label="Default select example"
-                    value={userData.categorie_id}
-                    onChange={(e) => {
-                      setUserData({
-                        ...userData,
-                        categorie_id: e.target.value,
-                      });
-                      
-                    }}
-                  >
-                    <option>Choisir une catégorie</option>
-                    {categories &&
-                      categories.map((cat, index) => {
-                        return (
-                          <option key={index} value={cat.id}>
-                            {cat.nom}
-                          </option>
-                        );
-                      })}
-                  </Form.Select>
-                  </Form.Group>
-                  <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput6"
-                >
-                  <Form.Label>Entreprise</Form.Label>
-                  <Form.Select
-                    aria-label="Default select example"
-                    value={userData.entreprise_id}
-                    onChange={(e) => {
-                      setUserData({
-                        ...userData,
-                        entreprise_id: e.target.value,
-                      });
-                      
-                    }}
-                  >
-                    <option>Choisir une entreprise</option>
-                    {entreprises &&
-                      entreprises.map((entrepriseel, index) => {
-                        return (
-                          <option key={index} value={entrepriseel.id}>
-                            {entrepriseel.nom}
-                          </option>
-                        );
-                      })}
-                  </Form.Select>
-                  </Form.Group>
-              </div>
-              
-              {/* <div className="d-flex justify-content-around"> */}
-           
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button
-              variant="secondary"
-              onClick={ajouterUser}
-              style={{
-                backgroundColor: "#004573",
-                border: "none",
-                width: "130px",
-              }}
-            >
-              Ajouter
-            </Button>
-            <Button
-              variant="primary"
-              onClick={handleCloseEdit}
-              style={{
-                backgroundColor: "#fff",
-                border: "1px solid #004573",
-                width: "130px",
-                color: "#004573",
-              }}
-            >
-              Fermer
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </>
-      {/* modal fin ajouter user */}
+            </Form.Group>
+          </div>
+          <div className="d-flex justify-content-around" style={{ gap: '10px' }}>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput5">
+              <Form.Label>Categorie</Form.Label>
+              <Form.Select
+                aria-label="Default select example"
+                value={userData.categorie_id}
+                onChange={(e) => {
+                  setUserData({
+                    ...userData,
+                    categorie_id: e.target.value,
+                  });
+                }}
+              >
+                <option>Choisir une catégorie</option>
+                {categories &&
+                  categories.map((cat, index) => (
+                    <option key={index} value={cat.id}>
+                      {cat.nom}
+                    </option>
+                  ))}
+              </Form.Select>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput6">
+              <Form.Label>Entreprise</Form.Label>
+              <Form.Select
+                aria-label="Default select example"
+                value={userData.entreprise_id}
+                onChange={(e) => {
+                  setUserData({
+                    ...userData,
+                    entreprise_id: e.target.value,
+                  });
+                }}
+              >
+                <option>Choisir une entreprise</option>
+                {entreprises &&
+                  entreprises.map((entrepriseel, index) => (
+                    <option key={index} value={entrepriseel.id}>
+                      {entrepriseel.nom}
+                    </option>
+                  ))}
+              </Form.Select>
+            </Form.Group>
+          </div>
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button
+          variant="secondary"
+          onClick={ajouterUser}
+          style={{
+            backgroundColor: "#004573",
+            border: "none",
+            width: "130px",
+          }}
+        >
+          Ajouter
+        </Button>
+        <Button
+          variant="primary"
+          onClick={handleCloseEdit}
+          style={{
+            backgroundColor: "#fff",
+            border: "1px solid #004573",
+            width: "130px",
+            color: "#004573",
+          }}
+        >
+          Fermer
+        </Button>
+      </Modal.Footer>
+    </Modal>
+      {/*************************** * modal fin ajouter user *****************************************************/}
 
       {/* modal debut modifier user */}
       <Modal
@@ -1337,45 +1361,6 @@ const handleShowUserDetails = async (user) => {
         <Modal.Title>Evaluation reçu</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {/* first */}
-       
-          {/* <div>
-            {userQuestionsAndAnswers && userQuestionsAndAnswers.length > 0 ? (
-            
-            Object.keys(userQuestionsAndAnswers?.[0] ?? {}).map((key, index) => {
-              const item = userQuestionsAndAnswers?.[0]?.[key];
-
-              return (
-                <div key={index} className="card mb-3">
-                  <div className="card-body">
-                    <p className="card-text"><strong>Commentaire:</strong> {item?.commentaire}</p>
-                    <p className="card-text"><strong>Niveau:</strong> {item?.niveau}</p>
-                    <p className="card-text"><strong>Évaluation:</strong> {item?.evaluation.titre}</p>
-                    <p className="card-text"><strong>Évaluateur:</strong> {item?.user.prenom} {item?.user.nom}</p>
-                    {item?.questions_reponses?.map((qr, qrIndex) => (
-                      <div key={qrIndex} className="mt-2">
-                        <p className="card-text"><strong> {qrIndex + 1}-Réponse:</strong> {qr?.reponse?.reponse}</p>
-                        <p className="card-text"><strong >{qrIndex + 1}-Question:</strong> {qr?.reponse?.questions_evaluation?.nom}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              );
-            })
-          ) : (
-            <div className="card-body">
-              <p className="text-danger">Aucune évaluation reçue concernant cette personne.</p>
-            </div>
-          )}
-          
-            
-
-
-          </div> */}
-
-          {/* seconde */}
-
-          
           <div>
           {userQuestionsAndAnswers.length > 0 && userQuestionsAndAnswers.map((item, index) => {
                 return Object.keys(item).map((userId) => {
@@ -1399,12 +1384,13 @@ const handleShowUserDetails = async (user) => {
                                     </div>
                                 ))}
                                 <p className="card-text mt-3"><strong>Commentaire:</strong> {userData?.commentaire}</p>
-                                <p className="card-text"><strong>Niveau:</strong> {userData?.niveau}</p>
+                                {/* <p className="card-text"><strong>Niveau:</strong> {userData?.niveau}</p> */}
+                                <p className="card-text"><strong>Niveau:</strong> {getNiveauLabel(userData?.niveau)}</p>
                             </div>
                         </div>
                     );
                 });
-            })}
+          })}
            
           </div>
 
@@ -1412,6 +1398,9 @@ const handleShowUserDetails = async (user) => {
       </Modal.Body>
       
     </Modal>
+
+    </div>
+    )}
 
     </div>
   );

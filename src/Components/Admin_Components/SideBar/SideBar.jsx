@@ -5,7 +5,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import './SideBar.css';
 import { Button, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import logo from '../../../Images/LOGO_TYPE.png';
+import logo from '../../../Images/LOGO FOND BLANC.jpg';
 import { useAuth } from "../../../Pages/Auth/AuthContex";
 import { createContext } from 'react';
 import Swal from 'sweetalert2';
@@ -161,7 +161,7 @@ export default function SideBar({ isOpen, name, handleChangePath }) {
   };
   return (
     <div>
-       <div style={{ display: !isOpen ? "block" : "none", border:'none' }}>
+       <div className={`sidebar ${isOpen ? 'sidebar-closed' : ''}`}>
       <div className="contentOneSidebar">
         <div className="contentimage">
           <div className="d-flex justify-content-center ">

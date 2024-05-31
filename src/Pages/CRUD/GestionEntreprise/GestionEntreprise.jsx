@@ -12,9 +12,11 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { useAuth } from  '../../Auth/AuthContex'
 import Pagination from "../../../Components/User_Components/Pagination/Pagination";
+import LoadingBox from "../../../Components/LoadingBox/LoadingBox";
 // import Pagination from "../../Components/Pagination/Pagination";
 
 export default function GestionEntreprise() {
+  const [loading, setLoading] = useState(true);
   const [showEntreprise, setshowEntreprise] = useState(false);
   const [showEditModalEntreprises, setShowEditModaEntreprises] = useState(false);
 
@@ -64,6 +66,7 @@ export default function GestionEntreprise() {
           // Ajoutez la nouvelle maison à la liste existante
           console.log(response, 'response entreprise')
           setEntreprises([...entreprises, response.data]);
+          setLoading(false)
           // Réinitialisez les valeurs du formulaire après avoir ajouté la maison
           setEntrepriseData({
             nom: "",
@@ -102,6 +105,7 @@ export default function GestionEntreprise() {
           }
         );
         setEntreprises(response.data.entreprises);
+        setLoading(false)
 
         console.log(entreprises);
       }
@@ -140,6 +144,7 @@ export default function GestionEntreprise() {
           `http://localhost:8000/api/entreprise/update/${editentrepriseData.id}`,
           editentrepriseData,
           {
+            
             headers: {
               "Content-Type": "multipart/form-data",
               Authorization: `Bearer ${token}`,
@@ -154,6 +159,7 @@ export default function GestionEntreprise() {
               : entrepriseEl
           );
           setEntreprises(updatedEntreprises);
+          setLoading(false)
           handleCloseEditEntreprises();
           Swal.fire({
             icon: "success",
@@ -202,6 +208,7 @@ export default function GestionEntreprise() {
             (entrepriseEl) => entrepriseEl.id !== id
           );
           setEntreprises(updatedEntreprises);
+          setLoading(false)
                 Swal.fire({
                     icon: "success",
                     title: "Succès!",
@@ -251,6 +258,10 @@ const totalPaginationPages = Math.ceil(entreprises.length /  entrepriseParPage);
   
 
   return (
+    <div className="mt-4">
+      {loading ? (
+        <LoadingBox />
+         ) : (
     <div className="container">
       <div className="d-flex justify-content-between mt-5">
         <div>
@@ -318,7 +329,7 @@ const totalPaginationPages = Math.ceil(entreprises.length /  entrepriseParPage);
             </tr>
           </thead>
           <tbody>
-            {/* {currententreprises.map((entreprise) => ( key={entreprise.id} {entreprise.titre}{entreprise.description}*/}
+            
             {currentEntreprises && currentEntreprises.map((entreprise) => ( 
               <tr key={entreprise && entreprise.id} >
                 <td style={{ color: "black" }} >{entreprise && entreprise.nom}</td>
@@ -326,7 +337,6 @@ const totalPaginationPages = Math.ceil(entreprises.length /  entrepriseParPage);
                   <Button
                     variant="primary"
                     onClick={() => handleShowEditentreprises(entreprise)}
-                    // onClick={handleShowEditentreprises}
                     style={{
                       backgroundColor: "#fff",
                       border: "1px solid #004573",
@@ -379,17 +389,11 @@ const totalPaginationPages = Math.ceil(entreprises.length /  entrepriseParPage);
                   value={entrepriseData.nom}
                   onChange={(e) => {
                     setEntrepriseData({ ...entrepriseData, nom: e.target.value });
-                  //   validateField("titre", e.target.value);
                   }}
                   type="text"
                   placeholder=""
                 />
-                {/* {errors.titre && (
-                  <p className="error-message">{errors.titre}</p>
-                )}
-                {successeds.titre && (
-                  <p className="success-message">{successeds.titre}</p>
-                )} */}
+              
               </Form.Group>
 
               
@@ -481,5 +485,8 @@ const totalPaginationPages = Math.ceil(entreprises.length /  entrepriseParPage);
       </Modal>
       {/* modal fin modifier maison */}
     </div>
+ )}
+    </div>
   );
 }
+

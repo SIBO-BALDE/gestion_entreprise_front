@@ -181,13 +181,14 @@
 .ban_left_content_about{
     background-color: var(--principal);
     width: 100%;
-    height: 95%;
+    height: 80%;
     border-top-right-radius: 27%;
     border-bottom-right-radius: 27% ;
     border-right: 18px solid var(--principal);
     box-shadow: 0.4rem 0rem var(--seconde);
     border-right:5px solid var(--troisieme) ;
     margin-left: 30px;
+    margin-top: 50px;
      
 }
 /* **************************About about qui somme nous fin***************************** */
@@ -195,9 +196,6 @@
 
 /* **************************Nos objectifs debut***************************** */
 .objectif_content_flex{
-    /* display: flex; */
-    /* grid-template-columns: 40% 60%; */
-    /* justify-content: space-around; */
     display: grid;
     grid-template-columns: 30% 70%;
     margin: 0 auto !important;
@@ -215,8 +213,8 @@
 .content_main_midle_about3{
     border: 3px solid var(--seconde);
     background-color: var(--troisieme);
-    width: 220px ;
-    height: 220px;
+    width: 80px ;
+    height: 80px;
     transform: rotate(45deg);
     display: flex;
     justify-content: center;
@@ -226,8 +224,8 @@
 }
 .content_midle_about3{
     background-color: var(--principal);
-    width: 200px;
-    height: 200px;
+    width: 60px;
+    height: 60px;
     border-radius: 10px;
     display: flex;
     justify-content: center;
@@ -238,20 +236,20 @@
 .content_flex_midle_el{
     display: flex;
     align-items: center;
-    gap: 40px;
+    gap: 12px;
    
 }
 .icon_comment_figure{
     color: var(--troisieme);
     transform: rotate(-45deg);
-    font-size: 120px;
+    font-size: 50px;
 }
 
 .content_flex_midle_el_first, .content_flex_midle_el_thirth{
     border: 3px solid var(--seconde);
     color: var(--principal);
-    width:30px;
-    height: 30px;
+    width:20px;
+    height: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -259,22 +257,25 @@
     animation: rotate 5s linear infinite;
 }
 .top_content_first_objectif , .bottom_content_last_objectif{
-    margin-left: 166px;
+    margin-left: 65px;
     border: 3px solid var(--seconde);
     color: var(--principal);
-    width:30px;
-    height: 30px;
+    width:20px;
+    height: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-top-left-radius: 10px;
 }
+.top_content_first_objectif-icon , #top_content_first_objectif-icon{
+  font-size: 10px;
+}
 .top_content_first_objectif{
-    margin-bottom: 40px;
+    margin-bottom: 13px;
     animation: rotate 5s linear infinite;
 }
 .bottom_content_last_objectif{
-    margin-top: 40px;
+    margin-top: 10px;
     animation: rotate 5s linear infinite;
 }
 .text_design_header, .baraka_content, 
@@ -299,6 +300,38 @@
     to {
       transform: rotate(360deg); 
     }
+    }
+
+    .card-ojectif-main{
+      width: 50%;
+      height: 400px;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      padding: 30px;
+    }
+    .card-ojectif-main-line{
+      width: 80px;
+      border-bottom: 6px solid var(--principal);
+      color: var(--principal);
+    }
+    .card-ojectif-main-line2{
+      width: 80px;
+      border-bottom: 6px solid var(--seconde);
+      color: var(--principal);
+    }
+    .card-ojectif-main-line-titre{
+      color: var(--principal);
+    }
+    .card-ojectif-main-line-titre2{
+      color: var(--seconde);
+    }
+    .contain-main-card-obj{
+      display:flex ;
+      gap: 30px;
+      
+    }
+    .content-flex-card-main-check{
+      display: flex;
+      justify-content: space-around;
     }
 
     
@@ -351,110 +384,48 @@
 
 
 
+
 /* **************************Nos partenaire debut***************************** */
-@keyframes slider {
-    0%, 20%, 100%	{ left: 0 }
-    25%, 45%		{ left: -100% }
-    50%, 70%		{ left: -200% }
-    75%, 95%		{ left: -300% }
-  }
-  
-  .partenaire{
-      animation: scroll  40s linear infinite;
-      display: flex;
-      width: calc(250px * 14);
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-      overflow-x: auto;
-   
-  }
-  @keyframes scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(calc(-250px * 7))}
-  }
-  .Section_partenaire {
-    overflow-x: auto;
+
+
+
+
+/* Déplacez d'un nombre total de cartes * largeur de chaque carte */
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-300px * 6)); } 
 }
-  .contentpartner{
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-  }
-  .contentparternerimg{
-    width: 100px;
-    height: 80px;
-    margin-left: 10px;
-  }
-  .contentpatnermain{
-    width: 100%;
-    height: 60px;
-    display: flex;
+/* Cache la barre de défilement */
+.Section_partenaire {
+  overflow: hidden; 
+}
+/* 2 fois le nombre de cartes pour un défilement continu */
+.partenaire {
+  display: flex;
+  animation: scroll 40s linear infinite;
+  width: calc(300px * 12); 
+}
 
-  }
-  .card_partenaire {
-    width: 300px;
-    height: 170px;
-    background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    padding: 2em;
-    margin-bottom: 20px;
-  }
+.card_partenaire {
+  width: 300px;
+  height: 170px;
+  background-color: white;
+  box-shadow: rgba(228, 227, 227, 0.16) 0px 1px 4px;
+  padding: 2em;
+  margin-right: 20px;
+  border: 2px solid var(--principal);
+  border-radius: 10px;
   
-  
-  
-  .Section_partenaire p {
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-  }
-  .card_partenaire{
-    width: 300px;
-    height: 170px;
-    background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-    padding: 2em;
-    margin-right: 20px;
+}
 
-  }
-  
-  .card_partenaire img {
-    width: 120px;
-    height: 120px;
-    display: block;
-    margin: auto;
-  }
-  .card-partenaire-img{
-    width: 120px;
-    height: 120px;
-    display: block;
-    margin: auto;
-    border-radius: 5px;
+.card-partenaire-img {
+  width: 120px;
+  height: 120px;
+  display: block;
+  margin: auto;
+  border-radius: 5px;
+}
 
-  }
-  .position-content-relative-parent{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: calc(700px + 100px); ;
-    align-items: center;
-    justify-content: center;
-  }
- 
-  .text-relative-content h5{
-    font-size: 60px;
-    color: var(--seconde);
-    
-  }
-  .text-relative-content h6{
-    font-size: 20px;
-    color: var(--seconde);
-    padding-left: 20px;
-    
-  }
 /* **************************Nos partenaire fin***************************** */
 
 .svg-frame {

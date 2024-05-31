@@ -386,11 +386,10 @@ ul.timeline-list li:before {
 .cardtemoinhome{
     width: 230px;
     height: 345px;
+    margin-bottom: 20px;
     
   }
-  .cardtemoinhome:hover{
-    transform: scale(1.1);
-  }
+  
   #temoignages{
     margin-top: 5rem !important;
   }
@@ -409,7 +408,6 @@ ul.timeline-list li:before {
     width: 65% !important;
     height: 90% !important;
     border-radius: 50%;
-    /* border: 10px solid var(--troisieme); */
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
   }
   .cardtemoinhome2{
@@ -454,101 +452,43 @@ ul.timeline-list li:before {
     font-size: 12px;
     padding: 0 5px;
   }
-  .contenttemoignagehome {
-   
-    /* display: grid !important;
-    grid-template-columns: repeat(4, 1fr) !important;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-    width: 70%; 
-    height: auto;
-    margin: 0 auto;
-    border: 1px solid red; */
-    
-   
-  }
+ 
   .contenthome1{
    
     background-color:var(--troisieme);
-    margin: 40px 0;
+    /* margin: 40px 0; */
     padding-top: 0.2rem !important;
     padding-bottom: 5rem !important;
    
   }
 
-  @keyframes slider {
-    0%, 20%, 100%	{ left: 0 }
-    25%, 45%		{ left: -100% }
-    50%, 70%		{ left: -200% }
-    75%, 95%		{ left: -300% }
-  }
+  
   
   .contenttemoignagehome{
-      animation: scroll  40s linear infinite;
+     
       display: flex;
-      width: calc(250px * 14);
       justify-content: center;
       align-items: center;
-      flex-wrap: wrap;
       gap: 20px;
-      overflow-x: auto;
-     /* animation-fill-mode: forwards; */
       
     
   }
   .section_content_team {
-    overflow-x: auto;
+    overflow: hidden; 
 }
 
-  @keyframes scroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(calc(-250px * 7))}
-    
-  }
-  .Section_partenaire{
-    scrollbar-width: thin;
+  
+  /* Déplacez d'un nombre total de cartes * largeur de chaque carte */
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-300px * 6)); } 
+}
 
-    ::-webkit-scrollbar {
-        width: 0px;
-    }
-
-    ::-webkit-scrollbar-thumb {
-        background-color: #CCCCCC;
-        border-radius: 0px;
-        -webkit-border-radius: 0px;
-        -moz-border-radius: 0px;
-        -ms-border-radius: 0px;
-        -o-border-radius: 0px;
-    }
-
-    ::-moz-scrollbar {
-        width: 4px;
-    }
-
-    ::-moz-scrollbar-thumb {
-        background-color: #CCCCCC;
-        border-radius: 4px;
-    }
-
-    ::-ms-scrollbar {
-        width: 4px;
-    }
-
-    ::-ms-scrollbar-thumb {
-        background-color: #CCCCCC;
-        border-radius: 4px;
-    }
-  }
-
-  .Section_partenaire::-webkit-scrollbar-track {
-    height: 20px;
-    background-color: #FFB703;
-  }
-
-  .Section_partenaire::-webkit-scrollbar-thumb {
-    background-color: #FFB703;
-  }
+.contenttemoignagehome{
+  display: flex;
+  animation: scroll 40s linear infinite;
+  width: calc(300px * 12);
+}
 
   
 /* ************************** notre équipe  fin  ***************************** */

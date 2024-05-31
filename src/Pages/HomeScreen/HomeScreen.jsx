@@ -96,8 +96,8 @@ export default function HomeScreen() {
             </div>
             <div style={{marginLeft:'30px', height:'330px', width:'100%'}}>
                 <h3 style={{color:'white',fontWeight:'bold'}}>Vous aimerez faire une évaluation de vos équipes? <br />
-                    <span style={{color:'#FFB703'}}>BARAKA GATE</span> est la solution</h3>
-                    <p style={{color:'white', textAlign:'justify'}} className='mt-4'>BARAKA GATE offre une plateforme d'évaluation en ligne novatrice pour 
+                    <span style={{color:'#FFB703'}}>MY FEEDBACK360</span> est la solution</h3>
+                    <p style={{color:'white', textAlign:'justify'}} className='mt-4'>MY FEEDBACK360 offre une plateforme d'évaluation en ligne novatrice pour 
                        les entreprises désireuses de favoriser un environnement de travail
                        collaboratif et axé sur l'amélioration continue. Grâce à son expertise 
                        dans le domaine de l'évaluation des équipes, Byfeeding propose une solution 
@@ -453,7 +453,7 @@ export default function HomeScreen() {
                     <Image src={baraka15} className='cardtemoinhome1img' />
                 </div>
                 <div className='cardtemoinhome2'>
-                            <h6 className='text-center title-temoinhome text-light'>Saoudatou Diallo</h6>
+                            <h6 className='text-center title-temoinhome text-light'>Souadou DIALLO</h6>
                             <p className='text-center text-light paratextcontenthome'>Miss Linguere</p>
                             <div className='d-flex justify-content-center pb-5'>
                                 <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>
@@ -512,6 +512,137 @@ export default function HomeScreen() {
                 </div>
 
                 </div>
+
+                {/* duplicate */}
+
+                <div  className='cardtemoinhome'>
+                    <div className='cardtemoinhome1'>
+                    <Image src={baraka6} className='cardtemoinhome1img' />
+                    </div>
+                        <div className='cardtemoinhome2'>
+                            <h6 className='text-center title-temoinhome text-light'>Gaïus YOKOSSID</h6>
+                            <p className='text-center text-light paratextcontenthome'>M. Baraka</p>
+                            <div className='d-flex justify-content-center pb-5'>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faTwitter} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faInstagram} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faLinkedinIn} className='' /></div>
+                            </div>
+                        </div>
+                </div>
+                <div  className='cardtemoinhome'>
+                    <div className='cardtemoinhome1'>
+                    <Image src={baraka13} className='cardtemoinhome1img' />
+                    </div>
+                        <div className='cardtemoinhome2'>
+                            <h6 className='text-center title-temoinhome text-light'>Carine KOKODE</h6>
+                            <p className='text-center text-light paratextcontenthome'>Miss Success</p>
+                            <div className='d-flex justify-content-center pb-5'>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faTwitter} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faInstagram} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faLinkedinIn} className='' /></div>
+                            </div>
+                        </div>
+                </div>
+                <div  className='cardtemoinhome'>
+                    <div className='cardtemoinhome1'>
+                    <Image src={baraka12} className='cardtemoinhome1img' />
+                    </div>
+                        <div className='cardtemoinhome2'>
+                            <h6 className='text-center title-temoinhome text-light'>Isaac WODE</h6>
+                            <p className='text-center text-light paratextcontenthome'>M. Joy</p>
+                            <div className='d-flex justify-content-center pb-5'>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faTwitter} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faInstagram} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faLinkedinIn} className='' /></div>
+                            </div>
+                        </div>
+                </div>
+                <div  className='cardtemoinhome'>
+                <div className='cardtemoinhome1'>
+                    <Image src={baraka15} className='cardtemoinhome1img' />
+                </div>
+                <div className='cardtemoinhome2'>
+                            <h6 className='text-center title-temoinhome text-light'>Souadou DIALLO</h6>
+                            <p className='text-center text-light paratextcontenthome'>Miss Linguere</p>
+                            <div className='d-flex justify-content-center pb-5'>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faTwitter} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faInstagram} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faLinkedinIn} className='' /></div>
+                            </div>
+                </div>
+
+                </div>
+                <div  className='cardtemoinhome'>
+                <div className='cardtemoinhome1'>
+                    <Image src={baraka14} className='cardtemoinhome1img' />
+                </div>
+                <div className='cardtemoinhome2'>
+                            <h6 className='text-center title-temoinhome text-light'>Jolin CADET</h6>
+                            <p className='text-center text-light paratextcontenthome'>Mister Smart</p>
+                            <div className='d-flex justify-content-center pb-5'>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faTwitter} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faInstagram} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faLinkedinIn} className='' /></div>
+                            </div>
+                </div>
+
+                </div>
+                
+                <div  className='cardtemoinhome'>
+                <div className='cardtemoinhome1'>
+                    <Image src={baraka14} className='cardtemoinhome1img' />
+                </div>
+                <div className='cardtemoinhome2'>
+                            <h6 className='text-center title-temoinhome text-light'>Jolin CADET</h6>
+                            <p className='text-center text-light paratextcontenthome'>Mister Smart</p>
+                            <div className='d-flex justify-content-center pb-5'>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faTwitter} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faInstagram} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faLinkedinIn} className='' /></div>
+                            </div>
+                </div>
+
+                </div>
+                <div  className='cardtemoinhome'>
+                <div className='cardtemoinhome1'>
+                    <Image src={baraka14} className='cardtemoinhome1img' />
+                </div>
+                <div className='cardtemoinhome2'>
+                            <h6 className='text-center title-temoinhome text-light'>Jolin CADET</h6>
+                            <p className='text-center text-light paratextcontenthome'>Mister Smart</p>
+                            <div className='d-flex justify-content-center pb-5'>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faTwitter} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faInstagram} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faLinkedinIn} className='' /></div>
+                            </div>
+                </div>
+
+                </div>
+                <div  className='cardtemoinhome'>
+                <div className='cardtemoinhome1'>
+                    <Image src={baraka14} className='cardtemoinhome1img' />
+                </div>
+                <div className='cardtemoinhome2'>
+                            <h6 className='text-center title-temoinhome text-light'>Jolin CADET</h6>
+                            <p className='text-center text-light paratextcontenthome'>Mister Smart</p>
+                            <div className='d-flex justify-content-center pb-5'>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faFacebookF} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faTwitter} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faInstagram} className='' /></div>
+                                <div className='cardtemoinsociau'><FontAwesomeIcon icon={faLinkedinIn} className='' /></div>
+                            </div>
+                </div>
+
+                </div>
+
+                
                 
                 
         

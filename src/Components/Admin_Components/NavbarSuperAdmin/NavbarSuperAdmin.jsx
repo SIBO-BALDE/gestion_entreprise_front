@@ -1,22 +1,25 @@
-
-import React from 'react'
-
+import React, { useState } from 'react';
 import './NavbarSuperAdmin.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faBell } from '@fortawesome/free-solid-svg-icons';
 
-// passer en props
-export default function NavbarSuperAdmin({ onMenuClick }) {
+export default function NavbarSuperAdmin({ onMenuClick, onHideSidebar }) {
  
+
+  const handleHideSidebar = () => {
+    onHideSidebar();
+    
+  };
+
   return (
-  <div className="mainContent " >
-  <div className="mainContentLeft" onClick={onMenuClick}>
-    <FontAwesomeIcon icon={faBars} className='ms-3' />
-  </div>
-  <div className="mainContentRight">
-  <FontAwesomeIcon icon={faBell} className='me-3' />
-  </div>
-</div>
-  )
+    <div className={`mainContent`}>
+      <div className="mainContentLeft" onClick={onMenuClick}>
+        <FontAwesomeIcon icon={faBars} className='ms-3 mainContentRight-icon1' />
+      </div>
+      <div className="mainContentRight">
+        <FontAwesomeIcon icon={faBell} className='mainContentRight-icon' />
+      </div>
+    </div>
+  );
 }
 

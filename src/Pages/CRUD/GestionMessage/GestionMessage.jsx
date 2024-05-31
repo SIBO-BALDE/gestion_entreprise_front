@@ -19,39 +19,43 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Pagination from "../../../Components/User_Components/Pagination/Pagination";
+import './GsetionMessage.css';
+import LoadingBox from "../../../Components/LoadingBox/LoadingBox";
 
 
 
 export default function GestionMessage({ id }) {
 
+  const [loading, setLoading] = useState(true);
 
   const [messages, setMessages] = useState([]);
    //  Lister les message
 
+   const fetchMessage= async () => {
+     const role = localStorage.getItem("rolecle");
+     const token = localStorage.getItem("tokencle");
+     try {
+       if (token || role === "Admin") {
+         const response = await axios.get(
+           "http://localhost:8000/api/contactes",
+           {
+             headers: {
+               Authorization: `Bearer ${token}`,
+             },
+           }
+         );
+         console.log(response, 'responmessage')
+         const tab=response.data.Contactes
+         console.log(tab, 'tab message')
+         setMessages(response.data.Contactes);
+         setLoading(false)
+         console.log(messages, 'messages apres');
+       }
+     } catch (error) {
+       console.error("Erreur lors de la récupération des catégories:", error);
+     }
+   };
   useEffect(() => {
-    const fetchMessage= async () => {
-      const role = localStorage.getItem("rolecle");
-      const token = localStorage.getItem("tokencle");
-      try {
-        if (token || role === "Admin") {
-          const response = await axios.get(
-            "http://localhost:8000/api/contactes",
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          console.log(response, 'responmessage')
-          const tab=response.data.Contactes
-          console.log(tab, 'tab message')
-          setMessages(response.data.Contactes);
-          console.log(messages, 'messages apres');
-        }
-      } catch (error) {
-        console.error("Erreur lors de la récupération des catégories:", error);
-      }
-    };
     fetchMessage();
   }, []);
 
@@ -96,6 +100,8 @@ export default function GestionMessage({ id }) {
                 });
             }
         });
+        fetchMessage();
+        setLoading(false)
         } else {
           console.error("Erreur lors de la suppression de la catégorie");
         }
@@ -115,8 +121,8 @@ const handleSearchChange = (nom) => {
 const filteredMessage = messages.filter(
   (messageel) =>
     messageel &&
-    messageel.created_at &&
-    messageel.created_at.toLowerCase().includes(searchValue.toLowerCase())
+    messageel.nom &&
+    messageel.nom.toLowerCase().includes(searchValue.toLowerCase())
 );
 const displayMessages= searchValue === "" ? messages : filteredMessage;
 
@@ -167,6 +173,10 @@ const formatDate = (createdAt) => {
 
 
   return (
+    <div className="mt-4">
+      {loading ? (
+        <LoadingBox />
+         ) : (
     <div className="container">
       <div className="d-flex justify-content-between mt-5">
         <div>
@@ -208,7 +218,7 @@ const formatDate = (createdAt) => {
             id="hearder-color"
             style={{ backgroundColor: "#004573" }}>
             <tr>
-              <th style={{ backgroundColor: "#004573", color: "#fff" }}>Nom Prenom</th>
+              <th style={{ backgroundColor: "#004573", color: "#fff" }}>Prenom Nom</th>
               <th style={{ backgroundColor: "#004573", color: "#fff" }}>Email</th>
               <th className="d-flex  justify-content-center "style={{backgroundColor: "#004573",color: "#fff",marginLeft: "3rem", }}>Action</th>
             </tr>
@@ -268,8 +278,8 @@ const formatDate = (createdAt) => {
             <div className=" profile-header">
               <div className="body">
                 
-                <div className="  devi-content-main-detail">
-                  <div className="col-lg-4 col-md-4 col-12 " style={{ border:'1px solid green'}}>
+                <div className="devi-content-main-detail_message">
+                  <div className="col-lg-4 col-md-4 col-12 CONTENT2 " >
                     <div className="profile-image float-md-right d-flex justify-content-center  
                     align-content-center align-items-center" style={{width:'150px',
                     height:'150px',
@@ -280,39 +290,35 @@ const formatDate = (createdAt) => {
                         height:'100px', color:'#004573'}}/>
                     </div>
                   </div>
-                  <div className="col-lg-8 col-md-8 col-12 lg  CONTENT1" style={{paddingLeft:'50px', border:'1px solid red'}}>
-                    
-                    <h4 className="m-t-0 m-b-0  mt-2">
+                 
+                  <div className="col-lg-8 col-md-8 col-12 lg  CONTENT1" >
+                  <div className="card p-3" style={{borderRight:'5px solid #004573'}}>
+                    <div className="two_content_detail">
+                    <h6 className="m-t-0 m-b-0  mt-2">
                         <span><FontAwesomeIcon icon={faUser} style={{color:'#004573',marginRight:'10px'}} /> </span>
                       <strong>{ selectedMessage && selectedMessage.prenom} { selectedMessage && selectedMessage.nom} </strong>
-                    </h4>
-                    <h4 className="m-t-0 m-b-0  mt-2">
+                    </h6>
+                    <h6 className="m-t-0 m-b-0  mt-2">
                         <span><FontAwesomeIcon icon={faEnvelope} style={{color:'#004573',marginRight:'10px'}} /> </span>
                       <strong>{ selectedMessage && selectedMessage.email} </strong>
-                    </h4>
-                    <h4 className="m-t-0 m-b-0  mt-2">
-                        <span><FontAwesomeIcon icon={faPhone} style={{color:'#004573',marginRight:'10px'}} /> </span>
-                      <strong>{ selectedMessage && selectedMessage.numeroTelephone} </strong>
-                    </h4>
-                    <h4 className="m-t-0 m-b-0  mt-2">
-                        <span><FontAwesomeIcon icon={faBuilding} style={{color:'#004573',marginRight:'10px'}} /> </span>
-                      <strong>{ selectedMessage && selectedMessage.entreprise} </strong>
-                    </h4>
-                    <h4 className="m-t-0 m-b-0  mt-2">
-                        <span><FontAwesomeIcon icon={faUser} style={{color:'#004573',marginRight:'10px'}} /> </span>
-                      <strong>{ selectedMessage && selectedMessage.poste} </strong>
-                    </h4>
-                    <h4 className="m-t-0 m-b-0 mt-2">
+                    </h6>
+                    </div>
+                    <h6 className="m-t-0 m-b-0 mt-2">
                     <span><FontAwesomeIcon icon={faCalendarDay} style={{color:'#004573',marginRight:'10px'}} /> </span>
                       <strong>{formatDate( selectedMessage && selectedMessage.created_at)} </strong>
-                    </h4>
-                    <p className=" mt-2">
+                    </h6>
+
+                  </div>
+                  <p>Message:</p>
+                  <div className="card" style={{borderRight:'5px solid #004573'}}>
+                      <p className=" mt-2">
                     <span style={{color:'#004573',marginRight:'10px', fontSize:'25px'}}>
-                    <FontAwesomeIcon icon={faComment} />
+                    {/* <FontAwesomeIcon icon={faComment} /> */}
                     
                     </span>
                    { selectedMessage && selectedMessage.message}
                       </p>
+                  </div>
                   </div>
                 </div>
               </div>
@@ -324,6 +330,9 @@ const formatDate = (createdAt) => {
     </Modal>
 
   
+    </div>
+    )}
+
     </div>
   );
 }

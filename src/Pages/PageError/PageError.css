@@ -41,6 +41,11 @@
       height: 100%;
 
     }
+    .error-container{
+      display: grid;
+      grid-template-columns: 50% 50%;
+
+    }
     
     #cog3 {fill:var(--principal)}
     
@@ -95,5 +100,5 @@
     
     .error-desc {
         color:black;
-        padding-top: 270px;
+        /* padding-top: 270px; */
     }

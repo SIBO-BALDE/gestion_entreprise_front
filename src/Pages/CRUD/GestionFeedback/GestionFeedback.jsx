@@ -5,8 +5,10 @@ import React, { useEffect, useState } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
 import Swal from 'sweetalert2';
 import Pagination from '../../../Components/User_Components/Pagination/Pagination';
+import LoadingBox from '../../../Components/LoadingBox/LoadingBox';
 
 export default function GestionFeedback() {
+  const [loading, setLoading] = useState(true);
  // ajout function modal
     const [showEvent, setShowEvent] = useState(false);
    
@@ -49,6 +51,7 @@ export default function GestionFeedback() {
             );
             console.log(response , 'liste')
             setEvents(response.data.evenements);
+            setLoading(false)
     
             console.log(events);
           }
@@ -101,6 +104,7 @@ const ajouterQuestion = async (e) => {
           if (response.status === 200) {
             console.log(response ,'res question admin')
             setQuestions([...questions, response.data]);
+            setLoading(false)
             console.log(response.data, 'response question')
             setQuestionData({
               nom: "",
@@ -145,7 +149,7 @@ const ajouterQuestion = async (e) => {
 
 
         //  Lister les qestion
-        const fetchQuestions = async () => {
+  const fetchQuestions = async () => {
             const role = localStorage.getItem("rolecle");
             const token = localStorage.getItem("tokencle");
             try {
@@ -159,6 +163,7 @@ const ajouterQuestion = async (e) => {
                   }
                 );
                 setQuestions(response.data.Questionsfeedback);
+                setLoading(false)
                 const kest = response.data.Questionsfeedback
                 console.log(kest , 'kest');
         
@@ -169,9 +174,9 @@ const ajouterQuestion = async (e) => {
             }
           };
         
-          useEffect(() => {
-            fetchQuestions();
-          }, []);
+  useEffect(() => {
+  fetchQuestions();
+  }, []);
 
 
 
@@ -183,6 +188,7 @@ const ajouterQuestion = async (e) => {
       evenement_id: "",
     });
 
+   
     const modifierQuestion = async (id) => {
       const token = localStorage.getItem('tokencle');
       const role = localStorage.getItem('rolecle');
@@ -191,13 +197,13 @@ const ajouterQuestion = async (e) => {
         Swal.fire({
           icon: "error",
           title: "Oops!",
-          text: "les champs sont  obligatoires!",
+          text: "Les champs sont obligatoires!",
         });
         return;
       }
     
       try {
-        if (token || role === "Admin") {
+        if (token && role === "Admin") {
           const response = await axios.post(
             `http://localhost:8000/api/questionsfeedback/update/${editQuestionData.id}`,
             editQuestionData,
@@ -210,56 +216,48 @@ const ajouterQuestion = async (e) => {
           );
     
           if (response.status === 200) {
-            const updatedQuestion = questions.map((quesk) =>
-              quesk.id === editQuestionData.id ? response.data.questionsfeedback : quesk
+            const updatedQuestion = response.data.questionsfeedback;
+            // Mettez à jour l'état des questions en remplaçant l'ancienne question par la nouvelle
+            setQuestions((prevQuestions) =>
+              prevQuestions.map((quesk) =>
+                quesk.id === editQuestionData.id ? updatedQuestion : quesk
+              )
             );
     
-            setQuestions(updatedQuestion); 
+            setLoading(false);
+            fetchQuestions();
     
             Swal.fire({
               icon: "success",
               title: "Succès!",
-              text: "question mise à jour avec succès!",
+              text: "Question mise à jour avec succès!",
             });
     
             handleCloseFeedsEdit();
           } else {
-            console.error("Erreur lors de la modification de la user");
+            console.error("Erreur lors de la modification de la question");
           }
         }
       } catch (error) {
         console.error("Erreur Axios:", error);
       }
     };
-
-      
-
-
-
-
-  const handleShowEditQuestion = (quesk) => {
-    if (quesk && quesk.evenement_id) {
-      setEditQuestionData({
-        id: quesk.id,
-        nom: quesk.nom,
-        evenement_id: quesk.evenement_id,
-      });
-      setShowEventEdit(true);
-      console.log(quesk.id, "quesk id")
-      console.log(editQuestionData.id, "editquestiondata id")
-    } else {
-      console.error("question non définie pour la question à modifier.");
-      // Autres actions nécessaires en cas d'erreur...
-    }
-  };
-  
- 
-
-
-         
-          
     
-          const [searchValue, setSearchValue] = useState("");
+    const handleShowEditQuestion = (quesk) => {
+      if (quesk && quesk.evenement_id) {
+        setEditQuestionData({
+          id: quesk.id,
+          nom: quesk.nom,
+          evenement_id: quesk.evenement_id,
+        });
+        setShowEventEdit(true);
+      } else {
+        console.error("Question non définie pour la question à modifier.");
+      }
+    };
+    
+      
+    const [searchValue, setSearchValue] = useState("");
 
     // function la recherche
     const handleSearchChangeF = (nom) => {
@@ -320,6 +318,7 @@ const ajouterQuestion = async (e) => {
           );
   
           setQuestions(updatedQuestion);
+          setLoading(false)
                 Swal.fire({
                     icon: "success",
                     title: "Succès!",
@@ -342,6 +341,10 @@ const ajouterQuestion = async (e) => {
 
 
   return (
+    <div className='' style={{marginTop:'60px'}}>
+    {loading ? (
+      <LoadingBox />
+       ) : (
     <div>
       
       <div className="mt-4 ms-3  me-3">
@@ -571,55 +574,35 @@ const ajouterQuestion = async (e) => {
           <Modal.Title>Modifier la question</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          
           {editQuestionData && editQuestionData.nom && (
             <Form>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
+              <Form.Group className="mb-3">
+                <Form.Label>Nom</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={editQuestionData.nom}
+                  onChange={(e) =>
+                    setEditQuestionData({ ...editQuestionData, nom: e.target.value })
+                  }
+                />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Evenements</Form.Label>
+                <Form.Select
+                  value={editQuestionData.evenement_id}
+                  onChange={(e) =>
+                    setEditQuestionData({ ...editQuestionData, evenement_id: e.target.value })
+                  }
                 >
-                  <Form.Label>Nom</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder=""
-                    value={editQuestionData.nom}
-                    onChange={(e) => {
-                      setEditQuestionData({
-                        ...editQuestionData,
-                        nom: e.target.value,
-                      });
-                     
-                    }}
-                  />
-                  </Form.Group>
-                  
-                  <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
-                  <Form.Label>Evenements</Form.Label>
-                  <Form.Select
-                      aria-label="Default select example"
-                      value={editQuestionData.evenement_id}
-                      onChange={(e) => {
-                        setEditQuestionData({
-                          ...editQuestionData,
-                          evenement_id: e.target.value,
-                        });
-                      }}
-                    >
-                    <option>Choisir une feeback</option>
-                    {events &&
-                      events.map((feed, index) => {
-                        return (
-                          <option key={index} value={feed.id}>
-                            {feed.titre}
-                          </option>
-                        );
-                      })}
-                  </Form.Select>
-                  </Form.Group>
-              
-              
+                  <option>Choisir une feedback</option>
+                  {events && events.map((feed, index) => (
+                    <option key={index} value={feed.id}>
+                      {feed.titre}
+                    </option>
+                  ))}
+                </Form.Select>
+              </Form.Group>
             </Form>
           )}
         </Modal.Body>
@@ -659,6 +642,9 @@ const ajouterQuestion = async (e) => {
 
 
 
+
+    </div>
+  )}
 
     </div>
   )

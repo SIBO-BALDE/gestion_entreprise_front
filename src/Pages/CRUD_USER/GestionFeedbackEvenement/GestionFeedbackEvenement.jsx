@@ -6,9 +6,11 @@ import { Button, Form, Modal } from 'react-bootstrap'
 import Swal from 'sweetalert2';
 import { useAuth } from '../../Auth/AuthContex';
 import Pagination from '../../../Components/User_Components/Pagination/Pagination';
+import LoadingBox from '../../../Components/LoadingBox/LoadingBox';
 
 
 export default function GestionFeedbackEvenement() {
+  const [loading, setLoading] = useState(true);
   const { handleSubmission } = useAuth();
 
   const [showAdd, setShowAdd] = useState(false);
@@ -134,6 +136,7 @@ export default function GestionFeedbackEvenement() {
   
         // Vérifier si toutes les réponses ont été ajoutées avec succès
         const isSuccess = responsesArray.every(response => response.status === 200);
+        setLoading(false)
        
   
         if (isSuccess) {
@@ -189,6 +192,7 @@ export default function GestionFeedbackEvenement() {
         );
         console.log(response , 'liste')
         setEvents(response.data.evenements);
+        setLoading(false)
 
         console.log(events);
       }
@@ -221,6 +225,7 @@ export default function GestionFeedbackEvenement() {
         }
       );
       setEventQuestions(response.data.questions); 
+      setLoading(false)
       const varelement = response.data.questions
       console.log(varelement, 'tableau reponse data')
       console.log(eventQuestions, 'eventQuestions')
@@ -247,7 +252,7 @@ const handleSearchChange = (event) => {
   
   
     const [currentPage, setCurrentPage] = useState(1);
-  const  eventsParPage= 3;
+  const  eventsParPage= 5;
   
   // pagination
   const indexOfLastEvent = currentPage* eventsParPage;
@@ -263,6 +268,10 @@ const handleSearchChange = (event) => {
   
   
   return (
+    <div>
+      {loading ? (
+        <LoadingBox />
+         ) : (
     <div>
        <div className="d-flex justify-content-between mt-5">
         
@@ -357,23 +366,23 @@ const handleSearchChange = (event) => {
           id="buttonAjouter"
         >
           <Modal.Header closeButton>
-            <Modal.Title>Donner un feedback à un événement</Modal.Title>
+          <Modal.Title>Donner un feedback à un événement</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
-                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              {eventQuestions.map((question) => ( // Utiliser eventQuestions au lieu de questions
-                <div key={question.id}>
-                  <h6 className='mt-3'> {question.id}-{question.nom} ?</h6>
-                  <Form.Control
-                    type="text"
-                    placeholder=""
-                    value={responses[question.id] || ''}
-                    onChange={(e) => handleResponseChange(question.id, e.target.value)}
-                  />
-                </div>
-              ))}
-</Form.Group>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                  {eventQuestions.map((question) => ( // Utiliser eventQuestions au lieu de questions
+                    <div key={question.id}>
+                      <h6 className='mt-3'> {question.id}-{question.nom} ?</h6>
+                      <Form.Control
+                        type="text"
+                        placeholder=""
+                        value={responses[question.id] || ''}
+                        onChange={(e) => handleResponseChange(question.id, e.target.value)}
+                      />
+                    </div>
+                  ))}
+              </Form.Group>
 
             </Form>
           </Modal.Body>
@@ -404,6 +413,9 @@ const handleSearchChange = (event) => {
           </Modal.Footer>
         </Modal>
       </>
+    </div>
+    )}
+
     </div>
   );
 }
