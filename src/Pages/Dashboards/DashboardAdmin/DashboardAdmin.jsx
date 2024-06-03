@@ -28,6 +28,8 @@ import Chart2 from "../../../Components/Admin_Components/Chart/Chart2";
 import AbonnementUser from "../../CRUD/AbonnementUser/AbonnementUser";
 import LoadingBox from "../../../Components/LoadingBox/LoadingBox";
 import ClassificationChart from "../../../Components/Admin_Components/Chart/ClassificationChart";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBuilding } from "@fortawesome/free-solid-svg-icons";
 
 
 
@@ -59,7 +61,7 @@ function KPI() {
       setCategories(response.data.categories);
       setLoading(false)
 
-      console.log(categories);
+      // console.log(categories);
     }
   } catch (error) {
     console.error("Erreur lors de la récupération des catégories:", error);
@@ -111,9 +113,9 @@ useEffect(() => {
         );
         setUsers(response.data.participants);
         setLoading(false)
-        console.log(response, 'response. user admin')
+        // console.log(response, 'response. user admin')
 
-        console.log(users ,'ici users du users');
+        // console.log(users ,'ici users du users');
       }
     } catch (error) {
       console.error("Erreur lors de la récupération des catégories:", error);
@@ -140,11 +142,11 @@ useEffect(() => {
              },
            }
          );
-         console.log(response , 'liste')
+        //  console.log(response , 'liste')
          setEvents(response.data.evenements);
          setLoading(false)
  
-         console.log(events);
+        //  console.log(events);
        }
      } catch (error) {
        console.error("Erreur lors de la récupération des catégories:", error);
@@ -234,7 +236,7 @@ useEffect(() => {
       );
       setReponsesQuestion(response.data);
       setLoading(false)
-      console.log(response, 'rq dasboar admin')
+      // console.log(response, 'rq dasboar admin')
       
       
     } catch (error) {
@@ -274,8 +276,7 @@ useEffect(() => {
             Authorization: `Bearer ${token}`,
           },
         });
-        setClassificationData(response.data);
-        console.log(response,'reponse chart')
+        setClassificationData(response.data.classification); // Extraire correctement les données de classification
       } catch (error) {
         setError("Erreur lors de la récupération des données");
       } finally {
@@ -308,11 +309,14 @@ useEffect(() => {
           
         </div>
         <div className="">
-          <div className="d-flex justify-center">
-         <div> <Chart /></div>
+          <div className="d-flex justify-center diagram-main-contain-dasboadadmin">
+         {/* <div> <Chart /></div>
           <div><Chart1 /></div>
-          <div><Chart2 /></div>
-          {/* <ClassificationChart classificationData={classificationData} /> */}
+          <div><Chart2 /></div> */}
+          <ClassificationChart classificationData={classificationData} />
+          {/* <div><h3>cc</h3></div> */}
+          <div><Chart2 /></div> 
+          
           </div>
         </div>
         

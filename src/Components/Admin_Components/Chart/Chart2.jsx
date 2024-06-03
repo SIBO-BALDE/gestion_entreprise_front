@@ -1,63 +1,113 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 import 'chartjs-plugin-datalabels';
+import axios from 'axios';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export const data = {
-  labels: ['Projet1', 'Projet2', 'Autres 3'],
-  datasets: [
-    {
-      data: [30, 20, 50],
-      backgroundColor: [
-        'rgba(75, 192, 192, 0.2)',  // Couleur 1
-        'rgba(255, 99, 132, 0.2)',  // Couleur 2
-        'rgba(255, 206, 86, 0.2)',  // Couleur 3
-      ],
-      borderColor: [
-        'rgba(75, 192, 192, 1)',  // Bordure 1
-        'rgba(255, 99, 132, 1)',  // Bordure 2
-        'rgba(255, 206, 86, 1)',  // Bordure 3
-      ],
-      borderWidth: 1,
-    },
-  ],
-};
+const Chart2 = () => {
+  const [data, setData] = useState({
+    labels: ['Évalué', 'Non Évalué'],
+    datasets: [
+      {
+        data: [0, 0],
+        backgroundColor: [
+          'rgba(0, 69, 115, 0.2)',  // Couleur 1
+          'rgba(255, 183, 3, 0.2)',  // Couleur 2
+        ],
+        borderColor: [
+          'rgba(0, 69, 115, 1)',  // Bordure 1
+          'rgba(255, 183, 3, 1)',  // Bordure 2
+        ],
+        borderWidth: 1,
+      },
+    ],
+  });
 
-const options = {
-  aspectRatio: 1.5, // Ajuste la hauteur du graphique
-  cutout: '77%',
-  plugins: {
-    legend: {
-      position: 'bottom', // Positionne la légende en bas
-    },
-    labels: {
-      font: {
-        size: 15, // Ajustez la taille de la police ici
+  const options = {
+    aspectRatio: 1.5,
+    cutout: '77%',
+    plugins: {
+      legend: {
+        position: 'bottom',
+      },
+      datalabels: {
+        color: 'red',
+        font: {
+          size: 12,
+        },
+        formatter: (value) => {
+          return Math.round(value) + '%';
+        },
       },
     },
-    datalabels: {
-      color: 'red', // Couleur du texte
-      font: {
-        size: 12, // Taille de la police du texte
-      },
-      formatter: (value, context) => {
-        return context.dataIndex + ': ' + Math.round(value) + '%';
+    layout: {
+      padding: {
+        top: 30,
       },
     },
-  },
-  layout: {
-    padding: {
-      top: 30, // Ajoute une marge supérieure de 20 pixels
-    },
-  },
-};
+  };
 
-export default function Chart2() {
+  useEffect(() => {
+    const fetchData = async () => {
+      const token = localStorage.getItem('tokencle');
+      const role = localStorage.getItem('rolecle');
+      const config = {
+        headers: { Authorization: `Bearer ${token}` }
+      };
+      try {
+        if (token || role === 'Admin') {
+          const totalResponse = await axios.get('http://localhost:8000/api/participants', config);
+          const evaluatedResponse = await axios.get('http://localhost:8000/api/listes/total/utlisateur/evaluer', config);
+
+          console.log('Total response data:', totalResponse.data);
+          console.log('Evaluated response data:', evaluatedResponse.data);
+
+          const totalParticipants = totalResponse.data.participants.length; // Utilise la longueur du tableau
+          const evaluatedParticipants = evaluatedResponse.data.evaluatedUsers.length; // Utilise la longueur du tableau
+
+          console.log('Total participants:', totalParticipants);
+          console.log('Evaluated participants:', evaluatedParticipants);
+
+          if (totalParticipants !== undefined && evaluatedParticipants !== undefined) {
+            const nonEvaluatedParticipants = totalParticipants - evaluatedParticipants;
+            console.log('Non evaluated participants:', nonEvaluatedParticipants);
+
+            setData({
+              labels: ['Évalué', 'Non Évalué'],
+              datasets: [
+                {
+                  data: [evaluatedParticipants, nonEvaluatedParticipants],
+                  backgroundColor: [
+                    'rgba(0, 69, 115, 0.2)',  // Couleur 1
+                    'rgba(255, 183, 3, 0.2)',  // Couleur 2
+                  ],
+                  borderColor: [
+                    'rgba(0, 69, 115, 1)',  // Bordure 1
+                    'rgba(255, 183, 3, 1)',  // Bordure 2
+                  ],
+                  borderWidth: 1,
+                },
+              ],
+            });
+          } else {
+            console.error('Les valeurs des participants sont indéfinies');
+          }
+        }
+      } catch (error) {
+        console.error('Erreur lors de la récupération des données', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
-    <div style={{ width: '400px', height: '400px' }}> {/* Ajuste la taille du conteneur ici */}
+    <div style={{ width: '400px', height: '100%' }} className='chart-diagram-main-circulaire'>
       <Doughnut data={data} options={options} plugins={[require('chartjs-plugin-datalabels')]} />
     </div>
   );
 }
+
+export default Chart2;

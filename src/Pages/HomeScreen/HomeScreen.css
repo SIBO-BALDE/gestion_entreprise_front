@@ -206,6 +206,33 @@
 .icon_onetwo_home1{
     color: var(--principal);
 }
+.losange-content-main{
+  display: flex !important;
+  justify-content: center !important;
+  gap:150px;
+}
+.losange-content-main2{
+  /*display: flex !important;
+  justify-content: center !important;
+  *//*margin: 0 100px;
+  */display: grid;
+  grid-template-columns: 30% 30% 30%;
+  /* margin: 0 auto !important; */
+  justify-content: center;
+  gap: 20px;
+ /* border: 1px solid red; */
+}
+.content_midle_home_correct1{
+  display: flex;
+  justify-content: center !important;
+  gap: 200px;
+}
+.content_midle_home_correct{
+  /* border: 1px solid red; */
+  border-bottom: 5px solid var(--seconde);
+  border-bottom-left-radius: 20px;
+  border-bottom-Right-radius: 20px;
+}
 
 /* **************************nos engagements  fin ***************************** */
 
@@ -290,8 +317,9 @@ ul.timeline-list li {
 }
 .timeline_content {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-	/* border: 2px solid var(--principal); */
-	background-color:#fff
+	  background-color:#fff;
+    /* border-right: 7px solid var(--seconde);
+    border-bottom: 7px solid var(--seconde); */
 }
 .timeline_content:hover{
     cursor: pointer;
@@ -299,6 +327,7 @@ ul.timeline-list li {
     transition-property: all;
     transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
     scale: 1.1;
+    
 }
 #content1:hover{
     background-color: var(--principal);

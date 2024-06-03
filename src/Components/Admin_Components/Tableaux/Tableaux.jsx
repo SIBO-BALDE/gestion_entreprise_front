@@ -109,9 +109,9 @@ const fetchEvaluationUserRecu = async () => {
         },
       }
       );
-      setEvaluationDataRecu(response.data.evaluators);
+      setEvaluationDataRecu(response.data.evaluatedUsers);
       console.log(response, 'listes/total/utlisateur/evaluer')
-      console.log(evaluationDataRecu, 'evaluation data Recu length')
+      console.log(evaluationDataRecu, 'evaluationDataRecu')
     }
   } catch (error) {
       console.error('There was a problem with the fetch operation:', error);

@@ -24,7 +24,7 @@ export default function GestionEvaluationAdmin() {
   
 
 
-  const [questions, setQuestions] = useState([{ index: 0, responseCount: 1, nom: '', categorie_id: '', reponses: [''], niveau: [] }]);
+  const [questions, setQuestions] = useState([{ index: 0, responseCount: 1, nom: '', categorie_id: '', reponses: [''], niveau: [0] }]);
   const [questionIndex, setQuestionIndex] = useState(1);
   const [selectedCategories, setSelectedCategories] = useState({});
   // const [evaluationData, setEvaluationData] = useState({ titre: '', questions: [{ nom: '', categorie_id: '', reponses: [] }] });

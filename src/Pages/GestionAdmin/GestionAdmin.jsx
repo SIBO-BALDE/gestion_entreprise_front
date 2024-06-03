@@ -306,6 +306,7 @@ useEffect(() => {
         }
         
       } catch (error) {
+        
         console.error("Erreur Axios:", error);
       }
     

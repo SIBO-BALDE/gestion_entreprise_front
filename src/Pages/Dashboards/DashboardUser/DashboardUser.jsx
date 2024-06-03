@@ -255,7 +255,7 @@ useEffect(()=>{
 
 
   return (
-    <div>
+    <div className="" style={{marginTop:'60px'}}>
       {loading ? (
         <LoadingBox />
          ) : (

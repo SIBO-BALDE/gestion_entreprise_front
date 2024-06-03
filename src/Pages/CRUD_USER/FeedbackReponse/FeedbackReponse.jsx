@@ -14,18 +14,45 @@ export default function FeedbackReponse() {
   const handleClosAdd = () => setShowAdd(false); 
   const handleshowAdd = () => setShowAdd(true);
 
- 
+  const fetchEvent = async () => {
+    const role = localStorage.getItem("rolecle");
+    const token = localStorage.getItem("tokencle");
+    try {
+      if (token && role === "Participant") {
+      const token = localStorage.getItem("tokencle");
+      const response = await axios.get(
+        'http://localhost:8000/api/user/events',
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setEvents(response.data); 
+      console.log(response, 'response feedback liste')
+      setLoading(false)
+    }
+      
+    } catch (error) {
+      
+    }
+  };
+  useEffect(()=>{
+fetchEvent()
+  }, [])
 
 
   const [eventQuestions, setEventQuestions] = useState([]);
-
+  const [selectedEvalR, setSelectedEvalR] = useState(null);
   
   
   const fetchEventQuestions = async (id) => {
+    const role = localStorage.getItem("rolecle");
+    const token = localStorage.getItem("tokencle");
     try {
-      const token = localStorage.getItem("tokencle");
+      // if (token && role === "Participant") {
       const response = await axios.get(
-        `http://localhost:8000/api/evenement/feedback/${id}`,
+        `http://localhost:8000/api/user/evenements/question/reponse/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -33,16 +60,25 @@ export default function FeedbackReponse() {
         }
       );
       setEventQuestions(response.data); 
+      console.log(response, 'response feedback detail')
       setLoading(false)
+    // }
       
     } catch (error) {
       
     }
   };
+  useEffect(()=>{
+    if (selectedEvalR) {
+      fetchEventQuestions(selectedEvalR);
+    }
+  }, [selectedEvalR]);
+
 
 
   const handleButtonClick = async (id) => {
     await fetchEventQuestions(id);
+    console.log(id,'id')
     setShowAdd(true);
   };
 
@@ -74,12 +110,13 @@ const handleSearchChange = (event) => {
   );
   
   const totalPaginationPages = Math.ceil(events.length /  eventsParPage);
+  
   let questionCounter = 1
   
 
 
   return (
-    <div>
+    <div className='mt-4'>
       {loading ? (
         <LoadingBox />
          ) : (
@@ -190,8 +227,18 @@ const handleSearchChange = (event) => {
                   
                       return (
                           <div key={index} className="card mb-3 p-3 ">
-                            <p className='card-text'><strong>{questionCounter++}- {userData.question}</strong> </p>
-                            <p className='card-text'>{userData.nom} </p>
+                            <p className='card-text'><strong>{userData.question}</strong> </p>
+                            <p className='card-text'>{questionCounter++}-{userData.nom} </p>
+                            {userData.reponse_feedbacks.map((resp, index) => {
+                              return (
+                            <div key={index}>
+                              <p className='card-text'>{resp.nom} </p>
+
+                            </div>
+                             )
+                           
+
+                            })}
                           </div>
                       );
                   })}
@@ -201,7 +248,8 @@ const handleSearchChange = (event) => {
               </Modal>
             </>
           </div>
-          )} 
+        )}
+           
 
     </div>
   )

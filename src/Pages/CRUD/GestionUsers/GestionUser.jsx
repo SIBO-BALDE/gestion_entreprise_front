@@ -347,11 +347,20 @@ export default function GestionUser({ id }) {
         reader.readAsArrayBuffer(file);
       }
     } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops!",
-        text: "Une erreur s'est produite lors du traitement du fichier.",
-      });
+      // Swal.fire({
+      //   icon: "error",
+      //   title: "Oops!",
+      //   text: "Une erreur s'est produite lors du traitement du fichier.",
+      // });
+      
+      if (error.response.status === 423) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops!",
+          text: "Mot de passe invalide!",
+        });
+        return  
+      }
       console.error(error);
     }
   };
@@ -1001,7 +1010,7 @@ const handleShowUserDetails = async (user) => {
                   type={showPassword ? "text" : "password"}
                   placeholder=""
                 />
-                <span className="password-toggle" onClick={togglePasswordVisibility}>
+                <span className="password-toggle" onClick={togglePasswordVisibility} style={{color:'#004573'}}>
                   {showPassword ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} />}
                 </span>
               </div>

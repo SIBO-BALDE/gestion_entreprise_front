@@ -181,7 +181,7 @@ export default function Login() {
           
           <div className="input_container_content_main_middle">
             
-            <FontAwesomeIcon icon={faUser} className="icon_login_content_middle mt-2" />
+            <FontAwesomeIcon icon={faEnvelope} className="icon_login_content_middle mt-2" style={{color:'#004573'}} />
             <input type="text" name="email" placeholder="Nom d'utilisateur" required 
              onChange={(e) =>{
               setEmail(e.target.value)
@@ -191,7 +191,7 @@ export default function Login() {
             
           </div>
           <div className="input_container_content_main_middle">
-            <FontAwesomeIcon icon={faLock} className="icon_login_content_middle mt-2" />
+            <FontAwesomeIcon icon={faLock} className="icon_login_content_middle mt-2"  style={{color:'#004573'}}/>
             <input 
               type={showPassword ? "text" : "password"} 
               onChange={(e) =>{
@@ -202,7 +202,7 @@ export default function Login() {
               placeholder="Mot de passe" 
               required 
             />
-            <span className="password_toggle_login_form" onClick={togglePasswordVisibility}>
+            <span className="password_toggle_login_form" onClick={togglePasswordVisibility} style={{color:'#004573'}}>
               {showPassword ? < FontAwesomeIcon icon={faEyeSlash} /> : < FontAwesomeIcon icon={faEye} />}
             </span>
           </div>

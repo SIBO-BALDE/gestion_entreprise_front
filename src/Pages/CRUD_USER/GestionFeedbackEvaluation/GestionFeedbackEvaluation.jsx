@@ -75,6 +75,7 @@ export default function GestionFeedbackEvaluation() {
             
           }
         );
+        
         Swal.fire({
           icon: "success",
           title: "Succès!",
@@ -88,7 +89,22 @@ export default function GestionFeedbackEvaluation() {
         // Fermer le modal après l'ajout
         setShow(false);
       } catch (error) {
+        if (error.response.status === 409) {
+       
+        Swal.fire({
+          icon: "error",
+          title: "Oops!",
+          text: "Vous avez déjà évalué ce participant!",
+        }).then(() => {
+          handleClose(); 
+        });
+        return;
+      }
+      handleClose();
+        
         console.error('Erreur lors de l\'ajout de l\'évaluation:', error);
+        console.log('Erreur :', error);
+        
       }
     } else {
       console.error('Token ou rôle non disponibles');
@@ -321,11 +337,12 @@ const handleButtonClick = async (CategorieId, event) => {
     setReponsesQuestion([]);
   }
 };
+let questionCounter = 1;
 
 
   return (
     
-    <div>
+    <div className='mt-4'>
       {loading ? (
         <LoadingBox />
          ) : (
@@ -492,7 +509,7 @@ const handleButtonClick = async (CategorieId, event) => {
               (evaluationSelectionneeId !== null && evaluationSelectionneeId === question.evaluation_id) && (
               <div key={question.id} style={{ marginBottom: '20px' }}>
                 <Form.Group controlId={`question-${question.id}`}>
-                  <Form.Label>{question.id}-{question.nom} ?</Form.Label>
+                  <Form.Label>{questionCounter++}-{question.nom} ?</Form.Label>
                   {question?.reponses_evaluation?.map((reponse) => (
                     <Form.Check
                       key={reponse.id}

@@ -161,6 +161,18 @@ export default function GestionFeedbackEvenement() {
       }
     } catch (error) {
       console.error("Erreur Axios :", error);
+      if (error.response.status === 410) {
+        console.log("v");
+        Swal.fire({
+          icon: "error",
+          title: "Oops!",
+          text: "Vous avez déjà donné un feedback à cet événement!",
+        }).then(() => {
+          handleClosAdd(); 
+        });
+        return;
+      }
+      handleClosAdd();
     }
   };
   
@@ -263,12 +275,13 @@ const handleSearchChange = (event) => {
   );
   
   const totalPaginationPages = Math.ceil(events.length /  eventsParPage);
+  let questionCounter = 1;
   
   
   
   
   return (
-    <div>
+    <div className='mt-4'>
       {loading ? (
         <LoadingBox />
          ) : (
@@ -373,7 +386,7 @@ const handleSearchChange = (event) => {
               <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                   {eventQuestions.map((question) => ( // Utiliser eventQuestions au lieu de questions
                     <div key={question.id}>
-                      <h6 className='mt-3'> {question.id}-{question.nom} ?</h6>
+                      <h6 className='mt-3'> {questionCounter++}-{question.nom} ?</h6>
                       <Form.Control
                         type="text"
                         placeholder=""

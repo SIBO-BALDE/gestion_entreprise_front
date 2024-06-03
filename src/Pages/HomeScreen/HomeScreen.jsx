@@ -95,9 +95,9 @@ export default function HomeScreen() {
                 <Image src={baraka2} style={{height:'100%' ,width:'100%'}} />
             </div>
             <div style={{marginLeft:'30px', height:'330px', width:'100%'}}>
-                <h3 style={{color:'white',fontWeight:'bold'}}>Vous aimerez faire une évaluation de vos équipes? <br />
-                    <span style={{color:'#FFB703'}}>MY FEEDBACK360</span> est la solution</h3>
-                    <p style={{color:'white', textAlign:'justify'}} className='mt-4'>MY FEEDBACK360 offre une plateforme d'évaluation en ligne novatrice pour 
+                <h4 style={{color:'white',fontWeight:'bold'}}>Vous aimerez faire une évaluation de vos équipes? <br />
+                    <span style={{color:'#FFB703'}}>MYFEEDBACK <span className='text-white'>360°</span></span> est la solution</h4>
+                    <p style={{color:'white', textAlign:'justify'}} className='mt-4'>MYFEEDBACK <span style={{color:'#FFB703'}}>360°</span> offre une plateforme d'évaluation en ligne novatrice pour 
                        les entreprises désireuses de favoriser un environnement de travail
                        collaboratif et axé sur l'amélioration continue. Grâce à son expertise 
                        dans le domaine de l'évaluation des équipes, Byfeeding propose une solution 
@@ -138,13 +138,20 @@ export default function HomeScreen() {
       {/****************************  Nos agagements debut****************************/}
       <section style={{paddingTop:'50px', backgroundColor:'#004573',paddingBottom:'90px'}}>
         <Underline  text='Nos engagments' color='white'/>
-        <div className='' style={{marginTop:'70px'}}>
-            <div className="conteneur_losange_home container">
-
-                <div className='content_midle_home_correct' >
+        <div className='container' style={{marginTop:'70px'}}>
+                <div className='d-flex justify-center losange-content-main'>
                 <div className="losange ">
                   <FontAwesomeIcon icon={faBullseye}  id='icon_font_home_engament' className='icon_onetwo_home'/> 
                 </div>
+                <div className="losange" id='losange'> 
+                    <FontAwesomeIcon icon={regularIcons.faGem} id='icon_font_home_engament' className='icon_onetwo_home1' />
+                </div>
+                <div className="losange"> 
+                    <FontAwesomeIcon icon={regularIcons.faPaperPlane} id='icon_font_home_engament' className='icon_onetwo_home' />
+                </div>
+
+                </div>
+                <div className='content_midle_home_correct1'>
                 <div className='mt-5 d-flex '>
                             <div>
                                 <ButtonDeco />
@@ -152,12 +159,31 @@ export default function HomeScreen() {
                         
                         <div><h5 className='' ><strong style={{color:'#FFB703'}}>Notre vision</strong></h5></div>
                 </div>
+                <div className='mt-5 d-flex'>
+                            <div>
+                                <ButtonDeco />
+                            </div>
+                        
+                        <div><h5 className='' ><strong style={{color:'#FFB703'}}>Nos valeurs</strong></h5></div>
+                </div>
+                <div className='mt-5 d-flex   '>
+                            <div>
+                            <ButtonDeco />
+                            </div>
+                        
+                        <div style={{textAlign:'left'}}><h5 className='' ><strong style={{color:'#FFB703'}}>Notre mission</strong></h5></div>
+                </div>
+
+                </div>
+                <div className='losange-content-main2'>
+                <div className='content_midle_home_correct' >
+
                 <div className='mt-4' style={{borderLeft:'3px solid #FFB703', height:'240px'}}>
                     <p className='me-3 ms-3 text-white' 
                         style={{textAlign:'justify'}}>Chez 
                         <strong style={{color:'#FFFF', marginBottom:'25px'}}>
-                            <span style={{color:'#FFB703'}}>  BARAKA</span>
-                                GATE
+                            <span style={{color:'#FFB703'}}>  MYFEEDBACK  </span>
+                                360°
                          </strong><br />
                                 Notre vision est de révolutionner la 
                                 façon dont les entreprises évaluent 
@@ -170,22 +196,11 @@ export default function HomeScreen() {
                       </p>
                 </div>
                 </div>
-
                 <div className='content_midle_home_correct' >
-                <div className="losange" id='losange'> 
-                    <FontAwesomeIcon icon={regularIcons.faGem} id='icon_font_home_engament' className='icon_onetwo_home1' />
-                </div>
-                <div className='mt-5 d-flex'>
-                            <div>
-                                <ButtonDeco />
-                            </div>
-                        
-                        <div><h5 className='' ><strong style={{color:'#FFB703'}}>Nos valeurs</strong></h5></div>
-                </div>
                 <div className='mt-4' style={{borderLeft:'3px solid #FFB703', height:'240px', marginBottom:'25px' }}>
                     <p className='me-3 ms-3 text-white' style={{textAlign:'justify'}}>Chez  
                         <strong style={{color:'#FFFF'}}>
-                        <span style={{color:'#FFB703'}}>  BARAKA</span> GATE</strong> <br />
+                        <span style={{color:'#FFB703'}}>  MYFEEDBACK</span> 360°</strong> <br />
                         Nos valeurs sont bien plus qu'une
                         simple déclaration.Elles sont le 
                         fondement de tout ce que nous 
@@ -238,22 +253,11 @@ export default function HomeScreen() {
                       </div>
                 </div>
                 </div>
-
                 <div className='content_midle_home_correct' >
-                <div className="losange"> 
-                    <FontAwesomeIcon icon={regularIcons.faPaperPlane} id='icon_font_home_engament' className='icon_onetwo_home' />
-                </div>
-                <div className='mt-5 d-flex   '>
-                            <div>
-                            <ButtonDeco />
-                            </div>
-                        
-                        <div style={{textAlign:'left'}}><h5 className='' ><strong style={{color:'#FFB703'}}>Notre mission</strong></h5></div>
-                </div>
                 <div className='mt-4' style={{borderLeft:'3px solid #FFB703', height:'240px'}}>
                     <p className='ms-3 text-white ' style={{textAlign:'justify'}}>Chez 
                         <strong style={{color:'#FFFF' , marginBottom:'25px'}} >
-                            <span style={{color:'#FFB703'}}>  BARAKA</span > GATE
+                            <span style={{color:'#FFB703'}}>  MYFEEDBACK</span > 360°
                         </strong> <br />
                         Notre mission est de fournir 
                         aux entreprises du monde
@@ -268,8 +272,11 @@ export default function HomeScreen() {
                       </p>
                 </div>
                 </div>
-            </div>
+                </div>
         </div>
+
+               
+            
       </section>
       {/****************************  Nos agagements fin  ****************************/}
 

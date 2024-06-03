@@ -52,20 +52,20 @@ function ChiffresCles() {
       <div className='d-flex justify-content-center mt-5 mb-5'>
         <div className='me-5'>
           <div className='content_main_chiffre1' >
-            <FontAwesomeIcon icon={faBuilding} className='content_main_icon_home' />
+            <FontAwesomeIcon icon={faUsers} className='content_main_icon_home' />
           </div>
           <div className='mt-4'>
             <h1 className='content_blue_home' ref={el => numberElementsRef.current[0] = el}>+2000</h1>
-            <p>Entreprises formé</p>
+            <p>Employés évalué</p>
           </div>
         </div>
         <div className='me-5'>
           <div className='content_main_chiffre1' >
-            <FontAwesomeIcon icon={faUsers} className='content_main_icon_home' />
+            <FontAwesomeIcon icon={faBuilding} className='content_main_icon_home' />
           </div>
           <div className='mt-4'>
             <h1 className='content_orange_home' ref={el => numberElementsRef.current[1] = el}>1000+</h1>
-            <p>Employés évalué</p>
+            <p>Clients Entreprise</p>
           </div>
         </div>
         <div className='ms-5'>

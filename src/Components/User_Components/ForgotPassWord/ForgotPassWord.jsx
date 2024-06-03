@@ -32,21 +32,7 @@ export default function ForgotPassWord() {
         }
     }
   return (
-    // <div>
-    //     <h2>Saisi ton email</h2>
-    //     <Form onSubmit={handleSubmit}>
-    //         <Form.Label>Email</Form.Label>
-    //         <Form.Control 
-    //         type='email'
-    //         value={email}
-    //         onChange={handleEmailChange}
-    //         />
-            
-    //         <Button type=''>Envoyer</Button>
-
-    //     </Form>
-
-    // </div>
+    
     <div className='wrapper_content_form'>
     <div className="content_login_main_glabal_form">
      
@@ -56,12 +42,13 @@ export default function ForgotPassWord() {
         <Form onSubmit={handleSubmit}>
             <Form.Label>Email</Form.Label>
             <div className="input_container_content_main_middle" >
-            <FontAwesomeIcon icon={faEnvelope} className="icon_login_content_middle1 " />
+           
             <Form.Control 
             style={{marginLeft: '0px'}}
             type='email'
             value={email}
             onChange={handleEmailChange}
+            placeholder='jonh@gmail.com'
             
             />
             </div>

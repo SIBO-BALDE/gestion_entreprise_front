@@ -3,7 +3,7 @@ import './PageError.css';
 import { Link } from 'react-router-dom';
 import { Image } from 'react-bootstrap';
 import error1 from './../../Images/ErrorImage1.jpeg'
-import error3 from './../../Images/LOGO_FOND_BLEU-removebg-preview.png'
+import error3 from './../../Images/Logo_bleu-removebg-preview.png'
 import { Typewriter } from 'react-simple-typewriter'
 
 

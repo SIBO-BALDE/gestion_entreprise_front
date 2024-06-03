@@ -245,7 +245,7 @@ const processEvaluations = (evaluations) => {
 
 // La vue de mon composant
   return (
-    <div>
+    <div className='mt-4'>
       {/****************************** condition pour le loading *****************************************/}
         {loading ? (
         <LoadingBox />

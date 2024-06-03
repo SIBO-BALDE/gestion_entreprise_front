@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './Footer.css';
 import { faFacebookF, faInstagram, faLinkedinIn, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { Button, Form, Image } from 'react-bootstrap'
-import logo from '../../../Images/logo_2.png';
+import logo from '../../../Images/Logo_bleu-removebg-preview.png';
 import * as regularIcons from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
@@ -89,7 +89,7 @@ export default function Footer() {
       <footer className='footer_content_main pb-4'>
         <section className='footer_content'>
             <div className='logo_footer_content_one'>
-                <Image src={logo} />
+                <Image src={logo} style={{width:'100px', height:'100px'}} />
 
             </div>
            

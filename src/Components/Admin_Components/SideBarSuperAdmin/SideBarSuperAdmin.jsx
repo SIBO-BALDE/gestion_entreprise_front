@@ -5,7 +5,7 @@ import React from 'react';
 import './SideBarSuperAdmin.css';
 import { Button, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import logo from '../../../Images/LOGO FOND BLANC.jpg';
+import logo from '../../../Images/Logo blanc.jpg';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';

@@ -5,7 +5,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import './SideBar.css';
 import { Button, Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import logo from '../../../Images/LOGO FOND BLANC.jpg';
+import logo from '../../../Images/Logo blanc.jpg';
 import { useAuth } from "../../../Pages/Auth/AuthContex";
 import { createContext } from 'react';
 import Swal from 'sweetalert2';
