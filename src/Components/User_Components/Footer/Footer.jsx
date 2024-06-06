@@ -106,7 +106,7 @@ export default function Footer() {
             <div>
                 <h4>Nous contacter</h4>
                 <Link to={'#'} style={{textDecoration:'none', color:'white'}}>77301 72 72 </Link>
-                <Link to={'#'} style={{textDecoration:'none', color:'white'}} >contact@barakagate.com</Link>
+                <Link to={'#'} style={{textDecoration:'none', color:'white'}} >service.client@myfeedbak.com</Link>
             </div>
             <div>
                 <h4>Sécurité</h4>

@@ -221,7 +221,7 @@ export default function ContactScreen() {
                 <FontAwesomeIcon icon={faEnvelope} id='icon_content_contact' />
                 </div>
                 <div>
-                    <p className='text-white element_context_textcontact'>contact@barakagate.com</p>
+                    <p className='text-white element_context_textcontact'>service.client@myfeedbak.com</p>
                 </div>
             </div>
          </div>
