@@ -68,7 +68,7 @@ export default function AboutScreen() {
             <strong style={{color:'#FFB703'}}>MY </strong>
             <strong className='text-center' style={{color:'#004573'}}>FEEDBACK360 </strong>
         </h1>
-        <h3> INCARNE  LE MIRACLE ET L'ABONDANCE</h3>
+        <h3> Le feedback à 360 degrés est un outil qui couvre la plupart des aspects des compétences comportementales d’un employé ou de son manager</h3>
         <div className=' mt-1' style={{marginLeft:'170px'}}>
         <Button className="btn_about_bottom"> 
           <Link to={'/modeles'} style={{textDecoration:'none', color:'#FFB703'}} id='btn_link_ban_about'> 
