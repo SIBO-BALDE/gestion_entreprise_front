@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import { useAuth } from '../Auth/AuthContex'
 import { Link, useNavigate } from 'react-router-dom';
-import logo from '../../Images/LogoFeed2.jpeg'
+import logo from '../../Images/Logo blanc.jpg'
 
 
 
@@ -124,7 +124,14 @@ export default function Login() {
     };
   
     try {
-      const response = await axios.post('http://localhost:8000/api/login', credentials);
+      const apiUrl = 'https://myfeedbaks360s.kevacom.com';
+      const response = await axios.post(`${apiUrl}/api/login`, credentials,{
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      });
+      
       console.log(credentials, 'credentials');
       console.log(response, 'response');
   
@@ -165,6 +172,102 @@ export default function Login() {
       console.log(error);
     }
   };
+  // 
+  // const Handlelogin = async (e) => {
+  //   e.preventDefault();
+  
+  //   // Vérification si les champs sont vides
+  //   if (!email || !password) {
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Oops!",
+  //       text: "Les champs ne peuvent pas être vides!",
+  //     });
+  //     return;
+  //   }
+  
+  //   // Vérification du format de l'email
+  //   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //   if (!emailPattern.test(email)) {
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Oops!",
+  //       text: "Le format de l'email n'est pas valide!",
+  //     });
+  //     return;
+  //   }
+  
+  //   // Vérification de la longueur du mot de passe
+  //   if (password.length < 8) {
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Oops!",
+  //       text: "Le mot de passe doit comporter au moins 8 caractères!",
+  //     });
+  //     return;
+  //   }
+  
+  //   const credentials = {
+  //     email,
+  //     password,
+  //   };
+  
+  //   try {
+  //     const response = await fetch('https://myfeedbaks360s.kevacom.com/api/login', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Accept': 'application/json',
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(credentials),
+  //       mode: 'cors',
+  //       credentials: 'include',
+  //     });
+  
+  //     const data = await response.json();
+  
+  //     if (response.status === 402) {
+  //       Swal.fire({
+  //         icon: "error",
+  //         title: "Oops!",
+  //         text: "Ce compte a été bloqué!",
+  //       });
+  //       return;
+  //     }
+  
+  //     if (response.status === 200) {
+  //       const tokenauth = data.token;
+  //       const userRole = data.roles[0];
+  
+  //       console.log(tokenauth, 'cest le token');
+  //       console.log(userRole, 'cest le role');
+  //       localStorage.setItem("tokencle", tokenauth);
+  //       localStorage.setItem("rolecle", userRole);
+  //       login(userRole);
+  
+  //       if (userRole === "Admin") {
+  //         navigate("/dashbordAdmin");
+  //       } else if (userRole === "SuperAdmin") {
+  //         navigate("/dashbordSuperAdmin");
+  //       } else {
+  //         navigate("/dashbordUser");
+  //       }
+  //     } else {
+  //       Swal.fire({
+  //         icon: "error",
+  //         title: "Oops!",
+  //         text: "Ce compte n'existe pas!",
+  //       });
+  //     }
+  //   } catch (error) {
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Oops!",
+  //       text: "Une erreur est survenue!",
+  //     });
+  //     console.error('Error:', error);
+  //   }
+  // };
   
 
   return (
@@ -174,7 +277,7 @@ export default function Login() {
 
       <div className="login_container_content_main_middle">
       <div style={{display:'flex', justifyContent:'center', marginTop:'20px'}}>
-        <Link to={'/'}><Image src={logo} style={{width:'130px', height:'50px' , marginRight:'50px'}} /></Link>
+        <Link to={'/'}><Image src={logo} style={{width:'130px', height:'90px' , marginRight:'50px'}} /></Link>
       </div>
         <h2 style={{marginTop:'30px'}}>Connexion</h2>
         <form >

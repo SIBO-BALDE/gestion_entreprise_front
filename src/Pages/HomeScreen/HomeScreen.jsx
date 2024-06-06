@@ -51,13 +51,13 @@ export default function HomeScreen() {
                 Posez des questions et prenez des décisions informées grâce au <br />
                 leader mondial des solutions de sondages et de formulaires.
             </p>
-            <div className='d-flex mt-5'>
+            <div className='d-flex mt-5 two_btns_home'>
                 <div>
                     <Button className='btn_ban_home pt-3 pb-3' id='btn1_ban_home'>
                         <Link to={'/login'} style={{textDecoration:'none', color:'white'}}>Commencer l’evaluation</Link> 
                     </Button>
                 </div>
-                <div className='ms-4'>
+                <div className='ms-4 btn2_ban_home_content2' id='btn2_ban_home_content2'>
                     <Button className='btn_ban_home pt-3 pb-3' id='btn2_ban_home'>
                         <Link to={'/modeles'} style={{textDecoration:'none', color:'white'}}>Voir les modéles</Link>
                     </Button>
