@@ -1,28 +1,21 @@
 import React, { useEffect } from 'react'
-import { Button, Form, Image } from 'react-bootstrap'
+import { Button,Image } from 'react-bootstrap'
 import ban1 from '../../Images/ban-code.png'
 import NavbarUser from '../../Components/User_Components/NavbarUser'
 import './HomeScreen.css';
 import Underline from '../../Components/User_Components/Underline/Underline';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBuilding, faBullseye, faChartLine, faFaceSmile,faHandshake,faUserTie,faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faBullseye, faChartLine, faHandshake,faUserTie,} from '@fortawesome/free-solid-svg-icons';
 import ban2 from '../../Images/dessin.png';
-import ban3 from '../../Images/Rectangle2.png';
-import baraka7 from '../../Images/baraka7.jpeg';
-import baraka8 from '../../Images/baraka8.jpeg';
-import baraka6 from '../../Images/baraka6.jpeg';
-import baraka12 from '../../Images/baraka12.jpeg';
-import baraka13 from '../../Images/baraka13.jpeg';
-import baraka14 from '../../Images/baraka14.jpeg';
-import baraka11 from '../../Images/baraka11.jpeg';
-import baraka15 from '../../Images/baraka15.jpeg';
-import baraka2 from '../../Images/baraka2.jpeg';
+import baraka2 from '../../Images/imgban/ban3.jpg';
+import dasboard1 from '../../Images/dasboard superadmin.png';
+import dasboard2 from '../../Images/dasboard admin.png';
+import dasboard3 from '../../Images/dasboard participant.png';
 
 import * as regularIcons from '@fortawesome/free-regular-svg-icons';
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { faFacebookF, faInstagram, faLinkedinIn, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import Footer from '../../Components/User_Components/Footer/Footer';
 import ButtonDeco from '../../Components/User_Components/Buttons/ButtonDeco';
 import ButtonWashapp from '../../Components/User_Components/Buttons/ButtonWatsapp/ButtonWashapp';
@@ -78,7 +71,7 @@ export default function HomeScreen() {
      <section>
         <ChiffresCles />
      </section>
-      {/****************************  chiffres clés  fin****************************/}
+      {/****************************  chiffres clés  fin*******************************/}
 
       {/****************************  qui sommes nous  debut****************************/}
       <section className='content_section2_home '>
@@ -91,13 +84,14 @@ export default function HomeScreen() {
             <div  className='reference1_home me-1 ' style={{marginTop:'56px'}}></div>
             <div  className='reference2_home' style={{marginTop:'30px'}}></div>
         </div>
-            <div style={{height:'335px',width:'100%'}}>
-                <Image src={baraka2} style={{height:'100%' ,width:'100%'}} />
+            <div style={{height:'335px',width:'100%',backgroundColor:'black'}}>
+                <Image src={baraka2} style={{height:'100%' ,width:'100%',opacity:'0.8'}} />
+                {/* <Image src={dasboard2} style={{height:'100%' ,width:'100%'}} /> */}
             </div>
             <div style={{marginLeft:'30px', height:'330px', width:'100%'}}>
-                <h4 style={{color:'white',fontWeight:'bold'}}>Vous aimerez faire une évaluation de vos équipes? <br />
-                    <span style={{color:'#FFB703'}}>MYFEEDBACK <span className='text-white'>360°</span></span> est la solution</h4>
-                    <p style={{color:'white', textAlign:'justify'}} className='mt-4'>MYFEEDBACK <span style={{color:'#FFB703'}}>360°</span> offre une plateforme d'évaluation en ligne novatrice pour 
+                <h4 style={{color:'white',fontWeight:'bold',}}>Aimerez vous renforcer la capicité de vos équipes à travers une évaluation  à 360°?</h4> <br />
+                    <h4 style={{color:'white',fontWeight:'bold',}}><span style={{color:'#FFB703'}}>MYFEEDBACK <span className='text-white'>360°</span></span> est la solution</h4>
+                    <p style={{color:'white', textAlign:'justify'}} className='mt-5'>MYFEEDBACK <span style={{color:'#FFB703'}}>360°</span> offre une plateforme d'évaluation en ligne novatrice pour 
                        les entreprises désireuses de favoriser un environnement de travail
                        collaboratif et axé sur l'amélioration continue. Grâce à son expertise 
                        dans le domaine de l'évaluation des équipes, Byfeeding propose une solution 
@@ -106,28 +100,28 @@ export default function HomeScreen() {
                     <Button className='w-90 mt-3'id='btn_about_home_middle' 
                     style={{width:'99%', backgroundColor:'#FFB703', border:'none',
                     boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px' }}>
-                        <Link to={'/about'} style={{textDecoration:'none', color:'white'}}>Voir plus</Link>
+                        <Link to={'/about'} style={{textDecoration:'none', color:'#004573'}}>Voir plus</Link>
                     </Button>
             </div>
         </div>
       </section>
-      {/****************************  qui sommes nous  fin****************************/}
+      {/****************************  qui sommes nous  fin*******************************/}
 
       {/****************************  comment sa marche  debut****************************/}
       <section style={{boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', paddingTop:'20px', paddingBottom:'30px'}}>
        <div>
           <div>
-            <Underline  text='Comment ça marche ?'/>
+            <Underline  text='Comment fonctionne myfeedback 360° ?'/>
           </div>
           <div style={{display:'flex', justifyContent:'center',height:'400px'}}>
             <Image src={ban2} style={{margin:'0 50px', width:'600px',height:'100%' }} data-aos="fade-left" />
           </div>
           <div>
-            <h6 className='text-center'>Laisser nous vous guider pas à pas sur les differentes parties de Comment marche l’évalution en ligne</h6>
+            <h6 className='text-center'>Laisser nous vous guider pas à pas sur les differentes parties de comment marche l’évalution 360°</h6>
           </div>
           <div className='d-flex justify-content-center '> 
             <Button id='btn_about_homes2'>
-                <Link to={'/about'} style={{textDecoration:'none', color:'white'}} id='discover'>Decouvrir</Link>
+                <a href='#tone'style={{textDecoration:'none', color:'white'}} id='discover'>Decouvrir</a>
             </Button>
         </div>
        </div>
@@ -135,7 +129,7 @@ export default function HomeScreen() {
       {/****************************  comment sa marche fin ****************************/}
 
 
-      {/****************************  Nos agagements debut****************************/}
+      {/****************************  Nos agagements debut*******************************/}
       <section style={{paddingTop:'50px', backgroundColor:'#004573',paddingBottom:'90px'}}>
         <Underline  text='Nos engagments' color='white'/>
         <div className='container' style={{marginTop:'70px'}}>
@@ -278,7 +272,7 @@ export default function HomeScreen() {
                
             
       </section>
-      {/****************************  Nos agagements fin  ****************************/}
+      {/****************************  Nos agagements fin  *********************************/}
 
       {/****************************  modéles d'évaluation debut ****************************/}
        <section className='pt-4 pb-4'>
@@ -332,7 +326,7 @@ export default function HomeScreen() {
 
 
       {/**************************** expliquation modéles d'évaluation debut  ****************************/}
-      <section style={{backgroundColor:'#ebf0f4', marginTop:'80px', boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px'}}>
+      <section style={{backgroundColor:'#ebf0f4', marginTop:'80px', boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px'}} id='tone'>
         <div id="" className='container'>
         <div className="experience pt-100 pb-100" >
 		   <div className="container">
@@ -354,13 +348,13 @@ export default function HomeScreen() {
                      {/* <!-- Single Experience --> */}
                      <li>
                         <div className="timeline_content" data-aos="fade-left">
-                        <Image  src={baraka7} className='timeline-img'id='contentimg-timeline' />
+                        <Image  src={dasboard1} className='timeline-img'id='contentimg-timeline' />
                         </div>
                      </li>
                      {/* <!-- Single Experience --> */}
                      <li>
                         <div className="timeline_content" data-aos="fade-right">
-                        <Image  src={baraka8} className='timeline-img'id='contentimg-timeline' />
+                        <Image  src={dasboard2} className='timeline-img'id='contentimg-timeline' />
                         </div>
                      </li>
                      {/* <!-- Single Experience --> */}
@@ -372,10 +366,13 @@ export default function HomeScreen() {
                         </div>
                      </li>
                      <li>
-                        <div className="timeline_content"  id='content1'data-aos="fade-right" >
+                        {/* <div className="timeline_content"  id='content1'data-aos="fade-right" >
                         
                            <h4 style={{textAlign:'justify'}}>Découvrez rapidement des informations exploitables</h4>
                            <p style={{textAlign:'justify'}}>Analysez un grand nombre de réponses grâce à des rapports intégrés ou des tableaux de bord avancés, que vous pouvez facilement personnaliser et partager avec votre équipe. Vous pouvez aussi exporter vos données dans votre logiciel préféré pour les étudier plus en détail.</p>
+                        </div> */}
+                        <div className="timeline_content" data-aos="fade-right">
+                        <Image  src={dasboard3} className='timeline-img'id='contentimg-timeline' />
                         </div>
                      </li>
                   </ul>
@@ -387,8 +384,9 @@ export default function HomeScreen() {
       </section>
       {/****************************  explication modéles d'évaluation fin  ****************************/}
 
-      {/****************************  Notre équipe  début ****************************/}
-      <section>
+      {/****************************  Notre équipe  début **************************************/}
+     
+      {/*  <section>
         <div className='contenthome1'>
                 <Underline text='Notre équipe' />
                 <div className='section_content_team'>
@@ -520,9 +518,9 @@ export default function HomeScreen() {
 
                 </div>
 
-                {/* duplicate */}
+                
 
-                <div  className='cardtemoinhome'>
+<div  className='cardtemoinhome'>
                     <div className='cardtemoinhome1'>
                     <Image src={baraka6} className='cardtemoinhome1img' />
                     </div>
@@ -658,7 +656,7 @@ export default function HomeScreen() {
                 </div>
                 
         </div>
-      </section>
+      </section> */}
       {/****************************  Notre équipe  fin ****************************/}
 
       {/****************************  Footer ****************************/}

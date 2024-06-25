@@ -6,17 +6,31 @@ import { Button, Form, Modal } from 'react-bootstrap';
 import Pagination from '../../../Components/User_Components/Pagination/Pagination';
 import LoadingBox from '../../../Components/LoadingBox/LoadingBox';
 
+import { Doughnut } from 'react-chartjs-2';
+import { Pie } from 'react-chartjs-2';
+
+import 'chartjs-plugin-datalabels';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import Swal from 'sweetalert2';
+
+ChartJS.register(ArcElement, Tooltip, Legend);
+
 export default function EvaluationReponse() {
   // la declation des par tableau ou bolean ou null
+  const [categories, setCategories] = useState([]);
   const [evaluationData, setEvaluationData] = useState([]);
   const [evaluationDataQR, setEvaluationDataQR] = useState([]);
   const [evaluationDataR, setEvaluationDataR] = useState([]);
   const [show, setShow] = useState(false);
   const [showR, setShowR] = useState(false);
+  const [showCat, setShowCat] = useState(false);
   const [loading, setLoading] = useState(true);
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [selectedEvalQR, setSelectedEvalQR] = useState(null);
   const [selectedEvalR, setSelectedEvalR] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null); 
+
+  
   
 
 // la funtion pour recuperer la liste des reponse
@@ -58,9 +72,9 @@ const fetchEvaluationQR = async (userId) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(response, 'response qr userid QR')
+      console.log(response, 'response  QR')
       if (response.data && response.data.evaluations && Array.isArray(response.data.evaluations)) {
-        console.log("Données de l'API récupérées QR :", response.data.evaluatedUsers);
+        // console.log("Données de l'API récupérées QR :", response);
         // return response.data.evaluations;
         setEvaluationDataQR(response.data.evaluations)
         setLoading(false)
@@ -97,52 +111,157 @@ const handleCloseShow = () => {
 };
 
 // la funtion pour recuperer la liste des reponse d'evaluation
-const fetchEvaluationR = async () => {
+// const fetchEvaluationR = async (categorieId) => {
+//   const token = localStorage.getItem("tokencle");
+//   try {
+//     if (token) {
+//       const response = await axios.get(`http://localhost:8000/api/liste/question/reponses/evaluation/${categorieId}`, {
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//         },
+//       });
+//       console.log(response, 'response qr recus')
+//       // if (response.data && response.data.evaluations && Array.isArray(response.data.evaluations)) {
+//       //   console.log("Données de l'API récupérées :", response.data.evaluations);
+//       //   console.log(response.data.evaluations, 'response.data.evaluations')
+//       //   // return response.data.evaluations;
+//       //   setEvaluationDataR(response.data.evaluations)
+//       //   setLoading(false)
+//       //   console.log(evaluationDataR, 'evaluationDataR fetch')
+//       // } else {
+//       //   console.error("La réponse de l'API n'est pas un tableau ou est vide :", response.data.evaluatedUsers);
+//       //   return [];
+//       // }
+//     }
+//   } catch (error) {
+//     console.error('Erreur lors de la récupération des données:', error);
+//     throw error;
+//   }
+// };
+// const a =1
+
+const fetchEvaluationR = async (categorie) => {
   const token = localStorage.getItem("tokencle");
   try {
     if (token) {
-      const response = await axios.get('http://localhost:8000/api/liste/evaluation/recu', {
+      const response = await axios.get(`http://localhost:8000/api/liste/question/reponses/evaluation/${categorie}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(response, 'response qr recus')
-      if (response.data && response.data.evaluations && Array.isArray(response.data.evaluations)) {
-        console.log("Données de l'API récupérées :", response.data.evaluations);
-        console.log(response.data.evaluations, 'response.data.evaluations')
-        // return response.data.evaluations;
-        setEvaluationDataR(response.data.evaluations)
-        setLoading(false)
-        console.log(evaluationDataR, 'evaluationDataR fetch')
-      } else {
-        console.error("La réponse de l'API n'est pas un tableau ou est vide :", response.data.evaluatedUsers);
-        return [];
-      }
+      
+      setEvaluationDataR(response.data.questions)
+      console.log(response,'cc');
+      console.log(categorie,'cat resp');
+     
     }
   } catch (error) {
     console.error('Erreur lors de la récupération des données:', error);
+    console.error('Détails de la réponse d\'erreur:', error.response); // Affichez les détails de l'erreur de réponse
+    if (error.response && error.response.status === 406) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops',
+        text:  "Vous na'vez pas reçu d'évaluation pour cette catégorie",
+      });
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Erreur',
+        text: 'Une erreur est survenue lors de la récupération des données.',
+      });
+    }
+
     throw error;
+  }
+  }
+
+
+
+
+
+
+// useEffect(()=>{
+// //   if (selectedEvalR) {
+//     fetchEvaluationR();
+// //   }
+// }, []);
+
+
+
+
+
+
+
+
+//Lister les  Categorie
+const fetchCategory = async () => {
+  const role = localStorage.getItem("rolecle");
+  const token = localStorage.getItem("tokencle");
+  try {
+    const response = await axios.get(
+      "http://localhost:8000/api/liste/categories",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log('Réponse complète ', response);
+    setCategories(response.data.categories || []);
+    setLoading(false);
+  } catch (error) {
+    console.error("Erreur lors de la récupération des catégories:", error);
   }
 };
 
-useEffect(()=>{
-//   if (selectedEvalR) {
-    fetchEvaluationR();
-//   }
+useEffect(() => {
+  fetchCategory();
 }, []);
 
-// Funtion pour ouvrir un autre modal
-const handleShowR = async (user) => {
-  try {
-      await fetchEvaluationR(user.id);
-      // console.log(questionsAndAnswersR, 'questionsAndAnswersR')
-      // setEvaluationDataR(questionsAndAnswersR);
-      console.log(evaluationDataR, 'evaluationDataR')
-      setShowR(true);
-    } catch (error) {
-      console.error(error);
-    }
+const handleShowCat = async () => {
+  // try {
+  //     await fetchEvaluationR(categorieId.id);
+  //     // console.log(questionsAndAnswersR, 'questionsAndAnswersR')
+  //     // setEvaluationDataR(questionsAndAnswersR);
+  //     console.log(evaluationDataR, 'evaluationDataR')
+  //     setShowR(true);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  setShowCat(true)
 };
+const handleCloseShowCat = () => {
+  setShowCat(false);
+  // setEvaluationDataR(null);
+};
+
+
+const handleCategoryClick = async (categorie) => {
+  try {
+    await fetchEvaluationR(categorie.id); // Utilisez categorie.id pour récupérer l'ID de la catégorie
+    setSelectedCategory(categorie.id); 
+    console.log(categorie.id, 'okay')// Met à jour l'état avec l'objet catégorie complet
+    setShowR(true); 
+    setShowCat(false); 
+  } catch (error) {
+    console.error('Erreur lors du traitement de la catégorie:', error);
+    
+  }
+};
+
+// Funtion pour ouvrir un autre modal
+// const handleShowR = async (user) => {
+//   try {
+//       await fetchEvaluationR(user.id);
+//       // console.log(questionsAndAnswersR, 'questionsAndAnswersR')
+//       // setEvaluationDataR(questionsAndAnswersR);
+//       console.log(evaluationDataR, 'evaluationDataR')
+//       setShowR(true);
+//     } catch (error) {
+//       console.error(error);
+//     }
+// };
 // Funtion appeler pour fermer un autre le modal
 const handleCloseShowR = () => {
   setShowR(false);
@@ -218,7 +337,7 @@ const processEvaluations = (evaluations) => {
   return evaluations.map(evaluation => {
     return {
       ...processEvaluation(evaluation), // Traitement de chaque évaluation
-      questions_reponses: evaluation.questions_reponses.map(qr => {
+      questions_reponses: evaluation?.questions_reponses.map(qr => {
         return {
           ...qr,
           reponses: qr.reponses.map(reponse => {
@@ -232,6 +351,68 @@ const processEvaluations = (evaluations) => {
     };
   });
 };
+
+
+
+// **********************************Chart******************************************//
+
+const prepareChartData = (userData) => {
+  const responseCounts = userData.reponses.map(r => r.count);
+  const labels = userData.reponses.map(r => r.reponse);
+
+  return {
+    labels: labels,
+    datasets: [
+      {
+        data: responseCounts,
+        backgroundColor: [
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+        ],
+        borderColor: [
+          'rgba(75, 192, 192, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(153, 102, 255, 1)',
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
+};
+
+const options = {
+  plugins: {
+    legend: {
+      position: 'bottom',
+    },
+    datalabels: {
+      color: 'red',
+      font: {
+        size: 12,
+      },
+      formatter: (value, context) => `${context.dataIndex}: ${Math.round(value)}%`,
+    },
+  },
+  layout: {
+    padding: {
+      top: 30,
+    },
+  },
+};
+
+const chartContainerStyle = {
+  width: '250px',  
+  height: '250px', 
+  // margin: 'auto'  
+};
+
+
+
 
 
 
@@ -255,9 +436,10 @@ const processEvaluations = (evaluations) => {
               <div className="d-flex justify-content-between mt-5 ms-4">
                 <div>
                     <Button
+                    
                       style={{
                               backgroundColor: "#004573",color: "#ffff",}}
-                              onClick={handleShowR}>
+                              onClick={handleShowCat}>
                               Evaluation reçue           
                     </Button>
                 </div>
@@ -393,6 +575,26 @@ const processEvaluations = (evaluations) => {
             </Modal.Body>
             </Modal>
 
+            {/***************************** lister les categories **************************/}
+            <Modal show={showCat} onHide={handleCloseShowCat} id="buttonModifier" size="lg">
+            <Modal.Header closeButton>
+            <Modal.Title>La catégorie</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', gap:'15px' }}>
+                {categories && categories.map((categorie) => ( 
+                  <div key={categorie.id}>
+                    <Button style={{backgroundColor:'#004573',border:'none'}}
+                    onClick={() => handleCategoryClick(categorie)}
+                    >
+                      {categorie && categorie.nom}
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            </Modal.Body>
+            </Modal>
+
             {/****************************** modl 2*****************************************/}
             <Modal show={showR} onHide={handleCloseShowR} id="buttonModifier" size="lg">
             <Modal.Header closeButton>
@@ -400,47 +602,31 @@ const processEvaluations = (evaluations) => {
             </Modal.Header>
             <Modal.Body>
             
-            {evaluationDataR?.length > 0 && evaluationDataR.map((userData, index) => {
-        //  const { user, userData } = userData;
-                let questionCounter = 1; // Initialize question counter inside the map function
-            
-                  return (
-                    <div key={index} className=" ">
-                      
-                        <div className="card mb-3 p-3">
-                            {/* User information */}
-                            
-                            {/* Loop through each evaluation */}
-                            
-                                <div  className="mt-1 mb-4">
-                                    {/* Assuming each evaluation has a title, questions and responses */}
-                                    <h5 className="card-text" style={{color:'#004573'}}>
-                                        <strong>Évaluation:</strong> {userData?.evaluation.titre}
-                                    </h5>
-            
-                                    {userData?.questions_reponses?.map((qr, qrIndex) => (
-                                        <div key={qrIndex} className="mt-1 mb-4">
-                                            <p className="card-text ">
-                                                <strong>{questionCounter++}-Question:</strong> {qr?.reponse?.questions_evaluation?.nom}
-                                            </p>
-                                            <p className="card-text">
-                                                <strong>Réponse:</strong> {qr?.reponse?.reponse}
-                                            </p>
-                                        </div>
-                                    ))}
-            
-                                    {/* Additional information per evaluation if needed */}
-                                    <p className="card-text mt-3"><strong>Commentaire:</strong> {userData?.commentaire}</p>
-                                    <p className="card-text"><strong>Niveau:</strong> {getNiveauLabel(userData?.niveau)}</p>
-                                    
-                                </div>
-                            
-                        </div>
-                    </div>
-                      );
-                  })}
+      
+             {evaluationDataR?.length > 0 && evaluationDataR?.map((userData, index) => (
+                <div key={index} className="mb-4">
+              <h5 className="card-text" style={{ color: '#004573' }}>
+                {/* <strong>Évaluation:</strong> {userData?.evaluation.titre} */}
+              </h5>
+                {/* {userData?.questions_reponses?.map((chartData, index) => ( */}
+                  {/* // console.log(chartData) */}
+                <div key={index} className="card mb-3 p-3">
+                  <h5 className="card-text" style={{ color: '#004573' }}>
+                    <strong>Question:</strong> {userData.nom}
+                    {/* userData?.questions_reponses[index].nom */}
+                  </h5>
+                  <div style={chartContainerStyle}>
+                  <Pie data={prepareChartData(userData)} options={options} />
+                  </div>
+                  
+                </div>
+                {/* ))} */}
+                </div>
+                  ))}
     
+            
             </Modal.Body>
+
             </Modal>
 
         </div>

@@ -222,7 +222,7 @@ import LoadingBox from "../../../Components/LoadingBox/LoadingBox";
               id="hearder-color"
               style={{ backgroundColor: "#004573" }}>
               <tr>
-                <th style={{ backgroundColor: "#004573", color: "#fff" }}>Nom Prenom</th>
+                <th style={{ backgroundColor: "#004573", color: "#fff" }}>Nom Prénom</th>
                 <th style={{ backgroundColor: "#004573", color: "#fff" }}>Email</th>
                 <th style={{ backgroundColor: "#004573", color: "#fff" }}>Téléphone</th>
                 <th style={{ backgroundColor: "#004573", color: "#fff" }}>Fixe</th>

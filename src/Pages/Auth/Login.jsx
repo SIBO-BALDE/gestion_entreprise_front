@@ -124,13 +124,14 @@ export default function Login() {
     };
   
     try {
-      const apiUrl = 'https://myfeedbaks360s.kevacom.com';
-      const response = await axios.post('https://myfeedbaks360s.kevacom.com/api/login', credentials,{ 
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      });
+      // const apiUrl = 'https://myfeedbaks360s.kevacom.com';
+      const response = await axios.post('http://localhost:8000/api/login', credentials  )
+      // headers: {
+      //   Accept: "application/json",
+      //   "Content-Type": "application/json",
+      // },
+      // }
+   
       
       console.log(credentials, 'credentials');
       console.log(response, 'response');

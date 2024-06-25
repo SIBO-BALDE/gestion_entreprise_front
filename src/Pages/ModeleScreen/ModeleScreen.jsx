@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react'
 import './ModeleScreen.css';
 import { Button, Image } from 'react-bootstrap';
-import ban_about from '../../Images/baraka1.jpeg';
+import ban_about from '../../Images/imgban/banfour.jpg';
 import logo from '../../Images/logo.png';
 import NavbarUser from '../../Components/User_Components/NavbarUser';
 import Footer from '../../Components/User_Components/Footer/Footer';
 import Underline from '../../Components/User_Components/Underline/Underline';
 import Pagination from '../../Components/User_Components/Pagination/Pagination';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHandshake } from '@fortawesome/free-regular-svg-icons';
-import { faChartLine, faUserTie } from '@fortawesome/free-solid-svg-icons';
+import { faComment, faHandshake } from '@fortawesome/free-regular-svg-icons';
+import { faChartLine, faDna, faPeopleGroup, faUserGroup, faUserTie, faUsers } from '@fortawesome/free-solid-svg-icons';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { Link } from 'react-router-dom';
@@ -29,8 +29,8 @@ export default function ModeleScreen() {
         <Image  src={ban_about} id='ban_modele_modele_one_img' />
        </div>
        <div className='ban_modele_modele_one_text'>
-       <h1 className='text-center' >Évaluation des Équipes d'Entreprise en Ligne</h1>
-       <p className='text-center'>Une solution professionnelle pour évaluer et améliorer les performances de votre équipe.</p>
+       {/* <h1 className='text-center' >Évaluation des Équipes d'Entreprise en Ligne</h1> */}
+       {/* <p className='text-center'>Une solution professionnelle pour évaluer et améliorer les performances de votre équipe.</p> */}
        {/* <div class="loading_content_modele">
             <span></span>
             <span></span>
@@ -38,7 +38,7 @@ export default function ModeleScreen() {
             <span></span>
             <span></span>
         </div> */}
-        <div class="loader"></div>
+        {/* <div className="loader"></div> */}
        </div>
        <div>
             <ButtonWashapp/>
@@ -53,7 +53,7 @@ export default function ModeleScreen() {
      <div className=' card_modele_home_content_main_modele  mt-5 gap-4 container mb-5 '>
             <div className='pt-2 pb-2 pe-3 ps-3 card_modele_home' style={{width:'auto', height:'auto', borderTop:'3px solid #FFB703', 
                boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius:'25px', position:'relative'}} >
-                <div><FontAwesomeIcon  icon={faUserTie} style={{fontSize:'60px', color:'#FFB703'}} /></div>
+                <div><FontAwesomeIcon  icon={faDna} style={{fontSize:'60px', color:'#FFB703'}} /></div>
                 <div>
                     <h6 
                     style={{fontWeight:'bold', textAlign:'justify'}}  className='mt-3 mb-2'>
@@ -93,7 +93,7 @@ export default function ModeleScreen() {
             </div>
             <div className='pt-2 pb-2 pe-3 ps-3 card_modele_home' style={{width:'auto', height:'auto', borderTop:'3px solid #FFB703', 
                boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius:'25px', position:'relative'}} >
-                <div><FontAwesomeIcon  icon={faUserTie} style={{fontSize:'60px', color:'#FFB703'}} /></div>
+                <div><FontAwesomeIcon  icon={faUsers} style={{fontSize:'60px', color:'#FFB703'}} /></div>
                 <div>
                     <h6 style={{fontWeight:'bold', textAlign:'justify'}}  className='mt-3 mb-2'>
                         <Link to={'/error'} style={{textDecoration:'none', color:'black'}}>Sondage Employee Net Promoter Score (eNPS)</Link>
@@ -106,7 +106,7 @@ export default function ModeleScreen() {
             </div>
             <div className='pt-2 pb-2 pe-3 ps-3 card_modele_home' style={{width:'auto', height:'auto', borderTop:'3px solid #FFB703', 
                boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius:'25px', position:'relative'}} >
-                <div><FontAwesomeIcon  icon={faUserTie} style={{fontSize:'60px', color:'#FFB703'}} /></div>
+                <div><FontAwesomeIcon  icon={faComment} style={{fontSize:'60px', color:'#FFB703'}} /></div>
                 <div>
                     <h6 style={{fontWeight:'bold', textAlign:'justify'}}  className='mt-3 mb-2'>
                     <Link to={'/error'} style={{textDecoration:'none', color:'black'}}>Feedbacks post évenement</Link>
@@ -129,7 +129,7 @@ export default function ModeleScreen() {
             </div>
             <div className='pt-2 pb-2 pe-3 ps-3 card_modele_home' style={{width:'auto', height:'auto', borderTop:'3px solid #FFB703', 
                boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius:'25px', position:'relative'}} >
-                <div><FontAwesomeIcon  icon={faUserTie} style={{fontSize:'60px', color:'#FFB703'}} /></div>
+                <div><FontAwesomeIcon  icon={faPeopleGroup} style={{fontSize:'60px', color:'#FFB703'}} /></div>
                 <div>
                     <h6 style={{fontWeight:'bold', textAlign:'justify'}}  className='mt-3 mb-2'>
                     <Link to={'/error'} style={{textDecoration:'none', color:'black'}}>Modéle de sondage sur la cohésion de l’équipe</Link>
@@ -141,7 +141,7 @@ export default function ModeleScreen() {
             </div>
             <div className='pt-2 pb-2 pe-3 ps-3 card_modele_home' style={{width:'auto', height:'auto', borderTop:'3px solid #FFB703', 
                boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius:'25px', position:'relative'}} >
-                <div><FontAwesomeIcon  icon={faUserTie} style={{fontSize:'60px', color:'#FFB703'}} /></div>
+                <div><FontAwesomeIcon  icon={faUserGroup} style={{fontSize:'60px', color:'#FFB703'}} /></div>
                 <div>
                     <h6 style={{fontWeight:'bold', textAlign:'justify'}}  className='mt-3 mb-2'>
                     <Link to={'/error'} style={{textDecoration:'none', color:'black'}}>Modéle d’évaluation des performances collaborateur</Link>

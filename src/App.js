@@ -20,6 +20,7 @@ import GestionDevisDetail from './Pages/CRUD/GestionDevis/GsetionDevisDetail';
 import DashboardSuperAdmin from './Pages/Dashboards/DashboardSuperAdmin/DashboardSuperAdmin';
 import ForgotPassWord from './Components/User_Components/ForgotPassWord/ForgotPassWord';
 import EditPassWord from './Components/User_Components/EditPassWord/EditPassWord';
+import FormLien from './Components/User_Components/FormLien/FormLien';
 
 
 
@@ -107,6 +108,7 @@ function App() {
       <Route path="/abonnementdetail/:id" element={<GestionDevisDetail />} />
       <Route path="/forgetpassword" element={<ForgotPassWord />} />
       <Route path="/Editpassword" element={<EditPassWord />} />
+      <Route path="/eventform/:token" element={<FormLien />} />
      
 
 

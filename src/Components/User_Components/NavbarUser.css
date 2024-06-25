@@ -22,6 +22,7 @@
 }
 .navbar_body{
     background-color: var(--principal);
+    width: 100%;
     
     
    
@@ -31,6 +32,8 @@
     top: 0;
     z-index: 100;
     width: 100%;
+    /* border: 10px solid red; */
+
 }
 #link_navbar_menu{
     color: var(--principal) !important;

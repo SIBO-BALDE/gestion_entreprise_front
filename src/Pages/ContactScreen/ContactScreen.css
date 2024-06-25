@@ -20,9 +20,7 @@
 .form_content_main_contact{
     display: flex;
     height: auto;
-    /* justify-content: center; */
     width: 610px;
-    /* height: 400px; */
     margin: 0 auto;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -34,11 +32,11 @@
     height: auto !important;
     border-top-left-radius:10px;
     border-bottom-left-radius:10px;
-    background-color: #90827F;
+    background-color: #B3C8C9;
 }
 .form_content_right_contact_image{
     width: 100% !important;
-    height: auto !important;
+    height: 100% !important;
     
     border-top-left-radius:10px;
 }

@@ -188,10 +188,10 @@ useEffect(() => {
               <tr>
                 
                 <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                  Prenom
+                  Nom
                 </th>
                 <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                  Nom
+                Prenom
                 </th>
                 <th style={{ backgroundColor: "#004573", color: "#fff" }}>
                   Email
@@ -237,8 +237,8 @@ function RenderContent(name) {
   switch (name) {
     case "dashbordSuperAdmin":
       return <KPI />;
-    case "gestioaentrepriseAdmin":
-      return <GestionEntrepriseAdmin />;
+    // case "gestioaentrepriseAdmin":
+    //   return <GestionEntrepriseAdmin />;
     case "gestioadmin":
       return <GestionAdmin />;
     case "gestionnewletter":

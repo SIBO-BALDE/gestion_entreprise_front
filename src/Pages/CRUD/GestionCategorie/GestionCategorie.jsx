@@ -76,7 +76,7 @@ export default function GestionCategorie() {
           Swal.fire({
             icon: "success",
             title: "Succès!",
-            text: "categorie ajouter avec succée!",
+            text: "Lien hiérachie ajouter avec succée!",
           });
           // Fermez le modal
           handleCloseCategories();
@@ -166,11 +166,11 @@ export default function GestionCategorie() {
           Swal.fire({
             icon: "success",
             title: "Succès!",
-            text: "Catégorie mise à jour avec succès!",
+            text: "Lien hiérachie mise à jour avec succès!",
           });
           fetchCategories();
         } else {
-          console.error("erreur lors de la modification de la catégorie");
+          console.error("erreur lors de la modification de la lien hiérachie");
         }
       }
     } catch (error) {
@@ -184,7 +184,7 @@ export default function GestionCategorie() {
     const token = localStorage.getItem("tokencle");
     Swal.fire({
       title: 'Êtes-vous sûr?',
-      text: "De vouloir supprimer la ctegorie?",
+      text: "De vouloir supprimer le lien hiérachie?",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#004573',
@@ -214,7 +214,7 @@ export default function GestionCategorie() {
                 Swal.fire({
                     icon: "success",
                     title: "Succès!",
-                    text: "catégorie supprimer avec succès!",
+                    text: "Lien hiérachie supprimer avec succès!",
                 });
         } else {
           console.error("Erreur lors de la suppression de la catégorie");
@@ -275,7 +275,7 @@ const totalPaginationPages = Math.ceil(categories.length /  categorieParPage);
             style={{ backgroundColor: "#004573", border: "none" }}
             id="buttonAjouter"
           >
-            Ajouter une catégorie
+            Ajouter un lien hiérachie
           </Button>
         </div>
         <div className="flex-grow-1 d-flex justify-content-end ">
@@ -288,7 +288,7 @@ const totalPaginationPages = Math.ceil(categories.length /  categorieParPage);
                 <Form.Control
                   type="search"
                   className="form-control w-50   "
-                  placeholder="Rechercher une catégorie"
+                  placeholder="Rechercher unlen hiérachie"
                   aria-label="user"
                   aria-describedby="addon-wrapping"
                   value={searchValue}
@@ -307,7 +307,7 @@ const totalPaginationPages = Math.ceil(categories.length /  categorieParPage);
         </div>
       </div>
       <div className="mt-4 ms-3  me-3">
-        <h3>Liste des categories</h3>
+        <h3>Liste des liens hiérachies</h3>
         <table className="table border  border-1">
           <thead
             className=""
@@ -380,7 +380,7 @@ const totalPaginationPages = Math.ceil(categories.length /  categorieParPage);
           id="buttonAjouter"
         >
           <Modal.Header closeButton>
-            <Modal.Title>Ajouter Categorie</Modal.Title>
+            <Modal.Title>Ajouter lien hiérachie</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
@@ -445,7 +445,7 @@ const totalPaginationPages = Math.ceil(categories.length /  categorieParPage);
         id="buttonModifier"
       >
         <Modal.Header closeButton>
-          <Modal.Title>Modifier Catégorie</Modal.Title>
+          <Modal.Title>Modifier lien hiérachi</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>

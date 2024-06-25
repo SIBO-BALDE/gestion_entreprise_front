@@ -33,7 +33,8 @@ export default function NavbarUser() {
     <div className='navbar_glabal_content'>
         {/**************************** Navbar component debut ****************************/}
         
-        <Navbar expand="lg" className="navbar_body" style={{backgroundColor:'#fff', boxShadow:'rgba(0, 0, 0, 0.16) 0px 1px 4px',}}>
+        <Navbar expand="lg" className="navbar_body" 
+          style={{backgroundColor:'#fff', boxShadow:'rgba(0, 0, 0, 0.16) 0px 1px 4px',}}>
           <Container fluid>
            <Navbar.Brand href="/">
             <Image src={logo}  className='logo_conntent_navbar'/>

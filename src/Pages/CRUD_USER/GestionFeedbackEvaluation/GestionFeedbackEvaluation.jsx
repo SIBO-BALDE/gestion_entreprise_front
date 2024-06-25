@@ -1,4 +1,4 @@
-import { faEye, faMagnifyingGlass, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faArrowCircleLeft, faArrowCircleRight, faEye, faMagnifyingGlass, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
@@ -7,6 +7,8 @@ import Pagination from '../../../Components/User_Components/Pagination/Paginatio
 import './GestionFeedbackEvaluation.css';
 import Swal from 'sweetalert2';
 import LoadingBox from '../../../Components/LoadingBox/LoadingBox';
+import MultiStepForm from './MultiForm';
+import CheckoutSteps from '../CheckoutSteps';
 
 export default function GestionFeedbackEvaluation() {
   const [loading, setLoading] = useState(true);
@@ -32,11 +34,12 @@ export default function GestionFeedbackEvaluation() {
   };
   
 
-  
+ 
 
 
-  
-  const ajouterEvaluation = async () => {
+  // Funtion pour evaluer un participant
+  const ajouterEvaluation = async (e) => {
+    e.preventDefault();
     const token = localStorage.getItem("tokencle");
     const role = localStorage.getItem("rolecle");
     
@@ -48,15 +51,20 @@ export default function GestionFeedbackEvaluation() {
       // Création de l'objet evaluationData
       const evaluationData = {
         evaluation: evaluation,
+        categorie_id: selectedCategoryId,
         evaluer_id: selectedUserId,
         commentaire: commentaire, 
        
        
       };
+      console.log(evaluation, '(evaluation)')
+      console.log(selectedCategoryId, 'selectedCategoryId')
+      console.log(commentaire, 'commentaire')
+      console.log(selectedUserId, 'selectedUserId')
       
     
       try {
-        if (evaluationData.evaluation==='' || evaluationData.selectedUserId==='' || evaluationData.commentaire==='') {
+        if ( evaluationData.commentaire==='') {
           Swal.fire({
             icon: "error",
             title: "Oops!",
@@ -87,7 +95,7 @@ export default function GestionFeedbackEvaluation() {
         
         setCommentaire('');
         // Fermer le modal après l'ajout
-        setShow(false);
+        setShowAdd(false);
       } catch (error) {
         if (error.response.status === 409) {
        
@@ -96,11 +104,11 @@ export default function GestionFeedbackEvaluation() {
           title: "Oops!",
           text: "Vous avez déjà évalué ce participant!",
         }).then(() => {
-          handleClose(); 
+          handleClosAdd(); 
         });
         return;
       }
-      handleClose();
+      handleClosAdd();
         
         console.error('Erreur lors de l\'ajout de l\'évaluation:', error);
         console.log('Erreur :', error);
@@ -234,14 +242,14 @@ const [users, setUsers] = useState([]);
 const [selectedCategoryId, setSelectedCategoryId] = useState(null);
 
 //  Lister les users
-const fetchUsers = async (categoryId) => {
+const fetchUsers = async () => {
  const role = localStorage.getItem("rolecle");
  const token = localStorage.getItem("tokencle");
  try {
    if (token && role === "Participant") {
      const response = await axios.get(
       
-      `http://localhost:8000/api/participant/entreprse/${categoryId}`,
+      `http://localhost:8000/api/participant/same-enterprise`,
       
        {
          headers: {
@@ -251,9 +259,9 @@ const fetchUsers = async (categoryId) => {
      );
     
      console.log(response ,'response user select');
-     setUsers(response.data.participants);
+     setUsers(response.data.users);
      setLoading(false)
-     console.log(categoryId, 'category fetchusers');
+     
 
      
    }
@@ -264,20 +272,20 @@ const fetchUsers = async (categoryId) => {
 
 
 useEffect(() => {
-  if (selectedCategoryId) {
-    fetchUsers(selectedCategoryId);
-  }
-}, [selectedCategoryId]);
+  // if (selectedCategoryId) {
+    fetchUsers();
+  
+}, []);
 
 
 
   
-  const [selectedUserId, setSelectedUserId] = useState("");
-  
-// Fonction pour mettre à jour l'ID de l'utilisateur sélectionné
-const handleUserSelectChange = (event) => {
-  setSelectedUserId(event.target.value);
-};
+  const [selectedUserId, setSelectedUserId] = useState("")
+  const handleUserSelectChange = (e) => {
+    const userId = e.target.value;
+    setSelectedUserId(userId);
+    setEvaluationData((prevData) => ({ ...prevData, evaluer_id: userId }));
+  };
 
 
 const [evaluationData, setEvaluationData] = useState(null);
@@ -324,20 +332,179 @@ const handleEvaluationClickDetail = async (evaluationId, event) => {
 };
 
 
-const handleButtonClick = async (CategorieId, event) => {
-  event.preventDefault();
-  setSelectedCategoryId(CategorieId);
-  if (evaluationSelectionneeId !== null) {
-    
-    await fetchReponsesQuestion(CategorieId, evaluationSelectionneeId);
-    setShow(true);
-    setShowAdd(false);
-  } else {
-    console.log("L'évaluation sélectionnée n'est pas définie.");
-    setReponsesQuestion([]);
-  }
-};
+
 let questionCounter = 1;
+
+
+const [step, setStep] = useState(1);
+  const [formData, setFormData] = useState({
+        evaluation: '',
+        categorie_id:'',
+        evaluer_id: '',
+        commentaire: '', 
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission logic here
+    console.log(formData);
+    handleClose(); // Close modal after form submission
+    // Reset form data after submission if needed
+    // setFormData({
+        // evaluation: '',
+        // categorie_id:'',
+        // evaluer_id: '',
+        // commentaire: '', 
+    // });
+  };
+
+  const nextStep = () => {
+    setStep(step + 1);
+  };
+
+  const prevStep = () => {
+    setStep(step - 1);
+  };
+
+ 
+
+  const renderForm = () => {
+    switch (step) {
+      case 1:
+        return (
+          <Form>
+            
+            <Form.Group controlId="selectUser" className='mb-3'>
+              <h3>Qui voulez vous évalué ?</h3>
+              {/* <CheckoutSteps step1 step2 step3></CheckoutSteps> */}
+              <CheckoutSteps currentStep={step} />
+            <Form.Select value={selectedUserId} onChange={handleUserSelectChange}>
+                <option value="">Sélectionner un utilisateur</option>
+                {users.map(user => (
+                  <option key={user.id} value={user.id}>
+                    {user.nom} {user.prenom}
+                  </option>
+                ))}
+              </Form.Select>
+            </Form.Group>
+
+            
+
+            <Button variant="primary" onClick={nextStep} style={{borderRadius:'50%',width:'40px', height:'40px', backgroundColor:'#004573', border:'none'}}>
+            <FontAwesomeIcon icon={faArrowCircleRight} />
+            </Button>
+          </Form>
+        );
+
+      case 2:
+        return (
+          <Form>
+            <Form.Group controlId="email">
+            <h3>Votre lien hiérachique?</h3>
+            {/* <CheckoutSteps step1 step2 step3></CheckoutSteps> */}
+            <CheckoutSteps currentStep={step} />
+               <div style={{ display: "flex", flexDirection: "row", justifyContent: 'center' }}>
+                  {categories.map((category) => (
+                    <div key={category.id} className="ms-4 mt-4">
+                      <button
+                        className="btn btn btn-content-ev"
+                        style={{ marginRight: "10px", border:'1px solid #004573', color:'#004573' }}
+                        onClick={(event) => handleButtonClick(category.id, event)}
+
+                      >
+                        {category.nom}
+                      </button>
+                    </div>
+                  ))}
+                </div>
+            </Form.Group>
+
+            
+
+            <Button variant="" onClick={prevStep} style={{borderRadius:'50%',width:'40px', height:'40px', backgroundColor:'#004573', border:'none'}}>
+            <FontAwesomeIcon icon={faArrowCircleLeft} style={{color:'white'}} />
+            </Button>
+            <Button variant="" onClick={nextStep} style={{borderRadius:'50%',width:'40px', height:'40px', backgroundColor:'#004573', border:'none', marginLeft:'15px'}}>
+             <FontAwesomeIcon icon={faArrowCircleRight} style={{color:'white'}} />
+            </Button>
+          </Form>
+        );
+
+      case 3:
+        return (
+          <Form>
+            {/* <CheckoutSteps step1 step2 step3></CheckoutSteps> */}
+            <CheckoutSteps currentStep={step} />
+            <Form.Group>
+            {reponsesQuestion && reponsesQuestion.map((question) => (
+              (evaluationSelectionneeId !== null && evaluationSelectionneeId === question.evaluation_id) && (
+              <div key={question.id} style={{ marginBottom: '20px' }}>
+                <Form.Group controlId={`question-${question.id}`}>
+                  <Form.Label>{questionCounter++}-{question.nom} ?</Form.Label>
+                  {question?.reponses_evaluation?.map((reponse) => (
+                    <Form.Check
+                      key={reponse.id}
+                      type="radio"
+                      id={`radio-${question.id}-${reponse.id}`}
+                      label={reponse.reponse}
+                      value={reponse.id}
+                      checked={selectedReponse[question.id] === reponse.id}
+                      onChange={() => handleRadioChange(question.id, reponse.id)}
+                    />
+                  ))}
+                </Form.Group>
+                
+              </div>
+              )
+            ))}
+            </Form.Group>
+            <Form.Group controlId="commentaire">
+                <Form.Label className='mt-3'>Commentaire :</Form.Label>
+                <Form.Control 
+                  as="textarea" 
+                  rows={3} 
+                  value={commentaire} 
+                  onChange={(e) => setCommentaire(e.target.value)} 
+                />
+              </Form.Group>
+
+            <Button variant="" onClick={prevStep} style={{borderRadius:'50%',width:'40px', height:'40px', backgroundColor:'#004573', border:'none'}}>
+            <FontAwesomeIcon icon={faArrowCircleLeft} />
+            </Button>
+            <Button variant="" type="submit" onClick={ajouterEvaluation}>
+              Envoyer
+            </Button>
+          </Form>
+        );
+
+      default:
+        return null;
+    }
+  };
+  const handleButtonClick = async (CategorieId, event) => {
+    event.preventDefault();
+    setSelectedCategoryId(CategorieId);
+    if (evaluationSelectionneeId !== null) {
+      nextStep();
+      await fetchReponsesQuestion(CategorieId, evaluationSelectionneeId);
+      // setShow(true);
+      // setShowAdd(false);
+    } else {
+      console.log("L'évaluation sélectionnée n'est pas définie.");
+      setReponsesQuestion([]);
+    }
+  };
+
+
+
+
+
+ 
 
 
   return (
@@ -445,6 +612,7 @@ let questionCounter = 1;
             totalPaginationPages={totalPaginationPages}
             setCurrentPage={setCurrentPage}
           />
+          
             <div>
             
             </div>
@@ -459,26 +627,11 @@ let questionCounter = 1;
             id="buttonAjouter"
             size='lg'
           >
-            <Modal.Header closeButton>
-              <Modal.Title>Qui voulez-vous évaluer ? </Modal.Title>
-            </Modal.Header>
+            {/* <Modal.Header closeButton>
+            </Modal.Header> */}
             <Modal.Body>
             <Form>
-                <div style={{ display: "flex", flexDirection: "row", justifyContent: 'center' }}>
-                  {categories.map((category) => (
-                    <div key={category.id} className="ms-4 mt-4">
-                      <button
-                        className="btn btn btn-content-ev"
-                        style={{ marginRight: "10px", border:'1px solid #004573', color:'#004573' }}
-                        onClick={(event) => handleButtonClick(category.id, event)}
-
-                      >
-                        {category.nom}
-                      </button>
-                    </div>
-                  ))}
-                </div>
-    
+            {renderForm()}
             </Form>
 
             </Modal.Body>
@@ -489,83 +642,7 @@ let questionCounter = 1;
 
         {/* modal debut  ajouter event*/}
         
-        <>
-        <Modal show={show} onHide={handleClose} id="buttonAjouter">
-        <Modal.Header closeButton>
-          <Modal.Title>Evaluer un participant</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group controlId="selectUser" className='mb-3'>
-              <Form.Label>Sélectionnez un utilisateur :</Form.Label>
-              <Form.Select value={selectedUserId} onChange={handleUserSelectChange}>
-                <option value="">Sélectionner un utilisateur</option>
-                {users.map(user => (
-                  <option key={user.id} value={user.id}>{user.nom} {user.prenom}</option>
-                ))}
-              </Form.Select>
-            </Form.Group>
-            {reponsesQuestion && reponsesQuestion.map((question) => (
-              (evaluationSelectionneeId !== null && evaluationSelectionneeId === question.evaluation_id) && (
-              <div key={question.id} style={{ marginBottom: '20px' }}>
-                <Form.Group controlId={`question-${question.id}`}>
-                  <Form.Label>{questionCounter++}-{question.nom} ?</Form.Label>
-                  {question?.reponses_evaluation?.map((reponse) => (
-                    <Form.Check
-                      key={reponse.id}
-                      type="radio"
-                      id={`radio-${question.id}-${reponse.id}`}
-                      label={reponse.reponse}
-                      value={reponse.id}
-                      checked={selectedReponse[question.id] === reponse.id}
-                      onChange={() => handleRadioChange(question.id, reponse.id)}
-                    />
-                  ))}
-                </Form.Group>
-              </div>
-              )
-            ))}
-            
-            <Form.Group controlId="commentaire">
-              <Form.Label className='mt-3'>Commentaire :</Form.Label>
-              <Form.Control 
-                as="textarea" 
-                rows={3} 
-                value={commentaire} 
-                onChange={(e) => setCommentaire(e.target.value)} 
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="secondary"
-            onClick={ajouterEvaluation}
-            style={{
-              backgroundColor: "#004573",
-              border: "none",
-              width: "130px",
-            }}
-          >
-            Envoyer
-          </Button>
-          <Button
-            variant="primary"
-            onClick={handleClose}
-            style={{
-              backgroundColor: "#fff",
-              border: "1px solid #004573",
-              width: "130px",
-              color: "#004573",
-            }}
-          >
-            Fermer
-          </Button>
-        </Modal.Footer>
-        </Modal>
-
-
-        </>
+       
       </div>
       )}
     </div>

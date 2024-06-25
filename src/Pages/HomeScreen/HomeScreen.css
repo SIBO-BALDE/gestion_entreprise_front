@@ -615,5 +615,12 @@ ul.timeline-list li:before {
 
 }
 
+/* @media  screen and (max-width:1288px) {
+  *{
+    outline: 1px solid red;
+  }
+
+} */
+
 
 

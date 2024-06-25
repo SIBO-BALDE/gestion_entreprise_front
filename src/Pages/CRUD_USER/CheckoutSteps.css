@@ -1,0 +1,14 @@
+.checkout-steps > div {
+    border-bottom: 2px solid #a0a0a0;
+    color: #a0a0a0;
+    padding: 10px;
+    text-align: center;
+    flex: 1;
+  }
+  
+  .checkout-steps > div.activeone,
+  .checkout-steps > div.completed {
+    border-bottom: 0.2rem solid #f08000;
+    color: #f08000;
+  }
+  

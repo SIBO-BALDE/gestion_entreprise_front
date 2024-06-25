@@ -6,6 +6,7 @@ import {
   faLockOpen,
   faMagnifyingGlass,
   faPenToSquare,
+  faPlus,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -30,9 +31,12 @@ export default function GestionEvenement({ id }) {
   const [showEditModalEvents, setShowEditModalEvents] = useState(false);
 
   const [showAdd, setShowAdd] = useState(false);
+  const [showLink, setShowLink] = useState(false);
   const [showEventBlok, setShowEventBlok] = useState(false);
   const handleClosAdd = () => setShowAdd(false); 
   const handleshowAdd = () => setShowAdd(true);
+  const handleshowLink = () => setShowLink(true);
+  const handleClosLink = () => setShowLink(false); 
 
   const handleCloseEdit = () => setShowEvent(false);
   const handleShowEdit = () => setShowEvent(true);
@@ -52,6 +56,8 @@ export default function GestionEvenement({ id }) {
   const [events, setEvents] = useState([]);
   const [reponses, setReponses] = useState([]);
   const [reponsesData, setReponsesData] = useState([]);
+  const [eventLink, setEventLink] = useState(null);
+  const [eventToken, setEventToken] = useState(null);
 
   // etat pour ajout categorie
   const [eventData, setEventData] = useState({
@@ -59,29 +65,116 @@ export default function GestionEvenement({ id }) {
     description: "",
     date_debut: "",
     date_fin: "",
+    questions: [{ nom: "" }],
   
   });
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEventData({ ...eventData, [name]: value });
+  };
+
+  const handleQuestionChange = (index, event) => {
+    const newQuestions = eventData.questions.slice();
+    newQuestions[index].nom = event.target.value;
+    setEventData({ ...eventData, questions: newQuestions });
+  };
+
+  const handleAddQuestion = () => {
+    setEventData({
+      ...eventData,
+      questions: [...eventData.questions, { nom: "" }],
+    });
+  };
+
+  const handleRemoveQuestion = (index) => {
+    const newQuestions = eventData.questions.slice();
+    newQuestions.splice(index, 1);
+    setEventData({ ...eventData, questions: newQuestions });
+  };
 
    // function pour ajouter une categorie
-   const ajouterEvent = async () => {
+  //  const ajouterEvent = async () => {
+  //   const token = localStorage.getItem("tokencle");
+  //   const role = localStorage.getItem("rolecle");
+  //   // alert('okay')
+  
+  //   if(eventData.titre === "" ||  eventData.description === ""  || eventData.date_debut === "" || eventData.date_fin === "" ){
+  //     Swal.fire({
+  //       icon: "error",
+  //       title: "Oops!",
+  //       text: "les champs sont  obligatoires!",
+  //     });
+  //     // console.log(eventData, 'categoriedata')
+  //     return
+  //   }
+  //   try {
+  //     if (token && role === "Admin") {
+  //       const response = await axios.post(
+  //         "http://localhost:8000/api/evenement/create",
+
+  //         eventData,
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       );
+  //       console.log(response, 'responses event ajout')
+  //       const essay =response.data.Evenement
+  //       console.log(essay , 'essay')
+
+  //       // Vérifiez si la requête a réussi
+  //       if (response.status === 200) {
+  //         // Ajoutez la nouvelle maison à la liste existante
+  //         console.log(response, 'response categorie')
+  //         setEvents([...events, response.data.Evenement
+  //         ]);
+  //         setLoading(false)
+          
+  //         console.log(events, 'events event')
+  //         // Réinitialisez les valeurs du formulaire après avoir ajouté la maison
+  //         setEventData({
+  //           titre: "",
+  //           description: "",
+  //           date_debut: "",
+  //           date_fin: "",
+           
+  //         });
+  //         Swal.fire({
+  //           icon: "success",
+  //           title: "Succès!",
+  //           text: "evenement ajouter avec succée!",
+  //         });
+  //         // Fermez le modal
+  //         handleCloseEdit();
+  //         fetchEvents()
+  //       } else {
+  //         console.error("Erreur dans lajout de maison");
+  //       }
+  //     }
+  //   } catch (error) {
+  //     // Gestion des erreurs Axios
+  //     console.error("Erreur Axios:", error);
+  //   }
+  // };
+
+  const ajouterEvent = async () => {
     const token = localStorage.getItem("tokencle");
     const role = localStorage.getItem("rolecle");
-    // alert('okay')
-  
-    if(eventData.titre === "" ||  eventData.description === ""  || eventData.date_debut === "" || eventData.date_fin === "" ){
+
+    if (eventData.titre === "" || eventData.description === "" || eventData.date_debut === "" || eventData.date_fin === "") {
       Swal.fire({
         icon: "error",
         title: "Oops!",
-        text: "les champs sont  obligatoires!",
+        text: "Les champs sont obligatoires!",
       });
-      // console.log(eventData, 'categoriedata')
-      return
+      return;
     }
+
     try {
       if (token && role === "Admin") {
         const response = await axios.post(
           "http://localhost:8000/api/evenement/create",
-
           eventData,
           {
             headers: {
@@ -89,44 +182,44 @@ export default function GestionEvenement({ id }) {
             },
           }
         );
-        console.log(response, 'responses event ajout')
-        const essay =response.data.Evenement
-        console.log(essay , 'essay')
+        console.log(response, 'rep ev lien')
 
-        // Vérifiez si la requête a réussi
-        if (response.status === 200) {
-          // Ajoutez la nouvelle maison à la liste existante
-          console.log(response, 'response categorie')
-          setEvents([...events, response.data.Evenement
-          ]);
-          setLoading(false)
-          
-          console.log(events, 'events event')
-          // Réinitialisez les valeurs du formulaire après avoir ajouté la maison
+        if (response.status === 201) {
+          const eventLink = response.data.response_link;
+          const tokenMatch = eventLink.match(/\/eventform\/(.+)$/);
+          const extractedToken = tokenMatch ? tokenMatch[1] : null;
+          setEvents((prevEvents) => [...prevEvents, response.data.Evenement]);
+          // setEventLink(response.data.response_link)
+          setLoading(false);
+
           setEventData({
             titre: "",
             description: "",
             date_debut: "",
             date_fin: "",
-           
+            questions: [{ nom: "" }],
           });
+
           Swal.fire({
             icon: "success",
             title: "Succès!",
-            text: "evenement ajouter avec succée!",
+            text: "Événement ajouté avec succès!",
           });
-          // Fermez le modal
+          setEventLink(eventLink);
+          setEventToken(extractedToken); 
+          fetchEvents();
           handleCloseEdit();
-          fetchEvents()
+          handleshowLink()
+  
         } else {
-          console.error("Erreur dans lajout de maison");
+          console.error("Erreur dans l'ajout de l'événement");
         }
       }
     } catch (error) {
-      // Gestion des erreurs Axios
       console.error("Erreur Axios:", error);
     }
   };
+
 
   const fetchEvents = async () => {
     const role = localStorage.getItem("rolecle");
@@ -226,6 +319,7 @@ export default function GestionEvenement({ id }) {
   description: "",
   date_debut: "",
   date_fin: "",
+  questions: [{ nom: "" }],
   
 });
 
@@ -244,12 +338,64 @@ export default function GestionEvenement({ id }) {
   };
 
   // Fonction pour mettre à jour une catégorie
+
+  // const modifierEvent = async () => {
+  //   const role = localStorage.getItem("rolecle");
+  //   const token = localStorage.getItem("tokencle");
+  //   try {
+  //     if (token || role === "Admin") {
+  //         const response = await axios.post(
+  //         `http://localhost:8000/api/evenement/update/${editEventData.id}`,
+  //         editEventData,
+  //         {
+  //           headers: {
+  //             "Content-Type": "multipart/form-data",
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       );
+  //       console.log(response, 'response ev modif')
+
+  //       if (response.status === 200) {
+  //         const updatedEvents = events.map((evtUp) =>
+  //           evtUp.id === editEventData.id
+  //             ? response.data.evenements
+  //             : evtUp
+  //         );
+  //         setEvents(updatedEvents);
+  //         setLoading(false)
+  //         handleCloseEditEvents();
+  //         Swal.fire({
+  //           icon: "success",
+  //           title: "Succès!",
+  //           text: "evenement mise à jour avec succès!",
+  //         });
+  //         fetchEvents();
+  //       } else {
+  //         console.error("erreur lors de la modification de la evenement");
+  //       }
+  //     }
+  //   } catch (error) {
+  //     console.error("une erreur  Axios:", error);
+  //   }
+  // };
+
   const modifierEvent = async () => {
     const role = localStorage.getItem("rolecle");
     const token = localStorage.getItem("tokencle");
+  
+    if (editEventData.titre === "" || editEventData.description === "" || editEventData.date_debut === "" || editEventData.date_fin === "") {
+      Swal.fire({
+        icon: "error",
+        title: "Oops!",
+        text: "Les champs sont obligatoires!",
+      });
+      return;
+    }
+  
     try {
-      if (token || role === "Admin") {
-          const response = await axios.post(
+      if (token && role === "Admin") {
+        const response = await axios.post(
           `http://localhost:8000/api/evenement/update/${editEventData.id}`,
           editEventData,
           {
@@ -259,8 +405,8 @@ export default function GestionEvenement({ id }) {
             },
           }
         );
-        console.log(response, 'response ev modif')
-
+        console.log(response, 'response ev modif');
+  
         if (response.status === 200) {
           const updatedEvents = events.map((evtUp) =>
             evtUp.id === editEventData.id
@@ -268,22 +414,36 @@ export default function GestionEvenement({ id }) {
               : evtUp
           );
           setEvents(updatedEvents);
-          setLoading(false)
+          setLoading(false);
+  
+          // Vider les champs après modification
+          setEditEventData({
+            id: "",
+            titre: "",
+            description: "",
+            date_debut: "",
+            date_fin: "",
+            questions: [{ nom: "" }],
+          });
+  
           handleCloseEditEvents();
+  
           Swal.fire({
             icon: "success",
             title: "Succès!",
-            text: "evenement mise à jour avec succès!",
+            text: "Événement mis à jour avec succès!",
           });
+  
           fetchEvents();
         } else {
-          console.error("erreur lors de la modification de la evenement");
+          console.error("Erreur lors de la modification de l'événement");
         }
       }
     } catch (error) {
-      console.error("une erreur  Axios:", error);
+      console.error("Erreur Axios:", error);
     }
   };
+  
 
   
 //  pour le champ recherche
@@ -466,6 +626,14 @@ const archiverEvaluation = async (id) => {
 };
 
 
+const handleQuestionChangeEdit = (index, value) => {
+  const updatedQuestions = editEventData?.questions?.map((question, i) =>
+    i === index ? { ...question, nom: value } : question
+  );
+  setEditEventData({ ...editEventData, questions: updatedQuestions });
+};
+
+
 
 // fecht blok events
 
@@ -635,123 +803,211 @@ const archiverEvaluation = async (id) => {
           </tbody>
         </table>
         <Pagination
-            currentPage={currentPage1} // Assurez-vous que c'est currentPage1 pour la première pagination
+            currentPage={currentPage1}
             totalPaginationPages={totalPaginationPagesEvent}
             setCurrentPage={setCurrentPage1}
 />
  
       </div>
 
-      {/* modal debut  ajouter event*/}
-      <>
-        <Modal show={showEvent} onHide={handleCloseEdit} id="buttonAjouter">
+      {/** ********************* modal debut  ajouter event***************************/}
+      <Modal show={showEvent} onHide={handleCloseEdit} id="buttonAjouter">
+      <Modal.Header closeButton>
+        <Modal.Title>Ajouter un évenement</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form>
+          <div className="d-flex justify-content-around" style={{ gap: '10px' }}>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Titre</Form.Label>
+              <Form.Control
+                value={eventData.titre}
+                onChange={(e) => setEventData({ ...eventData, titre: e.target.value })}
+                type="text"
+                placeholder=""
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Description</Form.Label>
+              <Form.Control
+                value={eventData.description}
+                onChange={(e) => setEventData({ ...eventData, description: e.target.value })}
+                type="text"
+                placeholder=""
+              />
+            </Form.Group>
+          </div>
+          <div className="d-flex justify-content-around" style={{ gap: '10px' }}>
+            <Form.Group className="mb-3 w-100" controlId="exampleForm.ControlInput1">
+              <Form.Label>Date de début</Form.Label>
+              <Form.Control
+                value={eventData.date_debut}
+                onChange={(e) => setEventData({ ...eventData, date_debut: e.target.value })}
+                type="date"
+                placeholder=""
+              />
+            </Form.Group>
+            <Form.Group className="mb-3 w-100" controlId="exampleForm.ControlInput1">
+              <Form.Label>Date de fin</Form.Label>
+              <Form.Control
+                value={eventData.date_fin}
+                onChange={(e) => setEventData({ ...eventData, date_fin: e.target.value })}
+                type="date"
+                placeholder=""
+              />
+            </Form.Group>
+          </div>
+          <div>
+            <Form.Label>Questions</Form.Label>
+            {eventData.questions.map((question, index) => (
+              <div key={index} className="d-flex align-items-center" style={{ gap: '10px', marginBottom: '10px' }}>
+                <Form.Control
+                  type="text"
+                  value={question.nom}
+                  onChange={(e) => handleQuestionChange(index, e)}
+                  placeholder="Question"
+                />
+                <Button variant="danger" onClick={() => handleRemoveQuestion(index)}><FontAwesomeIcon icon={faTrash} /></Button>
+              </div>
+            ))}
+            <Button variant=""  onClick={handleAddQuestion} style={{backgroundColor:'#004573', border:'none', color:'white', marginRight:'10px'}}> <FontAwesomeIcon icon={faPlus} /></Button><span>Ajouter une question</span>
+          </div>
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button
+          variant="secondary"
+          onClick={ajouterEvent}
+          style={{
+            backgroundColor: "#004573",
+            border: "none",
+            width: "130px",
+          }}
+        >
+          Ajouter
+        </Button>
+        <Button
+          variant="primary"
+          onClick={handleCloseEdit}
+          style={{
+            backgroundColor: "#fff",
+            border: "1px solid #004573",
+            width: "130px",
+            color: "#004573",
+          }}
+        >
+          Fermer
+        </Button>
+      </Modal.Footer>
+      </Modal>
+      {/*************************** modal fin ajouter event ***************************/}
+
+
+      {/************************** modal debut modifier event ***************************/}
+        <Modal
+          show={showEditModalEvents}
+          onHide={handleCloseEditEvents}
+          id="buttonModifier"
+        >
           <Modal.Header closeButton>
-            <Modal.Title>Ajouter un évenement</Modal.Title>
+            <Modal.Title>Modifier Evenement</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form>
               <div className="d-flex justify-content-around"  style={{gap:'10px'}}>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
-                  <Form.Label>Titre</Form.Label>
-                  <Form.Control
-                    value={eventData.titre}
-                    onChange={(e) => {
-                      setEventData({
-                        ...eventData,
-                        titre: e.target.value,
-                      });
-                    
-                    }}
-                    type="text"
-                    placeholder=""
-                  />
-                 
-                </Form.Group>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
-                  <Form.Label>Description</Form.Label>
-                  <Form.Control
-                    value={eventData.description}
-                    onChange={(e) => {
-                      setEventData({
-                        ...eventData,
-                        description: e.target.value,
-                      });
-                      
-                    }}
-                    type="text"
-                    placeholder=""
-                  />
-                 
-                </Form.Group>
-                
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                <Form.Label>Titre</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder=""
+                  name="titre"
+                  value={editEventData.titre}
+                  onChange={(e) =>
+                    setEditEventData({
+                      ...editEventData,
+                      titre:e.target.value,
+                    })
+                  }
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                <Form.Label>Description</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder=""
+                  name="nom"
+                  value={editEventData.description}
+                  onChange={(e) =>
+                    setEditEventData({
+                      ...editEventData,
+                      description:e.target.value,
+                    })
+                  }
+                />
+              </Form.Group>
               </div>
-              <div className="d-flex justify-content-around "  style={{gap:'10px'}}>
-              <Form.Group
-                  className="mb-3 w-100"
-                  controlId="exampleForm.ControlInput1"
-                >
-                  <Form.Label>Date de début</Form.Label>
-                  <Form.Control
-                    value={eventData.date_debut}
-                    onChange={(e) => {
-                      setEventData({
-                        ...eventData,
-                        date_debut: e.target.value,
-                      });
-                      
-                    }}
-                    type="date"
-                    placeholder=""
-                  />
-                  
-                </Form.Group>
-                <Form.Group
-                  className="mb-3 w-100"
-                  controlId="exampleForm.ControlInput1"
-                >
-                  <Form.Label>Date de fin</Form.Label>
-                  <Form.Control
-                    value={eventData.date_fin}
-                    onChange={(e) => {
-                      setEventData({
-                        ...eventData,
-                        date_fin: e.target.value,
-                      });
-                     
-                    }}
-                    type="date"
-                    placeholder=""
-                  />
-                 
-                </Form.Group>
-
+              <div className="d-flex justify-content-around"  style={{gap:'10px'}}>
+              <Form.Group className="mb-3 w-100" controlId="exampleForm.ControlInput1">
+                <Form.Label>Date de debut</Form.Label>
+                <Form.Control
+                  type="date"
+                  placeholder=""
+                  name="nom"
+                  value={editEventData.date_debut}
+                  onChange={(e) =>
+                    setEditEventData({
+                      ...editEventData,
+                      date_debut:e.target.value,
+                    })
+                  }
+                />
+              </Form.Group>
+              <Form.Group className="mb-3 w-100" controlId="exampleForm.ControlInput1">
+                <Form.Label>Date de fin</Form.Label>
+                <Form.Control
+                  type="date"
+                  placeholder=""
+                  name="nom"
+                  value={editEventData.date_fin}
+                  onChange={(e) =>
+                    setEditEventData({
+                      ...editEventData,
+                      date_fin:e.target.value,
+                    })
+                  }
+                />
+              </Form.Group>
               </div>
-               
-              
+              <Form.Group className="mb-3 w-100" controlId="exampleForm.ControlInput1">
+                <Form.Label>Question</Form.Label>
+                {editEventData.questions.map((question, index) => (
+                <Form.Control
+                  type="text"
+                  placeholder=""
+                  name="nom"
+                  value={question.nom}
+                  onChange={(e) => handleQuestionChangeEdit(index, e.target.value)}
+                />
+              ))}
+              </Form.Group>
               
             </Form>
           </Modal.Body>
           <Modal.Footer>
             <Button
               variant="secondary"
-              onClick={ajouterEvent}
+              onClick={modifierEvent}
               style={{
                 backgroundColor: "#004573",
                 border: "none",
                 width: "130px",
               }}
             >
-              Ajouter
+              Modifier
             </Button>
             <Button
               variant="primary"
-              onClick={handleCloseEdit}
+              onClick={handleCloseEditEvents}
               style={{
                 backgroundColor: "#fff",
                 border: "1px solid #004573",
@@ -763,234 +1019,148 @@ const archiverEvaluation = async (id) => {
             </Button>
           </Modal.Footer>
         </Modal>
-      </>
-      {/* modal fin ajouter event */}
+      {/*************************** modal fin modifier evenement *************************/}
+     
 
-      {/* modal debut modifier event */}
-      
-      <Modal
-        show={showEditModalEvents}
-        onHide={handleCloseEditEvents}
-        id="buttonModifier"
-      >
+      {/********************** liste des reponse et question par rappor à un evenement  debut****************/}
+        <Modal show={showAdd} onHide={handleClosAdd} id="buttonModifier">
+          <Modal.Header closeButton>
+            <Modal.Title>Liste des réponses par rapport à l'événement</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+          {reponses.map((reponse, index) => (
+    <div key={index} className="card mb-3">
+      <div className="card-body">
+        <h5 className="card-title">Question: {reponse.nom}</h5>
+        {/* Afficher les réponses pour cette question */}
+        {reponse.reponsefeedbacks.map((feedback, feedbackIndex) => (
+          <div key={feedbackIndex} className="card-text">
+            <p>Réponse: {feedback.nom}</p>
+            {/* Afficher l'utilisateur associé à cette réponse */}
+            <p>Utilisateur: {feedback.user.prenom} {feedback.user.nom}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  ))}
+
+          </Modal.Body>
+        </Modal>
+      {/********************** liste des reponse et question par rappor à un evenement  fin****************/}
+
+
+      {/*********************** evenement archivé debut *********************************************/}
+        <Modal show={showEventBlok} onHide={handleCloseEventBlok} id="buttonAjouter" size="lg">
+            <Modal.Header closeButton>
+            
+              <Modal.Title>Liste des evenements archives</Modal.Title>
+            </Modal.Header>
+            <div className="flex-grow-1 d-flex justify-content-end ">
+            <div className="champsRecherche mt-2 mb-3 w-50">
+              <Form>
+                <div
+                  className="input-group flex-nowrap "
+                  style={{ borderColor: "#004573" }}
+                >
+                  <Form.Control
+                    type="search"
+                    className="form-control w-50   "
+                    placeholder="Rechercher un évenement bloquer"
+                    aria-label="user"
+                    aria-describedby="addon-wrapping"
+                    value={searchValueBlok}
+                    onChange={handleSearchChangeBlok}
+                  />
+                  <span
+                    className="input-group-text text-white me-4"
+                    id="addon-wrapping"
+                    style={{ backgroundColor: "#004573" }}
+                  >
+                    <FontAwesomeIcon icon={faMagnifyingGlass} />
+                  </span>
+                </div>
+              </Form>
+            </div>
+            </div>
+            <Modal.Body>
+            <table className="table border  border-1">
+            <thead
+              className=""
+              id="hearder-color"
+              style={{ backgroundColor: "#004573" }}
+            >
+              <tr>
+                
+                
+                <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+                Titre
+                </th>
+                <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+                Dsecription
+                </th>
+                <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+                Date de début
+                </th>
+                <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+                  Date de fin
+                </th>
+                
+              </tr>
+            </thead>
+            <tbody>
+            
+                  {currentEventsBlok && currentEventsBlok.map((eventEl) => (
+                    <tr key={ eventEl && eventEl.id}>
+                      
+                      <td>{ eventEl && eventEl.titre}</td>
+                      <td>{ eventEl && eventEl.description}</td>
+                      <td>{ eventEl && eventEl.date_debut}</td>
+                      <td>{ eventEl && eventEl.date_fin}</td>
+                      <td className="d-flex justify-content-evenly">
+                        {/* Vos boutons d'action ici */}
+                      </td>
+                      
+                    </tr>
+                  ))}
+
+            </tbody>
+          </table>
+          <Pagination
+            currentPage={currentPage}
+            totalPaginationPages={totalPaginationPages}
+            setCurrentPage={setCurrentPage}
+            />  
+        
+          
+            </Modal.Body>
+            
+        </Modal>
+      {/*********************** evenement archivé fin *********************************************/}
+
+      {/*********************** lien evenement creer debut ****************************************/}
+        <Modal show={showLink} onHide={handleClosLink} id="buttonAjouter">
         <Modal.Header closeButton>
-          <Modal.Title>Modifier Evenement</Modal.Title>
+          <Modal.Title>Lien de l'évenement que vous avez creer</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <div className="d-flex justify-content-around"  style={{gap:'10px'}}>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Titre</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder=""
-                name="titre"
-                value={editEventData.titre}
-                onChange={(e) =>
-                  setEditEventData({
-                    ...editEventData,
-                    titre:e.target.value,
-                  })
-                }
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Description</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder=""
-                name="nom"
-                value={editEventData.description}
-                onChange={(e) =>
-                  setEditEventData({
-                    ...editEventData,
-                    description:e.target.value,
-                  })
-                }
-              />
-            </Form.Group>
-            </div>
-            <div className="d-flex justify-content-around"  style={{gap:'10px'}}>
-            <Form.Group className="mb-3 w-100" controlId="exampleForm.ControlInput1">
-              <Form.Label>Date de debut</Form.Label>
-              <Form.Control
-                type="date"
-                placeholder=""
-                name="nom"
-                value={editEventData.date_debut}
-                onChange={(e) =>
-                  setEditEventData({
-                    ...editEventData,
-                    date_debut:e.target.value,
-                  })
-                }
-              />
-            </Form.Group>
-            <Form.Group className="mb-3 w-100" controlId="exampleForm.ControlInput1">
-              <Form.Label>Date de fin</Form.Label>
-              <Form.Control
-                type="date"
-                placeholder=""
-                name="nom"
-                value={editEventData.date_fin}
-                onChange={(e) =>
-                  setEditEventData({
-                    ...editEventData,
-                    date_fin:e.target.value,
-                  })
-                }
-              />
-            </Form.Group>
-            </div>
+            
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                <Form.Label>Lien</Form.Label>
+                <Form.Control
+                  value={eventLink}
+                  // onChange={(e) => setEventData({ ...eventData, titre: e.target.value })}
+                  type="text"
+                  placeholder=""
+                  style={{borderBottom:'1px solid black'}}
+                />
+              </Form.Group>
             
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="secondary"
-            onClick={modifierEvent}
-            style={{
-              backgroundColor: "#004573",
-              border: "none",
-              width: "130px",
-            }}
-          >
-            Modifier
-          </Button>
-          <Button
-            variant="primary"
-            onClick={handleCloseEditEvents}
-            style={{
-              backgroundColor: "#fff",
-              border: "1px solid #004573",
-              width: "130px",
-              color: "#004573",
-            }}
-          >
-            Fermer
-          </Button>
-        </Modal.Footer>
-      </Modal>
-      {/* modal fin modifier maison */}
-     
-      {/* modal fin modifier event */}
-
-
-
-      <Modal show={showAdd} onHide={handleClosAdd} id="buttonModifier">
-        <Modal.Header closeButton>
-          <Modal.Title>Liste des réponses par rapport à l'événement</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-        {reponses.map((reponse, index) => (
-  <div key={index} className="card mb-3">
-    <div className="card-body">
-      <h5 className="card-title">Question: {reponse.nom}</h5>
-      {/* Afficher les réponses pour cette question */}
-      {reponse.reponsefeedbacks.map((feedback, feedbackIndex) => (
-        <div key={feedbackIndex} className="card-text">
-          <p>Réponse: {feedback.nom}</p>
-          {/* Afficher l'utilisateur associé à cette réponse */}
-          <p>Utilisateur: {feedback.user.prenom} {feedback.user.nom}</p>
-        </div>
-      ))}
-    </div>
-  </div>
-))}
-
-        </Modal.Body>
-      </Modal>
-
-
-
-      {/* blok */}
-
-      <Modal show={showEventBlok} onHide={handleCloseEventBlok} id="buttonAjouter" size="lg">
-          <Modal.Header closeButton>
-          
-            <Modal.Title>Liste des evenements archives</Modal.Title>
-          </Modal.Header>
-          <div className="flex-grow-1 d-flex justify-content-end ">
-          <div className="champsRecherche mt-2 mb-3 w-50">
-            <Form>
-              <div
-                className="input-group flex-nowrap "
-                style={{ borderColor: "#004573" }}
-              >
-                <Form.Control
-                  type="search"
-                  className="form-control w-50   "
-                  placeholder="Rechercher un évenement bloquer"
-                  aria-label="user"
-                  aria-describedby="addon-wrapping"
-                  value={searchValueBlok}
-                  onChange={handleSearchChangeBlok}
-                />
-                <span
-                  className="input-group-text text-white me-4"
-                  id="addon-wrapping"
-                  style={{ backgroundColor: "#004573" }}
-                >
-                  <FontAwesomeIcon icon={faMagnifyingGlass} />
-                </span>
-              </div>
-            </Form>
-          </div>
-          </div>
-          <Modal.Body>
-          <table className="table border  border-1">
-          <thead
-            className=""
-            id="hearder-color"
-            style={{ backgroundColor: "#004573" }}
-          >
-            <tr>
-              
-              
-              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-              Titre
-              </th>
-              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-               Dsecription
-              </th>
-              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-               Date de début
-              </th>
-              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                Date de fin
-              </th>
-              
-            </tr>
-          </thead>
-          <tbody>
-          
-                {currentEventsBlok && currentEventsBlok.map((eventEl) => (
-                  <tr key={ eventEl && eventEl.id}>
-                    
-                    <td>{ eventEl && eventEl.titre}</td>
-                    <td>{ eventEl && eventEl.description}</td>
-                    <td>{ eventEl && eventEl.date_debut}</td>
-                    <td>{ eventEl && eventEl.date_fin}</td>
-                    <td className="d-flex justify-content-evenly">
-                      {/* Vos boutons d'action ici */}
-                    </td>
-                    
-                  </tr>
-                ))}
-
-          </tbody>
-        </table>
-        <Pagination
-          currentPage={currentPage}
-          totalPaginationPages={totalPaginationPages}
-          setCurrentPage={setCurrentPage}
-          />  
-      
         
-          </Modal.Body>
-          
         </Modal>
-      {/* blok */}
+      {/*********************** lien evenement creer fin  *****************************************/}
 
 
     </div>

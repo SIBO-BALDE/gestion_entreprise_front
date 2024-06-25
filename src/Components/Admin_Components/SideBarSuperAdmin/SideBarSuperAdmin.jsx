@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom';
 const links = [
   { path: "dashbordSuperAdmin", text: "Dashboard Superadmin", icon: faGauge },
   { path: "gestionaAbonnement", text: "Gestion Abonnement", icon: faBuilding },
-  { path: "gestioaentrepriseAdmin", text: "Gestion Entreprise", icon: faBuilding },
+  // { path: "gestioaentrepriseAdmin", text: "Gestion Evalution", icon: faBuilding },
   { path: "gestioadmin", text: "Gestion Client", icon: faUser },
   { path: "gestiondevis", text: "Demande d'utilisaton", icon: faFileLines },
   { path: "gestionnewletter", text: "Gestion Newsletters", icon: faEnvelope },

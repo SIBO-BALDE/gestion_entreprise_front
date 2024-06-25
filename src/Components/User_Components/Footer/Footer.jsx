@@ -105,7 +105,7 @@ export default function Footer() {
             </div>
             <div>
                 <h4>Nous contacter</h4>
-                <Link to={'#'} style={{textDecoration:'none', color:'white'}}>77301 72 72 </Link>
+                <Link to={'#'} style={{textDecoration:'none', color:'white'}}>77 134 64 96 </Link>
                 <Link to={'#'} style={{textDecoration:'none', color:'white'}} >service.client@myfeedbak.com</Link>
             </div>
             <div>
@@ -119,7 +119,7 @@ export default function Footer() {
         </div>
         <section className='footer_bottom_home'>
             <div className='copyright_footer_home mt-4'>
-                <p>Copyright  <FontAwesomeIcon icon={regularIcons.faCopyright} /> 2024 BARAKA GATE /
+                <p>Copyright  <FontAwesomeIcon icon={regularIcons.faCopyright} /> 2024 MYFEEDBACK <strong style={{color:'#FFB703'}}>360°</strong> /
                 <Link to={'https://kevacom.com/'}  style={{textDecoration:'none', color:'#FFB703'}}>KEVACOM</Link>
                 
                 </p>

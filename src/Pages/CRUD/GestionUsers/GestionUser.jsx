@@ -21,12 +21,13 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import Pagination from "../../../Components/User_Components/Pagination/Pagination";
 import LoadingBox from "../../../Components/LoadingBox/LoadingBox";
+import { Pie } from 'react-chartjs-2';
 
 
 
 export default function GestionUser({ id }) {
   const [loading, setLoading] = useState(true);
-  // const [show, setShow] = useState(false);
+  
   const [showUser, setShowUser] = useState(false);
   const [showEditModalUsers, setShowEditModalUsers] = useState(false);
 
@@ -41,20 +42,22 @@ export default function GestionUser({ id }) {
   const handleCloseDetails = () => setShowUserDetails(false);
 
 
-  // tableau ou stocker la liste des users
+  //*********** Initialisation des etat **************************//
   const [users, setUsers] = useState([]);
   const [usersBlock, setUsersBlock] = useState([]);
 
   const [categories, setCategories] = useState([]);
   const [entreprises, setEntreprises] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
+  const [searchValueUser, setSearchValueUser] = useState("");
 
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  //  Lister les categories
+
+  //*********** Lister les categories **************************//
   const fetchCategories = async () => {
     const role = localStorage.getItem("rolecle");
     const token = localStorage.getItem("tokencle");
@@ -82,7 +85,8 @@ export default function GestionUser({ id }) {
     fetchCategories();
   }, []);
 
-    //  Lister les entreprises
+    
+    //*********** Lister les entreprises **************************//
     const fetchEntreprises = async () => {
       const role = localStorage.getItem("rolecle");
       const token = localStorage.getItem("tokencle");
@@ -108,7 +112,9 @@ export default function GestionUser({ id }) {
     useEffect(() => {
       fetchEntreprises();
     }, []);
-    //  Lister les users
+    
+
+     //*********** Lister les particiapnst **************************//
     const fetchUsers = async () => {
       const role = localStorage.getItem("rolecle");
       const token = localStorage.getItem("tokencle");
@@ -136,53 +142,57 @@ export default function GestionUser({ id }) {
     }, []);
 
   
-  // etat pour ajout maison
+ 
+   //*********** etat pour ajout particippant **************************//
   const [userData, setUserData] = useState({
     nom: "",
     prenom: "",
     email: "",
     password: "",
-    categorie_id: "",
+   
     entreprise_id: "",
     
   });
 
-  //  etat initialiser à vide au depart pour modifier categorie
+  
+   //*********** etat initialiser à vide au depart pour modifier categorie**************************//
   const [editUserData, setEditUserData] = useState({
     id: null,
     nom: "",
     prenom: "",
     email: "",
-    categorie_id: "",
+    
     entreprise_id: "",
   });
 
   
 // Funtion qui permet de recuperer les information du user sur le quel on a cliquer
   const handleShowEditUsers = (user) => {
-    if (user && user.categorie_id) {
+    console.log(user, 'user edit')
+    if (user && user.entreprise_id) {
       setEditUserData({
         id: user.id,
         nom: user.nom,
         prenom: user.prenom,
         email: user.email,
-        categorie_id: user.categorie_id,
         entreprise_id: user.entreprise_id,
       });
       setShowEditModalUsers(true);
     } else {
-      console.error("Catégorie non définie pour la maison à modifier.");
+      console.error("Catégorie non définie pour le particiapnt à modifier.");
       // Autres actions nécessaires en cas d'erreur...
     }
   };
 
+
+  //*********** Function pour creer un participant **************************//
   const ajouterUser = async (e) => {
     e.preventDefault();
     const role = localStorage.getItem("rolecle");
     const token = localStorage.getItem('tokencle')
     
     if(userData.nom === "" || userData.prenom === "" || userData.email === "" 
-    || userData.categorie_id === "" || userData.password === "" || userData.entreprise_id === ""){
+    || userData.password === "" || userData.entreprise_id === ""){
       Swal.fire({
         icon: "error",
         title: "Oops!",
@@ -239,7 +249,7 @@ export default function GestionUser({ id }) {
               prenom: "",
               email: "",
               password: "",
-              categorie_id: "",
+             
               entreprise_id: "",
             });
   
@@ -255,7 +265,7 @@ export default function GestionUser({ id }) {
   
            
           } else {
-            console.error("Erreur dans l'ajout de la maison");
+            console.error("Erreur dans l'ajout du participant");
           }
         }
         
@@ -266,7 +276,8 @@ export default function GestionUser({ id }) {
   
   };
 
-  // telecharger fichier exel 
+
+  //*********** Function pour telecharger fichier exel  **************************//
   const [file, setFile] = useState(null);
   const [message, setMessage] = useState('');
 
@@ -317,7 +328,7 @@ export default function GestionUser({ id }) {
             console.log(response.data);
             // Mettez à jour les données si nécessaire
             fetchUsers();
-            fetchCategories();
+            // fetchCategories();
             fetchEntreprises();
           })
           .catch((error) => {
@@ -368,12 +379,13 @@ export default function GestionUser({ id }) {
 
   
  
-  // Modifier user
+
+   //*********** Function pour modifier un particiapnt **************************//
   const modifierUser = async (id) => {
     const token = localStorage.getItem('tokencle')
     const role = localStorage.getItem("rolecle");
     if(editUserData.nom === "" || editUserData.prenom === "" || editUserData.email === "" 
-    || editUserData.categorie_id === ""  || editUserData.entreprise_id === ""){
+     || editUserData.entreprise_id === ""){
       Swal.fire({
         icon: "error",
         title: "Oops!",
@@ -438,7 +450,8 @@ export default function GestionUser({ id }) {
     
   
 
-// supprimer user
+
+//*********** Function pour supprimer un particiapnt **************************//
   const supprimerUser = async (id) => {
     const token = localStorage.getItem('tokencle');
     const role = localStorage.getItem("rolecle");
@@ -490,7 +503,8 @@ export default function GestionUser({ id }) {
 };
 
 
-//  Lister les users blocked
+
+//*********** Function pour lister les  particiapnts bloqués **************************//
 const fetchUsersBlock = async () => {
   const role = localStorage.getItem("rolecle");
   const token = localStorage.getItem("tokencle");
@@ -518,6 +532,7 @@ useEffect(() => {
   fetchUsersBlock();
 }, []);
 
+//*********** Function pour debloqué les  particiapnts blockés **************************//
 
 const debloquerUser = async (id) => {
   const token = localStorage.getItem('tokencle');
@@ -570,8 +585,8 @@ const debloquerUser = async (id) => {
 
 
 
- //  pour le champ recherche
- const [searchValueUser, setSearchValueUser] = useState("");
+
+ 
 
  // function la recherche
  const handleSearchChange = (event) => {
@@ -673,13 +688,13 @@ const debloquerUser = async (id) => {
 
 
 const handleShowUserDetails = async (user) => {
-  if (user && user.categorie_id) {
+  if (user && user.entreprise_id) {
     setEditUserData({
       id: user.id,
       nom: user.nom,
       prenom: user.prenom,
       email: user.email,
-      categorie_id: user.categorie_id,
+      // categorie_id: user.categorie_id,
       entreprise_id: user.entreprise_id,
     });
 
@@ -694,7 +709,7 @@ const handleShowUserDetails = async (user) => {
       // Gérer l'erreur, par exemple, afficher un message à l'utilisateur
     }
   } else {
-    console.error("Catégorie non définie pour l'utilisateur à modifier.");
+    console.error("erreur voir liste.");
     // Autres actions nécessaires en cas d'erreur...
   }
 };
@@ -757,6 +772,66 @@ const handleShowUserDetails = async (user) => {
       };
 
 
+
+
+      // **********************************Chart******************************************//
+
+const prepareChartData = (userData) => {
+  const responseCounts = userData?.questions_reponses?.map(r => r.count);
+  const labels = userData.reponses.map(r => r.reponse);
+
+  return {
+    labels: labels,
+    datasets: [
+      {
+        data: responseCounts,
+        backgroundColor: [
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+        ],
+        borderColor: [
+          'rgba(75, 192, 192, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(153, 102, 255, 1)',
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
+};
+
+const options = {
+  plugins: {
+    legend: {
+      position: 'bottom',
+    },
+    datalabels: {
+      color: 'red',
+      font: {
+        size: 12,
+      },
+      formatter: (value, context) => `${context.dataIndex}: ${Math.round(value)}%`,
+    },
+  },
+  layout: {
+    padding: {
+      top: 30,
+    },
+  },
+};
+
+const chartContainerStyle = {
+  width: '250px',  
+  height: '250px', 
+  // margin: 'auto'  
+};
+
+
   
 
   return (
@@ -764,652 +839,601 @@ const handleShowUserDetails = async (user) => {
        {loading ? (
         <LoadingBox />
          ) : (
-    <div className="container">
-      <div className="d-flex justify-content-around mt-1">
-        <div>
-          <Button
-            variant="primary"
-            onClick={handleShowEdit}
-            className="ms-4"
-            style={{ backgroundColor: "#004573", border: "none" }}
-            id="buttonAjouter"
-          >
-            Ajouter un participant
-          </Button>
-        </div>
-        <div>
-        
-      <Form onSubmit={handleSubmit}>
-        <div className="d-flex">
-        <div>
-          <input type="file" accept=".xlsx, .xls, .csv" onChange={handleFileChange}
-            style={{ backgroundColor: "#fff", border: "1px solid  #004573", color:'#004573', width:'200px',
-            borderTopLeftRadius:'10px', borderBottomLeftRadius:'10px', padding:'2px 2px' }} />
-        </div>
-        <div>
-          <button type="submit" 
-              style={{ backgroundColor: "#004573", border: "none", color:'white', 
-              borderTopRightRadius:'10px', borderBottomRightRadius:'10px', padding:'5px'}}>
-              Téléverser
-          </button>
-          </div>
-
-        </div>
-      </Form>
-      {message && <p>{message}</p>}
-        </div>
-        <div className="">
-          <Button
-            variant="primary"
-            onClick={handleShowBlokUser}
-            className="ms-4"
-            style={{ backgroundColor: "#004573", border: "none" }}
-            id="buttonAjouter"
-          >
-            Liste participant bloqué
-          </Button>
-        </div>
-        
-        
-      </div>
-      <div className="mt-4 ms-3  me-3">
-      <div className="flex-grow-1 d-flex justify-content-end ">
-          <div className="champsRecherche mt-2 mb-3 w-50">
-            <Form>
-              <div
-                className="input-group flex-nowrap "
-                style={{ borderColor: "#004573" }}
+        <div className="container">
+          <div className="d-flex justify-content-around mt-1">
+            <div>
+              <Button
+                variant="primary"
+                onClick={handleShowEdit}
+                className="ms-4"
+                style={{ backgroundColor: "#004573", border: "none" }}
+                id="buttonAjouter"
               >
-                <Form.Control
-                  type="search"
-                  className="form-control w-50   "
-                  placeholder="Rechercher participant"
-                  aria-label="user"
-                  aria-describedby="addon-wrapping"
-                  value={searchValueUser}
-                  onChange={handleSearchChange}
-                />
-                <span
-                  className="input-group-text text-white me-4"
-                  id="addon-wrapping"
-                  style={{ backgroundColor: "#004573" }}
-                >
-                  <FontAwesomeIcon icon={faMagnifyingGlass} />
-                </span>
-              </div>
-            </Form>
-          </div>
-        </div>
-        <h3>Liste des participants</h3>
-        <table className="table border  border-1">
-          <thead
-            className=""
-            id="hearder-color"
-            style={{ backgroundColor: "#004573" }}
-          >
-            <tr>
-              
-              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-               Voir les reponses des participant
-              </th>
-              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-               Nom
-              </th>
-              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                Prenom
-              </th>
-              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                Email
-              </th>
-              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                Catégorie
-              </th>
-              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                Entreprise
-              </th>
-              <th
-                className="d-flex  justify-content-center "
-                style={{
-                  backgroundColor: "#004573",
-                  color: "#fff",
-                  marginLeft: "3rem",
-                }}
-              >
-                Action
-              </th>
-            </tr>
-          </thead>
-          <tbody>
+                Ajouter un participant
+              </Button>
+            </div>
+            <div>
             
+          <Form onSubmit={handleSubmit}>
+            <div className="d-flex">
+            <div>
+              <input type="file" accept=".xlsx, .xls, .csv" onChange={handleFileChange}
+                style={{ backgroundColor: "#fff", border: "1px solid  #004573", color:'#004573', width:'200px',
+                borderTopLeftRadius:'10px', borderBottomLeftRadius:'10px', padding:'2px 2px' }} />
+            </div>
+            <div>
+              <button type="submit" 
+                  style={{ backgroundColor: "#004573", border: "none", color:'white', 
+                  borderTopRightRadius:'10px', borderBottomRightRadius:'10px', padding:'5px'}}>
+                  Téléverser
+              </button>
+              </div>
 
-          { currentUsers &&
-              currentUsers.map((user) => ( 
-              <tr key={user && user.id} >
-                <td>
-                  <Button
-                  variant="primary"
-                  onClick={() => handleShowUserDetails(user)}
-                  style={{
-                    backgroundColor: "#fff",
-                    border: "1px solid #004573",
-                    color: "#004573",
-                  }}
-                >
-                  <FontAwesomeIcon icon={faEye} />
-                </Button>
-                </td>
-                <td>{user &&  user.nom}</td>
-                <td>{user &&  user.prenom}</td>
-                <td>{user &&  user.email}</td>
-                <td>{user &&  user.categorie.nom}</td>
-                <td>{user &&  user.entreprise.nom}</td>
-
-                    <td className=" d-flex justify-content-evenly">
-                      <Button
-                        variant="primary"
-                        // onClick={handleShowEdit}
-                        onClick={() => handleShowEditUsers(user)}
-                        style={{
-                          backgroundColor: "#fff",
-                          border: "1px solid #004573",
-                          color: "#004573",
-                        }}
-                        id="buttonModifier"
-                      >
-                        <FontAwesomeIcon icon={faPenToSquare} />
-                      </Button>
-                      <Button
-                        onClick={() => supprimerUser(user.id)}
-                        style={{
-                          backgroundColor: "#fff",
-                          border: "1px solid #004573",
-                          color: "#004573",
-                        }}
-                      >
-                        <FontAwesomeIcon icon={faLock} />
-                      </Button>
-
-                     
-                    </td>
-                
-              </tr>
-            ))} 
+            </div>
+          </Form>
+          {message && <p>{message}</p>}
+            </div>
+            <div className="">
+              <Button
+                variant="primary"
+                onClick={handleShowBlokUser}
+                className="ms-4"
+                style={{ backgroundColor: "#004573", border: "none" }}
+                id="buttonAjouter"
+              >
+                Liste participant bloqué
+              </Button>
+            </div>
             
-          </tbody>
-        </table>
-        <Pagination
-          currentPage={currentPage1}
-          totalPaginationPages={totalPaginationPagesUser}
-          setCurrentPage={setCurrentPage1}
-          />  
-      </div>
-
-      {/********************************** * modal debut  ajouter participant************************************/}
-      <Modal show={showUser} onHide={handleCloseEdit} id="buttonAjouter">
-      <Modal.Header closeButton>
-        <Modal.Title>Ajouter un participant</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form>
-          <div className="d-flex justify-content-around" style={{ gap: '10px' }}>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Nom</Form.Label>
-              <Form.Control
-                value={userData.nom}
-                onChange={(e) => {
-                  setUserData({
-                    ...userData,
-                    nom: e.target.value,
-                  });
-                }}
-                type="text"
-                placeholder=""
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
-              <Form.Label>Prenom</Form.Label>
-              <Form.Control
-                value={userData.prenom}
-                onChange={(e) => {
-                  setUserData({
-                    ...userData,
-                    prenom: e.target.value,
-                  });
-                }}
-                type="text"
-                placeholder=""
-              />
-            </Form.Group>
+            
           </div>
-          <div className="d-flex justify-content-around" style={{ gap: '10px' }}>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
-              <Form.Label>Email</Form.Label>
-              <Form.Control
-                value={userData.email}
-                onChange={(e) => {
-                  setUserData({
-                    ...userData,
-                    email: e.target.value,
-                  });
-                }}
-                type="email"
-                placeholder=""
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput4">
-              <Form.Label>Mot de passe</Form.Label>
-              <div className="password-container">
-                <Form.Control
-                  value={userData.password}
-                  onChange={(e) => {
-                    setUserData({
-                      ...userData,
-                      password: e.target.value,
-                    });
-                  }}
-                  type={showPassword ? "text" : "password"}
-                  placeholder=""
-                />
-                <span className="password-toggle" onClick={togglePasswordVisibility} style={{color:'#004573'}}>
-                  {showPassword ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} />}
-                </span>
+          <div className="mt-4 ms-3  me-3">
+          <div className="flex-grow-1 d-flex justify-content-end ">
+              <div className="champsRecherche mt-2 mb-3 w-50">
+                <Form>
+                  <div
+                    className="input-group flex-nowrap "
+                    style={{ borderColor: "#004573" }}
+                  >
+                    <Form.Control
+                      type="search"
+                      className="form-control w-50   "
+                      placeholder="Rechercher participant"
+                      aria-label="user"
+                      aria-describedby="addon-wrapping"
+                      value={searchValueUser}
+                      onChange={handleSearchChange}
+                    />
+                    <span
+                      className="input-group-text text-white me-4"
+                      id="addon-wrapping"
+                      style={{ backgroundColor: "#004573" }}
+                    >
+                      <FontAwesomeIcon icon={faMagnifyingGlass} />
+                    </span>
+                  </div>
+                </Form>
               </div>
-            </Form.Group>
-          </div>
-          <div className="d-flex justify-content-around" style={{ gap: '10px' }}>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput5">
-              <Form.Label>Categorie</Form.Label>
-              <Form.Select
-                aria-label="Default select example"
-                value={userData.categorie_id}
-                onChange={(e) => {
-                  setUserData({
-                    ...userData,
-                    categorie_id: e.target.value,
-                  });
-                }}
+            </div>
+            <h3>Liste des participants</h3>
+            <table className="table border  border-1">
+              <thead
+                className=""
+                id="hearder-color"
+                style={{ backgroundColor: "#004573" }}
               >
-                <option>Choisir une catégorie</option>
-                {categories &&
-                  categories.map((cat, index) => (
-                    <option key={index} value={cat.id}>
-                      {cat.nom}
-                    </option>
-                  ))}
-              </Form.Select>
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput6">
-              <Form.Label>Entreprise</Form.Label>
-              <Form.Select
-                aria-label="Default select example"
-                value={userData.entreprise_id}
-                onChange={(e) => {
-                  setUserData({
-                    ...userData,
-                    entreprise_id: e.target.value,
-                  });
-                }}
-              >
-                <option>Choisir une entreprise</option>
-                {entreprises &&
-                  entreprises.map((entrepriseel, index) => (
-                    <option key={index} value={entrepriseel.id}>
-                      {entrepriseel.nom}
-                    </option>
-                  ))}
-              </Form.Select>
-            </Form.Group>
-          </div>
-        </Form>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button
-          variant="secondary"
-          onClick={ajouterUser}
-          style={{
-            backgroundColor: "#004573",
-            border: "none",
-            width: "130px",
-          }}
-        >
-          Ajouter
-        </Button>
-        <Button
-          variant="primary"
-          onClick={handleCloseEdit}
-          style={{
-            backgroundColor: "#fff",
-            border: "1px solid #004573",
-            width: "130px",
-            color: "#004573",
-          }}
-        >
-          Fermer
-        </Button>
-      </Modal.Footer>
-    </Modal>
-      {/*************************** * modal fin ajouter user *****************************************************/}
-
-      {/* modal debut modifier user */}
-      <Modal
-        show={showEditModalUsers}
-        onHide={handleCloseEditUser}
-        id="buttonModifier"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Modifier un participant</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {editUserData && editUserData.nom && (
-            <Form>
-              <div className="d-flex justify-content-around " style={{gap:'10px'}}>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
-                  <Form.Label>Nom</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder=""
-                    value={editUserData.nom}
-                    onChange={(e) => {
-                      setEditUserData({
-                        ...editUserData,
-                        nom: e.target.value,
-                      });
-                     
-                    }}
-                  />
+                <tr>
                   
-                </Form.Group>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
-                  <Form.Label>Prenom</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder=""
-                    value={editUserData.prenom}
-                    onChange={(e) => {
-                      setEditUserData({
-                        ...editUserData,
-                        prenom: e.target.value,
-                      });
-                      
-                    }}
-                  />
+                  <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+                  Voir les reponses des participant
+                  </th>
+                  <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+                  Nom
+                  </th>
+                  <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+                    Prenom
+                  </th>
+                  <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+                    Email
+                  </th>
                   
-                </Form.Group>
-              </div>
-              <div className="d-flex justify-content-around" style={{gap:'10px'}}>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    type="email"
-                    placeholder=""
-                    value={editUserData.email}
-                    onChange={(e) => {
-                      setEditUserData({
-                        ...editUserData,
-                        email: e.target.value,
-                      });
-                     
+                  <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+                    Entreprise
+                  </th>
+                  <th
+                    className="d-flex  justify-content-center "
+                    style={{
+                      backgroundColor: "#004573",
+                      color: "#fff",
+                      marginLeft: "3rem",
                     }}
-                  />
-                 
-                </Form.Group>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput5"
-                >
-                  <Form.Label>Categorie</Form.Label>
-                  <Form.Select
-                      aria-label="Default select example"
-                      value={editUserData.categorie_id}
-                      onChange={(e) => {
-                        setEditUserData({
-                          ...editUserData,
-                          categorie_id: e.target.value,
-                        });
+                  >
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+              { currentUsers &&
+                  currentUsers.map((user) => ( 
+                  <tr key={user && user.id} >
+                    <td>
+                      <Button
+                      variant="primary"
+                      onClick={() => handleShowUserDetails(user)}
+                      style={{
+                        backgroundColor: "#fff",
+                        border: "1px solid #004573",
+                        color: "#004573",
                       }}
                     >
-                    <option>Choisir une catégorie</option>
-                    {categories &&
-                      categories.map((cat, index) => {
-                        return (
-                          <option key={index} value={cat.id}>
-                            {cat.nom}
-                          </option>
-                        );
-                      })}
-                  </Form.Select>
-                  </Form.Group>
+                      <FontAwesomeIcon icon={faEye} />
+                    </Button>
+                    </td>
+                    <td>{user &&  user.nom}</td>
+                    <td>{user &&  user.prenom}</td>
+                    <td>{user &&  user.email}</td>
+                  
+                    <td>{user &&  user.entreprise.nom}</td>
+
+                        <td className=" d-flex justify-content-evenly">
+                          <Button
+                            variant="primary"
+                            // onClick={handleShowEdit}
+                            onClick={() => handleShowEditUsers(user)}
+                            style={{
+                              backgroundColor: "#fff",
+                              border: "1px solid #004573",
+                              color: "#004573",
+                            }}
+                            id="buttonModifier"
+                          >
+                            <FontAwesomeIcon icon={faPenToSquare} />
+                          </Button>
+                          <Button
+                            onClick={() => supprimerUser(user.id)}
+                            style={{
+                              backgroundColor: "#fff",
+                              border: "1px solid #004573",
+                              color: "#004573",
+                            }}
+                          >
+                            <FontAwesomeIcon icon={faLock} />
+                          </Button>
+
+                        
+                        </td>
+                    
+                  </tr>
+                ))} 
+                
+              </tbody>
+            </table>
+            <Pagination
+              currentPage={currentPage1}
+              totalPaginationPages={totalPaginationPagesUser}
+              setCurrentPage={setCurrentPage1}
+              />  
+          </div>
+
+          {/********************************** * modal debut  ajouter participant************************************/}
+          <Modal show={showUser} onHide={handleCloseEdit} id="buttonAjouter">
+          <Modal.Header closeButton>
+            <Modal.Title>Ajouter un participant</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <div className="d-flex justify-content-around" style={{ gap: '10px' }}>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                  <Form.Label>Nom</Form.Label>
+                  <Form.Control
+                    value={userData.nom}
+                    onChange={(e) => {
+                      setUserData({
+                        ...userData,
+                        nom: e.target.value,
+                      });
+                    }}
+                    type="text"
+                    placeholder=""
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
+                  <Form.Label>Prenom</Form.Label>
+                  <Form.Control
+                    value={userData.prenom}
+                    onChange={(e) => {
+                      setUserData({
+                        ...userData,
+                        prenom: e.target.value,
+                      });
+                    }}
+                    type="text"
+                    placeholder=""
+                  />
+                </Form.Group>
               </div>
-              <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput1"
-                >
+              <div className="d-flex justify-content-around" style={{ gap: '10px' }}>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control
+                    value={userData.email}
+                    onChange={(e) => {
+                      setUserData({
+                        ...userData,
+                        email: e.target.value,
+                      });
+                    }}
+                    type="email"
+                    placeholder=""
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput4">
+                  <Form.Label>Mot de passe</Form.Label>
+                  <div className="password-container">
+                    <Form.Control
+                      value={userData.password}
+                      onChange={(e) => {
+                        setUserData({
+                          ...userData,
+                          password: e.target.value,
+                        });
+                      }}
+                      type={showPassword ? "text" : "password"}
+                      placeholder=""
+                    />
+                    <span className="password-toggle" onClick={togglePasswordVisibility} style={{color:'#004573'}}>
+                      {showPassword ? <FontAwesomeIcon icon={faEyeSlash} /> : <FontAwesomeIcon icon={faEye} />}
+                    </span>
+                  </div>
+                </Form.Group>
+              </div>
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput6">
                   <Form.Label>Entreprise</Form.Label>
                   <Form.Select
                     aria-label="Default select example"
-                    // value={editUserData.categories_id}
-                    value={editUserData.entreprise_id || ""}
+                    value={userData.entreprise_id}
                     onChange={(e) => {
-                      setEditUserData({
-                        ...editUserData,
+                      setUserData({
+                        ...userData,
                         entreprise_id: e.target.value,
                       });
-                     
                     }}
                   >
-                    {/* recuperer la categorie selectionner par défaut pour la modifier */}
-                  {entreprises &&
-                      entreprises.map((entrepriseel, index) => {
-                        return (
-                          <option key={index} value={entrepriseel.id}>
-                            {entrepriseel.nom}
-                          </option>
-                        );
-                      })}
+                    <option>Choisir une entreprise</option>
+                    {entreprises &&
+                      entreprises.map((entrepriseel, index) => (
+                        <option key={index} value={entrepriseel.id}>
+                          {entrepriseel.nom}
+                        </option>
+                      ))}
                   </Form.Select>
-                  
-              </Form.Group>
-            </Form>
-          )}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="secondary"
-            onClick={modifierUser}
-            style={{
-              backgroundColor: "#004573",
-              border: "none",
-              width: "130px",
-            }}
-          >
-            Modifier
-          </Button>
-          <Button
-            variant="primary"
-            onClick={handleCloseEditUser}
-            style={{
-              backgroundColor: "#fff",
-              border: "1px solid #004573",
-              width: "130px",
-              color: "#004573",
-            }}
-          >
-            Fermer
-          </Button>
-        </Modal.Footer>
-      </Modal>
-     
-      {/* modal fin modifier user */}
-
-      {/* participant blok */}
-      <Modal show={showBlokUser} onHide={handleCloseBlokUser} id="buttonAjouter" size="lg">
-          <Modal.Header closeButton>
-            <Modal.Title>Liste des participants bloqué</Modal.Title>
-
-            
-          </Modal.Header>
-          <div className="flex-grow-1 d-flex justify-content-end ">
-          <div className="champsRecherche mt-2 mb-3 w-50">
-            <Form>
-              <div
-                className="input-group flex-nowrap "
-                style={{ borderColor: "#004573" }}
-              >
-                <Form.Control
-                  type="search"
-                  className="form-control w-50   "
-                  placeholder="Rechercher participant bloquer"
-                  aria-label="user"
-                  aria-describedby="addon-wrapping"
-                  value={searchValueUserBlock}
-                  onChange={handleSearchChangeBlok}
-                />
-                <span
-                  className="input-group-text text-white me-4"
-                  id="addon-wrapping"
-                  style={{ backgroundColor: "#004573" }}
-                >
-                  <FontAwesomeIcon icon={faMagnifyingGlass} />
-                </span>
-              </div>
-            </Form>
-          </div>
-            </div>
-          <Modal.Body>
-          <table className="table border  border-1">
-          <thead
-            className=""
-            id="hearder-color"
-            style={{ backgroundColor: "#004573" }}
-          >
-            <tr>
+                </Form.Group>
               
-              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-               Nom
-              </th>
-              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                Prenom
-              </th>
-              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                Email
-              </th>
-              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                Catégorie
-              </th>
-              <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                Entreprise
-              </th>
-              <th
-                className="d-flex  justify-content-center "
-                style={{
-                  backgroundColor: "#004573",
-                  color: "#fff",
-                  marginLeft: "3rem",
-                }}
-              >
-                Debloquer
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              variant="secondary"
+              onClick={ajouterUser}
+              style={{
+                backgroundColor: "#004573",
+                border: "none",
+                width: "130px",
+              }}
+            >
+              Ajouter
+            </Button>
+            <Button
+              variant="primary"
+              onClick={handleCloseEdit}
+              style={{
+                backgroundColor: "#fff",
+                border: "1px solid #004573",
+                width: "130px",
+                color: "#004573",
+              }}
+            >
+              Fermer
+            </Button>
+          </Modal.Footer>
+          </Modal>
+          {/*************************** * modal fin ajouter user *****************************************************/}
 
-          { currentUsersBlok &&
-              currentUsersBlok.map((user) => ( 
-              <tr key={user && user.id} >
-                <td>{user &&  user.nom}</td>
-                <td>{user &&  user.prenom}</td>
-                <td>{user &&  user.email}</td>
-                <td>{user &&  user.categorie.nom}</td>
-                <td>{user &&  user.entreprise.nom}</td>
-
-                    <td className=" d-flex justify-content-evenly">
+          {/*************************** modal debut modifier user *********************************************************/}
+          <Modal
+            show={showEditModalUsers}
+            onHide={handleCloseEditUser}
+            id="buttonModifier"
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>Modifier un participant</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              {editUserData && editUserData.nom && (
+                <Form>
+                  <div className="d-flex justify-content-around " style={{gap:'10px'}}>
+                    <Form.Group
+                      className="mb-3"
+                      controlId="exampleForm.ControlInput1"
+                    >
+                      <Form.Label>Nom</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder=""
+                        value={editUserData.nom}
+                        onChange={(e) => {
+                          setEditUserData({
+                            ...editUserData,
+                            nom: e.target.value,
+                          });
+                        
+                        }}
+                      />
                       
-                      <Button
-                        onClick={() => debloquerUser(user.id)}
-                        style={{
-                          backgroundColor: "#fff",
-                          border: "1px solid #004573",
-                          color: "#004573",
+                    </Form.Group>
+                    <Form.Group
+                      className="mb-3"
+                      controlId="exampleForm.ControlInput1"
+                    >
+                      <Form.Label>Prenom</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder=""
+                        value={editUserData.prenom}
+                        onChange={(e) => {
+                          setEditUserData({
+                            ...editUserData,
+                            prenom: e.target.value,
+                          });
+                          
+                        }}
+                      />
+                      
+                    </Form.Group>
+                  </div>
+                  
+                    <Form.Group
+                      className="mb-3"
+                      controlId="exampleForm.ControlInput1"
+                    >
+                      <Form.Label>Email</Form.Label>
+                      <Form.Control
+                        type="email"
+                        placeholder=""
+                        value={editUserData.email}
+                        onChange={(e) => {
+                          setEditUserData({
+                            ...editUserData,
+                            email: e.target.value,
+                          });
+                        
+                        }}
+                      />
+                    
+                    </Form.Group>
+                
+                  <Form.Group
+                      className="mb-3"
+                      controlId="exampleForm.ControlInput1"
+                    >
+                      <Form.Label>Entreprise</Form.Label>
+                      <Form.Select
+                        aria-label="Default select example"
+                        className="w-100"
+                        // value={editUserData.categories_id}
+                        value={editUserData.entreprise_id || ""}
+                        onChange={(e) => {
+                          setEditUserData({
+                            ...editUserData,
+                            entreprise_id: e.target.value,
+                          });
+                        
                         }}
                       >
-                        <FontAwesomeIcon icon={faLockOpen} />
-                      </Button>
+                        {/* recuperer la categorie selectionner par défaut pour la modifier */}
+                      {entreprises &&
+                          entreprises.map((entrepriseel, index) => {
+                            return (
+                              <option key={index} value={entrepriseel.id}>
+                                {entrepriseel.nom}
+                              </option>
+                            );
+                          })}
+                      </Form.Select>
+                      
+                  </Form.Group>
+                </Form>
+              )}
+            </Modal.Body>
+            <Modal.Footer>
+              <Button
+                variant="secondary"
+                onClick={modifierUser}
+                style={{
+                  backgroundColor: "#004573",
+                  border: "none",
+                  width: "130px",
+                }}
+              >
+                Modifier
+              </Button>
+              <Button
+                variant="primary"
+                onClick={handleCloseEditUser}
+                style={{
+                  backgroundColor: "#fff",
+                  border: "1px solid #004573",
+                  width: "130px",
+                  color: "#004573",
+                }}
+              >
+                Fermer
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        
+          {/* modal fin modifier user */}
 
-                     
-                    </td>
+          {/* participant blok ***************************************************************/}
+          <Modal show={showBlokUser} onHide={handleCloseBlokUser} id="buttonAjouter" size="lg">
+              <Modal.Header closeButton>
+                <Modal.Title>Liste des participants bloqué</Modal.Title>
+
                 
-              </tr>
-            ))} 
+              </Modal.Header>
+              <div className="flex-grow-1 d-flex justify-content-end ">
+              <div className="champsRecherche mt-2 mb-3 w-50">
+                <Form>
+                  <div
+                    className="input-group flex-nowrap "
+                    style={{ borderColor: "#004573" }}
+                  >
+                    <Form.Control
+                      type="search"
+                      className="form-control w-50   "
+                      placeholder="Rechercher participant bloquer"
+                      aria-label="user"
+                      aria-describedby="addon-wrapping"
+                      value={searchValueUserBlock}
+                      onChange={handleSearchChangeBlok}
+                    />
+                    <span
+                      className="input-group-text text-white me-4"
+                      id="addon-wrapping"
+                      style={{ backgroundColor: "#004573" }}
+                    >
+                      <FontAwesomeIcon icon={faMagnifyingGlass} />
+                    </span>
+                  </div>
+                </Form>
+              </div>
+                </div>
+              <Modal.Body>
+              <table className="table border  border-1">
+              <thead
+                className=""
+                id="hearder-color"
+                style={{ backgroundColor: "#004573" }}
+              >
+                <tr>
+                  
+                  <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+                  Nom
+                  </th>
+                  <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+                    Prenom
+                  </th>
+                  <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+                    Email
+                  </th>
+                  <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+                    Catégorie
+                  </th>
+                  <th style={{ backgroundColor: "#004573", color: "#fff" }}>
+                    Entreprise
+                  </th>
+                  <th
+                    className="d-flex  justify-content-center "
+                    style={{
+                      backgroundColor: "#004573",
+                      color: "#fff",
+                      marginLeft: "3rem",
+                    }}
+                  >
+                    Debloquer
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                
+
+              { currentUsersBlok &&
+                  currentUsersBlok.map((user) => ( 
+                  <tr key={user && user.id} >
+                    <td>{user &&  user.nom}</td>
+                    <td>{user &&  user.prenom}</td>
+                    <td>{user &&  user.email}</td>
+                    {/* <td>{user &&  user.categorie.nom}</td> */}
+                    <td>{user &&  user.entreprise.nom}</td>
+
+                        <td className=" d-flex justify-content-evenly">
+                          
+                          <Button
+                            onClick={() => debloquerUser(user.id)}
+                            style={{
+                              backgroundColor: "#fff",
+                              border: "1px solid #004573",
+                              color: "#004573",
+                            }}
+                          >
+                            <FontAwesomeIcon icon={faLockOpen} />
+                          </Button>
+
+                        
+                        </td>
+                    
+                  </tr>
+                ))} 
+                
+              </tbody>
+            </table>
+              
+            <Pagination
+              currentPage={currentPage}
+              totalPaginationPages={totalPaginationPages}
+              setCurrentPage={setCurrentPage}
+              /> 
+              </Modal.Body>
+              
+            </Modal>
+          {/* participant blok **************************************************************/}
+
+
+          <Modal show={showUserDetails} onHide={handleCloseDetails} size="lg">
+          <Modal.Header closeButton>
+            <Modal.Title>Evaluation reçu</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+              <div>
+              {userQuestionsAndAnswers.length > 0 && userQuestionsAndAnswers.map((item, index) => {
+                    return Object.keys(item).map((userId) => {
+                        const userData = item[userId];
+                        let questionCounter = 1; // Initialize question counter inside the map function
+
+                        return (
+                            <div key={`${index}-${userId}`} className=" ">
+                                <div className="card mb-3 p-3">
+                                <h5 className="card-text" style={{color:'#004573'}}><strong>Évaluation:</strong> {userData?.evaluation.titre}</h5>
+                                    <p className="card-text"><strong>Évaluateur:</strong> {userData?.user.prenom} {userData?.user.nom}</p>
+                                    
+                                    {userData?.questions_reponses?.map((qr, qrIndex) => (
+                                        <div key={qrIndex} className="mt-1 mb-4">
+                                            <p className="card-text ">
+                                                <strong>{questionCounter++}-Question:</strong> {qr?.reponse?.questions_evaluation?.nom}
+                                            </p>
+                                            <p className="card-text">
+                                                <strong>Réponse:</strong> {qr?.reponse?.reponse}
+                                            </p>
+                                        </div>
+                                    ))}
+                                    <p className="card-text mt-3"><strong>Commentaire:</strong> {userData?.commentaire}</p>
+                                    {/* <p className="card-text"><strong>Niveau:</strong> {userData?.niveau}</p> */}
+                                    <p className="card-text"><strong>Niveau:</strong> {getNiveauLabel(userData?.niveau)}</p>
+                                </div>
+                            </div>
+                        );
+                    });
+              })}
+              
+              </div>
+
             
-          </tbody>
-        </table>
-          
-        <Pagination
-          currentPage={currentPage}
-          totalPaginationPages={totalPaginationPages}
-          setCurrentPage={setCurrentPage}
-          /> 
           </Modal.Body>
           
         </Modal>
-      {/* participant blok */}
 
-
-      <Modal show={showUserDetails} onHide={handleCloseDetails} size="lg">
-      <Modal.Header closeButton>
-        <Modal.Title>Evaluation reçu</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-          <div>
-          {userQuestionsAndAnswers.length > 0 && userQuestionsAndAnswers.map((item, index) => {
-                return Object.keys(item).map((userId) => {
-                    const userData = item[userId];
-                    let questionCounter = 1; // Initialize question counter inside the map function
-
-                    return (
-                        <div key={`${index}-${userId}`} className=" ">
-                            <div className="card mb-3 p-3">
-                            <h5 className="card-text" style={{color:'#004573'}}><strong>Évaluation:</strong> {userData?.evaluation.titre}</h5>
-                                <p className="card-text"><strong>Évaluateur:</strong> {userData?.user.prenom} {userData?.user.nom}</p>
-                                
-                                {userData?.questions_reponses?.map((qr, qrIndex) => (
-                                    <div key={qrIndex} className="mt-1 mb-4">
-                                        <p className="card-text ">
-                                            <strong>{questionCounter++}-Question:</strong> {qr?.reponse?.questions_evaluation?.nom}
-                                        </p>
-                                        <p className="card-text">
-                                            <strong>Réponse:</strong> {qr?.reponse?.reponse}
-                                        </p>
-                                    </div>
-                                ))}
-                                <p className="card-text mt-3"><strong>Commentaire:</strong> {userData?.commentaire}</p>
-                                {/* <p className="card-text"><strong>Niveau:</strong> {userData?.niveau}</p> */}
-                                <p className="card-text"><strong>Niveau:</strong> {getNiveauLabel(userData?.niveau)}</p>
-                            </div>
-                        </div>
-                    );
-                });
-          })}
-           
-          </div>
-
-        
-      </Modal.Body>
-      
-    </Modal>
-
-    </div>
-    )}
+        </div>
+        )}
 
     </div>
   );

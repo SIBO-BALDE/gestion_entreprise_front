@@ -27,7 +27,7 @@ const links = [
 
     {
       path: "gestioncategorie",
-      text: "Gestion Catégories",
+      text: "Gestion Lien hiérachie",
       icon: faLayerGroup,
     },
     {
@@ -54,11 +54,11 @@ const links = [
       text: "Gestion Evaluations",
       icon: faFlaskVial,
     },
-    {
-      path: "gestionfeedback",
-      text: "Gestion Feedbacks",
-      icon: faComment,
-    },
+    // {
+    //   path: "gestionfeedback",
+    //   text: "Gestion Feedbacks",
+    //   icon: faComment,
+    // },
     
   ];
 

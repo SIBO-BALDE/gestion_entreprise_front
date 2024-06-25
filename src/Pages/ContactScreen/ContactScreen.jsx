@@ -5,7 +5,7 @@ import { Button, Form, Image, Modal } from 'react-bootstrap'
 import contact from '../../Images/Image-contact.png'
 import './ContactScreen.css';
 import map from '../../Images/map-map.png'
-import contact1 from '../../Images/contact1.jpeg'
+import contact1 from '../../Images/imgban/womanban.jpg'
 import Underline from '../../Components/User_Components/Underline/Underline'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons'

@@ -56,7 +56,7 @@ function ChiffresCles() {
           </div>
           <div className='mt-4'>
             <h1 className='content_blue_home' ref={el => numberElementsRef.current[0] = el}>+2000</h1>
-            <p>Employés évalué</p>
+            <p>Employés évalués</p>
           </div>
         </div>
         <div className='me-5'>
@@ -65,7 +65,7 @@ function ChiffresCles() {
           </div>
           <div className='mt-4'>
             <h1 className='content_orange_home' ref={el => numberElementsRef.current[1] = el}>1000+</h1>
-            <p>Clients Entreprise</p>
+            <p>Entreprise <br /> partenaires</p>
           </div>
         </div>
         <div className='ms-5'>

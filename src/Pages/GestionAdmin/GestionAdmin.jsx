@@ -177,7 +177,7 @@ useEffect(() => {
     abonnement_id:'',
     date_debut_abonnement:'',
     date_fin_abonnement:'',
-    entreprise_abonements_id:'',
+    entrepriseAbaonement:'',
     
   });
 
@@ -187,11 +187,10 @@ useEffect(() => {
     prenom: "",
     email: "",
     password: "",
-    // entreprise_abonements_id: "",
     abonnement_id:'',
     date_debut_abonnement:'',
     date_fin_abonnement:'',
-    entreprise_abonements_id:'',
+    entrepriseAbaonement:'',
   });
 
   
@@ -203,7 +202,7 @@ useEffect(() => {
         nom: user.nom,
         prenom: user.prenom,
         email: user.email,
-        entreprise_abonements_id: user.entreprise_abonements_id,
+        entrepriseAbaonement: user.entrepriseAbaonement,
         date_debut_abonnement:user.date_debut_abonnement,
         date_fin_abonnement:user.date_fin_abonnement,
         abonnement_id:user.abonnement_id,
@@ -224,7 +223,7 @@ useEffect(() => {
     if(userData.nom === "" || userData.prenom === "" || userData.email === "" 
      || userData.password === "" || userData.abonnement_id === ""  || 
      userData.date_debut_abonnement === "" || userData.date_fin_abonnement === "" 
-      || userData.entreprise_abonements_id === "" ){
+      || userData.entrepriseAbaonement === "" ){
       Swal.fire({
         icon: "error",
         title: "Oops!",
@@ -285,7 +284,7 @@ useEffect(() => {
               abonnement_id:'',
               date_debut_abonnement:'',
               date_fin_abonnement:'',
-              entreprise_abonements_id:'',
+              entrepriseAbaonement:'',
               
             });
             
@@ -318,7 +317,7 @@ useEffect(() => {
     const token = localStorage.getItem('tokencle')
     const role = localStorage.getItem("rolecle");
     if(editUserData.nom === "" || editUserData.prenom === "" || editUserData.email === "" 
-     || editUserData.entreprise_abonements_id === ""){
+     || editUserData.entrepriseAbaonement === ""){
       Swal.fire({
         icon: "error",
         title: "Oops!",
@@ -385,7 +384,7 @@ useEffect(() => {
   
 
 // bloquer
-  const supprimerUser = async (id) => {
+  const bloquerAdmin = async (id) => {
     const token = localStorage.getItem('tokencle');
     const role = localStorage.getItem("rolecle");
 
@@ -676,7 +675,7 @@ const debloquerUser = async (id) => {
                 <td>{user &&  user.nom}</td>
                 <td>{user &&  user.prenom}</td>
                 <td>{user &&  user.email}</td>
-                <td>{user &&  user.entreprise_abonement?.nom}</td>
+                <td>{user &&  user.entrepriseAbaonement}</td>
                 
 
                     <td className=" d-flex justify-content-evenly">
@@ -694,7 +693,7 @@ const debloquerUser = async (id) => {
                         <FontAwesomeIcon icon={faPenToSquare} />
                       </Button>
                       <Button
-                        onClick={() => supprimerUser(user.id)}
+                        onClick={() => bloquerAdmin(user.id)}
                         style={{
                           backgroundColor: "#fff",
                           border: "1px solid #004573",
@@ -792,7 +791,7 @@ const debloquerUser = async (id) => {
               </Form.Group>
             </div>
             <div className="d-flex justify-content-around" style={{ gap: '10px' }}>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput6">
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput5">
               <Form.Label>Type abonnement</Form.Label>
               <Form.Select
                 aria-label="Default select example"
@@ -817,7 +816,7 @@ const debloquerUser = async (id) => {
             {/* entreprise */}
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput6">
               <Form.Label>Entreprise</Form.Label>
-              <Form.Select
+              {/* <Form.Select
                 aria-label="Default select example"
                 value={userData.entreprise_abonements_id}
                 onChange={(e) => {
@@ -834,13 +833,25 @@ const debloquerUser = async (id) => {
                       {entreprise.nom}
                     </option>
                   ))}
-              </Form.Select>
+              </Form.Select> */}
+              <Form.Control
+                className="entreprise-input"
+                  value={userData.entrepriseAbaonement}
+                  onChange={(e) => {
+                    setUserData({
+                      ...userData,
+                      entrepriseAbaonement: e.target.value,
+                    });
+                  }}
+                  type="text"
+                  placeholder=""
+                />
             </Form.Group>
               
             </div>
 
 
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput7">
                 <Form.Label>Date debut</Form.Label>
                 <Form.Control
                 className="date-input"
@@ -856,7 +867,7 @@ const debloquerUser = async (id) => {
                   placeholder=""
                 />
               </Form.Group>
-              <Form.Group className="mb-3" controlId="exampleForm.ControlInput4">
+              <Form.Group className="mb-3" controlId="exampleForm.ControlInput8">
                 <Form.Label>Date fin</Form.Label>
                 <Form.Control
                 className="date-input"
@@ -957,7 +968,7 @@ const debloquerUser = async (id) => {
               
                 <Form.Group
                   className="mb-3"
-                  controlId="exampleForm.ControlInput1"
+                  controlId="exampleForm.ControlInput9"
                 >
                   <Form.Label>Email</Form.Label>
                   <Form.Control
@@ -976,31 +987,22 @@ const debloquerUser = async (id) => {
                 </Form.Group>
               <Form.Group
                   className="mb-3"
-                  controlId="exampleForm.ControlInput1"
+                  controlId="exampleForm.ControlInput10"
                 >
                   <Form.Label>Entreprise</Form.Label>
-                  <Form.Select
-                    aria-label="Default select example"
-                    // value={editUserData.categories_id}
-                    value={editUserData.entreprise_abonements_id || ""}
+                  <Form.Control
+                    type="text"
+                    placeholder=""
+                    value={editUserData.entrepriseAbaonement}
                     onChange={(e) => {
                       setEditUserData({
                         ...editUserData,
-                        entreprise_abonements_id: e.target.value,
+                        entrepriseAbaonement: e.target.value,
                       });
                      
                     }}
-                  >
-                    {/* recuperer la categorie selectionner par défaut pour la modifier */}
-                  {entreprises &&
-                      entreprises.map((entrepriseel, index) => {
-                        return (
-                          <option key={index} value={entrepriseel.id}>
-                            {entrepriseel.nom}
-                          </option>
-                        );
-                      })}
-                  </Form.Select>
+                  />
+                 
                   
               </Form.Group>
             </Form>

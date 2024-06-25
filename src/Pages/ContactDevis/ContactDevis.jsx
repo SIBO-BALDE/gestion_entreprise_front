@@ -219,9 +219,14 @@ export default function ContactDevis() {
     } else if (name === "numeroTelephone") {
         if (!value.trim()) {
             errorMessage = "Le numéro est obligatoire";
-        } else if (!phoneRegex.test(value)) {
-            errorMessage = "Le numéro est invalide";
-        }
+        } else if (value.trim().length < 7) {
+            errorMessage = "Minimum 7 chiffres";
+        }else if (!/^\d+$/.test(value.trim())) {
+          errorMessage = "Chiffres uniquement permis";
+        } 
+        // } else if (!phoneRegex.test(value)) {
+        //     errorMessage = "Le numéro est invalide";
+        // }
     } else if (name === "telephoneFixe") {
         if (!value.trim()) {
             errorMessage = "Le numéro est obligatoire";
@@ -456,7 +461,7 @@ useEffect(() => {
           <Row>
             <Col>
               <Form.Group controlId="prenom">
-                <Form.Label className='' style={{color:'#004573'}}>Prenom:</Form.Label>
+                <Form.Label className='' style={{color:'#004573'}}>Prenom<span style={{color:'red'}}>*</span>:</Form.Label>
                 <Form.Control
                 style={{backgroundColor:'#FFF', borderBottom: '2px solid #004573',marginBottom:'10px'}}
                   type="text"
@@ -471,7 +476,7 @@ useEffect(() => {
             </Col>
             <Col>
               <Form.Group controlId="nom">
-                <Form.Label className='' style={{color:'#004573'}}>Nom:</Form.Label>
+                <Form.Label className='' style={{color:'#004573'}}>Nom<span style={{color:'red'}}>*</span>:</Form.Label>
                 <Form.Control
                 style={{backgroundColor:'#FFF', borderBottom: '2px solid #004573',marginBottom:'10px'}}
                   type="text"
@@ -486,7 +491,7 @@ useEffect(() => {
             </Col>
             <Col>
               <Form.Group controlId="email">
-                <Form.Label className='' style={{color:'#004573'}}>Email:</Form.Label>
+                <Form.Label className='' style={{color:'#004573'}}>Email<span style={{color:'red'}}>*</span>:</Form.Label>
                 <Form.Control
                 style={{backgroundColor:'#FFF', borderBottom: '2px solid #004573',marginBottom:'10px'}}
                   type="email"
@@ -504,7 +509,7 @@ useEffect(() => {
             
             <Col>
               <Form.Group controlId="addressEntreprise">
-                <Form.Label className='' style={{color:'#004573'}}>Addresse :</Form.Label>
+                <Form.Label className='' style={{color:'#004573'}}>Addresse<span style={{color:'red'}}>*</span>:</Form.Label>
                 <Form.Control
                 style={{backgroundColor:'#FFF', borderBottom: '2px solid #004573',marginBottom:'10px'}}
                   type="text"
@@ -519,7 +524,7 @@ useEffect(() => {
             </Col>
             <Col>
               <Form.Group controlId="numeroTelephone">
-                <Form.Label className='' style={{color:'#004573'}}>Télephone:</Form.Label>
+                <Form.Label className='' style={{color:'#004573'}}>Télephone<span style={{color:'red'}}>*</span>:</Form.Label>
                 <Form.Control
                 style={{backgroundColor:'#FFF', borderBottom: '2px solid #004573',marginBottom:'10px'}}
                   type="text"
@@ -534,7 +539,7 @@ useEffect(() => {
             </Col>
             <Col>
               <Form.Group controlId="poste">
-                <Form.Label className='' style={{color:'#004573'}}>Telephone fixe</Form.Label>
+                <Form.Label className='' style={{color:'#004573'}}>Fixe:</Form.Label>
                 <Form.Control
                  style={{backgroundColor:'#FFF', borderBottom: '2px solid #004573',marginBottom:'10px'}}
                   value={messageData.telephoneFixe}
@@ -554,7 +559,7 @@ useEffect(() => {
           <Row>
             <Col>
               <Form.Group controlId="entreprise">
-                <Form.Label className='' style={{color:'#004573'}}>Entreprise:</Form.Label>
+                <Form.Label className='' style={{color:'#004573'}}>Entreprise<span style={{color:'red'}}>*</span>:</Form.Label>
                 <Form.Control
                 
                 style={{backgroundColor:'#FFF', borderBottom: '2px solid #004573',marginBottom:'10px'}}
@@ -570,7 +575,7 @@ useEffect(() => {
             </Col>
             <Col>
               <Form.Group controlId="poste">
-                <Form.Label className='' style={{color:'#004573'}}>Poste:</Form.Label>
+                <Form.Label className='' style={{color:'#004573'}}>Poste<span style={{color:'red'}}>*</span>:</Form.Label>
                 <Form.Control
                 style={{backgroundColor:'#FFF', borderBottom: '2px solid #004573',marginBottom:'10px'}}
                
@@ -581,7 +586,7 @@ useEffect(() => {
                     validateField("poste", e.target.value);
                   }}
                 >
-                  <option value="">Sélectionnez un poste</option>
+                  <option value="">Sélectionnez un poste<span style={{color:'red'}}>*</span></option>
                   <option value="Directeur">Directeur</option>
                   <option value="Comptable">Comptable</option>
                   <option value="Commercial">Commercial</option>
@@ -594,7 +599,7 @@ useEffect(() => {
           <Row>
             <Col>
             <Form.Group className="mb-3" controlId="exampleForm.ControlSelect1">
-                  <Form.Label className='' style={{color:'#004573'}}>Pays</Form.Label>
+                  <Form.Label className='' style={{color:'#004573'}}>Pays<span style={{color:'red'}}>*</span></Form.Label>
                   <Form.Control
                   style={{backgroundColor:'#FFF', borderBottom: '2px solid #004573',marginBottom:'10px'}}
                     as="select"
@@ -607,14 +612,14 @@ useEffect(() => {
                         
                       }}
                   >
-                    <option value="">Sélectionnez un pays</option>
+                    <option value="">Sélectionnez un pays<span style={{color:'red'}}>*</span>:</option>
                     {countryOptions}
                   </Form.Control>
               </Form.Group>
             </Col>
             <Col>
               <Form.Group controlId="poste">
-                <Form.Label className=''style={{color:'#004573'}}>Ville</Form.Label>
+                <Form.Label className=''style={{color:'#004573'}}>Ville<span style={{color:'red'}}>*</span></Form.Label>
                 <Form.Control
                  style={{backgroundColor:'#FFF', borderBottom: '2px solid #004573',marginBottom:'10px'}}
                   value={messageData.ville}
@@ -633,7 +638,7 @@ useEffect(() => {
             {/* cc */}
             <Col>
               <Form.Group controlId="poste">
-                <Form.Label className='' style={{color:'#004573'}}>Type d'abonnement</Form.Label>
+                <Form.Label className='' style={{color:'#004573'}}>Type d'abonnement<span style={{color:'red'}}>*</span>:</Form.Label>
                 <Form.Select
                 style={{backgroundColor:'#FFF', borderBottom: '2px solid #004573',marginBottom:'10px'}}
                     aria-label="Default select example"
@@ -646,7 +651,7 @@ useEffect(() => {
                       
                     }}
                   >
-                    <option className='text-white'>Choisir une abonnement</option>
+                    <option className='text-white'>Choisir une abonnement<span style={{color:'red'}}>*</span>:</option>
                     {abonnement &&
                       abonnement.map((abonel, index) => {
                         return (
@@ -680,7 +685,7 @@ useEffect(() => {
               </Form.Group>
             </Col>
           </Row>
-          <Button type="submit" className='content_title_devis_button_content mt-3' onClick={ajouterMessage}>Demande d'abonnement</Button>
+          <Button type="submit" className='content_title_devis_button_content mt-3' onClick={ajouterMessage}>Demande d'abonnement:</Button>
         </Form>
       </div>
       <div className='' style={{width:'100%' ,height:'645px',borderBottom:'7px solid #FFB703', borderBottomRightRadius:'10px'}}>

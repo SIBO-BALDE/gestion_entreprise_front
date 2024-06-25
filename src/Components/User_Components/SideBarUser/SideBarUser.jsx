@@ -15,27 +15,27 @@ import axios from 'axios';
 const links = [
     {
       path: "dashbordUser",
-      text: "Dashboard",
+      text: "Dashboard Participant",
       icon: faGauge,
     },
-    {
-      path: "feedbackeve",
-      text: "Feedback Evenement",
-      icon: faUser,
-    },
+    // {
+    //   path: "feedbackeve",
+    //   text: "Feedback Evenement",
+    //   icon: faUser,
+    // },
     {
       path: "feedbackevalu",
-      text: "Feedback Evaluation",
+      text: "Evaluation 360°",
       icon: faHouse,
     },
-    {
-      path: "feedbackreponse",
-      text: "Reponses Feedback",
-      icon: faComments,
-    },
+    // {
+    //   path: "feedbackreponse",
+    //   text: "Reponses Feedback",
+    //   icon: faComments,
+    // },
     {
       path: "valuationreponse",
-      text: "Reponses Evaluation",
+      text: "Feedback Evaluat 360°",
       icon: faComments,
     },
     
