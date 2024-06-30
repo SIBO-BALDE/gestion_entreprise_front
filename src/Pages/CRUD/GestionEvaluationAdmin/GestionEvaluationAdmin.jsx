@@ -327,6 +327,7 @@ const fetchEvaluations = async () => {
      
       setEvaluations(response.data.evaluations);
       setLoading(false)
+      console.log(response, 'resp evalution')
       
 
       console.log(response, 'response ev');
@@ -356,30 +357,32 @@ const formatDate = (createdAt) => {
    setSearchValue(titre.target.value);
  };
  
- // faire le filtre des maison par addrsse
- const filteredEvaluation = evaluations?.filter(
-   (evaluation) =>
-     evaluation &&
-     evaluation.titre &&
-     evaluation.titre.toLowerCase().includes(searchValue.toLowerCase())
- );
- const displayEvaluation= searchValue === "" ? evaluations : filteredEvaluation;
- 
- 
-   const [currentPage, setCurrentPage] = useState(1);
- const evaluationParPage= 6;
- 
- // pagination
- const indexOfLastEvaluation = currentPage*  evaluationParPage;
- const indexOfFirstEvaluation = indexOfLastEvaluation -   evaluationParPage;
- const currentEvaluations = filteredEvaluation.slice(
-   indexOfFirstEvaluation,
-   indexOfLastEvaluation
- );
- 
- const totalPaginationPages = Math.ceil(evaluations?.length /   evaluationParPage);
- console.log(evaluations.length, 'evaluations?.length')
 
+   const filteredEvaluation = evaluations?.filter(
+    (item) =>
+      item.evaluation &&
+      item.evaluation.titre &&
+      item.evaluation.titre.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
+  console.log(filteredEvaluation, 'filteredEvaluation');
+
+  const displayEvaluation = searchValue === "" ? evaluations : filteredEvaluation;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const evaluationParPage = 5;
+  const indexOfLastEvaluation = currentPage * evaluationParPage;
+  const indexOfFirstEvaluation = indexOfLastEvaluation - evaluationParPage;
+  const currentEvaluations = displayEvaluation.slice(
+    indexOfFirstEvaluation,
+    indexOfLastEvaluation
+  );
+
+  console.log(displayEvaluation, 'displayEvaluation');
+  console.log(currentEvaluations, 'currentEvaluations');
+
+  const totalPaginationPages = Math.ceil(evaluations?.length / evaluationParPage);
+ 
 //  modification evaluation
  const [showEditEvaluation, setShowEditEvaluation] = useState(false);
 const [currentEvaluation, setCurrentEvaluation] = useState(null);
@@ -406,11 +409,12 @@ const filteredEventsBlok = eventsBlok.filter(
 const displayEventsBlok = searchValueBlok === "" ? eventsBlok : filteredEventsBlok;
 
 
+
   const [currentPage1, setCurrentPage1] = useState(1);
 const  eventsBlokParPage= 5;
 
 // pagination
-const indexOfLastEventBlok = currentPage * eventsBlokParPage; // Utiliser currentPage au lieu de currentPage1
+const indexOfLastEventBlok = currentPage * eventsBlokParPage; 
 const indexOfFirstEventBlok = indexOfLastEventBlok - eventsBlokParPage;
 const currentEventsBlok = filteredEventsBlok.slice(
   indexOfFirstEventBlok,
@@ -430,38 +434,6 @@ const handleShowEventBlok = () => setShowEventBlok(true);
 
 // modification 
 
-// const openEditModal = (evaluationIndex) => {
-//   const evaluationToEdit = currentEvaluations[evaluationIndex];
-//   console.log('Evaluation to edit:', evaluationToEdit);
-//   setEditQuestionIndex(evaluationIndex);
-
-//   // Ajout de vérifications pour s'assurer que `questions` et `reponses` existent
-//   const questions = evaluationToEdit.questions || [];
-//   const formattedQuestions = questions.map(question => ({
-//       nom: question?.nom || '',
-//       categorie_id: question?.categorie_id || '',
-//       reponses: (question?.reponses || []).map(reponse => ({
-//           reponse: reponse?.reponse || '',
-//           niveau: reponse?.niveau || 0
-//       }))
-//   }));
-
-//   const defaultQuestion = {
-//       nom: '',
-//       categorie_id: '',
-//       reponses: [{ reponse: '', niveau: 0 }]
-//   };
-
-//   setEvaluationData({
-//       titre: evaluationToEdit.titre || '',
-//       questions: formattedQuestions.length > 0 ? formattedQuestions : [defaultQuestion]
-//   });
-
-//   setShowEditModal(true);
-//   console.log(evaluationData,'ev')
-// };
-
-console.log(evaluations, 'Evaluation')
 const [showEditModalEval, setShowEditModalEval] = useState(false);
  const [editEvaluationData, setEditEvaluationData] = useState({
   titre: '',
@@ -596,47 +568,6 @@ const handleNumberChangeEdit = (questionIndex, responseIndex, value) => {
   });
 };
 
-
-// const submitEditEvaluation = async () => {
-//   const token = localStorage.getItem('tokencle');
-//   const role = localStorage.getItem('rolecle');
-
-//   try {
-//     if (token && role === 'Admin') {
-//       const response = await axios.put(
-//         `http://localhost:8000/api/Questions/reponse/evaluation/update/${editEvaluationData.id}`,
-//         editEvaluationData,
-//         {
-//           headers: {
-//             'Content-Type': 'application/json',
-//             'Authorization': `Bearer ${token}`
-//           }
-//         }
-//       );
-//       console.log(response, 'resp up')
-      
-
-//       // Mettre à jour l'état des utilisateurs
-//       // const updatedEvl = evaluations.map((evl) =>
-//       //   evl.id === editEvaluationData.id ? { ...evl, evaluations: updatedEvl } : evl
-//       // );
-//       // setEvaluations(updatedEvl);
-//       // setEditEvaluationData(updatedEvl);
-//       closeEditModal();
-//       Swal.fire({
-//         icon: "success",
-//         title: "Succès!",
-//         text: "l'évaluation a été modifier avec succès!",
-//     });
-//     } else {
-//       throw new Error('Accès refusé : rôle non autorisé ou token manquant');
-//     }
-//   } catch (error) {
-//     console.error('Erreur lors de la soumission des modifications:', error);
-//   }
-// };
-
-
 const submitEditEvaluation = async () => {
   const token = localStorage.getItem('tokencle');
   const role = localStorage.getItem('rolecle');
@@ -662,6 +593,20 @@ const submitEditEvaluation = async () => {
           }
         }
       );
+      console.log(response, 'response modif')
+      if (response.data.status === 407) {
+       
+        Swal.fire({
+          icon: "error",
+          title: "Oops!",
+          text: "Vous pouvez pas modifier cette evaluation car les partcipant ont demarer l'évaluation!",
+        }).then(() => {
+         
+        });
+        closeEditModal();
+        return;
+       
+      }
       
       Swal.fire({
         icon: 'success',
@@ -676,17 +621,7 @@ const submitEditEvaluation = async () => {
     }
   } catch (error) {
     console.error('Erreur lors de la soumission des modifications:', error);
-    // if (error.response.status === 407) {
-       
-    //   Swal.fire({
-    //     icon: "error",
-    //     title: "Oops!",
-    //     text: "Vous pouvez pas modifier cette evaluation car les partcipant ont demarer l'évalation!",
-    //   }).then(() => {
-    //     // handleClosAdd(); 
-    //   });
-    //   return;
-    // }
+   
     Swal.fire({
       icon: 'error',
       title: 'Erreur',
@@ -799,42 +734,40 @@ const submitEditEvaluation = async () => {
             </tr>
           </thead>
           <tbody>
-              {Object.keys(evaluations).map((key) => (
-                      <tr key={key}>
-                        <td>{evaluations[key].evaluation.titre}</td>
-                        <td>{formatDate(evaluations[key].evaluation.created_at)}</td>
-                        <td>
-                          <Button
-                            variant="primary"
-                            // onClick={() => handleShowEditEval(evaluations[key].evaluation )}
-                            onClick={() => handleShowEditEval(evaluations[key])}
-                            style={{
-                              backgroundColor: "#fff",
-                              border: "1px solid #004573",
-                              color: "#004573",
-                            }}
-                            id="buttonArchiver"
-                          >
-                            <FontAwesomeIcon icon={faEdit} />
-                          </Button>
-                          <Button
-                            variant=""
-                            onClick={() => archiverEvaluation(evaluations[key].evaluation.id)}
-                            style={{
-                              backgroundColor: "#fff",
-                              border: "1px solid #004573",
-                              color: "#004573",
-                            }}
-                            id="buttonArchiver"
-                            className='ms-3'
-                          >
-                            <FontAwesomeIcon icon={faBoxesPacking} />
-                          </Button>
-                        </td>
-                      </tr>
-              ))}
+            {Object.keys(currentEvaluations).map((key) => (
+              <tr key={key}>
+                <td>{currentEvaluations[key].evaluation.titre}</td>
+                <td>{formatDate(currentEvaluations[key].evaluation.created_at)}</td>
+                <td>
+                  <Button
+                    variant="primary"
+                    onClick={() => handleShowEditEval(currentEvaluations[key])}
+                    style={{
+                      backgroundColor: "#fff",
+                      border: "1px solid #004573",
+                      color: "#004573",
+                    }}
+                    id="buttonArchiver"
+                  >
+                    <FontAwesomeIcon icon={faEdit} />
+                  </Button>
+                  <Button
+                    variant=""
+                    onClick={() => archiverEvaluation(currentEvaluations[key].evaluation.id)}
+                    style={{
+                      backgroundColor: "#fff",
+                      border: "1px solid #004573",
+                      color: "#004573",
+                    }}
+                    id="buttonArchiver"
+                    className='ms-3'
+                  >
+                    <FontAwesomeIcon icon={faBoxesPacking} />
+                  </Button>
+                </td>
+              </tr>
+            ))}
           </tbody>
-
         </table>
         <Pagination
           currentPage={currentPage}
@@ -935,7 +868,7 @@ const submitEditEvaluation = async () => {
         {/************************ ajouter une évaluation fin ***************************/}
 
         {/**************************** modifier evalution debut ****************************/}
-        <Modal show={showEditModalEval} onHide={closeEditModal}>
+        {/* <Modal show={showEditModalEval} onHide={closeEditModal}>
           <Modal.Header closeButton>
             <Modal.Title>Modifier l'évaluation</Modal.Title>
           </Modal.Header>
@@ -1003,7 +936,7 @@ const submitEditEvaluation = async () => {
                           
                           <div style={{ display: "flex", alignItems: "center", justifyContent:'space-between' }}>
                             <div>
-                            <Button type="button" className="add-response me-2" onClick={() => addResponseEdit(questionIndex)} style={{border:'1px solid #004573', backgroundColor:'white',color:'#004573'}}>
+                            <Button type="button" className="add-response me-2 mb-2" onClick={() => addResponseEdit(questionIndex)} style={{border:'1px solid #004573', backgroundColor:'white',color:'#004573'}}>
                             <FontAwesomeIcon icon={faPlus} />
                             </Button>
                             <span>Ajouter une réponse</span>
@@ -1042,7 +975,101 @@ const submitEditEvaluation = async () => {
             <Button variant="secondary" onClick={() => submitEditEvaluation(editEvaluationData)} style={{backgroundColor:'#004573',color:'white'}}>Modifier</Button>
             <Button variant="primary" onClick={closeEditModal} style={{color:'#004573', border:'1px solid #004573',backgroundColor:'#fff' }}>Annuler</Button>
           </Modal.Footer>
-        </Modal>
+        </Modal> */}
+        <Modal show={showEditModalEval} onHide={closeEditModal}>
+  <Modal.Header closeButton>
+    <Modal.Title>Modifier l'évaluation</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    <Form>
+      <FormGroup>
+        <FormLabel>Titre de l'évaluation:</FormLabel>
+        <FormControl
+          type="text"
+          value={editEvaluationData?.titre}
+          onChange={(e) => setEditEvaluationData({ ...editEvaluationData, titre: e.target.value })}
+          required
+        />
+      </FormGroup>
+
+      <div id="questions-container">
+        {editEvaluationData.questions.map((question, questionIndex) => (
+          <div className="question mt-2" key={questionIndex}>
+            <FormLabel>Question:</FormLabel>
+            <FormControl
+              type="text"
+              value={question.nom}
+              onChange={(e) => {
+                const updatedQuestions = [...editEvaluationData.questions];
+                updatedQuestions[questionIndex].nom = e.target.value;
+                setEditEvaluationData({ ...editEvaluationData, questions: updatedQuestions });
+              }}
+            />
+            <h6 className='m-3'>Choisissez la catégorie</h6>
+            <div className='mb-3 mt-3'>
+              {categories.map(categorie => (
+                <div key={categorie.id} style={{ display: "flex", alignItems: "center" }}>
+                  <Form.Check
+                    type="checkbox"
+                    value={categorie.id}
+                    label={categorie.nom}
+                    onChange={() => handleCategorySelectEdit(questionIndex, categorie.id)}
+                    checked={question.categorie_ids.includes(categorie.id)}
+                  />
+                </div>
+              ))}
+            </div>
+            
+            <div className=" mt-3 mb-3">
+              <FormLabel>Réponses:</FormLabel>
+              {question.reponses.map((reponse, responseIndex) => (
+                <div key={responseIndex} className="">
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <FormControl
+                      type="text"
+                      placeholder={`Réponse ${responseIndex + 1}`}
+                      value={reponse.reponse}
+                      onChange={(e) => handleResponseChangeEdit(questionIndex, responseIndex, e.target.value)}
+                      className='mb-3 me-2'
+                    />
+                    <Form.Label>Niveau: </Form.Label>
+                    <FormControl
+                      type="number"
+                      value={reponse.niveau}
+                      className='mb-3'
+                      onChange={(e) => handleNumberChangeEdit(questionIndex, responseIndex, e.target.value)}
+                    />
+                    <Button variant="" className="remove-response ms-2 mb-3" onClick={() => removeResponseEdit(questionIndex, responseIndex)} style={{ border: '1px solid red', color: 'red' }}>
+                      <FontAwesomeIcon icon={faTrash} />
+                    </Button>
+                  </div>
+                </div>
+              ))}
+              <Button type="button" className="add-response me-2 mb-2" onClick={() => addResponseEdit(questionIndex)} style={{ border: '1px solid #004573', backgroundColor: 'white', color: '#004573' }}>
+                <FontAwesomeIcon icon={faPlus} />
+                
+              </Button>
+            </div>
+
+            <Button variant='' className="remove-question mb-3" onClick={() => removeQuestionEdit(questionIndex)} style={{ border: '1px solid red', color: 'red' }}>
+              <FontAwesomeIcon icon={faTrash} />
+            </Button>
+          </div>
+        ))}
+      </div>
+
+      <Button type="button" id="add-question" onClick={addQuestionEdit} className='me-2' style={{ border: '1px solid #004573', backgroundColor: 'white', color: '#004573' }}>
+        <FontAwesomeIcon icon={faPlus} />
+      </Button><span> Ajouter une question</span>
+    </Form>
+  </Modal.Body>
+  <Modal.Footer>
+    <Button variant="secondary" onClick={() => submitEditEvaluation(editEvaluationData)} style={{ backgroundColor: '#004573', color: 'white' }}>Modifier</Button>
+    <Button variant="primary" onClick={closeEditModal} style={{ color: '#004573', border: '1px solid #004573', backgroundColor: '#fff' }}>Annuler</Button>
+  </Modal.Footer>
+</Modal>
+
+
         {/**************************** modifier evalution fin*******************************/}
 
         {/************************ liste des  evalution archivé debut *********************/}

@@ -374,16 +374,18 @@ const [step, setStep] = useState(1);
  
 
   const renderForm = () => {
+
     switch (step) {
       case 1:
         return (
-          <Form>
-            
-            <Form.Group controlId="selectUser" className='mb-3'>
-              <h3>Qui voulez vous évalué ?</h3>
+          <Form style={{padding:'30px 0px'}}>
+            <CheckoutSteps currentStep={step} />
+            <Form.Group controlId="selectUser" className=''>
+              {/* <h3>Qui voulez vous évalué ?</h3> */}
               {/* <CheckoutSteps step1 step2 step3></CheckoutSteps> */}
-              <CheckoutSteps currentStep={step} />
-            <Form.Select value={selectedUserId} onChange={handleUserSelectChange}>
+              
+              <Form.Select value={selectedUserId} onChange={handleUserSelectChange} 
+                style={{marginTop:'20px',marginBottom:'20px', borderBottom:'1px solid black',backgroundColor:'white'}}>
                 <option value="">Sélectionner un utilisateur</option>
                 {users.map(user => (
                   <option key={user.id} value={user.id}>
@@ -392,12 +394,14 @@ const [step, setStep] = useState(1);
                 ))}
               </Form.Select>
             </Form.Group>
-
-            
-
-            <Button variant="primary" onClick={nextStep} style={{borderRadius:'50%',width:'40px', height:'40px', backgroundColor:'#004573', border:'none'}}>
+            <div style={{display:'flex',justifyContent:'center',marginTop:'20px'}}>
+            <Button variant="primary" onClick={nextStep} style={{borderRadius:'50%',width:'40px', height:'40px', backgroundColor:'#ffb703', border:'none'}}>
             <FontAwesomeIcon icon={faArrowCircleRight} />
             </Button>
+            </div>
+
+            
+ 
           </Form>
         );
 
@@ -405,7 +409,7 @@ const [step, setStep] = useState(1);
         return (
           <Form>
             <Form.Group controlId="email">
-            <h3>Votre lien hiérachique?</h3>
+            <h5>Votre lien hiérachique?</h5>
             {/* <CheckoutSteps step1 step2 step3></CheckoutSteps> */}
             <CheckoutSteps currentStep={step} />
                <div style={{ display: "flex", flexDirection: "row", justifyContent: 'center' }}>
@@ -423,15 +427,18 @@ const [step, setStep] = useState(1);
                   ))}
                 </div>
             </Form.Group>
+            <div style={{display:'flex',justifyContent:'center',marginTop:'20px'}}>
+            <Button variant="" onClick={prevStep} style={{borderRadius:'50%',width:'40px', height:'40px', backgroundColor:'#ffb703', border:'none'}}>
+            <FontAwesomeIcon icon={faArrowCircleLeft} style={{color:'white'}} />
+            </Button>
+            <Button variant="" onClick={nextStep} style={{borderRadius:'50%',width:'40px', height:'40px', backgroundColor:'#ffb703', border:'none', marginLeft:'15px'}}>
+             <FontAwesomeIcon icon={faArrowCircleRight} style={{color:'white'}} />
+            </Button>
+
+            </div>
 
             
 
-            <Button variant="" onClick={prevStep} style={{borderRadius:'50%',width:'40px', height:'40px', backgroundColor:'#004573', border:'none'}}>
-            <FontAwesomeIcon icon={faArrowCircleLeft} style={{color:'white'}} />
-            </Button>
-            <Button variant="" onClick={nextStep} style={{borderRadius:'50%',width:'40px', height:'40px', backgroundColor:'#004573', border:'none', marginLeft:'15px'}}>
-             <FontAwesomeIcon icon={faArrowCircleRight} style={{color:'white'}} />
-            </Button>
           </Form>
         );
 
@@ -445,7 +452,7 @@ const [step, setStep] = useState(1);
               (evaluationSelectionneeId !== null && evaluationSelectionneeId === question.evaluation_id) && (
               <div key={question.id} style={{ marginBottom: '20px' }}>
                 <Form.Group controlId={`question-${question.id}`}>
-                  <Form.Label>{questionCounter++}-{question.nom} ?</Form.Label>
+                  <Form.Label><strong>{questionCounter++}-</strong>{question.nom} ?</Form.Label>
                   {question?.reponses_evaluation?.map((reponse) => (
                     <Form.Check
                       key={reponse.id}
@@ -472,20 +479,45 @@ const [step, setStep] = useState(1);
                   onChange={(e) => setCommentaire(e.target.value)} 
                 />
               </Form.Group>
-
-            <Button variant="" onClick={prevStep} style={{borderRadius:'50%',width:'40px', height:'40px', backgroundColor:'#004573', border:'none'}}>
-            <FontAwesomeIcon icon={faArrowCircleLeft} />
-            </Button>
-            <Button variant="" type="submit" onClick={ajouterEvaluation}>
-              Envoyer
-            </Button>
+              <div style={{display:'flex',justifyContent:'center',gap:'20px',marginTop:'20px'}}>
+                <Button variant="" onClick={prevStep} style={{borderRadius:'50%',width:'40px', height:'40px', backgroundColor:'#ffb703', border:'none'}}>
+              <FontAwesomeIcon icon={faArrowCircleLeft} style={{color:'white'}} />
+                </Button>
+                <Button variant="" type="submit" onClick={ajouterEvaluation} style={{border:'1px solid #FFB703'}}>
+                  Evaluer
+                </Button>
+              </div>
+            
           </Form>
         );
 
+      // case 4:
+      //     return (
+      //       <Form>
+      //          <h5>Les informations que vous avez saisi </h5>
+      //         {/* <CheckoutSteps step1 step2 step3></CheckoutSteps> */}
+      //         <CheckoutSteps currentStep={step} />
+      //         <Form>
+      //           {/* <h6>{selectedUserId}</h6>
+      //           <h6>{}</h6>
+      //           <h6>{selectedUserId}</h6> */}
+      //         </Form>
+      //         <div style={{display:'flex',justifyContent:'center',gap:'20px',marginTop:'20px'}}>
+      //         <Button variant="" onClick={prevStep} style={{border:'1px solid #FFB703'}} >
+      //         Annuler
+      //         </Button>
+      //         <Button variant="" type="submit" onClick={ajouterEvaluation} style={{border:'1px solid #FFB703'}}>
+      //           Confirmer
+      //         </Button>
+      //         </div>
+      //       </Form>
+      //     );
+  
       default:
         return null;
     }
   };
+
   const handleButtonClick = async (CategorieId, event) => {
     event.preventDefault();
     setSelectedCategoryId(CategorieId);
@@ -627,11 +659,9 @@ const [step, setStep] = useState(1);
             id="buttonAjouter"
             size='lg'
           >
-            {/* <Modal.Header closeButton>
-            </Modal.Header> */}
             <Modal.Body>
-            <Form>
-            {renderForm()}
+            <Form >
+              {renderForm()}
             </Form>
 
             </Modal.Body>

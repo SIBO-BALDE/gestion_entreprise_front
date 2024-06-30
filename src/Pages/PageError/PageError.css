@@ -102,3 +102,70 @@
         color:black;
         /* padding-top: 270px; */
     }
+    /************************* Médias queries  *******************************/
+    @media screen and (max-width: 1247px) {
+      .error-container{
+        display: grid;
+        grid-template-columns: 100% ;
+  
+      }
+      .erreor-content-main{
+        width: 100%;
+        height: 950px;
+      }
+      
+    }
+    @media screen and (max-width: 1017px) {
+      .error-container{
+        display: grid;
+        grid-template-columns: 100% ;
+  
+      }
+      .erreor-content-main{
+        width: 100%;
+        height: 800px;
+      }
+      
+    }
+    @media screen and (max-width: 662px) {
+      .error-container{
+        display: grid;
+        grid-template-columns: 100% ;
+  
+      }
+      .erreor-content-main{
+        width: 100%;
+        height: 700px;
+      }
+      
+    }
+    @media screen and (max-width: 543px) {
+      .error-container{
+        display: grid;
+        grid-template-columns: 100% ;
+  
+      }
+      .erreor-content-main{
+        width: 100%;
+        height: 600px;
+      }
+      #logo-error-main{
+        height: 300px !important;
+      }
+      
+    }
+    @media screen and (max-width: 378px) {
+      .error-container{
+        display: grid;
+        grid-template-columns: 100% ;
+  
+      }
+      #logo-error-main{
+        height: 300px !important;
+      }
+      .erreor-content-main{
+        width: 100%;
+        height: 500px;
+      }
+      
+    }

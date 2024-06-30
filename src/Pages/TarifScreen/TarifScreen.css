@@ -30,7 +30,7 @@
   }
   
   .content_price_1{
-    display: inline-block;
+    /* display: inline-block; */
     /* position: relative; */
     background: var(--troisieme);
     color: #283D3B;
@@ -117,20 +117,20 @@
     transform: scale(0.9);
   }
   .card-1 {
-    left: 40px;
-    margin-left: -60px;
-    z-index: 0;
+    /* left: 40px;
+    margin-left: -60px; */
+    /* z-index: 0; */
   }
   .card-1 h2 {
     background-color: var(--principal);
   }
   .card-2 {
-    z-index: 1;
+    /* z-index: 1; */
   }
   .card-3 {
-    left: -40px;
-    margin-right: -60px;
-    z-index: 0;
+    /* left: -40px;
+    margin-right: -60px; */
+    /* z-index: 0; */
   }
   .card-3 h2 {
     background-color: #2d84be;
@@ -192,4 +192,24 @@
     color: #666;
     font-size: 16px;
   }
+  #container1{
+    display: flex !important;
+   justify-content: center;
+    gap: 20px;
+   
+    
+    }
+
+  /******************************** médias quéries **************************************/
+  @media screen and (max-width: 1026px) {
+    .container1{
+    display: flex!important;
+    flex-wrap: wrap;
+    gap: 20px;
+    /* border: 1px solid red; */
+    }
+    
+  }
+ 
+  
   

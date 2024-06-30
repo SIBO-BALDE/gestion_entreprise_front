@@ -93,33 +93,35 @@ export default function Footer() {
 
             </div>
            
-            <div>
-                <h4>Adresse</h4>
-                <Link to={'/about'}style={{textDecoration:'none', color:'white'}} >Dakar,Sacré Coeur Rue 44</Link><br />
-                <Link to={'/about'} style={{textDecoration:'none', color:'white'}} >Lundi-Vendredi: 8h-17h</Link>
+            <div id='last-content-footer-one-okay'>
+                <h4 className='text-content-footer-all'>Adresse</h4>
+                <div><Link to={'/about'}style={{textDecoration:'none', color:'white'}}id='text-content-footer-all' >Dakar,Ouest foire,Alia Diéne </Link>{/* <br />*/}</div>
+               <div> <Link to={'/about'} style={{textDecoration:'none', color:'white'}}  id='text-content-footer-all'>Lundi-Vendredi: 8h-17h</Link></div>
+            </div>
+            <div id='last-content-footer-one-change'>
+                <h4 className='text-content-footer-all' id='text-content-footer-all-one' >Qui sommes nous ?</h4>
+                <div><Link to={'/about'}style={{textDecoration:'none', color:'white'}} id='text-content-footer-all' >A propos de nous</Link>{/* <br />*/}</div>
+                <div><Link to={'/about'} style={{textDecoration:'none', color:'white'}}id='text-content-footer-all' >Nos objectifs</Link></div>
             </div>
             <div>
-                <h4>Qui sommes nous ?</h4>
-                <Link to={'/about'}style={{textDecoration:'none', color:'white'}} >A propos de nous</Link><br />
-                <Link to={'/about'} style={{textDecoration:'none', color:'white'}} >Nos objectifs</Link>
+                <h4 className='text-content-footer-all'>Nous contacter</h4>
+                <div><Link to={'#'} style={{textDecoration:'none', color:'white'}} id='text-content-footer-all'> +221 77 134 64 96 </Link></div>
+                <div><Link to={'#'} style={{textDecoration:'none', color:'white'}} id='text-content-footer-all' >service.client@myfeedbak.com</Link></div>
             </div>
-            <div>
-                <h4>Nous contacter</h4>
-                <Link to={'#'} style={{textDecoration:'none', color:'white'}}>77 134 64 96 </Link>
-                <Link to={'#'} style={{textDecoration:'none', color:'white'}} >service.client@myfeedbak.com</Link>
-            </div>
-            <div>
-                <h4>Sécurité</h4>
-                <Link to={'/confidentialite'} style={{textDecoration:'none', color:'white'}}>Politiques de confidentialité</Link><br />
-                <Link to={'/conditions'} style={{textDecoration:'none', color:'white'}}>Condition d’utilisation</Link>
-            </div>
+
+            {/* <div className='last-content-footer' id='last-content-footer-one-change'>
+                <h4 className='text-content-footer-all' id='text-content-footer-all-content'>Sécurité</h4>
+                <div><Link to={'/confidentialite'} style={{textDecoration:'none', color:'white'}} id='text-content-footer-all' className='one-content'>Politiques de confidentialité</Link> </div>
+                <div><Link to={'/conditions'} style={{textDecoration:'none', color:'white'}} id='text-content-footer-all' className='one-content'>Condition d’utilisation</Link></div>
+            </div> */}
+
         </section>
         <div className='footer_ref_home'>
             <hr />
         </div>
         <section className='footer_bottom_home'>
             <div className='copyright_footer_home mt-4'>
-                <p>Copyright  <FontAwesomeIcon icon={regularIcons.faCopyright} /> 2024 MYFEEDBACK <strong style={{color:'#FFB703'}}>360°</strong> /
+                <p>Copyright  <FontAwesomeIcon icon={regularIcons.faCopyright} /> 2024 MY FEEDBACK <strong style={{color:'#FFB703'}}>360°</strong> /
                 <Link to={'https://kevacom.com/'}  style={{textDecoration:'none', color:'#FFB703'}}>KEVACOM</Link>
                 
                 </p>
@@ -131,7 +133,7 @@ export default function Footer() {
                 <Link to={'https://www.facebook.com/BarakaGate'}className='icons_footer_home_icon_social'><FontAwesomeIcon icon={faFacebookF} className='icon_footer_topbar' /></Link>
             </div>
             <div className="section_search">
-            <Form action="" className='d-flex '>
+            <Form action="" className='d-flex  section_search-content-main'>
               <Form.Control
                value={emailData.email}
                onChange={(e) => {

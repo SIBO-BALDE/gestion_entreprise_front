@@ -141,7 +141,7 @@ export default function ContactScreen() {
   return (
     <div className='' style={{marginTop:'90px'}}>
       <header>
-        <NavbarUser />
+        {/* <NavbarUser /> */}
       </header>
       <main className='mt-3'>
         <Underline text='Contactez nous' />
@@ -244,7 +244,7 @@ export default function ContactScreen() {
       </main>
       <div className="separator"></div>
       <footer>
-        <Footer />
+        {/* <Footer /> */}
       </footer>
 
 

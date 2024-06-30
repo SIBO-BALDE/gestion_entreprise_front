@@ -29,13 +29,13 @@ export default function HomeScreen() {
       }, [])
   return (
     <div>
-      {/* Navbar debut */}
+      {/*************************** Navbar debut ***************************/}
         <NavbarUser />
-      {/* Navbar fin */}
+      {/*************************** Navbar fin ***************************/}
 
 
       {/****************************  banniere debut ****************************/}
-         <div className='ban_content_home mt-5 '>
+         {/* <div className='ban_content_home mt-5 '>
            <Image src={ban1}  className='w-100 ban_image_content_home' /> 
          </div>
          <div id='ban_content_home-text'>
@@ -56,39 +56,44 @@ export default function HomeScreen() {
                     </Button>
                 </div>
             </div>
-         </div>
+         </div> */}
       {/****************************   banniere  fin**************************** */}
        
 
       {/****************************   buttonwashapp  debut**************************** */}
-      <div>
+      {/* <div className='buttonWaptsappp-content-home'>
             <ButtonWashapp/>
-      </div>
+      </div> */}
       {/****************************   buttonwashapp  fin**************************** */}
      
 
       {/****************************   chiffres clés  debut*************************** */}
-     <section>
+     {/* <section>
         <ChiffresCles />
-     </section>
+     </section> */}
       {/****************************  chiffres clés  fin*******************************/}
 
       {/****************************  qui sommes nous  debut****************************/}
-      <section className='content_section2_home '>
+      {/* <section className='content_section2_home-main-only '>
         
         <div>
             <Underline  text='Qui sommes-nous ?' color='white'/>
         </div>
-        <div className='d-flex justify-content-center mt-5' style={{width:'96%'}}>
-        <div className='d-flex justify-content-between ms-5'style={{marginLeft:'150px', marginRight:'17px'}}>
-            <div  className='reference1_home me-1 ' style={{marginTop:'56px'}}></div>
-            <div  className='reference2_home' style={{marginTop:'30px'}}></div>
-        </div>
-            <div style={{height:'335px',width:'100%',backgroundColor:'black'}}>
-                <Image src={baraka2} style={{height:'100%' ,width:'100%',opacity:'0.8'}} />
-                {/* <Image src={dasboard2} style={{height:'100%' ,width:'100%'}} /> */}
+        <div className='d-flex justify-content-center mt-5 content-flex-about-home-main' style={{width:'100%'}}>
+        
+            <div style={{display:'flex',height:'335px',width:'100%'}}>
+            <div className='d-flex justify-content-between ms-5'style={{marginLeft:'150px', marginRight:'17px'}}>
+                <div  className='reference1_home me-1 ' style={{marginTop:'56px'}}></div>
+                <div  className='reference2_home' style={{marginTop:'30px'}}></div>
             </div>
-            <div style={{marginLeft:'30px', height:'330px', width:'100%'}}>
+                <div style={{height:'100%',width:'90%',backgroundColor:'black'}}>
+                    <Image src={baraka2} style={{height:'100%' ,width:'100%',opacity:'0.8'}} />
+                    
+                </div>
+
+            </div>
+            <div className='one1'>
+            <div style={{ height:'330px', width:'100%'}} className='content-text-main-home'>
                 <h4 style={{color:'white',fontWeight:'bold',}}>Aimerez vous renforcer la capicité de vos équipes à travers une évaluation  à 360°?</h4> <br />
                     <h4 style={{color:'white',fontWeight:'bold',}}><span style={{color:'#FFB703'}}>MYFEEDBACK <span className='text-white'>360°</span></span> est la solution</h4>
                     <p style={{color:'white', textAlign:'justify'}} className='mt-5'>MYFEEDBACK <span style={{color:'#FFB703'}}>360°</span> offre une plateforme d'évaluation en ligne novatrice pour 
@@ -103,12 +108,13 @@ export default function HomeScreen() {
                         <Link to={'/about'} style={{textDecoration:'none', color:'#004573'}}>Voir plus</Link>
                     </Button>
             </div>
+            </div>
         </div>
-      </section>
+      </section> */}
       {/****************************  qui sommes nous  fin*******************************/}
 
       {/****************************  comment sa marche  debut****************************/}
-      <section style={{boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', paddingTop:'20px', paddingBottom:'30px'}}>
+      {/* <section style={{boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', paddingTop:'20px', paddingBottom:'30px'}}>
        <div>
           <div>
             <Underline  text='Comment fonctionne myfeedback 360° ?'/>
@@ -125,12 +131,12 @@ export default function HomeScreen() {
             </Button>
         </div>
        </div>
-      </section>
+      </section> */}
       {/****************************  comment sa marche fin ****************************/}
 
 
       {/****************************  Nos agagements debut*******************************/}
-      <section style={{paddingTop:'50px', backgroundColor:'#004573',paddingBottom:'90px'}}>
+      {/* <section style={{paddingTop:'50px', backgroundColor:'#004573',paddingBottom:'90px'}}>
         <Underline  text='Nos engagments' color='white'/>
         <div className='container' style={{marginTop:'70px'}}>
                 <div className='d-flex justify-center losange-content-main'>
@@ -271,11 +277,11 @@ export default function HomeScreen() {
 
                
             
-      </section>
+      </section> */}
       {/****************************  Nos agagements fin  *********************************/}
 
       {/****************************  modéles d'évaluation debut ****************************/}
-       <section className='pt-4 pb-4'>
+       {/* <section className='pt-4 pb-4'>
         <div>
           <div><Underline text='Quelques uns de nos modéles d’évaluation' /></div>
         </div>
@@ -321,11 +327,12 @@ export default function HomeScreen() {
             
         </div>
         
-       </section>
+       </section> */}
       {/****************************  modéles d'évaluation fin  ****************************/}
 
 
       {/**************************** expliquation modéles d'évaluation debut  ****************************/}
+      <div>
       <section style={{backgroundColor:'#ebf0f4', marginTop:'80px', boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px'}} id='tone'>
         <div id="" className='container'>
         <div className="experience pt-100 pb-100" >
@@ -337,27 +344,27 @@ export default function HomeScreen() {
 			<div className="row">
                <div className="col-xl-12">
                   <ul className="timeline-list">
-                     {/* <!-- Single Experience --> */}
+                    
                      <li>
                         <div className="timeline_content" id='content1' data-aos="fade-right">
-                           {/* <span>2008</span> */}
+                          
                            <h4 style={{textAlign:'justify'}}> Accédez à des centaines de questions préparées par des experts</h4>
                            <p style={{textAlign:'justify'}}>En quelques secondes, vous pouvez créer un sondage à partir d’un modèle avec des centaines de questions rédigées par des experts. Posez les bonnes questions, minimisez le risque de biais et obtenez rapidement les informations dont vous avez besoin.</p>
                         </div>
                      </li>
-                     {/* <!-- Single Experience --> */}
+                    
                      <li>
                         <div className="timeline_content" data-aos="fade-left">
                         <Image  src={dasboard1} className='timeline-img'id='contentimg-timeline' />
                         </div>
                      </li>
-                     {/* <!-- Single Experience --> */}
+                    
                      <li>
                         <div className="timeline_content" data-aos="fade-right">
                         <Image  src={dasboard2} className='timeline-img'id='contentimg-timeline' />
                         </div>
                      </li>
-                     {/* <!-- Single Experience --> */}
+                    
                      <li>
                         <div className="timeline_content" id='timeline_content' data-aos="fade-left">
                         
@@ -366,11 +373,7 @@ export default function HomeScreen() {
                         </div>
                      </li>
                      <li>
-                        {/* <div className="timeline_content"  id='content1'data-aos="fade-right" >
-                        
-                           <h4 style={{textAlign:'justify'}}>Découvrez rapidement des informations exploitables</h4>
-                           <p style={{textAlign:'justify'}}>Analysez un grand nombre de réponses grâce à des rapports intégrés ou des tableaux de bord avancés, que vous pouvez facilement personnaliser et partager avec votre équipe. Vous pouvez aussi exporter vos données dans votre logiciel préféré pour les étudier plus en détail.</p>
-                        </div> */}
+                       
                         <div className="timeline_content" data-aos="fade-right">
                         <Image  src={dasboard3} className='timeline-img'id='contentimg-timeline' />
                         </div>
@@ -382,6 +385,9 @@ export default function HomeScreen() {
 	    </div>
         </div>
       </section>
+      </div>
+
+      
       {/****************************  explication modéles d'évaluation fin  ****************************/}
 
       {/****************************  Notre équipe  début **************************************/}

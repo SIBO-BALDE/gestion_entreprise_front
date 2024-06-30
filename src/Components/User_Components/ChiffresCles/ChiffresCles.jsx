@@ -49,8 +49,8 @@ function ChiffresCles() {
       <div>
         <Underline text='Quelques chiffres clés' />
       </div>
-      <div className='d-flex justify-content-center mt-5 mb-5'>
-        <div className='me-5'>
+      <div className='d-flex justify-content-center w-100 mt-5 mb-5 chiffre-flex-medias'>
+        <div className='me-5 chiffre-flex-medias-content' id='chiffre-flex-medias-content'>
           <div className='content_main_chiffre1' >
             <FontAwesomeIcon icon={faUsers} className='content_main_icon_home' />
           </div>
@@ -59,7 +59,7 @@ function ChiffresCles() {
             <p>Employés évalués</p>
           </div>
         </div>
-        <div className='me-5'>
+        <div className='me-5 chiffre-flex-medias-content' id='chiffre-flex-medias-content'>
           <div className='content_main_chiffre1' >
             <FontAwesomeIcon icon={faBuilding} className='content_main_icon_home' />
           </div>
@@ -68,7 +68,7 @@ function ChiffresCles() {
             <p>Entreprise <br /> partenaires</p>
           </div>
         </div>
-        <div className='ms-5'>
+        <div className='ms-5 chiffre-flex-medias-content' id='chiffre-flex-medias-content'>
           <div className='content_main_chiffre1'>
             <FontAwesomeIcon icon={faFaceSmile} className='content_main_icon_home' />
           </div>

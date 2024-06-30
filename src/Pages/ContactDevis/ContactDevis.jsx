@@ -455,7 +455,7 @@ useEffect(() => {
      
     <Underline text="Pour plus d'information remplissez ce formulaire" color='#fff' />
       <div className='content_devis_main container'>
-      <div className='' style={{backgroundColor:'#FFF',paddingLeft:'10px' ,paddingRight:'10px', width:'100%' ,height:'645px', paddingTop:'27px',borderBottom:'7px solid #FFB703', borderBottomLeftRadius:'10px' , borderTopLeftRadius:'10px'}} >
+      <div className='content_devis_main-form-one' style={{backgroundColor:'#FFF',paddingLeft:'10px' ,paddingRight:'10px', width:'100%' ,height:'645px', paddingTop:'27px',borderBottom:'7px solid #FFB703', borderBottomLeftRadius:'10px' , borderTopLeftRadius:'10px'}} >
         <Form onSubmit={ajouterMessage}>
           
           <Row>
@@ -688,8 +688,8 @@ useEffect(() => {
           <Button type="submit" className='content_title_devis_button_content mt-3' onClick={ajouterMessage}>Demande d'abonnement:</Button>
         </Form>
       </div>
-      <div className='' style={{width:'100%' ,height:'645px',borderBottom:'7px solid #FFB703', borderBottomRightRadius:'10px'}}>
-        <Image src={imageForm} className='imageForm-content-devis'style={{borderTopRightRadius:'10px'}} />
+      <div className='imageForm-content-devis-one' style={{width:'100%' ,height:'645px',borderBottom:'7px solid #FFB703', borderBottomRightRadius:'10px'}} id='imageForm-content-devis-one'>
+        <Image src={imageForm} className='imageForm-content-devis'style={{borderTopRightRadius:'10px'}} id='imageForm-content-devis' />
         
       </div>
 

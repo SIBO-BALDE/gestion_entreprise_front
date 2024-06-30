@@ -389,6 +389,10 @@ const options = {
   plugins: {
     legend: {
       position: 'bottom',
+      labels: {
+        boxWidth: 10,
+        padding: 20,
+      },
     },
     datalabels: {
       color: 'red',
@@ -406,10 +410,10 @@ const options = {
 };
 
 const chartContainerStyle = {
-  width: '250px',  
-  height: '250px', 
-  // margin: 'auto'  
+  width: '250px',
+  height: '250px',
 };
+let questionCounter2 = 1;
 
 
 
@@ -529,7 +533,7 @@ const chartContainerStyle = {
           </div>
 
 
-          {/****************************** modl 1*****************************************/}
+          {/****************************** Evaluation donnée *****************************************/}
             <Modal show={show} onHide={handleCloseShow} id="buttonModifier" size="lg">
             <Modal.Header closeButton>
             <Modal.Title>Détails des évaluations données</Modal.Title>
@@ -553,7 +557,7 @@ const chartContainerStyle = {
                                       {userData?.questions_reponses?.map((qr, qrIndex) => (
                                           <div key={qrIndex} className="mt-1 mb-4">
                                               <p className="card-text ">
-                                                  <strong>{questionCounter++}-Question:</strong> {qr?.reponse?.questions_evaluation?.nom}
+                                                  <strong>{questionCounter++}-</strong> {qr?.reponse?.questions_evaluation?.nom}
                                               </p>
                                               <p className="card-text">
                                                   <strong>Réponse:</strong> {qr?.reponse?.reponse}
@@ -578,7 +582,7 @@ const chartContainerStyle = {
             {/***************************** lister les categories **************************/}
             <Modal show={showCat} onHide={handleCloseShowCat} id="buttonModifier" size="lg">
             <Modal.Header closeButton>
-            <Modal.Title>La catégorie</Modal.Title>
+            <Modal.Title>Les participants qui t'ont évalué en tant que:</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', gap:'15px' }}>
@@ -595,24 +599,24 @@ const chartContainerStyle = {
             </Modal.Body>
             </Modal>
 
-            {/****************************** modl 2*****************************************/}
+            {/****************************** Evaluation reçu*****************************************/}
             <Modal show={showR} onHide={handleCloseShowR} id="buttonModifier" size="lg">
             <Modal.Header closeButton>
-              <Modal.Title>Détails des évaluations reçu</Modal.Title>
+              <Modal.Title>Détails des évaluations reçus</Modal.Title>
             </Modal.Header>
             <Modal.Body>
             
-      
+            
              {evaluationDataR?.length > 0 && evaluationDataR?.map((userData, index) => (
+              
                 <div key={index} className="mb-4">
               <h5 className="card-text" style={{ color: '#004573' }}>
-                {/* <strong>Évaluation:</strong> {userData?.evaluation.titre} */}
+               
               </h5>
-                {/* {userData?.questions_reponses?.map((chartData, index) => ( */}
-                  {/* // console.log(chartData) */}
+                
                 <div key={index} className="card mb-3 p-3">
                   <h5 className="card-text" style={{ color: '#004573' }}>
-                    <strong>Question:</strong> {userData.nom}
+                    <strong>{questionCounter2++}-</strong> {userData.nom}
                     {/* userData?.questions_reponses[index].nom */}
                   </h5>
                   <div style={chartContainerStyle}>
@@ -620,9 +624,10 @@ const chartContainerStyle = {
                   </div>
                   
                 </div>
-                {/* ))} */}
+                <p>{userData.commentaire} </p>
                 </div>
                   ))}
+                  
     
             
             </Modal.Body>

@@ -13,8 +13,8 @@ export default function NavbarUser() {
    // État pour suivre le lien actif
    const [linkActive, setLinkActive] = useState('');
    const [linkButtonActive, setLinkButtonActive] = useState('');
-   // Dans cet exemple, useLocation de React Router est utilisé pour obtenir 
-   //l'objet de localisation qui contient des informations sur l'URL actuelle
+   //**************  Dans cet exemple, useLocation de React Router est utilisé pour obtenir  **************//
+   //**************l'objet de localisation qui contient des informations sur l'URL actuelle  //
 
    const location = useLocation();
   const locationBtn = useLocation();
@@ -31,9 +31,9 @@ export default function NavbarUser() {
   }, [locationBtn]);
   return (
     <div className='navbar_glabal_content'>
+
         {/**************************** Navbar component debut ****************************/}
-        
-        <Navbar expand="lg" className="navbar_body" 
+        <Navbar expand="lg" className="navbar_body-main" 
           style={{backgroundColor:'#fff', boxShadow:'rgba(0, 0, 0, 0.16) 0px 1px 4px',}}>
           <Container fluid>
            <Navbar.Brand href="/">
@@ -49,7 +49,7 @@ export default function NavbarUser() {
             <Link to={"/contact"} id='link_navbar_menu' style={{fontWeight:'500px', color:'#004573' , marginLeft:'30px', borderBottom: linkActive === '/contact' ? '3px solid #FFB703' : 'none'}}>Contact</Link> 
           </Nav>
 
-          <Button  style={{marginRight:'80px', backgroundColor:'#004573', border:'none'}}>
+          <Button  style={{marginRight:'80px', backgroundColor:'#004573', border:'none'}} className='button-nabar-contentmain-one'>
             <Link to={'/login'} style={{textDecoration:'none', color:'white'}}>Connexion</Link>
           </Button>
            </Navbar.Collapse>

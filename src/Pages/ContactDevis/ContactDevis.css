@@ -61,3 +61,40 @@ button:hover {
     width: 100% !important;
     height: 100% !important;
 }
+@media screen and (max-width:1233px){
+    .content_devis_main{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    #imageForm-content-devis-one{
+        border-bottom: none !important;
+        height: 800px !important;
+        border-top-left-radius: 10px !important;
+    }
+    #imageForm-content-devis{
+        border-top-left-radius: 10px !important;
+
+    }
+    .content_devis_main-form-one{
+        border-top-left-radius:0 !important;
+        border-top-right-radius:0 !important;
+        border-bottom-right-radius: 10px !important;
+    }
+    
+}
+@media screen and (max-width:550px){
+    
+    #imageForm-content-devis-one{
+      height:490px !important;
+    }
+    
+    
+}
+@media screen and (max-width:391px){
+    
+    #imageForm-content-devis-one{
+      height:399px !important;
+    }
+    
+    
+}

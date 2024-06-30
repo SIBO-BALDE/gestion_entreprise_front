@@ -28,7 +28,7 @@ export default function PageError() {
       </div>
       <div className="error-desc" style={{backgroundColor:'#004573', paddingLeft:'20px',  paddingRight:'20px'}}>
         <div >
-          <div style={{height:'420px'}}>
+          <div style={{height:'420px'}} id='logo-error-main'>
             <Image src={error3} className=''style={{height:'100%'}} />
           </div>
           <div>

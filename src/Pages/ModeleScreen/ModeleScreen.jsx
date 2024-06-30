@@ -50,7 +50,7 @@ export default function ModeleScreen() {
    
      {/**************************** deuxieme partie card ****************************/}
    
-     <div className=' card_modele_home_content_main_modele  mt-5 gap-4 container mb-5 '>
+     <div className='card_modele_home_content_main_modele  mt-5 gap-4 container mb-5 '>
             <div className='pt-2 pb-2 pe-3 ps-3 card_modele_home' style={{width:'auto', height:'auto', borderTop:'3px solid #FFB703', 
                boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius:'25px', position:'relative'}} >
                 <div><FontAwesomeIcon  icon={faDna} style={{fontSize:'60px', color:'#FFB703'}} /></div>
@@ -165,9 +165,9 @@ export default function ModeleScreen() {
        <Pagination />
        </div> */}
      </main>
-     <footer>
+     {/* <footer>
         <Footer />
-     </footer>
+     </footer> */}
 
 
       

@@ -27,7 +27,7 @@ const links = [
 
     {
       path: "gestioncategorie",
-      text: "Gestion Lien hiérachie",
+      text: "Lien hiérachique",
       icon: faLayerGroup,
     },
     {
@@ -35,15 +35,6 @@ const links = [
       text: "Gestion Entreprises",
       icon: faBuilding,
     },
-
-
-    {
-      path: "gestionevenement",
-      text: "Gestion Evenements",
-      icon: faCalendarDay,
-      
-    },
-
     {
       path: "gestionuser",
       text: "Gestion Participants",
@@ -54,6 +45,14 @@ const links = [
       text: "Gestion Evaluations",
       icon: faFlaskVial,
     },
+
+    {
+      path: "gestionevenement",
+      text: "Gestion Evenements",
+      icon: faCalendarDay,
+      
+    },
+
     // {
     //   path: "gestionfeedback",
     //   text: "Gestion Feedbacks",

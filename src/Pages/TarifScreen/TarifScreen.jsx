@@ -64,7 +64,7 @@ export default function TarifScreen() {
             <Underline text='Les differents plan pour vos business'/>
             <div>
             
-              <div className=" container container1 d-flex justify-center mt-5 mb-5">
+              <div className=" container container1  mt-5 mb-5" id='container1'>
               {/* { users &&
               users.map((user) => (  */}
                 <div className="card card-1 content_price_1">
