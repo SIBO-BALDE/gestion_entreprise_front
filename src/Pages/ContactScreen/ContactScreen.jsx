@@ -141,7 +141,7 @@ export default function ContactScreen() {
   return (
     <div className='' style={{marginTop:'90px'}}>
       <header>
-        {/* <NavbarUser /> */}
+        <NavbarUser />
       </header>
       <main className='mt-3'>
         <Underline text='Contactez nous' />
@@ -244,7 +244,7 @@ export default function ContactScreen() {
       </main>
       <div className="separator"></div>
       <footer>
-        {/* <Footer /> */}
+        <Footer />
       </footer>
 
 
@@ -270,17 +270,12 @@ export default function ContactScreen() {
                   value={messageData.nom}
                   onChange={(e) => {
                     setMessageData({ ...messageData , nom: e.target.value });
-                  //   validateField("titre", e.target.value);
+                  
                   }}
                   type="text"
                   placeholder=""
                 />
-                {/* {errors.titre && (
-                  <p className="error-message">{errors.titre}</p>
-                )}
-                {successeds.titre && (
-                  <p className="success-message">{successeds.titre}</p>
-                )} */}
+                
               </Form.Group>
 
               

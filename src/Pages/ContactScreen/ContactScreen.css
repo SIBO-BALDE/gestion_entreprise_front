@@ -162,9 +162,7 @@
         width:500px !important;
         height:300px !important;
     }
-    *{
-        outline: 1px solid red;
-    }
+    
 
 }
 @media screen and (max-width:527px) {
@@ -204,6 +202,17 @@
     .gmap_iframe {
         width:300px !important;
         height:300px !important;
+    }
+
+}
+@media screen and (max-width:636px) {
+    .form_content_main_contact{
+        display: flex;
+        height: auto;
+        width: 100%;
+        margin: 0 auto;
+        border: 1px solid #ccc;
+        border-radius: 10px;
     }
 
 }

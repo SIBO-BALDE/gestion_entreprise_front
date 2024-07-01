@@ -165,9 +165,9 @@ export default function ModeleScreen() {
        <Pagination />
        </div> */}
      </main>
-     {/* <footer>
+     <footer>
         <Footer />
-     </footer> */}
+     </footer>
 
 
       

@@ -507,3 +507,54 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
+
+  /************************** médias quéries ****************************/
+  @media screen and (max-width: 981px) {
+    .ban_about_about_one{
+      width: 100%;
+      /* height: 670px; */
+      height: 520px;
+      
+     
+     
+    
+  }
+    
+  }
+
+  @media screen and (max-width: 752px) {
+    .ban_about_about_one{
+      width: 100%;
+      /* height: 670px; */
+      height: 400px;
+      
+     
+     
+    
+  }
+    
+  }
+  @media screen and (max-width: 753px) {
+    .ban_about_about_one2{
+      position: absolute;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      /* height: 670px; */
+      height: 470px;
+      justify-content: center;
+      align-items: center;
+      z-index: 20;
+      
+  }
+  .ban_about_about_one{
+    width: 100%;
+    /* height: 670px; */
+    height: 350px;
+    
+   
+   
+  
+}
+    
+  }

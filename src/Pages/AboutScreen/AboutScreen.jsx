@@ -44,14 +44,14 @@ export default function AboutScreen() {
     <div>
       
       <header>
-      <NavbarUser />
+      {/* <NavbarUser /> */}
       </header>
 
       <main>
         {/**************************** Banniere debut *********************************/}
         <section>
         <div className='section_fixer'>
-        <div className='ban_about_about_one2  ' style={{marginLeft:'', lineHeight:'120px'}}>
+        <div className='ban_about_about_one2' style={{marginLeft:'', lineHeight:'120px'}}>
         <h1 className='text-white text-center'>
             <strong style={{color:'#FFB703'}}>MY </strong>
             <strong className='text-center' style={{color:'#004573'}}>MYFEEDBACK <strong style={{color:'#FFB703'}}>360°</strong> </strong>
@@ -84,7 +84,7 @@ export default function AboutScreen() {
 
       <div className='bann_about_aboutscreen mt-5'>
                    <div className='ban_left_content_about'>
-                        <h3 className='ms-5' style={{marginTop:'50px', color:'#FFB703'}}>Comment fonctionne Myfeedback 360° </h3>
+                        <h3 className='ms-5' style={{marginTop:'50px', color:'#FFB703'}}>Comment fonctionne My feedback 360° </h3>
                         <p className='ms-5 text-white me-3' style={{textAlign:'justify'}}>
                   L’évaluation à 360 degrés est un outil qui ne doit pas être utilisé à la légère  
                   il demande une organisation rigoureuse et de la disponibilité pour que toutes les parties
@@ -514,9 +514,9 @@ export default function AboutScreen() {
        {/**************************** Ils nous font confiance  fin****************************/}
       
       </main>
-      <footer>
+      {/* <footer>
       <Footer />
-      </footer>
+      </footer> */}
     </div>
   )
 }

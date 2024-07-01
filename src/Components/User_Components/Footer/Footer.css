@@ -193,7 +193,20 @@
        flex-direction: column;
        justify-content: center;
        align-items: center;
+       gap: 20px;
         
+    }
+    #btn_abonner_footer{
+        position: relative;
+        left: -108px;
+        background-color: var(--principal);
+        border: none !important;
+        border-radius: 50px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+    #input_searchcontent_footer{
+        margin-left: 80px;
     }
     
 
