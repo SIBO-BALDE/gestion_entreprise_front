@@ -53,7 +53,18 @@
 /* **************************** navbar style Fin*********************************** */
 /***************************** média queries ****************************************/
 
-@media  screen and (max-width:985px) {
+@media  screen and (max-width:991px) {
+    #navbarcontent{
+        margin-left: 0 !important;
+    }
+    .btn2_ban_home_content2{
+        
+    }
+    .button-nabar-contentmain-one{
+        margin-right: 0 !important;
+        display: flex;
+        justify-content: center;
+    }
    
     
     

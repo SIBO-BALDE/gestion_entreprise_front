@@ -578,10 +578,9 @@ ul.timeline-list li:before {
   .titre_content_home{
     color: var(--troisieme);
     font-weight: bold;
-  }
-  .paragraph_content_home{
     font-size: 20px;
   }
+ 
   
  
 }
@@ -590,7 +589,7 @@ ul.timeline-list li:before {
   .titre_content_home{
     color: var(--troisieme);
     font-weight: bold;
-    font-size: 30px;
+    font-size: 25px;
   }
 
 }
