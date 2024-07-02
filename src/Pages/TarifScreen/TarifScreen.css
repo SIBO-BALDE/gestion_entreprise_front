@@ -116,10 +116,10 @@
     position: relative;
     transform: scale(0.9);
   }
-  .card-1 {
-    /* left: 40px;
-    margin-left: -60px; */
-    /* z-index: 0; */
+  .card-1, .card-2, .card-3 {
+    width: auto;
+    height: auto;
+    
   }
   .card-1 h2 {
     background-color: var(--principal);

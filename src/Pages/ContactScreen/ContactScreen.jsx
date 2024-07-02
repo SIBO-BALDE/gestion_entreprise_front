@@ -213,7 +213,7 @@ export default function ContactScreen() {
                 <FontAwesomeIcon icon={faWhatsapp} id='icon_content_contact' /> 
                 </div>
                 <div>
-                    <p className='text-white element_context_textcontact'>+221 77 301 72 72</p>
+                    <p className='text-white element_context_textcontact'>+221 77 134 64 96</p>
                 </div>
             </div>
             <div className='d-flex mt-2 '> 
@@ -221,7 +221,7 @@ export default function ContactScreen() {
                 <FontAwesomeIcon icon={faEnvelope} id='icon_content_contact' />
                 </div>
                 <div>
-                    <p className='text-white element_context_textcontact'>service.client@myfeedbak.com</p>
+                    <p className='text-white element_context_textcontact'>service.client@myfeedback360.com</p>
                 </div>
             </div>
          </div>

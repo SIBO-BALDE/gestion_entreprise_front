@@ -44,7 +44,7 @@ export default function AboutScreen() {
     <div>
       
       <header>
-      {/* <NavbarUser /> */}
+      <NavbarUser />
       </header>
 
       <main>
@@ -54,7 +54,7 @@ export default function AboutScreen() {
         <div className='ban_about_about_one2' style={{marginLeft:'', lineHeight:'120px'}}>
         <h1 className='text-white text-center'>
             <strong style={{color:'#FFB703'}}>MY </strong>
-            <strong className='text-center' style={{color:'#004573'}}>MYFEEDBACK <strong style={{color:'#FFB703'}}>360°</strong> </strong>
+            <strong className='text-center' style={{color:'#004573'}}> FEEDBACK <strong style={{color:'#FFB703'}}>360°</strong> </strong>
         </h1>
         <h3>Une solution professionnelle pour évaluer et améliorer les performances de votre équipe.</h3>
         <div className=' mt-1' style={{marginLeft:'', display:'flex',justifyContent:'center'}}>
@@ -78,95 +78,96 @@ export default function AboutScreen() {
         </section>
        {/**************************** Banniere fin *************************************/}
 
-      {/**************************** Comment sa marche debut ****************************/}
+      {/**************************** Comment sa marche debut ******************************/}
+
       <section style={{backgroundColor:'#004573', paddingBottom:'10px',paddingTop:'20px'}}>
         <Underline  text='Comment ça marche ?' color='white'/>
+          <div className='bann_about_aboutscreen mt-5'>
+                        <div className='ban_left_content_about'>
+                            <h3 className='ms-5' style={{marginTop:'50px', color:'#FFB703'}} id='text-contentmain-marche'>Comment fonctionne My feedback 360° </h3>
+                            <p className='ms-5 text-white me-3 ' style={{textAlign:'justify'}} id='text-contentmain-marche'>
+                      L’évaluation à 360 degrés est un outil qui ne doit pas être utilisé à la légère  
+                      il demande une organisation rigoureuse et de la disponibilité pour que toutes les parties
+                      prenantes puissent s’impliquer. S’il est bien exploité, il peut être riche d’enseignements et
+                      de bienfaits. Si vous n’y avez jamais eu recours par le passé, il est donc recommandé de 
+                      pleinement dédier une personne à cette mission ou de faire appel à un consultant extérieur. 
+                      Tout le processus doit être pensé en amont pour être le plus efficace possible. 
+                      Rassurez-vous, nous sommes disposés à vous accompagner dans ce processus.
+                      Voici quelques étapes importantes à considérer : 
 
-      <div className='bann_about_aboutscreen mt-5'>
-                   <div className='ban_left_content_about'>
-                        <h3 className='ms-5' style={{marginTop:'50px', color:'#FFB703'}}>Comment fonctionne My feedback 360° </h3>
-                        <p className='ms-5 text-white me-3' style={{textAlign:'justify'}}>
-                  L’évaluation à 360 degrés est un outil qui ne doit pas être utilisé à la légère  
-                  il demande une organisation rigoureuse et de la disponibilité pour que toutes les parties
-                  prenantes puissent s’impliquer. S’il est bien exploité, il peut être riche d’enseignements et
-                  de bienfaits. Si vous n’y avez jamais eu recours par le passé, il est donc recommandé de 
-                  pleinement dédier une personne à cette mission ou de faire appel à un consultant extérieur. 
-                  Tout le processus doit être pensé en amont pour être le plus efficace possible. 
-                  Rassurez-vous, nous sommes disposés à vous accompagner dans ce processus.
-                  Voici quelques étapes importantes à considérer : 
+                            </p>
+                            <div style={{marginTop: '50px'}}>
+                                <div className='content_grid_about_main'>
+                                <div className='d-flex ms-5 ' id='text-contentmain-marche'>
+                                    <div><ButtonDeco backgroundColor='#fff' /></div>
+                                    <div><p style={{color:'#ffb703', textAlign:'justify'}}> Définir la confidentialité</p></div>
+                                </div>
+                                <div className='d-flex ms-5' id='text-contentmain-marche'>
+                                    <div><ButtonDeco backgroundColor='#fff' /></div>
+                                    <div><p style={{color:'#ffb703',textAlign:'justify'}}>Préparer le questionnaire</p></div>
+                                </div>
 
-                        </p>
-                        <div style={{marginTop: '50px'}}>
-                            <div className='content_grid_about_main'>
-                            <div className='d-flex ms-5 '>
-                                <div><ButtonDeco backgroundColor='#fff' /></div>
-                                <div><p style={{color:'#ffb703', textAlign:'justify'}}> Définir la confidentialité</p></div>
-                            </div>
-                            <div className='d-flex ms-5'>
-                                <div><ButtonDeco backgroundColor='#fff' /></div>
-                                <div><p style={{color:'#ffb703',textAlign:'justify'}}>Préparer le questionnaire</p></div>
-                            </div>
+                                </div>
+                                
+                                <div className='content_grid_about_main'>
+                                <div className='d-flex ms-5' id='text-contentmain-marche'>
+                                    <div><ButtonDeco backgroundColor='#fff' /></div>
+                                    <div><p style={{color:'#ffb703', textAlign:'justify'}}> Procéder à la double évaluation</p></div>
+                                </div>
+                                <div className='d-flex ms-5' id='text-contentmain-marche'>
+                                    <div><ButtonDeco backgroundColor='#fff' /></div>
+                                    <div><p style={{color:'#ffb703', textAlign:'justify'}}> Analyser et comparer les réponses</p></div>
+                                </div>
 
-                            </div>
-                            
-                            <div className='content_grid_about_main'>
-                            <div className='d-flex ms-5'>
-                                <div><ButtonDeco backgroundColor='#fff' /></div>
-                                <div><p style={{color:'#ffb703', textAlign:'justify'}}> Procéder à la double évaluation</p></div>
-                            </div>
-                            <div className='d-flex ms-5'>
-                                <div><ButtonDeco backgroundColor='#fff' /></div>
-                                <div><p style={{color:'#ffb703', textAlign:'justify'}}> Analyser et comparer les réponses</p></div>
-                            </div>
+                                </div>
+                                <div className='content_grid_about_main'>
+                                <div className='d-flex ms-5' id='text-contentmain-marche'>
+                                    <div><ButtonDeco backgroundColor='#fff' /></div>
+                                    <div><p style={{color:'#ffb703', textAlign:'justify'}}> Analyser et comparer les réponses</p></div>
+                                </div>
+                                <div className='d-flex ms-5' id='text-contentmain-marche'>
+                                    <div><ButtonDeco backgroundColor='#fff' /></div>
+                                    <div><p style={{color:'#ffb703', textAlign:'justify'}}> Débriefer les résultats</p></div>
+                                </div>
 
-                            </div>
-                            <div className='content_grid_about_main'>
-                            <div className='d-flex ms-5'>
-                                <div><ButtonDeco backgroundColor='#fff' /></div>
-                                <div><p style={{color:'#ffb703', textAlign:'justify'}}> Analyser et comparer les réponses</p></div>
-                            </div>
-                            <div className='d-flex ms-5'>
-                                <div><ButtonDeco backgroundColor='#fff' /></div>
-                                <div><p style={{color:'#ffb703', textAlign:'justify'}}> Débriefer les résultats</p></div>
-                            </div>
+                                </div>
+                                <div className='content_grid_about_main'>
+                                <div className='d-flex ms-5' id='text-contentmain-marche'>
+                                    <div><ButtonDeco backgroundColor='#fff' /></div>
+                                    <div><p style={{color:'#ffb703', textAlign:'justify'}}> Communiquer et impliquer les parties prenantes</p></div>
+                                </div>
+                                <div className='d-flex ms-5' id='text-contentmain-marche'>
+                                    <div><ButtonDeco backgroundColor='#fff' /></div>
+                                    <div><p style={{color:'#ffb703', textAlign:'justify'}}> Choisir les assesseurs</p></div>
+                                </div>
 
-                            </div>
-                            <div className='content_grid_about_main'>
-                            <div className='d-flex ms-5'>
-                                <div><ButtonDeco backgroundColor='#fff' /></div>
-                                <div><p style={{color:'#ffb703', textAlign:'justify'}}> Communiquer et impliquer les parties prenantes</p></div>
-                            </div>
-                            <div className='d-flex ms-5'>
-                                <div><ButtonDeco backgroundColor='#fff' /></div>
-                                <div><p style={{color:'#ffb703', textAlign:'justify'}}> Choisir les assesseurs</p></div>
-                            </div>
-
-                            </div>
-                            <div className='content_grid_about_main'>
-                            <div className='d-flex ms-5'>
-                                <div><ButtonDeco backgroundColor='#fff' /></div>
-                                <div><p style={{color:'#ffb703', textAlign:'justify'}}> Prévoir une période d’évaluation et de suivi</p></div>
-                            </div>
-                            <div className='d-flex ms-5'>
-                                <div><ButtonDeco backgroundColor='#fff' /></div>
-                                <div><p style={{color:'#ffb703', textAlign:'justify'}}> Définir la date butoir</p></div>
-                            </div>
+                                </div>
+                                <div className='content_grid_about_main'>
+                                <div className='d-flex ms-5' id='text-contentmain-marche'>
+                                    <div><ButtonDeco backgroundColor='#fff' /></div>
+                                    <div><p style={{color:'#ffb703', textAlign:'justify'}}> Prévoir une période d’évaluation et de suivi</p></div>
+                                </div>
+                                <div className='d-flex ms-5' id='text-contentmain-marche'>
+                                    <div><ButtonDeco backgroundColor='#fff' /></div>
+                                    <div><p style={{color:'#ffb703', textAlign:'justify'}}> Définir la date butoir</p></div>
+                                </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className='ban_right_content_about'>
-                        <div>
-                        <div className='ban_right_image_about_content1 mb-3'><Image src={baraka8} className='ban_right_image_about1' /></div>
-                        <div className='ban_right_image_about_content1'><Image src={barakadg} className='ban_right_image_about1' /></div>
+                        <div className='ban_right_content_about'>
+                            <div className='first-content'>
+                            <div className='ban_right_image_about_content1 mb-3'><Image src={baraka8} className='ban_right_image_about1' /></div>
+                            <div className='ban_right_image_about_content1'><Image src={barakadg} className='ban_right_image_about1' /></div>
 
+                            </div>
+                            <div className='seconde-content'>
+                                <div className='ban_right_image_about_content2 mb-3'><Image src={image3} className='ban_right_image_about2' /></div>
+                                <div className='ban_right_image_about_content2'><Image src={baraka9} className='ban_right_image_about2' /></div>
+                            </div>
                         </div>
-                        <div>
-                            <div className='ban_right_image_about_content2 mb-3'><Image src={image3} className='ban_right_image_about2' /></div>
-                            <div className='ban_right_image_about_content2'><Image src={baraka9} className='ban_right_image_about2' /></div>
-                        </div>
-                    </div>
-      </div>
+          </div>
       </section>
+
       {/****************************comment sa marche fin***********************************/}
 
      
@@ -177,7 +178,7 @@ export default function AboutScreen() {
           {/**************************** first 2 cards****************************/}
           <div className='container contain-main-card-obj'>
             <div className='card-ojectif-main'>
-              <h5 className='card-ojectif-main-line-titre'>Myfeedback360° favorise l’implication de tous</h5>
+              <h5 className='card-ojectif-main-line-titre'>My feedback 360° favorise l’implication de tous</h5>
             <div className='card-ojectif-main-line'></div>
             <div className='mt-5'><p><strong>L’implication de tous les membres de l’équipe permet d’accélérer la réalisation de l’objectif quotidien.</strong></p></div>
             <div className='content-flex-card-main-check'>
@@ -230,14 +231,14 @@ export default function AboutScreen() {
             </div>
             {/* seconde */}
             <div className='card-ojectif-main'>
-              <h5 className='card-ojectif-main-line-titre2'>Myfeedback360° encourage l’auto-développement</h5>
+              <h5 className='card-ojectif-main-line-titre2'>My feedback 360° encourage l’auto-développement</h5>
             <div className='card-ojectif-main-line2'></div>
             <div className='mt-5'><p><strong>Que ce soit dans la sphère privée ou professionnelle, l’envie de progresser doit venir de l’intérieur.</strong></p></div>
             <div className='content-flex-card-main-check'>
             <div>
               <div className='d-flex  '>
                               <div><ButtonDeco backgroundColor='#004573' /></div>
-                              <div><p style={{textAlign:'justify'}}>Le feedback à 360 degrés encourage les employés à s’auto-évaluer et à fixer leurs propres objectifs.</p></div>
+                              <div><p style={{textAlign:'justify'}}>Le feedback à 360° degrés encourage les employés à s’auto-évaluer et à fixer leurs propres objectifs.</p></div>
               </div>
               <div className='d-flex  '>
                               <div><ButtonDeco backgroundColor='#004573' /></div>
@@ -286,7 +287,7 @@ export default function AboutScreen() {
            {/**************************** second 2 cards****************************/}
           <div className='container mt-4 mb-5 contain-main-card-obj'>
           <div className='card-ojectif-main'>
-            <h5 className='card-ojectif-main-line-titre2'>Myfeedback360° renforce la confiance en soi</h5>
+            <h5 className='card-ojectif-main-line-titre2'>My feedback 360° renforce la confiance en soi</h5>
            <div className='card-ojectif-main-line2'></div>
            <div className='mt-5'><p><strong>L’art d’instaurer la confiance dans l’esprit d’un individu est une chose à laquelle les dirigeants influents devraient s’atteler.</strong></p></div>
            <div className='content-flex-card-main-check'>
@@ -339,7 +340,7 @@ export default function AboutScreen() {
           </div>
           {/* seconde */}
           <div className='card-ojectif-main'>
-            <h5 className='card-ojectif-main-line-titre'>Myfeedback360° favorise la transparence</h5>
+            <h5 className='card-ojectif-main-line-titre'>My feedback 360° favorise la transparence</h5>
            <div className='card-ojectif-main-line'></div>
            <div className='mt-5'><p><strong>L’effort de transparence présente de nombreux avantages pour les start-ups et les organisations de taille moyenne qui considèrent l’innovation comme une force motrice.</strong></p></div>
            <div className='content-flex-card-main-check'>
@@ -398,7 +399,7 @@ export default function AboutScreen() {
        {/**************************** Recontre avec nos expert debut****************************/}
        <div class="separator"></div>
        <section className='conten_separateur'>
-      <Underline text="Ce qu'on dit sur nous!" color='white' />
+      <Underline text="Ce qu'ils disent de nos solutions" color='white' />
       <Carousel activeIndex={index} onSelect={handleSelect} indicators={false}>
         <Carousel.Item>
           <div className='content_images_top_ev_flex'>
@@ -406,7 +407,9 @@ export default function AboutScreen() {
               {/* <Image src={ev1} className='content_content_formateur_image' /> */}
               <div style={{ width:"640", height:"360"}} className='content_content_formateur_image'>
               <div style={{display:'flex',justifyContent:'center',marginTop:'30px',marginBottom:'10px'}}><FontAwesomeIcon icon={faUsers} style={{fontSize:'40px', color:'#FFB703'}} /> </div>
-                <p className='text-white text-center' style={{textAlign:'justify'}}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti cumque dolorem saepe eaque assumenda sapiente. Placeat sapiente suscipit nihil voluptatum quidem .</p>
+              <h3 className='text-center mt-3' style={{color:'#FFB703'}}>Sibo Baldé</h3>
+                <p className='text-white text-center' style={{textAlign:'justify'}}>La plateforme My Feedback 360° a véritablement transformé notre manière de recevoir et d'analyser les feedbacks. 
+                  Nos équipes sont plus performantes et engagées grâce à des retours constructifs et complets .</p>
                 </div>
             </div>
             <div className='content_content_formateur'>
@@ -416,14 +419,17 @@ export default function AboutScreen() {
               </video> */}
               <div style={{ width:"640", height:"360"}} className='content_content_formateur_image'>
               <div style={{display:'flex',justifyContent:'center',marginTop:'30px',marginBottom:'10px'}}><FontAwesomeIcon icon={faUsers} style={{fontSize:'40px', color:'#FFB703'}}/> </div>
-                <p className='text-white text-center' style={{textAlign:'justify'}}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti cumque dolorem saepe eaque assumenda sapiente. Placeat sapiente suscipit nihil voluptatum quidem .</p>
+                  <h3 className='text-center mt-3' style={{color:'#FFB703'}}>Andre Ndione</h3>
+                <p className='text-white text-center' style={{textAlign:'justify'}}>Depuis que nous utilisons My Feedback 360°, notre organisation a fait un bond en avant. 
+                  La vision à 360° nous a permis de mieux comprendre nos forces et nos axes d'amélioration.</p>
                 </div>
             </div>
             <div className='content_content_formateur'>
               {/* <Image src={ev3} className='content_content_formateur_image' /> */}
               <div style={{ width:"640", height:"360"}} className='content_content_formateur_image'>
               <div style={{display:'flex',justifyContent:'center',marginTop:'30px',marginBottom:'10px'}}><FontAwesomeIcon icon={faUsers} style={{fontSize:'40px', color:'#FFB703'}} /> </div>
-                <p  className='text-white text-center' style={{textAlign:'justify'}}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti cumque dolorem saepe eaque assumenda sapiente. Placeat sapiente suscipit nihil voluptatum quidem .</p>
+              <h3 className='text-center mt-3' style={{color:'#FFB703'}}>Mariama Wade</h3>
+                <p  className='text-white text-center' style={{textAlign:'justify'}}>Avec My Feedback 360°, nous avons pu obtenir des retours détaillés et pertinents qui ont grandement amélioré notre productivité et notre cohésion d'équipe.</p>
                 </div>
             </div>
           </div>
@@ -434,7 +440,9 @@ export default function AboutScreen() {
               {/* <Image src={ev1} className='content_content_formateur_image' /> */}
               <div style={{ width:"640", height:"360"}} className='content_content_formateur_image'>
               <div style={{display:'flex',justifyContent:'center',marginTop:'30px',marginBottom:'10px'}}><FontAwesomeIcon icon={faUsers} style={{fontSize:'40px', color:'#FFB703'}}/> </div>
-                <p className='text-white text-center' style={{textAlign:'justify'}}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti cumque dolorem saepe eaque assumenda sapiente. Placeat sapiente suscipit nihil voluptatum quidem .</p>
+              <h3 className='text-center mt-3' style={{color:'#FFB703'}}>Glen Leonard</h3>
+                <p className='text-white text-center' style={{textAlign:'justify'}}>Grâce à My Feedback 360°, nous avons pu instaurer une culture de feedback positif et constructif au sein de notre entreprise. 
+                  Nos employés se sentent écoutés et valorisés.</p>
                 </div>
             </div>
             <div className='content_content_formateur'>
@@ -444,14 +452,16 @@ export default function AboutScreen() {
               </video> */}
                <div style={{ width:"640", height:"360"}} className='content_content_formateur_image'>
               <div style={{display:'flex',justifyContent:'center',marginTop:'30px',marginBottom:'10px'}}><FontAwesomeIcon icon={faUsers} style={{fontSize:'40px', color:'#FFB703'}} /> </div>
-                <p  className='text-white text-center' style={{textAlign:'justify'}}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti cumque dolorem saepe eaque assumenda sapiente. Placeat sapiente suscipit nihil voluptatum quidem .</p>
+              <h3 className='text-center mt-3' style={{color:'#FFB703'}}>John Williams</h3>
+                <p  className='text-white text-center' style={{textAlign:'justify'}}>L'utilisation de My Feedback 360° a permis à notre équipe de mieux se comprendre et de collaborer plus efficacement. C'est une révolution dans notre manière de travailler.</p>
                 </div>
             </div>
             <div className='content_content_formateur'>
               {/* <Image src={ev3} className='content_content_formateur_image' /> */}
               <div style={{ width:"640", height:"360"}} className='content_content_formateur_image'>
               <div style={{display:'flex',justifyContent:'center',marginTop:'30px',marginBottom:'10px'}}><FontAwesomeIcon icon={faUsers} style={{fontSize:'40px', color:'#FFB703'}} /> </div>
-                <p  className='text-white text-center' style={{textAlign:'justify'}}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Corrupti cumque dolorem saepe eaque assumenda sapiente. Placeat sapiente suscipit nihil voluptatum quidem .</p>
+              <h3 className='text-center mt-3' style={{color:'#FFB703'}}>Isabelle Faye</h3>
+                <p  className='text-white text-center' style={{textAlign:'justify'}}>My Feedback 360° nous a offert une perspective nouvelle sur notre fonctionnement interne. Les feedbacks à 360° sont un atout majeur pour notre croissance continue.</p>
                 </div>
             </div>
           </div>
@@ -514,9 +524,9 @@ export default function AboutScreen() {
        {/**************************** Ils nous font confiance  fin****************************/}
       
       </main>
-      {/* <footer>
+      <footer>
       <Footer />
-      </footer> */}
+      </footer>
     </div>
   )
 }

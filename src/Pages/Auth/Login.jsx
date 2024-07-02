@@ -86,6 +86,7 @@ export default function Login() {
 // function pour la connexion
   const Handlelogin = async (e) => {
     e.preventDefault();
+    const token = localStorage.getItem("tokencle");
   
     // Vérification si les champs sont vides
     if (!email || !password) {
@@ -125,12 +126,15 @@ export default function Login() {
   
     try {
       // const apiUrl = 'https://myfeedbaks360s.kevacom.com';
-      const response = await axios.post('http://localhost:8000/api/login', credentials  )
-      // headers: {
-      //   Accept: "application/json",
-      //   "Content-Type": "application/json",
-      // },
-      // }
+      const response = await axios.post('https://api.com.myfeedback360.com/api/login', credentials, 
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            // Accept: "application/json",
+            // "Content-Type": "application/json",
+          },
+        }
+      );
    
       
       console.log(credentials, 'credentials');

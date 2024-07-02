@@ -37,6 +37,18 @@
 .content_orange_home{
     color: var(--seconde);
 }
+.chiffre-flex-medias-content{
+    /* border: 1px solid red; */
+}
+#chiffre-flex-medias{
+    display: flex !important;
+    /* grid-template-columns: repeat(3,fr) !important;
+    gap: 20px;
+    margin: 0 auto !important; */
+    justify-content: center;
+    align-items: center;
+    gap: 90px;
+}
 
 /* medias quéries */
 @media screen and (max-width: 553px) {

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import './ModeleScreen.css';
 import { Button, Image } from 'react-bootstrap';
-import ban_about from '../../Images/imgban/banfour.jpg';
+import ban_about from '../../Images/imgban/ban3.jpg';
 import logo from '../../Images/logo.png';
 import NavbarUser from '../../Components/User_Components/NavbarUser';
 import Footer from '../../Components/User_Components/Footer/Footer';
@@ -29,7 +29,8 @@ export default function ModeleScreen() {
         <Image  src={ban_about} id='ban_modele_modele_one_img' />
        </div>
        <div className='ban_modele_modele_one_text'>
-       {/* <h1 className='text-center' >Évaluation des Équipes d'Entreprise en Ligne</h1> */}
+       <h1 className='text-center' >La plateforme My Feedback 360° : votre miroir à 360° pour booster la performance de vos équipes.
+       </h1>
        {/* <p className='text-center'>Une solution professionnelle pour évaluer et améliorer les performances de votre équipe.</p> */}
        {/* <div class="loading_content_modele">
             <span></span>

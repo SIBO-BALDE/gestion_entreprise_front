@@ -68,35 +68,56 @@ export default function TarifScreen() {
               {/* { users &&
               users.map((user) => (  */}
                 <div className="card card-1 content_price_1">
-                    <h2>Essai gratuit</h2>
-                    <h3>0FCFA<span>/mois.</span></h3>
-                    <p>Pour les debut debutant </p>
+                    <h2>Forfait mensuel</h2>
+                    <h3>$30<span></span></h3>
+                    {/* <p>Pour les debut debutant </p> */}
                     <ul>
-                    <li className="aval">Formule1</li>
-                    <li className="aval">2ans</li>
-                    {/* <li className="aval">1 notification</li>
-                    <li className="unaval">24/7 support</li> */}
+                    
+                    <li>✓Collaborateurs illimités</li>
+                    <li>✓Évaluation dynamique  des collaboratives à 360°</li>
+                    <li>✓Retroaction instantanée </li>
+                    <li>✓Agrégation automatique des résultats </li>
+                   <li> ✓Questionnaire d'évaluation personnalisable </li>
+                    <li>✓Evaluation Anonyme </li>
+                    <li>✓Feedback événement illimité </li>
+                    <li>✓Gestion des liens hiérarchique </li>
+                    <li>✓Assistance 24h/24</li>
+                    
                     </ul>
                     <Button className="select1"><Link to={'/devis_contact'} style={{textDecoration:'none', color:'white'}}>Essayez gratuitement</Link></Button>
                 </div>
                 {/* ))}  */}
                 <div className="card card-2 hot-badge content_price_1">
-                    <h2 style={{color:'#fff'}}>Standard</h2>
-                    <h3>500CFA<span>/mois.</span></h3>
-                    <p>Pour les professionnels</p>
+                    <h2 style={{color:'#fff'}}>Forfait annuel</h2>
+                    <h3>$270<span></span></h3>
+                    {/* <p>Pour les professionnels</p> */}
                     <ul>
-                    <li className="aval">Formule2</li>
-                    <li className="aval">1ans</li>
+                    <li>✓Collaborateurs illimités</li>
+                    <li>✓Évaluation dynamique  des collaboratives à 360°</li>
+                    <li>✓Retroaction instantanée </li>
+                    <li>✓Agrégation automatique des résultats </li>
+                   <li> ✓Questionnaire d'évaluation personnalisable </li>
+                    <li>✓Evaluation Anonyme </li>
+                    <li>✓Feedback événement illimité </li>
+                    <li>✓Gestion des liens hiérarchique </li>
+                    <li>✓Assistance 24h/24</li>
                     </ul>
                     <Button className="select1"><Link to={'/devis_contact'} style={{textDecoration:'none', color:'white'}}>Choisi ton plan</Link></Button>
                 </div>
                 <div className="card card-3 content_price_1">
-                    <h2>Premium</h2>
-                    <h3>700FCFA<span>/mois.</span></h3>
-                    <p>Pour les grands entreprises</p>
+                    <h2>Forfait à vie</h2>
+                    <h3>$600<span></span></h3>
+                    
                     <ul>
-                    <li className="aval">Formule3</li>
-                    <li className="aval">3ans</li>
+                    <li>✓Collaborateurs illimités</li>
+                    <li>✓Évaluation dynamique  des collaboratives à 360°</li>
+                    <li>✓Retroaction instantanée </li>
+                    <li>✓Agrégation automatique des résultats </li>
+                   <li> ✓Questionnaire d'évaluation personnalisable </li>
+                    <li>✓Evaluation Anonyme </li>
+                    <li>✓Feedback événement illimité </li>
+                    <li>✓Gestion des liens hiérarchique </li>
+                    <li>✓Assistance 24h/24</li>
                     </ul>
                     <Button className="select1"><Link to={'/devis_contact'} style={{textDecoration:'none', color:'white'}}>Choisi ton plan</Link></Button>
                 </div>

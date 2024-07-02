@@ -106,7 +106,7 @@ export default function Footer() {
             <div>
                 <h4 className='text-content-footer-all'>Nous contacter</h4>
                 <div><Link to={'#'} style={{textDecoration:'none', color:'white'}} id='text-content-footer-all'> +221 77 134 64 96 </Link></div>
-                <div><Link to={'#'} style={{textDecoration:'none', color:'white'}} id='text-content-footer-all' >service.client@myfeedbak.com</Link></div>
+                <div><Link to={'#'} style={{textDecoration:'none', color:'white'}} id='text-content-footer-all' >service.client@myfeedback360.com</Link></div>
             </div>
 
             {/* <div className='last-content-footer' id='last-content-footer-one-change'>

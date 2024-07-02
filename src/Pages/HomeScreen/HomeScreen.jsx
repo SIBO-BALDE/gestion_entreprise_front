@@ -1,26 +1,27 @@
 import React, { useEffect } from 'react'
 import { Button,Image } from 'react-bootstrap'
-import ban1 from '../../Images/ban-code.png'
+
 import NavbarUser from '../../Components/User_Components/NavbarUser'
 import './HomeScreen.css';
-import Underline from '../../Components/User_Components/Underline/Underline';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBullseye, faChartLine, faHandshake,faUserTie,} from '@fortawesome/free-solid-svg-icons';
-import ban2 from '../../Images/dessin.png';
-import baraka2 from '../../Images/imgban/ban3.jpg';
 import dasboard1 from '../../Images/dasboard superadmin.png';
 import dasboard2 from '../../Images/dasboard admin.png';
 import dasboard3 from '../../Images/dasboard participant.png';
-
-import * as regularIcons from '@fortawesome/free-regular-svg-icons';
-
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import Footer from '../../Components/User_Components/Footer/Footer';
-import ButtonDeco from '../../Components/User_Components/Buttons/ButtonDeco';
-import ButtonWashapp from '../../Components/User_Components/Buttons/ButtonWatsapp/ButtonWashapp';
-import ChiffresCles from '../../Components/User_Components/ChiffresCles/ChiffresCles';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGem, faHandshake, faPaperPlane } from '@fortawesome/free-regular-svg-icons';
 import { Link } from 'react-router-dom';
+import Underline from '../../Components/User_Components/Underline/Underline'
+import { faBullseye, faChartLine, faUserTie } from '@fortawesome/free-solid-svg-icons';
+import ButtonDeco from '../../Components/User_Components/Buttons/ButtonDeco'
+import ban2 from '../../Images/dessin.png'
+import baraka2 from '../../Images/imgban/ban3.jpg'
+import ban1 from '../../Images/ban-code.png'
+import ButtonWashapp from '../../Components/User_Components/Buttons/ButtonWatsapp/ButtonWashapp'
+import ChiffresCles from '../../Components/User_Components/ChiffresCles/ChiffresCles'
+
+
 
 
 export default function HomeScreen() {
@@ -35,54 +36,55 @@ export default function HomeScreen() {
 
 
       {/****************************  banniere debut ****************************/}
-         {/* <div className='ban_content_home mt-5 '>
+         <div className='ban_content_home mt-5 '>
            <Image src={ban1}  className='w-100 ban_image_content_home' /> 
          </div>
          <div id='ban_content_home-text'>
-            <h1 className='titre_content_home'>Créez des sondages <br /> en ligne gratuits, en <br /> quelques minutes</h1>
+            <h1 className='titre_content_home'>Évaluez et améliorez <br />la performance de vos RH <br /> grâce à My Feedback 360°</h1>
             <p className='mt-3 paragraph_content_home'>
                 Posez des questions et prenez des décisions informées grâce au <br />
                 leader mondial des solutions de sondages et de formulaires.
             </p>
             <div className='d-flex mt-5 two_btns_home'>
-                <div>
+                <div className='w-90'>
                     <Button className='btn_ban_home pt-3 pb-3' id='btn1_ban_home'>
                         <Link to={'/login'} style={{textDecoration:'none', color:'white'}}>Commencer l’evaluation</Link> 
                     </Button>
                 </div>
-                <div className='ms-4 btn2_ban_home_content2' id='btn2_ban_home_content2'>
+                <div className='ms-4 btn2_ban_home_content2 w-90' id='btn2_ban_home_content2'>
                     <Button className='btn_ban_home pt-3 pb-3' id='btn2_ban_home'>
                         <Link to={'/modeles'} style={{textDecoration:'none', color:'white'}}>Voir les modéles</Link>
                     </Button>
                 </div>
             </div>
-         </div> */}
+         </div>
       {/****************************   banniere  fin**************************** */}
        
 
       {/****************************   buttonwashapp  debut**************************** */}
-      {/* <div className='buttonWaptsappp-content-home'>
+      <div className='buttonWaptsappp-content-home'>
             <ButtonWashapp/>
-      </div> */}
+      </div>
       {/****************************   buttonwashapp  fin**************************** */}
      
 
       {/****************************   chiffres clés  debut*************************** */}
-     {/* <section>
+     <section>
         <ChiffresCles />
-     </section> */}
+     </section>
       {/****************************  chiffres clés  fin*******************************/}
 
       {/****************************  qui sommes nous  debut****************************/}
-      {/* <section className='content_section2_home-main-only '>
+      
+      <section className='content_section2_home-main-only'>
         
         <div>
             <Underline  text='Qui sommes-nous ?' color='white'/>
         </div>
-        <div className='d-flex justify-content-center mt-5 content-flex-about-home-main' style={{width:'100%'}}>
+        <div className=' mt-5 content-flex-about-home-main' style={{width:'100%'}}>
         
-            <div style={{display:'flex',height:'335px',width:'100%'}}>
-            <div className='d-flex justify-content-between ms-5'style={{marginLeft:'150px', marginRight:'17px'}}>
+            <div style={{display:'flex',height:'350px',width:'100%'}} id='content-flex-about-home-main-oneline'>
+            <div className='d-flex justify-content-between ms-5'style={{marginRight:'17px'}} id='content-flex-about-home-main-oneline2'>
                 <div  className='reference1_home me-1 ' style={{marginTop:'56px'}}></div>
                 <div  className='reference2_home' style={{marginTop:'30px'}}></div>
             </div>
@@ -92,32 +94,32 @@ export default function HomeScreen() {
                 </div>
 
             </div>
-            <div className='one1'>
-            <div style={{ height:'330px', width:'100%'}} className='content-text-main-home'>
-                <h4 style={{color:'white',fontWeight:'bold',}}>Aimerez vous renforcer la capicité de vos équipes à travers une évaluation  à 360°?</h4> <br />
-                    <h4 style={{color:'white',fontWeight:'bold',}}><span style={{color:'#FFB703'}}>MYFEEDBACK <span className='text-white'>360°</span></span> est la solution</h4>
+            <div className='one1' style={{height:'350px'}}>
+            <div style={{ height:'100%', width:'100%'}} className='content-text-main-home'>
+                <h4 style={{color:'white',fontWeight:'bold',}}>Aimeriez vous renforcer la capicité de vos équipes à travers une évaluation  à 360°?</h4> <br />
+                    <h4 style={{color:'white',fontWeight:'bold',}}><span style={{color:'#FFB703'}}>MY FEEDBACK <span className='text-white'>360°</span></span> est la solution</h4>
                     <p style={{color:'white', textAlign:'justify'}} className='mt-5'>MYFEEDBACK <span style={{color:'#FFB703'}}>360°</span> offre une plateforme d'évaluation en ligne novatrice pour 
                        les entreprises désireuses de favoriser un environnement de travail
                        collaboratif et axé sur l'amélioration continue. Grâce à son expertise 
                        dans le domaine de l'évaluation des équipes, Byfeeding propose une solution 
                        personnalisée et flexible adaptée aux besoins spécifiques de chaque entreprise.
                     </p>
-                    <Button className='w-90 mt-3'id='btn_about_home_middle' 
-                    style={{width:'99%', backgroundColor:'#FFB703', border:'none',
-                    boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px' }}>
+                    <Button className='w-90 mt-2'id='btn_about_home_middle' 
+                        style={{width:'100%', backgroundColor:'#FFB703', border:'none',
+                        boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px' }}>
                         <Link to={'/about'} style={{textDecoration:'none', color:'#004573'}}>Voir plus</Link>
                     </Button>
             </div>
             </div>
         </div>
-      </section> */}
+      </section>
       {/****************************  qui sommes nous  fin*******************************/}
 
       {/****************************  comment sa marche  debut****************************/}
-      {/* <section style={{boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', paddingTop:'20px', paddingBottom:'30px'}}>
+      <section style={{boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', paddingTop:'20px', paddingBottom:'30px'}}>
        <div>
           <div>
-            <Underline  text='Comment fonctionne myfeedback 360° ?'/>
+            <Underline  text='Comment fonctionne my feedback 360°?'/>
           </div>
           <div style={{display:'flex', justifyContent:'center',height:'400px'}}>
             <Image src={ban2} style={{margin:'0 50px', width:'600px',height:'100%' }} data-aos="fade-left" />
@@ -131,27 +133,30 @@ export default function HomeScreen() {
             </Button>
         </div>
        </div>
-      </section> */}
+      </section>
       {/****************************  comment sa marche fin ****************************/}
 
 
       {/****************************  Nos agagements debut*******************************/}
-      {/* <section style={{paddingTop:'50px', backgroundColor:'#004573',paddingBottom:'90px'}}>
+
+      <section style={{paddingTop:'50px', backgroundColor:'#004573',paddingBottom:'90px'}}>
         <Underline  text='Nos engagments' color='white'/>
         <div className='container' style={{marginTop:'70px'}}>
-                <div className='d-flex justify-center losange-content-main'>
+                <div className='d-flex justify-center losange-content-main' id='losange-content-main'>
                 <div className="losange ">
                   <FontAwesomeIcon icon={faBullseye}  id='icon_font_home_engament' className='icon_onetwo_home'/> 
                 </div>
                 <div className="losange" id='losange'> 
-                    <FontAwesomeIcon icon={regularIcons.faGem} id='icon_font_home_engament' className='icon_onetwo_home1' />
+                    <FontAwesomeIcon icon={faGem} id='icon_font_home_engament' className='icon_onetwo_home1' />
                 </div>
                 <div className="losange"> 
-                    <FontAwesomeIcon icon={regularIcons.faPaperPlane} id='icon_font_home_engament' className='icon_onetwo_home' />
+                    <FontAwesomeIcon icon={faPaperPlane} id='icon_font_home_engament' className='icon_onetwo_home' />
                 </div>
 
                 </div>
-                <div className='content_midle_home_correct1'>
+               
+                <div className='losange-content-main2'>
+                <div className='content_midle_home_correct' >
                 <div className='mt-5 d-flex '>
                             <div>
                                 <ButtonDeco />
@@ -159,6 +164,27 @@ export default function HomeScreen() {
                         
                         <div><h5 className='' ><strong style={{color:'#FFB703'}}>Notre vision</strong></h5></div>
                 </div>
+
+                <div className='mt-4' style={{borderLeft:'3px solid #FFB703', height:'240px'}}>
+                    <p className='me-3 ms-3 text-white' 
+                        style={{textAlign:'justify'}}>Chez 
+                        <strong style={{color:'#FFFF', marginBottom:'25px'}}>
+                            <span style={{color:'#FFB703'}}>  MY FEEDBACK  </span>
+                                360°
+                         </strong><br />
+                               
+                                Notre vision est de révolutionner la façon dont les 
+                                entreprises évaluent et développent leurs équipes. 
+                                Nous aspirons à devenir le leader mondial en fournissant 
+                                une plateforme en ligne innovante et intuitive, permettant 
+                                à chaque entreprise de réaliser des évaluations 360° complètes 
+                                et efficaces. 
+
+
+                      </p>
+                </div>
+                </div>
+                <div className='content_midle_home_correct' >
                 <div className='mt-5 d-flex'>
                             <div>
                                 <ButtonDeco />
@@ -166,41 +192,10 @@ export default function HomeScreen() {
                         
                         <div><h5 className='' ><strong style={{color:'#FFB703'}}>Nos valeurs</strong></h5></div>
                 </div>
-                <div className='mt-5 d-flex   '>
-                            <div>
-                            <ButtonDeco />
-                            </div>
-                        
-                        <div style={{textAlign:'left'}}><h5 className='' ><strong style={{color:'#FFB703'}}>Notre mission</strong></h5></div>
-                </div>
-
-                </div>
-                <div className='losange-content-main2'>
-                <div className='content_midle_home_correct' >
-
-                <div className='mt-4' style={{borderLeft:'3px solid #FFB703', height:'240px'}}>
-                    <p className='me-3 ms-3 text-white' 
-                        style={{textAlign:'justify'}}>Chez 
-                        <strong style={{color:'#FFFF', marginBottom:'25px'}}>
-                            <span style={{color:'#FFB703'}}>  MYFEEDBACK  </span>
-                                360°
-                         </strong><br />
-                                Notre vision est de révolutionner la 
-                                façon dont les entreprises évaluent 
-                                et développent leurs équipes. Nous 
-                                aspirons à devenir le leader mondial  en 
-                                fournissant une plateforme en  ligne 
-                                innovante et intuitive, permettant 
-                                à chaque.
-
-                      </p>
-                </div>
-                </div>
-                <div className='content_midle_home_correct' >
                 <div className='mt-4' style={{borderLeft:'3px solid #FFB703', height:'240px', marginBottom:'25px' }}>
                     <p className='me-3 ms-3 text-white' style={{textAlign:'justify'}}>Chez  
                         <strong style={{color:'#FFFF'}}>
-                        <span style={{color:'#FFB703'}}>  MYFEEDBACK</span> 360°</strong> <br />
+                        <span style={{color:'#FFB703'}}>  MY FEEDBACK</span> 360°</strong> <br />
                         Nos valeurs sont bien plus qu'une
                         simple déclaration.Elles sont le 
                         fondement de tout ce que nous 
@@ -254,20 +249,23 @@ export default function HomeScreen() {
                 </div>
                 </div>
                 <div className='content_midle_home_correct' >
+                <div className='mt-5 d-flex   '>
+                            <div>
+                            <ButtonDeco />
+                            </div>
+                        
+                        <div style={{textAlign:'left'}}><h5 className='' ><strong style={{color:'#FFB703'}}>Notre mission</strong></h5></div>
+                </div>
                 <div className='mt-4' style={{borderLeft:'3px solid #FFB703', height:'240px'}}>
                     <p className='ms-3 text-white ' style={{textAlign:'justify'}}>Chez 
                         <strong style={{color:'#FFFF' , marginBottom:'25px'}} >
-                            <span style={{color:'#FFB703'}}>  MYFEEDBACK</span > 360°
+                            <span style={{color:'#FFB703'}}>  MY FEEDBACK</span > 360°
                         </strong> <br />
-                        Notre mission est de fournir 
-                        aux entreprises du monde
-                        entier les outils et les
-                         ressources nécessaires 
-                         pour optimiser la performance
-                         de leurs équipes.Nous nous 
-                         engageons à offrir une plateforme 
-                         en ligne conviviale et innovante
-                          qui permet à chaque.
+                        Notre mission est de fournir aux entreprises du monde entier les outils 
+                        et les ressources nécessaires pour optimiser la performance de leurs équipes.
+                         Nous nous engageons à offrir une plateforme en ligne conviviale et innovante
+                          qui permet à chaque organisation de réaliser des évaluations 360° approfondies
+                           et de recevoir des feedbacks constructifs.
                       
                       </p>
                 </div>
@@ -277,17 +275,20 @@ export default function HomeScreen() {
 
                
             
-      </section> */}
+      </section>
+
       {/****************************  Nos agagements fin  *********************************/}
 
       {/****************************  modéles d'évaluation debut ****************************/}
-       {/* <section className='pt-4 pb-4'>
+      {/* data-aos="fade-left" */}
+
+       <section className='pt-4 pb-4'>
         <div>
-          <div><Underline text='Quelques uns de nos modéles d’évaluation' /></div>
+          <div><Underline text='Quelques uns de nos modéles' /></div>
         </div>
-        <div className='d-flex justify-content-center mt-5 gap-4 '>
+        <div className='d-flex justify-content-center mt-5 gap-4 content-modeles-evaluation'>
             <div className='pt-2 pb-2 pe-3 ps-3 card_modele_home' style={{width:'320px', height:'250px', borderTop:'3px solid #FFB703', 
-               boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius:'25px'}} data-aos="fade-right">
+               boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius:'25px'}} >
                 <div><FontAwesomeIcon  icon={faHandshake} style={{fontSize:'60px', color:'#FFB703'}}  /></div>
                 <div>
                     <h6 style={{fontWeight:'bold'}}  className='mt-2 mb-2'><Link to={'/tarif'} style={{textDecoration:'none', color:'black'}}>Evaluation 360 degrés</Link></h6>
@@ -299,7 +300,7 @@ export default function HomeScreen() {
             </div>
 
             <div className='pt-2 pb-2 pe-3 ps-3 card_modele_home' style={{width:'320px', height:'250px', borderTop:'3px solid #FFB703', 
-               boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius:'25px'}} data-aos="fade-bottom">
+               boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius:'25px'}} >
                 <div><FontAwesomeIcon  icon={faChartLine} style={{fontSize:'60px', color:'#FFB703'}} /></div>
                 <div>
                     <h6 style={{fontWeight:'bold'}}  className='mt-2 mb-2'>Performances des employés</h6>
@@ -309,7 +310,8 @@ export default function HomeScreen() {
                 </div>
             </div>
             <div className='pt-2 pb-2 pe-3 ps-3 card_modele_home' style={{width:'320px', height:'250px', borderTop:'3px solid #FFB703', 
-               boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius:'25px', position:'relative'}} data-aos="fade-left">
+               boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px', borderRadius:'25px', position:'relative'}} >
+                
                 <div><FontAwesomeIcon  icon={faUserTie} style={{fontSize:'60px', color:'#FFB703'}} /></div>
                 <div>
                     <h6 style={{fontWeight:'bold'}}  className='mt-2 mb-2'>Sondage Employee Net Promoter Score (eNPS)</h6>
@@ -327,7 +329,7 @@ export default function HomeScreen() {
             
         </div>
         
-       </section> */}
+       </section>
       {/****************************  modéles d'évaluation fin  ****************************/}
 
 
@@ -335,6 +337,9 @@ export default function HomeScreen() {
       <div>
       <section style={{backgroundColor:'#ebf0f4', marginTop:'80px', boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px'}} id='tone'>
         <div id="" className='container'>
+        <div>
+          <div><Underline text="Les fonctionnalités de l'évaluation 360°" /></div>
+        </div>
         <div className="experience pt-100 pb-100" >
 		   <div className="container">
 			<div className="row">
@@ -348,8 +353,12 @@ export default function HomeScreen() {
                      <li>
                         <div className="timeline_content" id='content1' data-aos="fade-right">
                           
-                           <h4 style={{textAlign:'justify'}}> Accédez à des centaines de questions préparées par des experts</h4>
-                           <p style={{textAlign:'justify'}}>En quelques secondes, vous pouvez créer un sondage à partir d’un modèle avec des centaines de questions rédigées par des experts. Posez les bonnes questions, minimisez le risque de biais et obtenez rapidement les informations dont vous avez besoin.</p>
+                           <h4 style={{textAlign:'justify'}}> Évaluation Multi-Source</h4>
+                           <p style={{textAlign:'justify'}}>L'admin peut creer et gérez des évaluations au sein de l'application. Les employés peuvent s'évaluer mutuellement en tant que collègues, supérieurs ou subalternes.Assurez une évaluation complète et impartiale des performances des employés à partir de diverses perspectives.</p>
+                           {/* <h4 style={{textAlign:'justify'}}> Évaluation Multi-Source  des évaluations au sein </h4>
+                           <p style={{textAlign:'justify'}}>L'admin peut creer et gérez des évaluations au sein de l'application.</p>
+                           <p style={{textAlign:'justify'}}>Les employés peuvent s'évaluer mutuellement en tant que collègues, supérieurs ou subalternes.</p>
+                           <p style={{textAlign:'justify'}}>Assurez une évaluation complète et impartiale des performances des employés à partir de diverses perspectives.</p> */}
                         </div>
                      </li>
                     
@@ -368,8 +377,22 @@ export default function HomeScreen() {
                      <li>
                         <div className="timeline_content" id='timeline_content' data-aos="fade-left">
                         
-                           <h4 style={{textAlign:'justify'}}>Collectez du feedback de différentes manières</h4>
-                           <p style={{textAlign:'justify'}}>Analysez les attentes de vos clients en recueillant leurs avis via des liens Web, par des sondages ou des formulaires envoyés par email ou incorporés à votre site Web. Nous proposons aussi un panel mondial d’audience pour vous aider à collecter des insights Marché.</p>
+                           <h4 style={{textAlign:'justify'}}>Gestion des Événements</h4>
+                           <p style={{textAlign:'justify'}}>Créez et gérez des événements au sein de l'application.À la fin de chaque événement, envoyez des liens de questionnaires aux participants pour recueillir leurs feedbacks.Analysez les réponses pour obtenir des insights précieux sur l'événement et les performances des participants.</p>
+                        </div>
+                     </li>
+                     {/* <li>
+                       
+                        <div className="timeline_content" data-aos="fade-right">
+                        <Image  src={dasboard3} className='timeline-img'id='contentimg-timeline' />
+                        </div>
+                     </li> */}
+                      <li>
+                        <div className="timeline_content" id='content1' data-aos="fade-right">
+                          
+                           <h4 style={{textAlign:'justify'}}>Tableau de Bord Administrateur</h4>
+                           <p style={{textAlign:'justify'}}>L'administrateur peut visualiser toutes les évaluations et les événements dans son tableau de bord.Accédez à une vue globale et détaillée des performances des employés et des activités des événements pour une gestion efficace.</p>
+                           
                         </div>
                      </li>
                      <li>
@@ -378,6 +401,7 @@ export default function HomeScreen() {
                         <Image  src={dasboard3} className='timeline-img'id='contentimg-timeline' />
                         </div>
                      </li>
+                     
                   </ul>
                </div>
       </div>
