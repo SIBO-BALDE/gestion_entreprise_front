@@ -691,9 +691,6 @@ ul.timeline-list li:before {
 }
 @media  screen and (max-width:1211px){
   #losange-content-main{
-    /* display: flex !important;
-    justify-content: center !important;
-    gap:150px; */
     display: none !important;
   }
   .losange-content-main2{
@@ -701,6 +698,7 @@ ul.timeline-list li:before {
     grid-template-columns: 50% 50% ;
     justify-content: center;
     gap: 20px;
+    height: auto !important;
    
   }
   .content_midle_home_correct1{
@@ -708,22 +706,40 @@ ul.timeline-list li:before {
     grid-template-columns: 50% 50% ;
     justify-content: center;
     gap: 20px;
-  }
-
-}
-@media  screen and (max-width:1211px){
-  
-  .losange-content-main2{
-    display: grid;
-    grid-template-columns: 100%;
-    justify-content: center;
-    gap: 20px;
    
   }
   
+  #content_midle_home_correct-content{
+    height: auto !important;
+
+  }
 
 }
-/* BUTTON BAN */
+@media  screen and (max-width:768px){
+  
+  .losange-content-main2{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    align-content: center;
+    /* grid-template-columns: 100%;
+    justify-content: center;
+    gap: 20px; */
+   
+  }
+  .content_midle_home_correct{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+  }
+  
+
+}
+
 @media  screen and (max-width:440px){
   .two_btns_home{
     display: flex;
@@ -745,7 +761,7 @@ ul.timeline-list li:before {
     padding-top: 30px ;
     padding-bottom: 150px;
     width: 100% !important;
-    /* border: 10px solid green; */
+   
 }
 .one1{
   margin-top: 30px;
@@ -780,6 +796,12 @@ ul.timeline-list li:before {
   
   
 
+}
+
+@media  screen and (max-width:579px){
+#content_midle_home_correct-content{
+
+}
 }
 
 

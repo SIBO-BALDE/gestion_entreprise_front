@@ -167,7 +167,7 @@ export default function HomeScreen() {
                         <div><h5 className='' ><strong style={{color:'#FFB703'}}>Notre vision</strong></h5></div>
                 </div>
 
-                <div className='mt-4' style={{borderLeft:'3px solid #FFB703', height:'240px'}}>
+                <div className='mt-4' style={{borderLeft:'3px solid #FFB703', height:'240px'}} id='content_midle_home_correct-content'>
                     <p className='me-3 ms-3 text-white' 
                         style={{textAlign:'justify'}}>Chez 
                         <strong style={{color:'#FFFF', marginBottom:'25px'}}>
@@ -194,7 +194,7 @@ export default function HomeScreen() {
                         
                         <div><h5 className='' ><strong style={{color:'#FFB703'}}>Nos valeurs</strong></h5></div>
                 </div>
-                <div className='mt-4' style={{borderLeft:'3px solid #FFB703', height:'240px', marginBottom:'25px' }}>
+                <div className='mt-4' style={{borderLeft:'3px solid #FFB703', height:'240px', marginBottom:'25px' }} id='content_midle_home_correct-content'>
                     <p className='me-3 ms-3 text-white' style={{textAlign:'justify'}}>Chez  
                         <strong style={{color:'#FFFF'}}>
                         <span style={{color:'#FFB703'}}>  MY FEEDBACK</span> 360°</strong> <br />
@@ -258,7 +258,7 @@ export default function HomeScreen() {
                         
                         <div style={{textAlign:'left'}}><h5 className='' ><strong style={{color:'#FFB703'}}>Notre mission</strong></h5></div>
                 </div>
-                <div className='mt-4' style={{borderLeft:'3px solid #FFB703', height:'240px'}}>
+                <div className='mt-4' style={{borderLeft:'3px solid #FFB703', height:'240px'}} id='content_midle_home_correct-content'>
                     <p className='ms-3 text-white ' style={{textAlign:'justify'}}>Chez 
                         <strong style={{color:'#FFFF' , marginBottom:'25px'}} >
                             <span style={{color:'#FFB703'}}>  MY FEEDBACK</span > 360°
