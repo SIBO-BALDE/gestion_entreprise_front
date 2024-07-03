@@ -177,7 +177,7 @@ export default function Login() {
   //     console.log(error);
   //   }
   // };
-  
+
   const Handlelogin = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("tokencle");
@@ -220,7 +220,7 @@ export default function Login() {
 
     try {
       const response = await axios.post(
-        "https://api.com.myfeedback360.com/api/login",
+        "https://api.myfeedback360.com/api/login",
         credentials,
         {
           headers: {

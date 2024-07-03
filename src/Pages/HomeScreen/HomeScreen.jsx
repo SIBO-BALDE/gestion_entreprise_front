@@ -28,6 +28,8 @@ export default function HomeScreen() {
     useEffect(() => {
         AOS.init();
       }, [])
+
+     
   return (
     <div>
       {/*************************** Navbar debut ***************************/}
@@ -121,8 +123,8 @@ export default function HomeScreen() {
           <div>
             <Underline  text='Comment fonctionne my feedback 360°?'/>
           </div>
-          <div style={{display:'flex', justifyContent:'center',height:'400px'}}>
-            <Image src={ban2} style={{margin:'0 50px', width:'600px',height:'100%' }} data-aos="fade-left" />
+          <div style={{display:'flex', justifyContent:'center',height:'400px'}} className='CommentFonctionne-content'>
+            <Image src={ban2} style={{margin:'0 50px', width:'600px',height:'100%' }} data-aos="fade-left"  className='CommentFonctionne-content-img'/>
           </div>
           <div>
             <h6 className='text-center'>Laisser nous vous guider pas à pas sur les differentes parties de comment marche l’évalution 360°</h6>
@@ -335,7 +337,7 @@ export default function HomeScreen() {
 
       {/**************************** expliquation modéles d'évaluation debut  ****************************/}
       <div>
-      <section style={{backgroundColor:'#ebf0f4', marginTop:'80px', boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px'}} id='tone'>
+      {/* <section style={{backgroundColor:'#ebf0f4', marginTop:'80px', boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px'}} id='tone'>
         <div id="" className='container'>
         <div>
           <div><Underline text="Les fonctionnalités de l'évaluation 360°" /></div>
@@ -355,10 +357,7 @@ export default function HomeScreen() {
                           
                            <h4 style={{textAlign:'justify'}}> Évaluation Multi-Source</h4>
                            <p style={{textAlign:'justify'}}>L'admin peut creer et gérez des évaluations au sein de l'application. Les employés peuvent s'évaluer mutuellement en tant que collègues, supérieurs ou subalternes.Assurez une évaluation complète et impartiale des performances des employés à partir de diverses perspectives.</p>
-                           {/* <h4 style={{textAlign:'justify'}}> Évaluation Multi-Source  des évaluations au sein </h4>
-                           <p style={{textAlign:'justify'}}>L'admin peut creer et gérez des évaluations au sein de l'application.</p>
-                           <p style={{textAlign:'justify'}}>Les employés peuvent s'évaluer mutuellement en tant que collègues, supérieurs ou subalternes.</p>
-                           <p style={{textAlign:'justify'}}>Assurez une évaluation complète et impartiale des performances des employés à partir de diverses perspectives.</p> */}
+                           
                         </div>
                      </li>
                     
@@ -381,12 +380,7 @@ export default function HomeScreen() {
                            <p style={{textAlign:'justify'}}>Créez et gérez des événements au sein de l'application.À la fin de chaque événement, envoyez des liens de questionnaires aux participants pour recueillir leurs feedbacks.Analysez les réponses pour obtenir des insights précieux sur l'événement et les performances des participants.</p>
                         </div>
                      </li>
-                     {/* <li>
-                       
-                        <div className="timeline_content" data-aos="fade-right">
-                        <Image  src={dasboard3} className='timeline-img'id='contentimg-timeline' />
-                        </div>
-                     </li> */}
+                     
                       <li>
                         <div className="timeline_content" id='content1' data-aos="fade-right">
                           
@@ -408,7 +402,7 @@ export default function HomeScreen() {
 		 </div>
 	    </div>
         </div>
-      </section>
+      </section> */}
       </div>
 
       

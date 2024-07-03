@@ -221,7 +221,9 @@
     
     #btn_abonner_footer {
         left: -1px; 
+        border: 1px solid white !important;
     }
+   
 
     .section_search-content-main {
         flex-direction: column;

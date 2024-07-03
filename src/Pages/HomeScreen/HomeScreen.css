@@ -537,6 +537,12 @@ ul.timeline-list li:before {
 
   
 /* ************************** notre équipe  fin  ***************************** */
+/* *{
+  outline: 1px solid red;
+} */
+
+
+
 
 /*************************  media queries debut *********************************/
 @media  screen and (max-width:1243px) {
@@ -751,6 +757,25 @@ ul.timeline-list li:before {
 .content-flex-about-home-main-oneline2{
 
 }
+  
+  
+  
+
+}
+@media  screen and (max-width:573px){
+  .CommentFonctionne-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height:100%;
+    /* border: 5px solid var(--principal); */
+
+  }
+  .CommentFonctionne-content-img{
+    width: 90% !important; 
+    height: 100% !important;
+  }
   
   
   

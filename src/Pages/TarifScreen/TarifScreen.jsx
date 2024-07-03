@@ -56,9 +56,9 @@ export default function TarifScreen() {
           <h4 className='text-white'>Découvrez nos offres exclusives</h4>
         </div>
         <div style={{height:'10px', width:'100%', backgroundColor:'#FFB703'}}></div>
-        {/* <div>
+        <div>
                 <ButtonWashapp/>
-          </div> */}
+          </div>
         </div>
         <div className='content_container_price'>
             <Underline text='Les differents plan pour vos business'/>
