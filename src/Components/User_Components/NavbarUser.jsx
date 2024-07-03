@@ -48,10 +48,12 @@ export default function NavbarUser() {
             <Link to={"/tarif"} id='link_navbar_menu' style={{fontWeight:'500px', color:'#004573' , marginLeft:'30px', borderBottom: linkActive === '/tarif' ? '3px solid #FFB703' : 'none'}}>Tarifs</Link> 
             <Link to={"/contact"} id='link_navbar_menu' style={{fontWeight:'500px', color:'#004573' , marginLeft:'30px', borderBottom: linkActive === '/contact' ? '3px solid #FFB703' : 'none'}}>Contact</Link> 
           </Nav>
-
-          <Button  style={{marginRight:'80px', backgroundColor:'#004573', border:'none'}} className='button-nabar-contentmain-one'>
+           <div id='button-nabar-contentmain-one'>
+          <Button  style={{marginRight:'80px', backgroundColor:'#004573', border:'none'}} >
             <Link to={'/login'} style={{textDecoration:'none', color:'white'}}>Connexion</Link>
           </Button>
+
+           </div>
            </Navbar.Collapse>
           </Container>
         </Navbar>
