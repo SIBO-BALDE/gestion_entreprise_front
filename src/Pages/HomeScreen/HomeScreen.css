@@ -100,6 +100,14 @@
     height: auto !important;
    
 }
+
+.content-section2ours{
+  background-color: var(--principal);
+    padding-top: 30px ;
+    padding-bottom: 70px;
+    width: 100% !important;
+    height: auto !important;
+}
 .reference1_home{
     border: 3px solid var(--seconde);
     height: 200px;
@@ -143,6 +151,16 @@
     width: 100%;
     height: auto;
   }
+
+  /* seconde part mobile */
+  /* *{
+    outline: 1px solid red;
+  } */
+  .seconde-content-nous-last{
+    display: none;
+  }
+
+
 /* **************************style qui sommes nous fin ***************************** */
 
 
@@ -651,13 +669,8 @@ ul.timeline-list li:before {
 }
 .content-text-main-home{
   width: 72% !important;
-  margin-top: 20px;
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; */
-  /* height: auto; */
   height: 100%;
+  margin-top: 20px;
   
 }
 
@@ -764,10 +777,24 @@ ul.timeline-list li:before {
 }
 @media  screen and (max-width:650px){
   #content-flex-about-home-main-content-nous{
-    height:50% !important;
+    height:auto !important;
   }
+  
   #content-flex-about-home-main-content-nous-img{
-    height:100% !important;
+    height:auto !important;
+  }
+  .content-flex-about-home-main-content-nous-img{
+    width: 100% !important;
+  }
+  #content-flex-about-home-main-content-nous{
+    width: 72% !important;
+  }
+  #content-flex-about-home-main-oneline2{
+    display: none !important;
+    border: 1px solid red;
+  }
+  .content-flex-about-home-main{
+    margin-top: 5px !important;
   }
 
 }
@@ -842,7 +869,17 @@ ul.timeline-list li:before {
    padding-bottom: 200px;
   }
 }
-@media  screen and (max-width:523px){
+
+@media  screen and (max-width:824px){
+  .content-flex-about-home-main{
+    display: none;
+  }
+  .seconde-content-nous-last{
+    display: block;
+  }
+
+}
+/* @media  screen and (max-width:523px){
   #content_section2_home-main-only{
    
    padding-bottom: 300px;
@@ -859,7 +896,7 @@ ul.timeline-list li:before {
    
    padding-bottom: 490px;
   }
-}
+} */
 
 
 

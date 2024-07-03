@@ -95,6 +95,7 @@ export default function HomeScreen() {
         <div>
             <Underline  text='Qui sommes-nous ?' color='white'/>
         </div>
+
         <div className=' mt-5 content-flex-about-home-main' style={{width:'100%'}}>
         
             <div style={{display:'flex',height:'350px',width:'100%'}} id='content-flex-about-home-main-oneline'>
@@ -127,7 +128,39 @@ export default function HomeScreen() {
             </div>
             </div>
         </div>
+
+        {/* seconde */}
+        <div className='seconde-content-nous-last'>
+             <div className='container' style={{height:'100%',width:'100%', display:'flex', 
+                justifyContent:'center', alignItems:'center'}} >
+                    <Image src={baraka2} style={{height:'auto' ,width:'100%',opacity:'0.8'}}  />
+                    
+                </div>
+
+            
+
+            <div className=' mt-4' >
+            <div className='container' >
+                <h4 style={{color:'white',fontWeight:'bold',}}>Aimeriez vous renforcer la capicité de vos équipes à travers une évaluation  à 360°?</h4> <br />
+                    <h4 style={{color:'white',fontWeight:'bold',}}><span style={{color:'#FFB703'}}>MY FEEDBACK <span className='text-white'>360°</span></span> est la solution</h4>
+                    <p style={{color:'white', textAlign:'justify'}} className='mt-5'>MYFEEDBACK <span style={{color:'#FFB703'}}>360°</span> offre une plateforme d'évaluation en ligne novatrice pour 
+                       les entreprises désireuses de favoriser un environnement de travail
+                       collaboratif et axé sur l'amélioration continue. Grâce à son expertise 
+                       dans le domaine de l'évaluation des équipes, Byfeeding propose une solution 
+                       personnalisée et flexible adaptée aux besoins spécifiques de chaque entreprise.
+                    </p>
+                    <Button className='w-90 mt-2' 
+                        style={{width:'100%', backgroundColor:'#FFB703', border:'none',
+                        boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px' }}>
+                        <Link to={'/about'} style={{textDecoration:'none', color:'#004573'}}>Voir plus</Link>
+                    </Button>
+            </div>
+            </div>
+
+        </div>
+
       </section>
+     
       {/****************************  qui sommes nous  fin*******************************/}
 
       {/****************************  comment sa marche  debut****************************/}
