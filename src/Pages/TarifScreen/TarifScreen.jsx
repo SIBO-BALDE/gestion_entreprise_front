@@ -64,7 +64,7 @@ export default function TarifScreen() {
             <Underline text='Les differents plan pour vos business'/>
             <div>
             
-              {/* <div className=" container container1  mt-5 mb-5" id='container1'>
+              <div className=" container container1  mt-5 mb-5" id='container1'>
              
                 <div className="card card-1 content_price_1">
                     <h2>Forfait mensuel</h2>
@@ -120,7 +120,7 @@ export default function TarifScreen() {
                     </ul>
                     <Button className="select1"><Link to={'/devis_contact'} style={{textDecoration:'none', color:'white'}}>Choisi ton plan</Link></Button>
                 </div>
-              </div> */}
+              </div>
             
 
             </div>
