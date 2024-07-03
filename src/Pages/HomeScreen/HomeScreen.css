@@ -64,6 +64,7 @@
 
 
 /* **************************style chiffre clés debut ***************************** */
+
 .content_main_chiffre1{
     border-radius: 50%;
     width: 100px;
@@ -91,12 +92,13 @@
 
 /* **************************style qui somme nous debut ***************************** */
 
-.content_section2_home-main-only{
+.content_section2_home-main-only, #content_section2_home-main-only{
     background-color: var(--principal);
     padding-top: 30px ;
     padding-bottom: 70px;
     width: 100% !important;
-    /* border: 10px solid green; */
+    height: auto !important;
+   
 }
 .reference1_home{
     border: 3px solid var(--seconde);
@@ -112,7 +114,6 @@
     color: var(--troisieme);
 }
 #btn_about_home_middle:hover{
-    /* background-color: var(--principal) !important; */
     border: 2px solid var(--troisieme) !important;
     color: var(--troisieme);
    
@@ -125,7 +126,7 @@
     transform: scaleY(1);
 }
 50% {
-    transform: scaleY(0); /* Mettez à zéro pour réduire la hauteur à zéro */
+    transform: scaleY(0); 
 }
 100% {
     transform: scaleY(1);
@@ -138,7 +139,6 @@
     gap: 5px;
   }
   .one1{
-    /* border: 1px solid red; */
     
     width: 100%;
     height: auto;
@@ -328,10 +328,6 @@ ul.timeline-list li {
 .timeline_content {
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
 	  background-color:#fff;
-    /* height: 20px; */
-    /* border-right: 7px solid var(--seconde);
-    
-    .border-bottom: 7px solid var(--seconde); */
 }
 
 .timeline_content:hover{
@@ -386,7 +382,7 @@ ul.timeline-list li .timeline_content {
 	color: black;
     border-radius: 10px;
 	float: left;
-    /* height: 350px; */
+    
 	
 }
 #content1, #timeline_content{
@@ -470,7 +466,6 @@ ul.timeline-list li:before {
     width: 15px;
     height: 15px;
     margin-bottom: 0;
-    /* margin-top: 75px; */
   }
   .title-temoinhome{
     margin-top: 90px;
@@ -501,7 +496,6 @@ ul.timeline-list li:before {
   .contenthome1{
    
     background-color:var(--troisieme);
-    /* margin: 40px 0; */
     padding-top: 0.2rem !important;
     padding-bottom: 5rem !important;
    
@@ -537,9 +531,7 @@ ul.timeline-list li:before {
 
   
 /* ************************** notre équipe  fin  ***************************** */
-/* *{
-  outline: 1px solid red;
-} */
+
 
 
 
@@ -647,20 +639,51 @@ ul.timeline-list li:before {
   
 
 }
+/* ici */
 @media  screen and (max-width:1271px) {
 .content-flex-about-home-main{
   display: flex;
   flex-direction: column;
-  
-
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+ 
 }
 .content-text-main-home{
-  width: 98% !important;
+  width: 72% !important;
+  margin-top: 20px;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+  /* height: auto; */
+  height: 100%;
   
 }
+
 .one1{
   display: flex;
   justify-content: center;
+}
+
+/* container image  qui sommes nous*/
+#content-flex-about-home-main-oneline{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  margin: 0;
+}
+/* balise div  image qui sommes nous */
+#content-flex-about-home-main-content-nous{
+  width: 72% !important;
+}
+/* balise  image qui sommes nous */
+#content-flex-about-home-main-content-nous-img{
+  width: 100% !important;
+  
+
 }
 
 }
@@ -739,6 +762,15 @@ ul.timeline-list li:before {
   
 
 }
+@media  screen and (max-width:650px){
+  #content-flex-about-home-main-content-nous{
+    height:50% !important;
+  }
+  #content-flex-about-home-main-content-nous-img{
+    height:100% !important;
+  }
+
+}
 
 @media  screen and (max-width:440px){
   .two_btns_home{
@@ -761,6 +793,7 @@ ul.timeline-list li:before {
     padding-top: 30px ;
     padding-bottom: 150px;
     width: 100% !important;
+    height: auto !important;;
    
 }
 .one1{
@@ -802,6 +835,30 @@ ul.timeline-list li:before {
 #content_midle_home_correct-content{
 
 }
+}
+@media  screen and (max-width:860px){
+  #content_section2_home-main-only{
+   
+   padding-bottom: 200px;
+  }
+}
+@media  screen and (max-width:523px){
+  #content_section2_home-main-only{
+   
+   padding-bottom: 300px;
+  }
+}
+@media  screen and (max-width:384px){
+  #content_section2_home-main-only{
+   
+   padding-bottom: 400px;
+  }
+}
+@media  screen and (max-width:326px){
+  #content_section2_home-main-only{
+   
+   padding-bottom: 490px;
+  }
 }
 
 

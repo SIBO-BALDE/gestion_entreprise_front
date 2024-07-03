@@ -29,6 +29,18 @@ export default function HomeScreen() {
         AOS.init();
       }, [])
 
+      useEffect(() => {
+        const handleResize = () => {
+          if (window.innerWidth <= 570) {
+            document.querySelectorAll('[data-aos="fade-right"], [data-aos="fade-left"]').forEach(el => {
+              el.removeAttribute('data-aos');
+            });
+          }
+        };
+    
+        handleResize(); // Exécuter au montage du composant
+      }, []);
+
      
   return (
     <div>
@@ -78,7 +90,7 @@ export default function HomeScreen() {
 
       {/****************************  qui sommes nous  debut****************************/}
       
-      <section className='content_section2_home-main-only'>
+      <section className='content_section2_home-main-only' id='content_section2_home-main-only'>
         
         <div>
             <Underline  text='Qui sommes-nous ?' color='white'/>
@@ -90,12 +102,13 @@ export default function HomeScreen() {
                 <div  className='reference1_home me-1 ' style={{marginTop:'56px'}}></div>
                 <div  className='reference2_home' style={{marginTop:'30px'}}></div>
             </div>
-                <div style={{height:'100%',width:'90%',backgroundColor:'black'}}>
-                    <Image src={baraka2} style={{height:'100%' ,width:'100%',opacity:'0.8'}} />
+                <div style={{height:'100%',width:'90%',backgroundColor:'black'}} id='content-flex-about-home-main-content-nous'>
+                    <Image src={baraka2} style={{height:'100%' ,width:'100%',opacity:'0.8'}} id='content-flex-about-home-main-content-nous-img' />
                     
                 </div>
 
             </div>
+
             <div className='one1' style={{height:'350px'}}>
             <div style={{ height:'100%', width:'100%'}} className='content-text-main-home'>
                 <h4 style={{color:'white',fontWeight:'bold',}}>Aimeriez vous renforcer la capicité de vos équipes à travers une évaluation  à 360°?</h4> <br />
