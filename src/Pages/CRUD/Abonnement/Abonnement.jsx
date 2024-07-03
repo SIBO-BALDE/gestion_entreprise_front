@@ -51,7 +51,7 @@ export default function Abonnement() {
         try {
           
             const response = await axios.get(
-              "http://localhost:8000/api/listes/abonements",
+              "https://api.com.myfeedback360.com/api/listes/abonements",
               {
                 headers: {
                   Authorization: `Bearer ${token}`,
@@ -97,7 +97,7 @@ export default function Abonnement() {
           try {
             if (token || role==="SuperAdmin"){
               const response = await axios.post(
-                "http://localhost:8000/api/abonment/create",
+                "https://api.com.myfeedback360.com/api/abonment/create",
                 userData,
                 {
                   headers: {
@@ -217,7 +217,7 @@ const [editUserData, setEditUserData] = useState({
           if (token || role==="SuperAdmin"){
 
             const response = await axios.post(
-              `http://localhost:8000/api/abonment/update/${editUserData.id}`,
+              `https://api.com.myfeedback360.com/api/abonment/update/${editUserData.id}`,
               editUserData,
               {
                 headers: {
@@ -278,7 +278,7 @@ const [editUserData, setEditUserData] = useState({
         try {
           if (token || role === "SuperAdmin"){
             const response = await axios.delete(
-              `http://localhost:8000/api/abonements/${id}/soft-delete`,
+              `https://api.com.myfeedback360.com/api/abonements/${id}/soft-delete`,
               {
                 headers: {
                   'Content-Type': 'multipart/form-data',
@@ -555,7 +555,7 @@ const [editUserData, setEditUserData] = useState({
         id="buttonModifier"
       >
         <Modal.Header closeButton>
-          <Modal.Title>Modifier user</Modal.Title>
+          <Modal.Title>Modifier un abonnement</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {editUserData && editUserData.nom && (
@@ -615,7 +615,7 @@ const [editUserData, setEditUserData] = useState({
                     });
                   
                   }}
-                  type="date"
+                  type="text"
                   placeholder=""
                 />
                

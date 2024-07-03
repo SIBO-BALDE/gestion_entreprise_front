@@ -40,7 +40,7 @@ export default function Footer() {
     }
     try {
         const response = await axios.post(
-          "http://localhost:8000/api/newsletter/create",
+          "https://api.com.myfeedback360.com/api/newsletter/create",
 
           emailData,
         
@@ -57,7 +57,7 @@ export default function Footer() {
         }
 
         // Vérifiez si la requête a réussi
-        if (response.status === 200) {
+        if (response.status === 201) {
           // Ajoutez la nouvelle email à la liste existante
           console.log(response, 'response newsletter')
           setEmails([...emails, response.data]);

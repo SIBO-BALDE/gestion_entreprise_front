@@ -64,7 +64,7 @@ export default function GestionUser({ id }) {
     try {
       if (token || role === "Admin") {
         const response = await axios.get(
-          "http://localhost:8000/api/categories",
+          "https://api.com.myfeedback360.com/api/categories",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -93,7 +93,7 @@ export default function GestionUser({ id }) {
       try {
         if (token || role === "Admin") {
           const response = await axios.get(
-            "http://localhost:8000/api/entreprises",
+            "https://api.com.myfeedback360.com/api/entreprises",
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -121,7 +121,7 @@ export default function GestionUser({ id }) {
       try {
         if (token || role === "Admin") {
           const response = await axios.get(
-            "http://localhost:8000/api/participants",
+            "https://api.com.myfeedback360.com/api/participants",
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -221,7 +221,7 @@ export default function GestionUser({ id }) {
       try {
         if (token || role==="Admin"){
           const response = await axios.post(
-            "http://localhost:8000/api/participant/create",
+            "https://api.com.myfeedback360.com/api/participant/create",
             userData,
             {
               headers: {
@@ -313,7 +313,7 @@ export default function GestionUser({ id }) {
           const users = XLSX.utils.sheet_to_json(sheet);
 
           // Envoyer le fichier directement au serveur
-          axios.post('http://localhost:8000/api/import/participants', formData, {
+          axios.post('https://api.com.myfeedback360.com/api/import/participants', formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
               Authorization: `Bearer ${token}`,
@@ -406,7 +406,7 @@ export default function GestionUser({ id }) {
           if (token || role==="Admin"){
 
             const response = await axios.post(
-              `http://localhost:8000/api/participant/update/${editUserData.id}`,
+              `https://api.com.myfeedback360.com/api/participant/update/${editUserData.id}`,
               editUserData,
               {
                 headers: {
@@ -468,7 +468,7 @@ export default function GestionUser({ id }) {
     try {
         if (token || role === "Admin") {
             const response = await axios.post(
-                `http://localhost:8000/api/participant/${id}/bloquer`,
+                `https://api.com.myfeedback360.com/api/participant/${id}/bloquer`,
                 {}, // Passer un objet vide en tant que corps de la requête
                 {
                     headers: {
@@ -511,7 +511,7 @@ const fetchUsersBlock = async () => {
   try {
     if (token || role === "Admin") {
       const response = await axios.get(
-        "http://localhost:8000/api/liste/participants/bloquer",
+        "https://api.com.myfeedback360.com/api/liste/participants/bloquer",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -550,7 +550,7 @@ const debloquerUser = async (id) => {
   try {
       if (token || role === "Admin") {
           const response = await axios.post(
-              `http://localhost:8000/api/participant/${id}/debloquer`,
+              `https://api.com.myfeedback360.com/api/participant/${id}/debloquer`,
               {}, // Passer un objet vide en tant que corps de la requête
               {
                   headers: {
@@ -661,7 +661,7 @@ const debloquerUser = async (id) => {
    
    try {
      if (token && role === "Admin") {
-       const response = await axios.get(`http://localhost:8000/api/users/evaluations/${id}`, {
+       const response = await axios.get(`https://api.com.myfeedback360.com/api/users/evaluations/${id}`, {
          headers: {
            Authorization: `Bearer ${token}`,
          },

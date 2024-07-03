@@ -58,7 +58,7 @@ import LoadingBox from "../../../Components/LoadingBox/LoadingBox";
         try {
           if (token || role === "Admin") {
             const response = await axios.get(
-              "http://localhost:8000/api/ContactAbonementCs",
+              "https://api.com.myfeedback360.com/api/ContactAbonementCs",
               {
                 headers: {
                   Authorization: `Bearer ${token}`,
@@ -96,7 +96,7 @@ import LoadingBox from "../../../Components/LoadingBox/LoadingBox";
       try {
         if (token || role === "Admin"){
           const response = await axios.delete(
-            `http://localhost:8000/api/ContactAbonements/${id}/soft-delete`,
+            `https://api.com.myfeedback360.com/api/ContactAbonements/${id}/soft-delete`,
             {
               headers: {
                 'Content-Type': 'multipart/form-data',

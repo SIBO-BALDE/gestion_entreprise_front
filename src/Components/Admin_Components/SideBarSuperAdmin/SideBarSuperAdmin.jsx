@@ -30,7 +30,7 @@ export default function SideBarSuperAdmin({ isOpen, name, handleChangePath }) {
       const role = localStorage.getItem("rolecle");
       if (token || role === "SuperAdmin") {
         const response = await axios.post(
-          "http://localhost:8000/api/logout",
+          "https://api.com.myfeedback360.com/api/logout",
           {},
           {
             headers: { Authorization: `Bearer ${token}` },

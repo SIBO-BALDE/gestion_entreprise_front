@@ -160,7 +160,7 @@ export default function GestionEvaluationAdmin() {
         console.log('Données d\'évaluation à envoyer :', requestData);
 
         const response = await axios.post(
-          'http://localhost:8000/api/Questionsevaluation/create',
+          'https://api.com.myfeedback360.com/api/Questionsevaluation/create',
           requestData,
           {
             headers: {
@@ -202,7 +202,7 @@ export default function GestionEvaluationAdmin() {
     try {
       if (token || role === "Admin") {
         const response = await axios.get(
-          "http://localhost:8000/api/listes/evaluation/archives",
+          "https://api.com.myfeedback360.com/api/listes/evaluation/archives",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -246,7 +246,7 @@ const archiverEvaluation = async (evenement_id) => {
       console.log("evenementId seconde :", evenement_id);
       // Envoie une requête PUT à l'endpoint pour archiver l'évaluation avec l'evenementId spécifié
       const response = await axios.put(
-        `http://localhost:8000/api/archiver/evaluation/${evenement_id}`,
+        `https://api.com.myfeedback360.com/api/archiver/evaluation/${evenement_id}`,
         {}, 
         {
           headers: {
@@ -288,7 +288,7 @@ const archiverEvaluation = async (evenement_id) => {
     try {
       if (token || role === "Admin") {
         const response = await axios.get(
-          "http://localhost:8000/api/categories",
+          "https://api.com.myfeedback360.com/api/categories",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -317,7 +317,7 @@ const fetchEvaluations = async () => {
   try {
     // if (token) {
       const response = await axios.get(
-        "http://localhost:8000/api/evaluations/question/reponse",
+        "https://api.com.myfeedback360.com/api/evaluations/question/reponse",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -584,7 +584,7 @@ const submitEditEvaluation = async () => {
       };
 
       const response = await axios.put(
-        `http://localhost:8000/api/Questions/reponse/evaluation/update/${editEvaluationData.id}`,
+        `https://api.com.myfeedback360.com/api/Questions/reponse/evaluation/update/${editEvaluationData.id}`,
         filteredData,
         {
           headers: {

@@ -52,7 +52,7 @@ export default function GestionCategorie() {
     try {
       if (token && role === "Admin") {
         const response = await axios.post(
-          "http://localhost:8000/api/categorie/create",
+          "https://api.com.myfeedback360.com/api/categorie/create",
 
           categoryData,
           {
@@ -98,7 +98,7 @@ export default function GestionCategorie() {
     try {
       // if (token || role === "Admin") {
         const response = await axios.get(
-          "http://localhost:8000/api/categories",
+          "https://api.com.myfeedback360.com/api/categories",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -143,7 +143,7 @@ export default function GestionCategorie() {
     try {
       if (token || role === "Admin") {
           const response = await axios.post(
-          `http://localhost:8000/api/categorie/update/${editCategoryData.id}`,
+          `https://api.com.myfeedback360.com/api/categorie/update/${editCategoryData.id}`,
           editCategoryData,
           {
             headers: {
@@ -195,7 +195,7 @@ export default function GestionCategorie() {
     try {
       if (token || role === "Admin"){
         const response = await axios.delete(
-          `http://localhost:8000/api/categories/${id}/soft-delete`,
+          `https://api.com.myfeedback360.com/api/categories/${id}/soft-delete`,
           {
             headers: {
               'Content-Type': 'multipart/form-data',

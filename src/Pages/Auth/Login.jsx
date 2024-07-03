@@ -84,102 +84,9 @@ export default function Login() {
 
 
 // function pour la connexion
-  const Handlelogin = async (e) => {
-    e.preventDefault();
-    const token = localStorage.getItem("tokencle");
-  
-    // Vérification si les champs sont vides
-    if (!email || !password) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops!",
-        text: "Les champs ne peuvent pas être vides!",
-      });
-      return;
-    }
-  
-    // Vérification du format de l'email
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(email)) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops!",
-        text: "Le format de l'email n'est pas valide!",
-      });
-      return;
-    }
-  
-    // Vérification de la longueur du mot de passe
-    if (password.length < 8) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops!",
-        text: "Le mot de passe doit comporter au moins 8 caractères!",
-      });
-      return;
-    }
-  
-    const credentials = {
-      email,
-      password,
-    };
-  
-    try {
-      // const apiUrl = 'https://myfeedbaks360s.kevacom.com';
-      const response = await axios.post('https://api.com.myfeedback360.com/api/login', credentials, 
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            // Accept: "application/json",
-            // "Content-Type": "application/json",
-          },
-        }
-      );
-   
-      
-      console.log(credentials, 'credentials');
-      console.log(response, 'response');
-  
-      if (response.data.status === 402) {
-        Swal.fire({
-          icon: "error",
-          title: "Oops!",
-          text: "Ce compte a été bloqué!",
-        });
-        return;
-      }
-  
-      if (response.status === 200) {
-        const data = response.data;
-        const tokenauth = data.token;
-        const userRole = response.data.roles[0];
-  
-        console.log(tokenauth, 'cest le token');
-        console.log(userRole, 'cest le role');
-        localStorage.setItem("tokencle", tokenauth);
-        localStorage.setItem("rolecle", userRole);
-        login(userRole);
-  
-        if (userRole === "Admin") {
-          navigate("/dashbordAdmin");
-        } else if (userRole === "SuperAdmin") {
-          navigate("/dashbordSuperAdmin");
-        } else {
-          navigate("/dashbordUser");
-        }
-      }
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops!",
-        text: "Ce compte n'existe pas!",
-      });
-      console.log(error);
-    }
-  };
-  // 
   // const Handlelogin = async (e) => {
   //   e.preventDefault();
+  //   const token = localStorage.getItem("tokencle");
   
   //   // Vérification si les champs sont vides
   //   if (!email || !password) {
@@ -218,20 +125,22 @@ export default function Login() {
   //   };
   
   //   try {
-  //     const response = await fetch('https://myfeedbaks360s.kevacom.com/api/login', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Accept': 'application/json',
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(credentials),
-  //       mode: 'cors',
-  //       credentials: 'include',
-  //     });
+  //     // const apiUrl = 'https://myfeedbaks360s.kevacom.com';
+  //     const response = await axios.post('https://api.com.myfeedback360.com/api/login', credentials, 
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //           Accept: "application/json",
+  //           "Content-Type": "application/json",
+  //         },
+  //       }
+  //     );
+   
+      
+  //     console.log(credentials, 'credentials');
+  //     console.log(response, 'response');
   
-  //     const data = await response.json();
-  
-  //     if (response.status === 402) {
+  //     if (response.data.status === 402) {
   //       Swal.fire({
   //         icon: "error",
   //         title: "Oops!",
@@ -241,8 +150,9 @@ export default function Login() {
   //     }
   
   //     if (response.status === 200) {
+  //       const data = response.data;
   //       const tokenauth = data.token;
-  //       const userRole = data.roles[0];
+  //       const userRole = response.data.roles[0];
   
   //       console.log(tokenauth, 'cest le token');
   //       console.log(userRole, 'cest le role');
@@ -257,23 +167,112 @@ export default function Login() {
   //       } else {
   //         navigate("/dashbordUser");
   //       }
-  //     } else {
-  //       Swal.fire({
-  //         icon: "error",
-  //         title: "Oops!",
-  //         text: "Ce compte n'existe pas!",
-  //       });
   //     }
   //   } catch (error) {
   //     Swal.fire({
   //       icon: "error",
   //       title: "Oops!",
-  //       text: "Une erreur est survenue!",
+  //       text: "Ce compte n'existe pas!",
   //     });
-  //     console.error('Error:', error);
+  //     console.log(error);
   //   }
   // };
   
+  const Handlelogin = async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("tokencle");
+
+    // Vérification si les champs sont vides
+    if (!email || !password) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops!",
+        text: "Les champs ne peuvent pas être vides!",
+      });
+      return;
+    }
+
+    // Vérification du format de l'email
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops!",
+        text: "Le format de l'email n'est pas valide!",
+      });
+      return;
+    }
+
+    // Vérification de la longueur du mot de passe
+    if (password.length < 8) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops!",
+        text: "Le mot de passe doit comporter au moins 8 caractères!",
+      });
+      return;
+    }
+
+    const credentials = {
+      email,
+      password,
+    };
+
+    try {
+      const response = await axios.post(
+        "https://api.com.myfeedback360.com/api/login",
+        credentials,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log(credentials, "credentials");
+      console.log(response, "response");
+
+      if (response.data.status === 402) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops!",
+          text: "Ce compte a été bloqué!",
+        });
+        return;
+      }
+
+      if (response.status === 200) {
+        const data = response.data;
+        const tokenauth = data.token;
+        const userRole = response.data.roles[0];
+
+        console.log(tokenauth, "cest le token");
+        console.log(userRole, "cest le role");
+        localStorage.setItem("tokencle", tokenauth);
+        localStorage.setItem("rolecle", userRole);
+        login(userRole);
+
+        if (userRole === "Admin") {
+          navigate("/dashbordAdmin");
+        } else if (userRole === "SuperAdmin") {
+          navigate("/dashbordSuperAdmin");
+        } else {
+          navigate("/dashbordUser");
+        }
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops!",
+        text: "Ce compte n'existe pas!",
+      });
+      console.log(error);
+    }
+  };
+
+
 
   return (
    <div className='wrapper_content_form'>

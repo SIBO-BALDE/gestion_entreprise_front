@@ -48,7 +48,7 @@ function KPI() {
   try {
     if (token || role === "Admin") {
       const response = await axios.get(
-        "http://localhost:8000/api/categories",
+        "https://api.com.myfeedback360.com/api/categories",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -144,7 +144,7 @@ useEffect(() => {
     try {
       if (token || role === "SuperAdmin") {
         const response = await axios.get(
-          "http://localhost:8000/api/listes/admins",
+          "https://api.com.myfeedback360.comapi/listes/admins",
           {
             headers: {
               Authorization: `Bearer ${token}`,

@@ -37,7 +37,7 @@ export default function GestionMessage({ id }) {
      try {
        if (token || role === "Admin") {
          const response = await axios.get(
-           "http://localhost:8000/api/contactes",
+           "https://api.com.myfeedback360.com/api/contactes",
            {
              headers: {
                Authorization: `Bearer ${token}`,
@@ -67,7 +67,7 @@ export default function GestionMessage({ id }) {
     try {
       if (token || role === "Admin"){
         const response = await axios.delete(
-          `http://localhost:8000/api/contacte/${id}/soft-delete`,
+          `https://api.com.myfeedback360.com/api/contacte/${id}/soft-delete`,
           {
             headers: {
               'Content-Type': 'multipart/form-data',

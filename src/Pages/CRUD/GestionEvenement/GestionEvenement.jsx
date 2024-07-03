@@ -115,72 +115,7 @@ export default function GestionEvenement({ id }) {
   };
 
 
-   // function pour ajouter une categorie
-  //  const ajouterEvent = async () => {
-  //   const token = localStorage.getItem("tokencle");
-  //   const role = localStorage.getItem("rolecle");
-  //   // alert('okay')
-  
-  //   if(eventData.titre === "" ||  eventData.description === ""  || eventData.date_debut === "" || eventData.date_fin === "" ){
-  //     Swal.fire({
-  //       icon: "error",
-  //       title: "Oops!",
-  //       text: "les champs sont  obligatoires!",
-  //     });
-  //     // console.log(eventData, 'categoriedata')
-  //     return
-  //   }
-  //   try {
-  //     if (token && role === "Admin") {
-  //       const response = await axios.post(
-  //         "http://localhost:8000/api/evenement/create",
-
-  //         eventData,
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
-  //       console.log(response, 'responses event ajout')
-  //       const essay =response.data.Evenement
-  //       console.log(essay , 'essay')
-
-  //       // Vérifiez si la requête a réussi
-  //       if (response.status === 200) {
-  //         // Ajoutez la nouvelle maison à la liste existante
-  //         console.log(response, 'response categorie')
-  //         setEvents([...events, response.data.Evenement
-  //         ]);
-  //         setLoading(false)
-          
-  //         console.log(events, 'events event')
-  //         // Réinitialisez les valeurs du formulaire après avoir ajouté la maison
-  //         setEventData({
-  //           titre: "",
-  //           description: "",
-  //           date_debut: "",
-  //           date_fin: "",
-           
-  //         });
-  //         Swal.fire({
-  //           icon: "success",
-  //           title: "Succès!",
-  //           text: "evenement ajouter avec succée!",
-  //         });
-  //         // Fermez le modal
-  //         handleCloseEdit();
-  //         fetchEvents()
-  //       } else {
-  //         console.error("Erreur dans lajout de maison");
-  //       }
-  //     }
-  //   } catch (error) {
-  //     // Gestion des erreurs Axios
-  //     console.error("Erreur Axios:", error);
-  //   }
-  // };
-
+  //  Funtion pour ajouter un evenement
   const ajouterEvent = async () => {
     const token = localStorage.getItem("tokencle");
     const role = localStorage.getItem("rolecle");
@@ -219,7 +154,7 @@ export default function GestionEvenement({ id }) {
     try {
       if (token && role === "Admin") {
         const response = await axios.post(
-          "http://localhost:8000/api/evenement/create",
+          "https://api.com.myfeedback360.com/api/evenement/create",
           eventData,
           {
             headers: {
@@ -247,6 +182,7 @@ export default function GestionEvenement({ id }) {
             title: "Succès!",
             text: "Événement ajouté avec succès!",
           });
+          setLoading(false)
           setEventLink(eventLink);
           setEventToken(extractedToken);
           fetchEvents();
@@ -261,16 +197,16 @@ export default function GestionEvenement({ id }) {
       console.error("Erreur Axios:", error);
     }
   };
+
   
-
-
+// Function pour lister les evenements
   const fetchEvents = async () => {
     const role = localStorage.getItem("rolecle");
     const token = localStorage.getItem("tokencle");
     try {
       if (token || role === "Admin") {
         const response = await axios.get(
-          "http://localhost:8000/api/evenements",
+          "https://api.com.myfeedback360.com/api/evenements",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -311,7 +247,7 @@ export default function GestionEvenement({ id }) {
           try {
             // Suppression de l'événement
             const response = await axios.delete(
-              `http://localhost:8000/api/evenements/${id}/soft-delete`,
+              `https://api.com.myfeedback360.com/api/evenements/${id}/soft-delete`,
               {
                 headers: {
                   'Content-Type': 'multipart/form-data',
@@ -355,7 +291,7 @@ export default function GestionEvenement({ id }) {
   };
   
 
-  //  etat pour modifier categorie
+  //  etat pour modifier evenement
  const [editEventData, setEditEventData] = useState({
   id: null,
   titre: "",
@@ -366,8 +302,7 @@ export default function GestionEvenement({ id }) {
   
 });
 
-  // Gestionnaire de clic pour le bouton de modification
-
+  // Gestionnaire de clic pour le bouton de modification (recuperer les information lors du clique du button modal)
   const handleShowEditEvents = (eventEl) => {
     setEditEventData({
       id: eventEl.id,
@@ -384,48 +319,7 @@ export default function GestionEvenement({ id }) {
   };
   
 
-  // Fonction pour mettre à jour une catégorie
-
-  // const modifierEvent = async () => {
-  //   const role = localStorage.getItem("rolecle");
-  //   const token = localStorage.getItem("tokencle");
-  //   try {
-  //     if (token || role === "Admin") {
-  //         const response = await axios.post(
-  //         `http://localhost:8000/api/evenement/update/${editEventData.id}`,
-  //         editEventData,
-  //         {
-  //           headers: {
-  //             "Content-Type": "multipart/form-data",
-  //             Authorization: `Bearer ${token}`,
-  //           },
-  //         }
-  //       );
-  //       console.log(response, 'response ev modif')
-
-  //       if (response.status === 200) {
-  //         const updatedEvents = events.map((evtUp) =>
-  //           evtUp.id === editEventData.id
-  //             ? response.data.evenements
-  //             : evtUp
-  //         );
-  //         setEvents(updatedEvents);
-  //         setLoading(false)
-  //         handleCloseEditEvents();
-  //         Swal.fire({
-  //           icon: "success",
-  //           title: "Succès!",
-  //           text: "evenement mise à jour avec succès!",
-  //         });
-  //         fetchEvents();
-  //       } else {
-  //         console.error("erreur lors de la modification de la evenement");
-  //       }
-  //     }
-  //   } catch (error) {
-  //     console.error("une erreur  Axios:", error);
-  //   }
-  // };
+//Les functions pour incrementer les inputs des questions et des  reponses
   const handleQuestionChangeEdit = (index, value) => {
     const newQuestions = [...editEventData.questions];
     newQuestions[index].nom = value;
@@ -463,7 +357,7 @@ export default function GestionEvenement({ id }) {
     setEditEventData({ ...editEventData, questions: newQuestions });
   };
   
-
+// Function pour modifier evenement
   const modifierEvent = async () => {
     const role = localStorage.getItem("rolecle");
     const token = localStorage.getItem("tokencle");
@@ -480,7 +374,7 @@ export default function GestionEvenement({ id }) {
     try {
       if (token && role === "Admin") {
         const response = await axios.post(
-          `http://localhost:8000/api/evenement/update/${editEventData.id}`,
+          `https://api.com.myfeedback360.com/api/evenement/update/${editEventData.id}`,
           editEventData,
           {
             headers: {
@@ -593,7 +487,7 @@ const totalPaginationPages = Math.ceil(
   eventsBlok.length / eventsBlokParPage
 );
 
-
+// Function pour lister les reponses
 const fetchFeedbackResponses = async (evenement_id) => {
   console.log("Evenement ID:", evenement_id);
  
@@ -601,7 +495,7 @@ const fetchFeedbackResponses = async (evenement_id) => {
   try {
     const token = localStorage.getItem("tokencle");
     const response = await axios.get(
-      `http://localhost:8000/api/listes/reponses/question/evenement/${evenement_id}`,
+      `https://api.com.myfeedback360.com/api/listes/reponses/question/evenement/${evenement_id}`,
       
       {
         headers: {
@@ -618,13 +512,11 @@ const fetchFeedbackResponses = async (evenement_id) => {
 };
 
 const fetchFeedbackResponses2 = async (evenement_id) => {
-  // console.log("Evenement ID:", evenement_id);
- 
-
+  
   try {
     const token = localStorage.getItem("tokencle");
     const response = await axios.get(
-      `http://localhost:8000/api/listes/reponses/question/evenement/repnodre/${evenement_id}`,
+      `https://api.com.myfeedback360.com/api/listes/reponses/question/evenement/repnodre/${evenement_id}`,
       
       {
         headers: {
@@ -640,6 +532,8 @@ const fetchFeedbackResponses2 = async (evenement_id) => {
   }
 };
 
+
+// Function pour recuperer les reponse lors du click d'un button sur un modal
 const handleButtonClick = async (evenement_id) => {
   
   console.log("Evenement ID:", evenement_id);
@@ -647,8 +541,8 @@ const handleButtonClick = async (evenement_id) => {
   await fetchFeedbackResponses2(evenement_id);
   setShowAdd(true);
 };
-// **********************************Chart******************************************//
 
+// ***** Function pour afficher le nombre personne donnant la reponses dans un diagrammeChart*******//
 const prepareChartData = (reponse) => {
   const responseCounts = reponse.reponses.map(r => r.count);
   const labels = reponse.reponses.map(r => r.nom);
@@ -707,14 +601,14 @@ const chartContainerStyle = {
 };
 
 
-
+// Function pour lister les evenement bloques
 const fetchEventsBlok = async () => {
   const role = localStorage.getItem("rolecle");
   const token = localStorage.getItem("tokencle");
   try {
     if (token || role === "Admin") {
       const response = await axios.get(
-        "http://localhost:8000/api/listes/evenements/archives",
+        "https://api.com.myfeedback360.com/api/listes/evenements/archives",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -734,8 +628,8 @@ useEffect(() => {
   fetchEventsBlok();
 }, []);
 
-// archiver 
 
+//  Function pour archiver les evenement  
 const archiverEvaluation = async (id) => {
   const token = localStorage.getItem("tokencle");
   const role = localStorage.getItem("rolecle");
@@ -760,7 +654,7 @@ const archiverEvaluation = async (id) => {
       if (token && role === 'Admin') {
         try {
           const response = await axios.post(
-            `http://localhost:8000/api/archiver/evenement/${id}`,
+            `https://api.com.myfeedback360.com/api/archiver/evenement/${id}`,
             {},
             {
               headers: {
@@ -783,7 +677,7 @@ const archiverEvaluation = async (id) => {
 
 
 
-// Fonction pour copier le lien generer 
+// Fonction pour copier le lien generer  en creant un evenement
 const copyToClipboard = () => {
   navigator.clipboard.writeText(eventLink).then(() => {
     Swal.fire({

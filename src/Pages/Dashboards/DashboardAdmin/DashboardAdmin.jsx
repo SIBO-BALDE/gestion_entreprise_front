@@ -51,7 +51,7 @@ function KPI() {
   try {
     if (token || role === "Admin") {
       const response = await axios.get(
-        "http://localhost:8000/api/categories",
+        "https://api.com.myfeedback360.com/api/categories",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -78,7 +78,7 @@ useEffect(() => {
     try {
       if (token || role === "Admin") {
         const response = await axios.get(
-          "http://localhost:8000/api/entreprises",
+          "https://api.com.myfeedback360.com/api/entreprises",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -104,7 +104,7 @@ useEffect(() => {
     try {
       if (token || role === "Admin") {
         const response = await axios.get(
-          "http://localhost:8000/api/participants",
+          "https://api.com.myfeedback360.com/api/participants",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -135,7 +135,7 @@ useEffect(() => {
      try {
        if (token || role === "Admin") {
          const response = await axios.get(
-           "http://localhost:8000/api/evenements",
+           "https://api.com.myfeedback360.com/api/evenements",
            {
              headers: {
                Authorization: `Bearer ${token}`,
@@ -229,7 +229,7 @@ useEffect(() => {
     try {
       const token = localStorage.getItem("tokencle");
       const response = await axios.get(
-        `http://localhost:8000/api/categories/questions-and-reponses/${CategorieId}/${evaluationId}`,
+        `https://api.com.myfeedback360.com/api/categories/questions-and-reponses/${CategorieId}/${evaluationId}`,
         {
          
         }
@@ -271,7 +271,7 @@ useEffect(() => {
       }
 
       try {
-        const response = await axios.get('http://localhost:8000/api/liste/user/evaluer/admin', {
+        const response = await axios.get('https://api.com.myfeedback360.com/api/liste/user/evaluer/admin', {
           headers: {
             Authorization: `Bearer ${token}`,
           },

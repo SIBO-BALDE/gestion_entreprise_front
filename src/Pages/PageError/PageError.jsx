@@ -36,7 +36,7 @@ export default function PageError() {
               <span style={{  fontWeight: 'bold' }}>
                         
                         <Typewriter
-                          words={['Bienvenue! à MYFEEDBACK360']}
+                          words={['Bienvenue! à MY FEEDBACK 360°']}
                           loop={true}
                           cursor
                           cursorStyle='_'
@@ -49,10 +49,11 @@ export default function PageError() {
               </span>
                 </h2>
               <p style={{ color:'#fff',textAlign:'justify'}}>
-              Alerte rouge! Nos ingénieurs travaillent activement sur la mise au point de nouveaux
-              modèles d'évaluation. Ils ne sont pas encore prêts, mais ne désespérez pas! Nous vous 
+                {/* Ce modéle  */}
+               Nos ingénieurs travaillent activement sur la mise au point de ce
+              modèle .Il n'est pas encore  prêts, mais ne désespérez pas! Nous vous 
               tiendrons informés dès qu'ils seront opérationnels. Merci de votre soutien!
-                Merci de patienter on vous feras savoir dés qu'il est disponible.
+              Merci de patienter on vous feras savoir dés qu'il sera opérationnel.
               </p>
               <p style={{ color:'#fff'}}><Link to={'/'} style={{textDecoration:'none', color:'#FFB703', fontWeight:'bolder'}}>Cliquer ici </Link>
               pour revenir à la page d'accueil</p>

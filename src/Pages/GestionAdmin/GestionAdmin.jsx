@@ -61,7 +61,7 @@ export default function GestionAdmin({ id }) {
       try {
         
           const response = await axios.get(
-            "http://localhost:8000/api/listes/abonements",
+            "https://api.com.myfeedback360.com/api/listes/abonements",
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -91,7 +91,7 @@ const fetchEntreprises = async () => {
   try {
     if (token || role === "SuperAdmin") {
       const response = await axios.get(
-        "http://localhost:8000/api/listes/entrepriseAbonement",
+        "https://api.com.myfeedback360.com/api/listes/entrepriseAbonement",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -119,7 +119,7 @@ useEffect(() => {
       try {
         if (token || role === "SuperAdmin") {
           const response = await axios.get(
-            "http://localhost:8000/api/listes/admins",
+            "https://api.com.myfeedback360.com/api/listes/admins",
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -145,7 +145,7 @@ useEffect(() => {
       try {
         if (token || role === "SuperAdmin") {
           const response = await axios.get(
-            "http://localhost:8000/api/listes/admin/bloquer",
+            "https://api.com.myfeedback360.com/api/listes/admin/bloquer",
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -252,7 +252,7 @@ useEffect(() => {
       try {
         if (token || role==="SuperAdmin"){
           const response = await axios.post(
-            "http://localhost:8000/api/admin/create",
+            "https://api.com.myfeedback360.com/api/admin/create",
             userData,
             {
               headers: {
@@ -338,7 +338,7 @@ useEffect(() => {
           if (token || role==="SuperAdmin"){
 
             const response = await axios.post(
-              `http://localhost:8000/api/admin/update/${editUserData.id}`,
+              `https://api.com.myfeedback360.com/api/admin/update/${editUserData.id}`,
               editUserData,
               {
                 headers: {
@@ -401,7 +401,7 @@ useEffect(() => {
     try {
         if (token || role === "SuperAdmin") {
             const response = await axios.post(
-                `http://localhost:8000/api/admin/${id}/bloquer`,
+                `https://api.com.myfeedback360.com/api/admin/${id}/bloquer`,
                 {}, // Passer un objet vide en tant que corps de la requête
                 {
                     headers: {
@@ -459,7 +459,7 @@ const debloquerUser = async (id) => {
   try {
       if (token || role === "SuperAdmin") {
           const response = await axios.post(
-              `http://localhost:8000/api/admin/${id}/debloquer`,
+              `https://api.com.myfeedback360.com/api/admin/${id}/debloquer`,
               {}, // Passer un objet vide en tant que corps de la requête
               {
                   headers: {

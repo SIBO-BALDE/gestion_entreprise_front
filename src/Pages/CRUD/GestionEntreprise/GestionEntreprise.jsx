@@ -51,7 +51,7 @@ export default function GestionEntreprise() {
     try {
       if (token && role === "Admin") {
         const response = await axios.post(
-          "http://localhost:8000/api/entreprise/create",
+          "https://api.com.myfeedback360.com/api/entreprise/create",
 
           entrepriseData,
           {
@@ -97,7 +97,7 @@ export default function GestionEntreprise() {
     try {
       if (token || role === "Admin") {
         const response = await axios.get(
-          "http://localhost:8000/api/entreprises",
+          "https://api.com.myfeedback360.com/api/entreprises",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -141,7 +141,7 @@ export default function GestionEntreprise() {
     try {
       if (token || role === "Admin") {
           const response = await axios.post(
-          `http://localhost:8000/api/entreprise/update/${editentrepriseData.id}`,
+          `https://api.com.myfeedback360.com/api/entreprise/update/${editentrepriseData.id}`,
           editentrepriseData,
           {
             
@@ -193,7 +193,7 @@ export default function GestionEntreprise() {
     try {
       if (token || role === "Admin"){
         const response = await axios.delete(
-          `http://localhost:8000/api/entreprises/${id}/soft-delete`,
+          `https://api.com.myfeedback360.com/api/entreprises/${id}/soft-delete`,
           {
             headers: {
               'Content-Type': 'multipart/form-data',

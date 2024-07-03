@@ -36,7 +36,7 @@ export default function GestionNewsletter({ id }) {
     try {
       if (token || role === "SuperAdmin") {
         const response = await axios.get(
-          "http://localhost:8000/api/newsletters",
+          "https://api.com.myfeedback360.com/api/newsletters",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -118,7 +118,7 @@ const totalPaginationPages = Math.ceil(emails.length /   emailParPage);
   try {
     if (token || role === "SuperAdmin"){
       const response = await axios.delete(
-        `http://localhost:8000/api/newsletter/${id}/soft-delete`,
+        `https://api.com.myfeedback360.com/api/newsletter/${id}/soft-delete`,
         {
           headers: {
             'Content-Type': 'multipart/form-data',
