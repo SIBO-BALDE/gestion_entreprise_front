@@ -14,6 +14,8 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+
+
 /* ************************** footer  debut  ***************************** */
 .footer_content_main{
     padding-top: 50px;
@@ -40,8 +42,6 @@
 
 }
 .footer_bottom_home{
-    /* display: grid;
-    grid-template-columns: repeat(3,1fr); */
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -214,36 +214,24 @@
     
     
 }
-
-
-/* @media screen  and (max-width: 568px){
-   
-    .text-content-footer-all,
-    #text-content-footer-all
-    {
-        text-align: center !important;
-        align-content: center !important;
+@media screen and (max-width: 502px) {
+    #input_searchcontent_footer {
+        width: 200px; 
     }
-    #text-content-footer-all{
-       display: flex;
-       flex-direction: column;
-       justify-content: center;
-       
-
-    }
-    .text-content-footer-all{
-        margin-top: 20px;
-    }
-    #input_searchcontent_footer{
-        display: flex;
-        justify-content: center;
-
-    }
-    #last-content-footer-one-change{
-        margin-left: 0px !important;
-    }
-
     
-    
-    
-} */
+    #btn_abonner_footer {
+        left: -1px; 
+    }
+
+    .section_search-content-main {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #input_searchcontent_footer,
+    #btn_abonner_footer {
+        width: 100%; 
+        margin: 5px 0; 
+    }
+}
+

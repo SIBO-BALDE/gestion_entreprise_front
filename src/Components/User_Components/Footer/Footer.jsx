@@ -109,12 +109,7 @@ export default function Footer() {
                 <div><Link to={'#'} style={{textDecoration:'none', color:'white'}} id='text-content-footer-all' >service.client@myfeedback360.com</Link></div>
             </div>
 
-            {/* <div className='last-content-footer' id='last-content-footer-one-change'>
-                <h4 className='text-content-footer-all' id='text-content-footer-all-content'>Sécurité</h4>
-                <div><Link to={'/confidentialite'} style={{textDecoration:'none', color:'white'}} id='text-content-footer-all' className='one-content'>Politiques de confidentialité</Link> </div>
-                <div><Link to={'/conditions'} style={{textDecoration:'none', color:'white'}} id='text-content-footer-all' className='one-content'>Condition d’utilisation</Link></div>
-            </div> */}
-
+            
         </section>
         <div className='footer_ref_home'>
             <hr />

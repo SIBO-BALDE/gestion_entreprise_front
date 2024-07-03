@@ -56,21 +56,20 @@ export default function TarifScreen() {
           <h4 className='text-white'>Découvrez nos offres exclusives</h4>
         </div>
         <div style={{height:'10px', width:'100%', backgroundColor:'#FFB703'}}></div>
-        <div>
+        {/* <div>
                 <ButtonWashapp/>
-          </div>
+          </div> */}
         </div>
         <div className='content_container_price'>
             <Underline text='Les differents plan pour vos business'/>
             <div>
             
-              <div className=" container container1  mt-5 mb-5" id='container1'>
-              {/* { users &&
-              users.map((user) => (  */}
+              {/* <div className=" container container1  mt-5 mb-5" id='container1'>
+             
                 <div className="card card-1 content_price_1">
                     <h2>Forfait mensuel</h2>
                     <h3>$30<span></span></h3>
-                    {/* <p>Pour les debut debutant </p> */}
+                    
                     <ul>
                     
                     <li>✓Collaborateurs illimités</li>
@@ -86,11 +85,11 @@ export default function TarifScreen() {
                     </ul>
                     <Button className="select1"><Link to={'/devis_contact'} style={{textDecoration:'none', color:'white'}}>Essayez gratuitement</Link></Button>
                 </div>
-                {/* ))}  */}
+                
                 <div className="card card-2 hot-badge content_price_1">
                     <h2 style={{color:'#fff'}}>Forfait annuel</h2>
                     <h3>$270<span></span></h3>
-                    {/* <p>Pour les professionnels</p> */}
+                    
                     <ul>
                     <li>✓Collaborateurs illimités</li>
                     <li>✓Évaluation dynamique  des collaboratives à 360°</li>
@@ -121,13 +120,13 @@ export default function TarifScreen() {
                     </ul>
                     <Button className="select1"><Link to={'/devis_contact'} style={{textDecoration:'none', color:'white'}}>Choisi ton plan</Link></Button>
                 </div>
-              </div>
+              </div> */}
             
 
             </div>
 
         </div>
-          {/* <Footer /> */}
+          <Footer />
         {/* <a className="creator-link" href="https://www.kantorweb.com/" target="_blank">KantorWeb.com</a> */}
         </>
         {/* )}  */}
