@@ -49,7 +49,7 @@ export default function NavbarUser() {
             <Link to={"/contact"} id='link_navbar_menu' style={{fontWeight:'500px', color:'#004573' , marginLeft:'30px', borderBottom: linkActive === '/contact' ? '3px solid #FFB703' : 'none'}}>Contact</Link> 
           </Nav>
            <div id='button-nabar-contentmain-one'>
-          <Button  style={{marginRight:'80px', backgroundColor:'#004573', border:'none'}} >
+          <Button  style={{marginRight:'80px', backgroundColor:'#004573', border:'none'}} id='button-nabar-contentmain-one-2' >
             <Link to={'/login'} style={{textDecoration:'none', color:'white'}}>Connexion</Link>
           </Button>
 

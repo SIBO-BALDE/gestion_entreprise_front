@@ -58,7 +58,7 @@
     #navbarcontent{
         margin-left: 0 !important;
         margin: 0 !important;
-        /* border: 1px solid red; */
+        border: 1px solid red;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -71,12 +71,17 @@
         margin: 0 !important;
     }
     #button-nabar-contentmain-one{
-        margin-right: 0 !important;
+       
         display: flex !important;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        border: 1px solid red;
+        margin-top: 30px;
+        /* border: 1px solid red; */
+    }
+    #button-nabar-contentmain-one-2{
+        margin-right: 0 !important;
+
     }
    
     

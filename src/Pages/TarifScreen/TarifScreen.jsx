@@ -127,7 +127,7 @@ export default function TarifScreen() {
             </div>
 
         </div>
-          <Footer />
+          {/* <Footer /> */}
         {/* <a className="creator-link" href="https://www.kantorweb.com/" target="_blank">KantorWeb.com</a> */}
         </>
         {/* )}  */}
