@@ -31,15 +31,7 @@ export default function ModeleScreen() {
        <div className='ban_modele_modele_one_text'>
        <h1 className='text-center' >La plateforme My Feedback 360° : votre miroir à 360° pour booster la performance de vos équipes.
        </h1>
-       {/* <p className='text-center'>Une solution professionnelle pour évaluer et améliorer les performances de votre équipe.</p> */}
-       {/* <div class="loading_content_modele">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-        </div> */}
-        {/* <div className="loader"></div> */}
+    
        </div>
        <div>
             <ButtonWashapp/>

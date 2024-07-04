@@ -21,18 +21,12 @@
 .ban_about_about_one{
     width: 100%;
     height: 670px;
-    
-   
-   
-  
 }
+
 #ban_about_about_one1 {
     width: 100%;
     height: 100%; 
-    
-   
-    
-    
+      
 }
 
 .ban_about_about_one{
@@ -52,10 +46,7 @@
     justify-content: center;
     align-items: center;
     z-index: 20;
-    /* background-color: rgba(13, 6, 36, 0.587); */
-    /* top: 360px; */
-    /* margin-top: -200px; */
-    /* left: 550px; */
+  
     
 }
 .ban_about_about_one2 h3{
@@ -357,6 +348,9 @@
     height: 2px;
     background-color: #ccc;
     margin: 20px 0;
+}
+#visiblement-fermer{
+  display: none;
 }
 
 .conten_separateur {
@@ -691,7 +685,6 @@
       width: 100%;
       display: flex;
       flex-direction: column;
-      /* height: 670px; */
       height: 470px;
       justify-content: center;
       align-items: center;
@@ -715,6 +708,51 @@
       height: auto !important;;
   
   }
+    
+  }
+  @media screen and (max-width: 509px) {
+ .content-flex-card-main-check{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+ }
+ .content_animation1{
+  display: none;
+ }
+    
+  }
+
+  @media screen and (max-width:1705px) {
+    .ban_left_content_about{
+      background-color: var(--principal);
+      width: 100%;
+      height: auto !important;
+      border-top-right-radius: 27%;
+      border-bottom-right-radius: 27% ;
+      border-right: 18px solid var(--principal);
+      box-shadow: 0.4rem 0rem var(--seconde);
+      border-right:5px solid var(--troisieme) ;
+      margin-left: 30px;
+      margin-top: 50px;
+       
+  }
+  .bann_about_aboutscreen, .bann_about_aboutscreen-section{
+    height: auto !important;
+
+  }
+    
+    
+  }
+  @media screen and (max-width:933px) {
+    #visiblement-fermer{
+      display: block;
+    }
+    #visiblement{
+      display: none;
+    }
+
+    
     
   }
  

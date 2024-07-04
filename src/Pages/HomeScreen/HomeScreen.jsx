@@ -31,7 +31,7 @@ export default function HomeScreen() {
 
       useEffect(() => {
         const handleResize = () => {
-          if (window.innerWidth <= 570) {
+          if (window.innerWidth <= 1472) {
             document.querySelectorAll('[data-aos="fade-right"], [data-aos="fade-left"]').forEach(el => {
               el.removeAttribute('data-aos');
             });
@@ -213,7 +213,7 @@ export default function HomeScreen() {
                         <div><h5 className='' ><strong style={{color:'#FFB703'}}>Notre vision</strong></h5></div>
                 </div>
 
-                <div className='mt-4' style={{borderLeft:'3px solid #FFB703', height:'240px'}} id='content_midle_home_correct-content'>
+                <div className='mt-4'  id='content_midle_home_correct-content'>
                     <p className='me-3 ms-3 text-white' 
                         style={{textAlign:'justify'}}>Chez 
                         <strong style={{color:'#FFFF', marginBottom:'25px'}}>
@@ -240,7 +240,7 @@ export default function HomeScreen() {
                         
                         <div><h5 className='' ><strong style={{color:'#FFB703'}}>Nos valeurs</strong></h5></div>
                 </div>
-                <div className='mt-4' style={{borderLeft:'3px solid #FFB703', height:'240px', marginBottom:'25px' }} id='content_midle_home_correct-content'>
+                <div className='mt-4' style={{ }} id='content_midle_home_correct-content'>
                     <p className='me-3 ms-3 text-white' style={{textAlign:'justify'}}>Chez  
                         <strong style={{color:'#FFFF'}}>
                         <span style={{color:'#FFB703'}}>  MY FEEDBACK</span> 360°</strong> <br />
@@ -304,7 +304,7 @@ export default function HomeScreen() {
                         
                         <div style={{textAlign:'left'}}><h5 className='' ><strong style={{color:'#FFB703'}}>Notre mission</strong></h5></div>
                 </div>
-                <div className='mt-4' style={{borderLeft:'3px solid #FFB703', height:'240px'}} id='content_midle_home_correct-content'>
+                <div className='mt-4'  id='content_midle_home_correct-content'>
                     <p className='ms-3 text-white ' style={{textAlign:'justify'}}>Chez 
                         <strong style={{color:'#FFFF' , marginBottom:'25px'}} >
                             <span style={{color:'#FFB703'}}>  MY FEEDBACK</span > 360°
@@ -383,72 +383,60 @@ export default function HomeScreen() {
 
       {/**************************** expliquation modéles d'évaluation debut  ****************************/}
       <div>
-      {/* <section style={{backgroundColor:'#ebf0f4', marginTop:'80px', boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px'}} id='tone'>
-        <div id="" className='container'>
-        <div>
-          <div><Underline text="Les fonctionnalités de l'évaluation 360°" /></div>
+      <section style={{backgroundColor:'#ebf0f4', marginTop:'80px', boxShadow: 'rgba(0, 0, 0, 0.16) 0px 1px 4px'}} id='tone'>
+  <div id="" className='container'>
+    <div>
+      <div><Underline text="Les fonctionnalités de l'évaluation 360°" /></div>
+    </div>
+    <div className="experience pt-100 pb-100">
+      <div className="container">
+        <div className="row">
+          <div className="col-xl-8 mx-auto text-center"></div>
         </div>
-        <div className="experience pt-100 pb-100" >
-		   <div className="container">
-			<div className="row">
-				<div className="col-xl-8 mx-auto text-center">
-				</div>
-			</div>
-			<div className="row">
-               <div className="col-xl-12">
-                  <ul className="timeline-list">
-                    
-                     <li>
-                        <div className="timeline_content" id='content1' data-aos="fade-right">
-                          
-                           <h4 style={{textAlign:'justify'}}> Évaluation Multi-Source</h4>
-                           <p style={{textAlign:'justify'}}>L'admin peut creer et gérez des évaluations au sein de l'application. Les employés peuvent s'évaluer mutuellement en tant que collègues, supérieurs ou subalternes.Assurez une évaluation complète et impartiale des performances des employés à partir de diverses perspectives.</p>
-                           
-                        </div>
-                     </li>
-                    
-                     <li>
-                        <div className="timeline_content" data-aos="fade-left">
-                        <Image  src={dasboard1} className='timeline-img'id='contentimg-timeline' />
-                        </div>
-                     </li>
-                    
-                     <li>
-                        <div className="timeline_content" data-aos="fade-right">
-                        <Image  src={dasboard2} className='timeline-img'id='contentimg-timeline' />
-                        </div>
-                     </li>
-                    
-                     <li>
-                        <div className="timeline_content" id='timeline_content' data-aos="fade-left">
-                        
-                           <h4 style={{textAlign:'justify'}}>Gestion des Événements</h4>
-                           <p style={{textAlign:'justify'}}>Créez et gérez des événements au sein de l'application.À la fin de chaque événement, envoyez des liens de questionnaires aux participants pour recueillir leurs feedbacks.Analysez les réponses pour obtenir des insights précieux sur l'événement et les performances des participants.</p>
-                        </div>
-                     </li>
-                     
-                      <li>
-                        <div className="timeline_content" id='content1' data-aos="fade-right">
-                          
-                           <h4 style={{textAlign:'justify'}}>Tableau de Bord Administrateur</h4>
-                           <p style={{textAlign:'justify'}}>L'administrateur peut visualiser toutes les évaluations et les événements dans son tableau de bord.Accédez à une vue globale et détaillée des performances des employés et des activités des événements pour une gestion efficace.</p>
-                           
-                        </div>
-                     </li>
-                     <li>
-                       
-                        <div className="timeline_content" data-aos="fade-right">
-                        <Image  src={dasboard3} className='timeline-img'id='contentimg-timeline' />
-                        </div>
-                     </li>
-                     
-                  </ul>
-               </div>
+        <div className="row">
+          <div className="col-xl-12">
+            <ul className="timeline-list">
+              <li>
+                <div className="timeline_content" id='content1' data-aos="fade-right">
+                  <h4 style={{textAlign:'justify'}}> Évaluation Multi-Source</h4>
+                  <p style={{textAlign:'justify'}}>L'admin peut creer et gérez des évaluations au sein de l'application. Les employés peuvent s'évaluer mutuellement en tant que collègues, supérieurs ou subalternes. Assurez une évaluation complète et impartiale des performances des employés à partir de diverses perspectives.</p>
+                </div>
+              </li>
+              <li>
+                <div className="timeline_content" data-aos="fade-left">
+                  <Image src={dasboard1} className='timeline-img' id='contentimg-timeline' />
+                </div>
+              </li>
+              <li>
+                <div className="timeline_content" data-aos="fade-right">
+                  <Image src={dasboard2} className='timeline-img' id='contentimg-timeline' />
+                </div>
+              </li>
+              <li>
+                <div className="timeline_content" id='timeline_content' data-aos="fade-left">
+                  <h4 style={{textAlign:'justify'}}>Gestion des Événements</h4>
+                  <p style={{textAlign:'justify'}}>Créez et gérez des événements au sein de l'application. À la fin de chaque événement, envoyez des liens de questionnaires aux participants pour recueillir leurs feedbacks. Analysez les réponses pour obtenir des insights précieux sur l'événement et les performances des participants.</p>
+                </div>
+              </li>
+              <li>
+                <div className="timeline_content" id='content1' data-aos="fade-right">
+                  <h4 style={{textAlign:'justify'}}>Tableau de Bord Administrateur</h4>
+                  <p style={{textAlign:'justify'}}>L'administrateur peut visualiser toutes les évaluations et les événements dans son tableau de bord. Accédez à une vue globale et détaillée des performances des employés et des activités des événements pour une gestion efficace.</p>
+                </div>
+              </li>
+              <li>
+                <div className="timeline_content" data-aos="fade-right">
+                  <Image src={dasboard3} className='timeline-img' id='contentimg-timeline' />
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-		 </div>
-	    </div>
-        </div>
-      </section> */}
+    </div>
+  </div>
+</section>
+
       </div>
 
       

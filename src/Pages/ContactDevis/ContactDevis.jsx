@@ -7,6 +7,9 @@ import Swal from 'sweetalert2';
 import imageForm from '../../Images/devis_contact.jpeg'
 import { continents, countries, languages } from 'countries-list'
 import Underline from '../../Components/User_Components/Underline/Underline'
+import Footer from '../../Components/User_Components/Footer/Footer';
+import NavbarUser from '../../Components/User_Components/NavbarUser';
+import { Link } from 'react-router-dom';
 
 export default function ContactDevis() {
 
@@ -67,123 +70,7 @@ export default function ContactDevis() {
   });
   const [validationStatus, setValidationStatus] = useState(false);
 
-  // function validation
-  // const validateField = (name, value) => {
-  //   let errorMessage = "";
-  //   let successMessage = "";
-  
-  //   if (name === "email") {
-  //     if (!value.trim()) {
-  //       errorMessage = "L'email est obligatoire";
-  //     } else if (!emailPattern.test(value)) {
-  //       errorMessage = "L'email  invalide";
-  //     } else {
-  //       successMessage = "L'adresse est valide";
-  //     }
-  //   }
-  //   if (name === "nom") {
-  //     if (!value.trim()) {
-  //       errorMessage = "Le nom est obligatoire";
-  //     } else if (value.trim().length < 2) {
-  //       errorMessage = "Le nom doit contenir au moins 2 lettres";
-  //     } else {
-  //       successMessage = "Le nom est valide";
-  //     }
-  //   }
-  //   if (name === "prenom") {
-  //     if (!value.trim()) {
-  //       errorMessage = "Le prenom est obligatoire";
-  //     } else if (value.trim().length < 2) {
-  //       errorMessage = "Le prenom doit contenir au moins 2 lettres";
-  //     } else {
-  //       successMessage = "Le prenom est valide";
-  //     }
-  //   }
-  //   if (name === "entreprise") {
-  //     if (!value.trim()) {
-  //       errorMessage = "L'entreprise est obligatoire";
-  //     } else if (value.trim().length < 2) {
-  //       errorMessage = "L'entreprise doit contenir au moins 2 lettres";
-  //     } else {
-  //       successMessage = "L'entreprise  valide";
-  //     }
-  //   }
-  //   if (name === "poste") {
-  //     if (!value.trim()) {
-  //       errorMessage = "Le poste est obligatoire";
-  //     } 
-  //      else {
-  //       successMessage = "L'entreprise  valide";
-  //     }
-  //   }
-  //   if (name === "numeroTelephone") {
-  //       if (!value.trim()) {
-  //         errorMessage = "numero est obligatoire";
-  //       } else if (!phoneRegex.test(value)) {
-  //         errorMessage = "numero  invalide";
-  //       } else {
-  //         successMessage = "numero  valide";
-  //       }
-  //     }
-  //   if (name === "telephoneFixe") {
-  //       if (!value.trim()) {
-  //         errorMessage = "numero est obligatoire";
-  //       } else if (!phoneRegex2.test(value)) {
-  //         errorMessage = "numero  invalide";
-  //       } else {
-  //         successMessage = "numero  valide";
-  //       }
-  //     }
-  //     if (name === "ville") {
-  //       if (!value.trim()) {
-  //         errorMessage = "La ville est obligatoire";
-  //       } 
-  //        else {
-  //         successMessage = "valide";
-  //       }
-  //     }
-  //     if (name === "adressEntreprise") {
-  //       if (!value.trim()) {
-  //         errorMessage = "adressEntreprise est obligatoire";
-  //       } 
-  //        else {
-  //         successMessage = "valide";
-  //       }
-  //     }
-  //     if (name === "pays") {
-  //       if (!value.trim()) {
-  //         errorMessage = "pays est obligatoire";
-  //       } 
-  //        else {
-  //         successMessage = "valide";
-  //       }
-  //     }
-  //     if (name === "Abonnement_id") {
-  //       if (!value.trim()) {
-  //         errorMessage = "Abonnement_id est obligatoire";
-  //       } 
-  //        else {
-  //         successMessage = "valide";
-  //       }
-  //     }
-    
-    
-  
-  
-  
-  //   // Mettez à jour le state en utilisant le nom du champ actuel
-  //   setErrors((prevErrors) => ({
-  //     ...prevErrors,
-  //     [name]: errorMessage,
-  //   }));
-  //   setSuccesseds((prevSuccess) => ({
-  //     ...prevSuccess,
-  //     [name]: successMessage,
-  //   }));
-  
-  //   const isValid = Object.values(errors).every((error) => !error);
-  //   setValidationStatus(isValid);
-  // };
+ 
   
   const validateField = (name, value) => {
     let errorMessage = "";
@@ -274,75 +161,7 @@ export default function ContactDevis() {
     });
 
 
-// function pour ajouter une message
-// const ajouterMessage = async (e) => {
-//     e.preventDefault()
-    
-   
 
-//     validateField("email", email);
-//     validateField("nom", prenom);
-//     validateField("nom", nom);
-//     validateField("numeroTelepnone", numeroTelephone);
-//     validateField("entreprise", entreprise);
-//     validateField("poste", poste);
-//     validateField("telephoneFixe", telephoneFixe);
-//     validateField("ville", ville);
-//     validateField("pays", pays);
-//     validateField("adressEntreprise", adressEntreprise);
-//     validateField("Abonnement_id", Abonnement_id);
-    
-   
-
-
-//     if (validationStatus) {
-      
-//     try {
-//         const response = await axios.post(
-//           "http://localhost:8000/api/ContactAbonementC/create",
-
-//           messageData,
-//         );
-
-//         // Vérifiez si la requête a réussi
-//         if (response.status === 200) {
-//           // Ajoutez la nouvelle maison à la liste existante
-//           console.log(response, 'response abonnement')
-//           setMessages([...messages, response.data]);
-//           // Réinitialisez les valeurs du formulaire après avoir ajouté la maison
-//           setMessageData({
-//             prenom: "",
-//             nom: "",
-//             email: "",
-//             entreprise: "",
-//             poste: "",
-//             numeroTelepnone: "",
-//             message: "",
-//             adressEntreprise: "",
-//             ville: "",
-//             pays: "",
-//             telephoneFixe: "",
-//             Abonnement_id: "",
-           
-//           });
-//           Swal.fire({
-//             icon: "success",
-//             title: "Succès!",
-//             text: "message envoyé avec succée!",
-//           });
-          
-         
-//         } else {
-//           console.error("Erreur dans lajout de abonnement");
-//         }
-     
-//     } catch (error) {
-//       // Gestion des erreurs Axios
-//       console.error("Erreur Axios:", error);
-//     }
-//   }
-// }
-// nouveau
 const ajouterMessage = async (e) => {
   e.preventDefault();
 
@@ -450,7 +269,9 @@ useEffect(() => {
 }, []);
 
   return (
-    
+    <div>
+      {/* <NavbarUser/> */}
+
     <div  style={{backgroundColor:'#004573',padding:'20px'}}>
      
     <Underline text="Pour plus d'information remplissez ce formulaire" color='#fff' />
@@ -689,16 +510,13 @@ useEffect(() => {
         </Form>
       </div>
       <div className='imageForm-content-devis-one' style={{width:'100%' ,height:'645px',borderBottom:'7px solid #FFB703', borderBottomRightRadius:'10px'}} id='imageForm-content-devis-one'>
-        <Image src={imageForm} className='imageForm-content-devis'style={{borderTopRightRadius:'10px'}} id='imageForm-content-devis' />
+        <Link to={'/'}><Image src={imageForm} className='imageForm-content-devis'style={{borderTopRightRadius:'10px'}} id='imageForm-content-devis' /></Link>
         
       </div>
 
       </div>
-      
-
-
-
-           
+      <footer><Footer/> </footer>   
+    </div>
     </div>
   )
 }
