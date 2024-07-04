@@ -33,7 +33,7 @@
     
 }
 .ban_modele_modele_one{
-    background-color: black;
+    /* background-color: black; */
    
 }
 .ban_modele_modele_one_text{
@@ -52,7 +52,7 @@
     color: var(--troisieme);
 }
  #ban_modele_modele_one_img{
-    opacity: 0.6 !important;
+    /* opacity: 0.6 !important; */
 
 }
 .loader {
@@ -154,13 +154,14 @@
 }
 .ban_modele_modele_one{
   width: 100%;
-  height: 400px;
+  height: auto;
  
 
 }
+
 #ban_modele_modele_one_img {
   width: 100%;
-  height: 100%; 
+  height: auto; 
  
   
   
@@ -170,14 +171,31 @@
 }
   
 }
+
 @media screen  and (max-width: 539px){
   .ban_modele_modele_one{
     width: 100%;
-    height: 350px;
+    height: auto;
     margin-top: 25px;
    
    
   
+}
+
+}
+
+@media screen  and (max-width: 488px){
+  .ban_modele_modele_one{
+    width: 100%;
+    height: auto;
+    margin-top: 25px;
+   
+   
+  
+}
+.card_modele_home_content_main_modele-total{
+  /* margin-top: -5px; */
+
 }
 
 }

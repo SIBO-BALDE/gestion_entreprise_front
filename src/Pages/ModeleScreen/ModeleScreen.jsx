@@ -37,7 +37,7 @@ export default function ModeleScreen() {
             <ButtonWashapp/>
       </div>
      </header>
-     <main>
+     <main className='card_modele_home_content_main_modele-total' >
      <Underline  text='Nos differents modéles'/>
      {/*************************** modele card debut ***************************/}
    

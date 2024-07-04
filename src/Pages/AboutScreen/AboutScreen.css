@@ -509,6 +509,27 @@
   }
 
   /************************** médias quéries ****************************/
+  @media screen and (max-width:1705px) {
+    .ban_left_content_about{
+      background-color: var(--principal);
+      width: 100%;
+      height: auto !important;
+      border-top-right-radius: 27%;
+      border-bottom-right-radius: 27% ;
+      border-right: 18px solid var(--principal);
+      box-shadow: 0.4rem 0rem var(--seconde);
+      border-right:5px solid var(--troisieme) ;
+      margin-left: 30px;
+      margin-top: 50px;
+       
+  }
+  .bann_about_aboutscreen, .bann_about_aboutscreen-section{
+    height: auto !important;
+
+  }
+    
+    
+  }
   @media screen and (max-width: 1416px) {
   
   
@@ -550,6 +571,19 @@
   
     
   }
+  @media screen and (max-width: 1252px){
+    .content-cache{
+      text-align: center !important;
+    }
+  }
+  @media screen and (max-width: 1140px) {
+    .content_content_formateur{
+      width: 400px;
+      height: auto !important;;
+  
+  }
+    
+  }
   @media screen and (max-width: 1082px){
     .bann_about_aboutscreen{
       display: grid !important;
@@ -566,6 +600,42 @@
  
 
   }
+  @media screen and (max-width: 981px) {
+    .ban_about_about_one{
+      width: 100%;
+      height: auto;
+      
+     
+     
+    
+  }
+    
+  }
+  @media screen and (max-width: 993px) {
+    .contain-main-card-obj{
+      display:flex ;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center; 
+      
+    }
+    .card-ojectif-main{
+      width: 100%;
+    }
+   
+    
+  }
+  @media screen and (max-width:933px) {
+    #visiblement-fermer{
+      display: block;
+    }
+    #visiblement{
+      display: none;
+    }
+
+    
+    
+  }
   @media screen and (max-width: 820px){
     .bann_about_aboutscreen{
       display: grid !important;
@@ -581,6 +651,39 @@
   }
  
 
+  }
+  @media screen and (max-width: 752px) {
+    .ban_about_about_one{
+      width: 100%;
+      height: auto;
+      
+     
+     
+    
+  }
+    
+  }
+  @media screen and (max-width: 753px) {
+    .ban_about_about_one2{
+      position: absolute;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      height: 470px;
+      justify-content: center;
+      align-items: center;
+      z-index: 20;
+      
+  }
+  .ban_about_about_one{
+    width: 100%;
+    height: auto;
+    
+   
+   
+  
+}
+    
   }
   @media screen and (max-width: 682px){
     .bann_about_aboutscreen{
@@ -638,78 +741,6 @@
  
 
   }
-
-  @media screen and (max-width: 981px) {
-    .ban_about_about_one{
-      width: 100%;
-      /* height: 670px; */
-      height: 520px;
-      
-     
-     
-    
-  }
-    
-  }
-  @media screen and (max-width: 993px) {
-    .contain-main-card-obj{
-      display:flex ;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center; 
-      
-    }
-    .card-ojectif-main{
-      width: 100%;
-    }
-   
-    
-  }
-
-  @media screen and (max-width: 752px) {
-    .ban_about_about_one{
-      width: 100%;
-      /* height: 670px; */
-      height: 400px;
-      
-     
-     
-    
-  }
-    
-  }
-
-  @media screen and (max-width: 753px) {
-    .ban_about_about_one2{
-      position: absolute;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      height: 470px;
-      justify-content: center;
-      align-items: center;
-      z-index: 20;
-      
-  }
-  .ban_about_about_one{
-    width: 100%;
-    /* height: 670px; */
-    height: 350px;
-    
-   
-   
-  
-}
-    
-  }
-  @media screen and (max-width: 1140px) {
-    .content_content_formateur{
-      width: 400px;
-      height: auto !important;;
-  
-  }
-    
-  }
   @media screen and (max-width: 509px) {
  .content-flex-card-main-check{
   display: flex;
@@ -722,37 +753,58 @@
  }
     
   }
-
-  @media screen and (max-width:1705px) {
-    .ban_left_content_about{
-      background-color: var(--principal);
-      width: 100%;
-      height: auto !important;
-      border-top-right-radius: 27%;
-      border-bottom-right-radius: 27% ;
-      border-right: 18px solid var(--principal);
-      box-shadow: 0.4rem 0rem var(--seconde);
-      border-right:5px solid var(--troisieme) ;
-      margin-left: 30px;
-      margin-top: 50px;
-       
-  }
-  .bann_about_aboutscreen, .bann_about_aboutscreen-section{
-    height: auto !important;
-
-  }
-    
-    
-  }
-  @media screen and (max-width:933px) {
-    #visiblement-fermer{
-      display: block;
-    }
-    #visiblement{
+  @media screen and (max-width:580px) {
+    .content-cache{
       display: none;
     }
+    .ban_about_about_one2{
+      position: absolute;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      height: 370px;
+      justify-content: center;
+      align-items: center;
+      z-index: 20;
+    
+      
+  }
 
+  }
+  @media screen and (max-width:422px) {
+    .content-cache{
+      display: none;
+    }
+    .ban_about_about_one2{
+      position: absolute;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      height: 270px;
+      justify-content: center;
+      align-items: center;
+      z-index: 20;
     
+      
+  }
+
+  }
+  @media screen and (max-width:338px) {
+    .content-cache{
+      display: none;
+    }
+    .ban_about_about_one2{
+      position: absolute;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      height: 210px;
+      justify-content: center;
+      align-items: center;
+      z-index: 20;
     
+      
+  }
+
   }
  

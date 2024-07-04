@@ -5,6 +5,15 @@
     --optionel:#ebf0f4;
     
 } 
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none !important;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    /* outline: 1px solid red; */
+}
 .container_devis_form {
     max-width: 100%;
     margin: 50px auto;
@@ -49,14 +58,10 @@
 .content_devis_main{
     display: grid;
     grid-template-columns: 50% 50%;
-    /* height: 100px; */
     margin: 0 auto !important;
 }
 
-button:hover {
-    /* background-color: var(--principal) !important;
-    border: 1px sold var(--seconde) !important; */
-}
+
 .imageForm-content-devis{
     width: 100% !important;
     height: 100% !important;
@@ -68,7 +73,7 @@ button:hover {
     }
     #imageForm-content-devis-one{
         border-bottom: none !important;
-        height: 800px !important;
+        height: auto !important;
         border-top-left-radius: 10px !important;
     }
     #imageForm-content-devis{
@@ -85,7 +90,15 @@ button:hover {
 @media screen and (max-width:550px){
     
     #imageForm-content-devis-one{
-      height:490px !important;
+      height:auto !important;
+    }
+    
+    
+}
+@media screen and (max-width:768px){
+    
+    #imageForm-content-devis-one{
+      height:auto !important;
     }
     
     
@@ -93,7 +106,7 @@ button:hover {
 @media screen and (max-width:391px){
     
     #imageForm-content-devis-one{
-      height:399px !important;
+      height:auto !important;
     }
     
     

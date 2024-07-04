@@ -56,8 +56,8 @@ export default function AboutScreen() {
             <strong style={{color:'#FFB703'}}>MY </strong>
             <strong className='text-center' style={{color:'#004573'}}> FEEDBACK <strong style={{color:'#FFB703'}}>360°</strong> </strong>
         </h1>
-        <h3>Une solution professionnelle pour évaluer et améliorer les performances de votre équipe.</h3>
-        <div className=' mt-1' style={{marginLeft:'', display:'flex',justifyContent:'center'}}>
+        <h3 className='content-cache'>Une solution professionnelle pour évaluer et améliorer les performances de votre équipe.</h3>
+        <div className=' mt-1 ' style={{marginLeft:'', display:'flex',justifyContent:'center'}}>
         <Button className="btn_about_bottom"> 
           <Link to={'/modeles'} style={{textDecoration:'none', color:'#FFB703'}} id='btn_link_ban_about'> 
              Decouvrer nos modéles
@@ -237,14 +237,7 @@ export default function AboutScreen() {
                               <div><ButtonDeco backgroundColor='#004573' /></div>
                               <div><p style={{textAlign:'justify'}}>Ces objectifs sont des facteurs de motivation personnelle essentiels pour que les employés développent les valeurs et les compétences fondamentales du bureau.</p></div>
               </div>
-              {/* <div className='d-flex  '>
-                              <div><ButtonDeco backgroundColor='#004573' /></div>
-                              <div><p style={{textAlign:'justify'}}> L’art d’instaurer la confiance dans</p></div>
-              </div>
-              <div className='d-flex  '>
-                              <div><ButtonDeco backgroundColor='#004573' /></div>
-                              <div><p style={{textAlign:'justify'}}> L’art d’instaurer la confiance dans</p></div>
-              </div> */}
+              
               
               
             </div>
