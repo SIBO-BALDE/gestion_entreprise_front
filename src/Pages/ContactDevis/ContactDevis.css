@@ -102,6 +102,14 @@
     }
     #content-devis-main-one-contnt{
         height: auto !important;
+        border: 2px solid red;
+    }
+    .content_devis_main container{
+        height: auto;
+    }
+    .content_devis_main-form-one{
+        height: auto !important;
+
     }
     
     
