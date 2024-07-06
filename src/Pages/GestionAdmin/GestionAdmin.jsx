@@ -61,7 +61,7 @@ export default function GestionAdmin({ id }) {
       try {
         
           const response = await axios.get(
-            "https://api.com.myfeedback360.com/api/listes/abonements",
+            "https://api.myfeedback360.com/api/listes/abonements",
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -91,7 +91,7 @@ const fetchEntreprises = async () => {
   try {
     if (token || role === "SuperAdmin") {
       const response = await axios.get(
-        "https://api.com.myfeedback360.com/api/listes/entrepriseAbonement",
+        "https://api.myfeedback360.com/api/listes/entrepriseAbonement",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -119,7 +119,7 @@ useEffect(() => {
       try {
         if (token || role === "SuperAdmin") {
           const response = await axios.get(
-            "https://api.com.myfeedback360.com/api/listes/admins",
+            "https://api.myfeedback360.com/api/listes/admins",
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -145,7 +145,7 @@ useEffect(() => {
       try {
         if (token || role === "SuperAdmin") {
           const response = await axios.get(
-            "https://api.com.myfeedback360.com/api/listes/admin/bloquer",
+            "https://api.myfeedback360.com/api/listes/admin/bloquer",
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -252,7 +252,7 @@ useEffect(() => {
       try {
         if (token || role==="SuperAdmin"){
           const response = await axios.post(
-            "https://api.com.myfeedback360.com/api/admin/create",
+            "https://api.myfeedback360.com/api/admin/create",
             userData,
             {
               headers: {
@@ -338,7 +338,7 @@ useEffect(() => {
           if (token || role==="SuperAdmin"){
 
             const response = await axios.post(
-              `https://api.com.myfeedback360.com/api/admin/update/${editUserData.id}`,
+              `https://api.myfeedback360.com/api/admin/update/${editUserData.id}`,
               editUserData,
               {
                 headers: {
@@ -401,7 +401,7 @@ useEffect(() => {
     try {
         if (token || role === "SuperAdmin") {
             const response = await axios.post(
-                `https://api.com.myfeedback360.com/api/admin/${id}/bloquer`,
+                `https://api.myfeedback360.com/api/admin/${id}/bloquer`,
                 {}, // Passer un objet vide en tant que corps de la requête
                 {
                     headers: {
@@ -459,7 +459,7 @@ const debloquerUser = async (id) => {
   try {
       if (token || role === "SuperAdmin") {
           const response = await axios.post(
-              `https://api.com.myfeedback360.com/api/admin/${id}/debloquer`,
+              `https://api.myfeedback360.com/api/admin/${id}/debloquer`,
               {}, // Passer un objet vide en tant que corps de la requête
               {
                   headers: {
@@ -569,7 +569,7 @@ const debloquerUser = async (id) => {
         <LoadingBox />
          ) : (
     <div className="container">
-      <div className="d-flex justify-content-between mt-5">
+      <div className="d-flex justify-content-between mt-5 content-input-global-projet">
         <div>
           <Button
             variant="primary"
@@ -604,7 +604,7 @@ const debloquerUser = async (id) => {
           </Button>
         </div>
 
-        <div className="flex-grow-1 d-flex justify-content-end ">
+        <div className="flex-grow-1 d-flex justify-content-end content-input-global-projet2 ">
           <div className="champsRecherche mt-2 mb-3 w-50">
             <Form>
               <div
@@ -632,7 +632,7 @@ const debloquerUser = async (id) => {
           </div>
         </div>
       </div>
-      <div className="mt-4 ms-3  me-3">
+      <div className="mt-4 ms-3  me-3 table-responsive">
         <h3>Liste des administrateurs</h3>
         <table className="table border  border-1">
           <thead
@@ -678,7 +678,7 @@ const debloquerUser = async (id) => {
                 <td>{user &&  user.entrepriseAbaonement}</td>
                 
 
-                    <td className=" d-flex justify-content-evenly">
+                    <td className=" d-flex justify-content-evenly" id="btn-listes">
                       <Button
                         variant="primary"
                         // onClick={handleShowEdit}

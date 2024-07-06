@@ -1,0 +1,80 @@
+/* @media screen  and (max-width:794px){
+    .content-input-global-projet{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    
+} */
+/* GestionCategorie.css */
+
+/* Styles généraux */
+.container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  #buttonAjouter,
+  #buttonModifier {
+    background-color: #004573;
+    border: none;
+  }
+  
+  #buttonAjouter:hover,
+  #buttonModifier:hover {
+    background-color: #003a57;
+  }
+  
+  .table th,
+  .table td {
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  /* Media query pour les écrans de 567px ou moins */
+  @media (max-width: 567px) {
+    .container {
+      max-width: 100%;
+    }
+  
+    #buttonAjouter,
+    #buttonModifier {
+      width: 100%;
+      margin-top: 10px;
+    }
+  
+    .flex-grow-1 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .input-group {
+      width: 100%;
+    }
+  
+    .champsRecherche {
+      width: 100%;
+      margin-top: 10px;
+    }
+  
+    .table {
+      font-size: 12px;
+    }
+  
+    .modal-body {
+      padding: 10px;
+    }
+  
+    .modal-footer {
+      flex-direction: column;
+    }
+  
+    .modal-footer button {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  }
+  

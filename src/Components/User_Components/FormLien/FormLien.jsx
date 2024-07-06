@@ -16,7 +16,7 @@ export default function FormLien() {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/repondre/${token}`);
+        const response = await axios.get(`https://api.myfeedback360.com/api/repondre/${token}`);
         setQuestions(response.data.questions);
         setEvents(response.data.evenement);
         console.log(response, 'resp');
@@ -86,7 +86,7 @@ export default function FormLien() {
         }).filter(response => response !== null);
 
         const response = await axios.post(
-            'http://localhost:8000/api/repondre/evenement',
+            'https://api.myfeedback360.com/api/repondre/evenement',
             { email, reponsefeedbacks }
         );
 

@@ -83,9 +83,18 @@
 .main-content.full-width {
   /* margin-left: 0; */
 }
-
+/* 
 @media screen and (max-width: 1337px) {
   .mainContent {
     display: none !important;
+  }
+} */
+@media (max-width: 1386px) {
+  .mainContentLeft{
+    display: none;
+  }
+  .mainContentLeft2{
+    display: block;
+   
   }
 }

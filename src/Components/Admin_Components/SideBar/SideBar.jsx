@@ -82,7 +82,7 @@ export default function SideBar({ isOpen, name, handleChangePath }) {
 
       axios
         .post(
-          "https://api.com.myfeedback360.com/api/me",
+          "https://api.myfeedback360.com/api/me",
           {},
           {
             headers: {
@@ -125,7 +125,7 @@ export default function SideBar({ isOpen, name, handleChangePath }) {
       if (token || role === "Admin") {
         // Utilisez votre instance Axios configurée
         const response = await axios.post(
-          "https://api.com.myfeedback360.com/api/logout",
+          "https://api.myfeedback360.com/api/logout",
           {},
           {
             headers: {
@@ -210,7 +210,16 @@ export default function SideBar({ isOpen, name, handleChangePath }) {
         </div>
       </div>
       
-    </div>
+      </div>
+      
+
+     
+
+
+
+     
+      
+      
     </div>
   )
 }

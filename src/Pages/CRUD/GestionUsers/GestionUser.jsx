@@ -64,7 +64,7 @@ export default function GestionUser({ id }) {
     try {
       if (token || role === "Admin") {
         const response = await axios.get(
-          "https://api.com.myfeedback360.com/api/categories",
+          "https://api.myfeedback360.com/api/categories",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -93,7 +93,7 @@ export default function GestionUser({ id }) {
       try {
         if (token || role === "Admin") {
           const response = await axios.get(
-            "https://api.com.myfeedback360.com/api/entreprises",
+            "https://api.myfeedback360.com/api/entreprises",
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -121,7 +121,7 @@ export default function GestionUser({ id }) {
       try {
         if (token || role === "Admin") {
           const response = await axios.get(
-            "https://api.com.myfeedback360.com/api/participants",
+            "https://api.myfeedback360.com/api/participants",
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -221,7 +221,7 @@ export default function GestionUser({ id }) {
       try {
         if (token || role==="Admin"){
           const response = await axios.post(
-            "https://api.com.myfeedback360.com/api/participant/create",
+            "https://api.myfeedback360.com/api/participant/create",
             userData,
             {
               headers: {
@@ -313,7 +313,7 @@ export default function GestionUser({ id }) {
           const users = XLSX.utils.sheet_to_json(sheet);
 
           // Envoyer le fichier directement au serveur
-          axios.post('https://api.com.myfeedback360.com/api/import/participants', formData, {
+          axios.post('https://api.myfeedback360.com/api/import/participants', formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
               Authorization: `Bearer ${token}`,
@@ -406,7 +406,7 @@ export default function GestionUser({ id }) {
           if (token || role==="Admin"){
 
             const response = await axios.post(
-              `https://api.com.myfeedback360.com/api/participant/update/${editUserData.id}`,
+              `https://api.myfeedback360.com/api/participant/update/${editUserData.id}`,
               editUserData,
               {
                 headers: {
@@ -468,7 +468,7 @@ export default function GestionUser({ id }) {
     try {
         if (token || role === "Admin") {
             const response = await axios.post(
-                `https://api.com.myfeedback360.com/api/participant/${id}/bloquer`,
+                `https://api.myfeedback360.com/api/participant/${id}/bloquer`,
                 {}, // Passer un objet vide en tant que corps de la requête
                 {
                     headers: {
@@ -511,7 +511,7 @@ const fetchUsersBlock = async () => {
   try {
     if (token || role === "Admin") {
       const response = await axios.get(
-        "https://api.com.myfeedback360.com/api/liste/participants/bloquer",
+        "https://api.myfeedback360.com/api/liste/participants/bloquer",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -550,7 +550,7 @@ const debloquerUser = async (id) => {
   try {
       if (token || role === "Admin") {
           const response = await axios.post(
-              `https://api.com.myfeedback360.com/api/participant/${id}/debloquer`,
+              `https://api.myfeedback360.com/api/participant/${id}/debloquer`,
               {}, // Passer un objet vide en tant que corps de la requête
               {
                   headers: {
@@ -661,7 +661,7 @@ const debloquerUser = async (id) => {
    
    try {
      if (token && role === "Admin") {
-       const response = await axios.get(`https://api.com.myfeedback360.com/api/users/evaluations/${id}`, {
+       const response = await axios.get(`https://api.myfeedback360.com/api/users/evaluations/${id}`, {
          headers: {
            Authorization: `Bearer ${token}`,
          },
@@ -835,129 +835,109 @@ const chartContainerStyle = {
   
 
   return (
-    <div className="" style={{marginTop:'70px'}}>
-       {loading ? (
-        <LoadingBox />
-         ) : (
-        <div className="container">
-          <div className="d-flex justify-content-around mt-1">
-            <div>
-              <Button
-                variant="primary"
-                onClick={handleShowEdit}
-                className="ms-4"
-                style={{ backgroundColor: "#004573", border: "none" }}
-                id="buttonAjouter"
-              >
-                Ajouter un participant
-              </Button>
-            </div>
-            <div>
-            
-          <Form onSubmit={handleSubmit}>
-            <div className="d-flex">
-            <div>
-              <input type="file" accept=".xlsx, .xls, .csv" onChange={handleFileChange}
-                style={{ backgroundColor: "#fff", border: "1px solid  #004573", color:'#004573', width:'200px',
-                borderTopLeftRadius:'10px', borderBottomLeftRadius:'10px', padding:'2px 2px' }} />
-            </div>
-            <div>
-              <button type="submit" 
-                  style={{ backgroundColor: "#004573", border: "none", color:'white', 
-                  borderTopRightRadius:'10px', borderBottomRightRadius:'10px', padding:'5px'}}>
-                  Téléverser
-              </button>
-              </div>
-
-            </div>
-          </Form>
-          {message && <p>{message}</p>}
-            </div>
-            <div className="">
-              <Button
-                variant="primary"
-                onClick={handleShowBlokUser}
-                className="ms-4"
-                style={{ backgroundColor: "#004573", border: "none" }}
-                id="buttonAjouter"
-              >
-                Liste participant bloqué
-              </Button>
-            </div>
-            
-            
+    <div className="" style={{ marginTop: '70px' }}>
+    {loading ? (
+      <LoadingBox />
+    ) : (
+      <div className="container">
+        <div className="d-flex justify-content-around mt-1 content-input-global-projet">
+          <div>
+            <Button
+              variant="primary"
+              onClick={handleShowEdit}
+              className="ms-4"
+              style={{ backgroundColor: "#004573", border: "none" }}
+              id="buttonAjouter"
+            >
+              Ajouter un participant
+            </Button>
           </div>
-          <div className="mt-4 ms-3  me-3">
-          <div className="flex-grow-1 d-flex justify-content-end ">
-              <div className="champsRecherche mt-2 mb-3 w-50">
-                <Form>
-                  <div
-                    className="input-group flex-nowrap "
-                    style={{ borderColor: "#004573" }}
-                  >
-                    <Form.Control
-                      type="search"
-                      className="form-control w-50   "
-                      placeholder="Rechercher participant"
-                      aria-label="user"
-                      aria-describedby="addon-wrapping"
-                      value={searchValueUser}
-                      onChange={handleSearchChange}
+          <div>
+            <Form onSubmit={handleSubmit}>
+              <div className="d-flex">
+                <div>
+                  <input type="file" accept=".xlsx, .xls, .csv" onChange={handleFileChange}
+                    style={{
+                      backgroundColor: "#fff",
+                      border: "1px solid  #004573",
+                      color: '#004573',
+                      width: '200px',
+                      borderTopLeftRadius: '10px',
+                      borderBottomLeftRadius: '10px',
+                      padding: '2px 2px'
+                      
+                    }} 
+                    id="responsive-baye-responsive"
                     />
-                    <span
-                      className="input-group-text text-white me-4"
-                      id="addon-wrapping"
-                      style={{ backgroundColor: "#004573" }}
-                    >
-                      <FontAwesomeIcon icon={faMagnifyingGlass} />
-                    </span>
-                  </div>
-                </Form>
-              </div>
-            </div>
-            <h3>Liste des participants</h3>
-            <table className="table border  border-1">
-              <thead
-                className=""
-                id="hearder-color"
-                style={{ backgroundColor: "#004573" }}
-              >
-                <tr>
-                  
-                  <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                  Voir les reponses des participant
-                  </th>
-                  <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                  Nom
-                  </th>
-                  <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                    Prenom
-                  </th>
-                  <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                    Email
-                  </th>
-                  
-                  <th style={{ backgroundColor: "#004573", color: "#fff" }}>
-                    Entreprise
-                  </th>
-                  <th
-                    className="d-flex  justify-content-center "
+                </div>
+                <div>
+                  <button type="submit"
                     style={{
                       backgroundColor: "#004573",
-                      color: "#fff",
-                      marginLeft: "3rem",
-                    }}
-                  >
-                    Action
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-              { currentUsers &&
-                  currentUsers.map((user) => ( 
-                  <tr key={user && user.id} >
-                    <td>
-                      <Button
+                      border: "none",
+                      color: 'white',
+                      borderTopRightRadius: '10px',
+                      borderBottomRightRadius: '10px',
+                      padding: '5px'
+                    }}>
+                    Téléverser
+                  </button>
+                </div>
+              </div>
+            </Form>
+            {message && <p>{message}</p>}
+          </div>
+          <div className="">
+            <Button
+              variant="primary"
+              onClick={handleShowBlokUser}
+              className="ms-4"
+              style={{ backgroundColor: "#004573", border: "none" }}
+              id="buttonAjouter"
+            >
+              Liste participant bloqué
+            </Button>
+          </div>
+        </div>
+        <div className="mt-4 ms-3 me-3 " id="content-input-global-projet4">
+          <div className="flex-grow-1 d-flex justify-content-end content-input-global-projet2 " id="content-input-global-projet2">
+            <div className="champsRecherche mt-2 mb-3 w-50">
+              <Form>
+                <div className="input-group flex-nowrap" style={{ borderColor: "#004573" }}>
+                  <Form.Control
+                    type="search"
+                    className="form-control w-50"
+                    placeholder="Rechercher participant"
+                    aria-label="user"
+                    aria-describedby="addon-wrapping"
+                    value={searchValueUser}
+                    onChange={handleSearchChange}
+                  />
+                  <span className="input-group-text text-white me-4" id="addon-wrapping" style={{ backgroundColor: "#004573" }}>
+                    <FontAwesomeIcon icon={faMagnifyingGlass} />
+                  </span>
+                </div>
+              </Form>
+            </div>
+          </div>
+          <h3>Liste des participants</h3>
+          <div className="table-responsive">
+          <table className="table border border-1 md-50">
+            <thead className="" id="hearder-color" style={{ backgroundColor: "#004573" }}>
+              <tr>
+                <th style={{ backgroundColor: "#004573", color: "#fff" }}>Reponse</th>
+                <th style={{ backgroundColor: "#004573", color: "#fff" }}>Nom</th>
+                <th style={{ backgroundColor: "#004573", color: "#fff" }}>Prenom</th>
+                <th style={{ backgroundColor: "#004573", color: "#fff" }}>Email</th>
+                <th style={{ backgroundColor: "#004573", color: "#fff" }}>Entreprise</th>
+                <th className="d-flex justify-content-center" style={{ backgroundColor: "#004573", color: "#fff", marginLeft: "3rem" }}>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentUsers && currentUsers.map((user) => (
+                <tr key={user && user.id}>
+                  <td>
+                    <Button
                       variant="primary"
                       onClick={() => handleShowUserDetails(user)}
                       style={{
@@ -968,52 +948,46 @@ const chartContainerStyle = {
                     >
                       <FontAwesomeIcon icon={faEye} />
                     </Button>
-                    </td>
-                    <td>{user &&  user.nom}</td>
-                    <td>{user &&  user.prenom}</td>
-                    <td>{user &&  user.email}</td>
-                  
-                    <td>{user &&  user.entreprise.nom}</td>
-
-                        <td className=" d-flex justify-content-evenly">
-                          <Button
-                            variant="primary"
-                            // onClick={handleShowEdit}
-                            onClick={() => handleShowEditUsers(user)}
-                            style={{
-                              backgroundColor: "#fff",
-                              border: "1px solid #004573",
-                              color: "#004573",
-                            }}
-                            id="buttonModifier"
-                          >
-                            <FontAwesomeIcon icon={faPenToSquare} />
-                          </Button>
-                          <Button
-                            onClick={() => supprimerUser(user.id)}
-                            style={{
-                              backgroundColor: "#fff",
-                              border: "1px solid #004573",
-                              color: "#004573",
-                            }}
-                          >
-                            <FontAwesomeIcon icon={faLock} />
-                          </Button>
-
-                        
-                        </td>
-                    
-                  </tr>
-                ))} 
-                
-              </tbody>
-            </table>
-            <Pagination
-              currentPage={currentPage1}
-              totalPaginationPages={totalPaginationPagesUser}
-              setCurrentPage={setCurrentPage1}
-              />  
+                  </td>
+                  <td>{user && user.nom}</td>
+                  <td>{user && user.prenom}</td>
+                  <td>{user && user.email}</td>
+                  <td>{user && user.entreprise.nom}</td>
+                  <td className="d-flex justify-content-evenly">
+                    <Button
+                      variant="primary"
+                      onClick={() => handleShowEditUsers(user)}
+                      style={{
+                        backgroundColor: "#fff",
+                        border: "1px solid #004573",
+                        color: "#004573",
+                      }}
+                      id="buttonModifier"
+                    >
+                      <FontAwesomeIcon icon={faPenToSquare} />
+                    </Button>
+                    <Button
+                      onClick={() => supprimerUser(user.id)}
+                      style={{
+                        backgroundColor: "#fff",
+                        border: "1px solid #004573",
+                        color: "#004573",
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faLock} />
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <Pagination
+            currentPage={currentPage1}
+            totalPaginationPages={totalPaginationPagesUser}
+            setCurrentPage={setCurrentPage1}
+          />
           </div>
+        </div>
 
           {/********************************** * modal debut  ajouter participant************************************/}
           <Modal show={showUser} onHide={handleCloseEdit} id="buttonAjouter">

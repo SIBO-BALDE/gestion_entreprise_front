@@ -58,7 +58,7 @@ import LoadingBox from "../../../Components/LoadingBox/LoadingBox";
         try {
           if (token || role === "Admin") {
             const response = await axios.get(
-              "https://api.com.myfeedback360.com/api/ContactAbonementCs",
+              "https://api.myfeedback360.com/api/ContactAbonementCs",
               {
                 headers: {
                   Authorization: `Bearer ${token}`,
@@ -96,7 +96,7 @@ import LoadingBox from "../../../Components/LoadingBox/LoadingBox";
       try {
         if (token || role === "Admin"){
           const response = await axios.delete(
-            `https://api.com.myfeedback360.com/api/ContactAbonements/${id}/soft-delete`,
+            `https://api.myfeedback360.com/api/ContactAbonements/${id}/soft-delete`,
             {
               headers: {
                 'Content-Type': 'multipart/form-data',
@@ -182,11 +182,11 @@ import LoadingBox from "../../../Components/LoadingBox/LoadingBox";
         <LoadingBox />
          ) : (
       <div className="container">
-        <div className="d-flex justify-content-between mt-5">
+        <div className="d-flex justify-content-between mt-5 content-input-global-projet">
           <div>
            
           </div>
-          <div className="flex-grow-1 d-flex justify-content-end ">
+          <div className="flex-grow-1 d-flex justify-content-end content-input-global-projet2 ">
             <div className="champsRecherche mt-2 mb-3 w-50">
               <Form>
                 <div
@@ -214,7 +214,7 @@ import LoadingBox from "../../../Components/LoadingBox/LoadingBox";
             </div>
           </div>
         </div>
-        <div className="mt-4 ms-3  me-3">
+        <div className="mt-4 ms-3  me-3 table-responsive">
           <h3>Liste des demandes d'abonnements</h3>
           <table className="table border  border-1">
             <thead
@@ -248,7 +248,7 @@ import LoadingBox from "../../../Components/LoadingBox/LoadingBox";
                   <td>{messageel.ville}</td>
                   {/* <td></td> */}
                   {/* <td>{messageel.poste}</td> */}
-                  <td className="d-flex justify-content-evenly">
+                  <td className="d-flex justify-content-evenly" id="btn-listes">
                     <Button
                     onClick={() => supprimerMessage(messageel.id)}
                       style={{

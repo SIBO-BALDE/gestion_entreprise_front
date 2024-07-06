@@ -98,7 +98,7 @@ export default function ContactScreen() {
       
     try {
         const response = await axios.post(
-          "https://api.com.myfeedback360.com/api/contacte/create",
+          "https://api.myfeedback360.com/api/contacte/create",
 
           messageData,
         );
@@ -204,7 +204,7 @@ export default function ContactScreen() {
             <FontAwesomeIcon icon={faPhone} id='icon_content_contact' />
             </div>
             <div > 
-                <p className='text-white element_context_textcontact'>+221 76 830 68 68</p>
+                <p className='text-white element_context_textcontact'>+221 78 487 57 57</p>
             </div>
             </div>
 

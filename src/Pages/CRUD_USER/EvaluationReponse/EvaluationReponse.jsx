@@ -5,6 +5,8 @@ import React, { useEffect, useState } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap';
 import Pagination from '../../../Components/User_Components/Pagination/Pagination';
 import LoadingBox from '../../../Components/LoadingBox/LoadingBox';
+// import './EvaluationReponse.css'
+import './EvaluationReponse.css'
 
 import { Doughnut } from 'react-chartjs-2';
 import { Pie } from 'react-chartjs-2';
@@ -39,7 +41,7 @@ const fetchEvaluationReponse = async () => {
     const token = localStorage.getItem("tokencle");
   try {
     if (token || role === "Participant") {
-      const response = await axios.get('http://localhost:8000/api/liste/user/evaluer',
+      const response = await axios.get('https://api.myfeedback360.com/api/liste/user/evaluer',
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -67,7 +69,7 @@ const fetchEvaluationQR = async (userId) => {
   const token = localStorage.getItem("tokencle");
   try {
     if (token) {
-      const response = await axios.get(`http://localhost:8000/api/listes/particpants/evaluateur/${userId}`, {
+      const response = await axios.get(`https://api.myfeedback360.com/api/listes/particpants/evaluateur/${userId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -110,41 +112,13 @@ const handleCloseShow = () => {
   setEvaluationDataQR(null);
 };
 
-// la funtion pour recuperer la liste des reponse d'evaluation
-// const fetchEvaluationR = async (categorieId) => {
-//   const token = localStorage.getItem("tokencle");
-//   try {
-//     if (token) {
-//       const response = await axios.get(`http://localhost:8000/api/liste/question/reponses/evaluation/${categorieId}`, {
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//         },
-//       });
-//       console.log(response, 'response qr recus')
-//       // if (response.data && response.data.evaluations && Array.isArray(response.data.evaluations)) {
-//       //   console.log("Données de l'API récupérées :", response.data.evaluations);
-//       //   console.log(response.data.evaluations, 'response.data.evaluations')
-//       //   // return response.data.evaluations;
-//       //   setEvaluationDataR(response.data.evaluations)
-//       //   setLoading(false)
-//       //   console.log(evaluationDataR, 'evaluationDataR fetch')
-//       // } else {
-//       //   console.error("La réponse de l'API n'est pas un tableau ou est vide :", response.data.evaluatedUsers);
-//       //   return [];
-//       // }
-//     }
-//   } catch (error) {
-//     console.error('Erreur lors de la récupération des données:', error);
-//     throw error;
-//   }
-// };
-// const a =1
+
 
 const fetchEvaluationR = async (categorie) => {
   const token = localStorage.getItem("tokencle");
   try {
     if (token) {
-      const response = await axios.get(`http://localhost:8000/api/liste/question/reponses/evaluation/${categorie}`, {
+      const response = await axios.get(`https://api.myfeedback360.com/api/liste/question/reponses/evaluation/${categorie}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -178,29 +152,13 @@ const fetchEvaluationR = async (categorie) => {
 
 
 
-
-
-
-// useEffect(()=>{
-// //   if (selectedEvalR) {
-//     fetchEvaluationR();
-// //   }
-// }, []);
-
-
-
-
-
-
-
-
 //Lister les  Categorie
 const fetchCategory = async () => {
   const role = localStorage.getItem("rolecle");
   const token = localStorage.getItem("tokencle");
   try {
     const response = await axios.get(
-      "http://localhost:8000/api/liste/categories",
+      "https://api.myfeedback360.com/api/liste/categories",
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -220,28 +178,20 @@ useEffect(() => {
 }, []);
 
 const handleShowCat = async () => {
-  // try {
-  //     await fetchEvaluationR(categorieId.id);
-  //     // console.log(questionsAndAnswersR, 'questionsAndAnswersR')
-  //     // setEvaluationDataR(questionsAndAnswersR);
-  //     console.log(evaluationDataR, 'evaluationDataR')
-  //     setShowR(true);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
+  
   setShowCat(true)
 };
 const handleCloseShowCat = () => {
   setShowCat(false);
-  // setEvaluationDataR(null);
+  
 };
 
 
 const handleCategoryClick = async (categorie) => {
   try {
-    await fetchEvaluationR(categorie.id); // Utilisez categorie.id pour récupérer l'ID de la catégorie
+    await fetchEvaluationR(categorie.id); 
     setSelectedCategory(categorie.id); 
-    console.log(categorie.id, 'okay')// Met à jour l'état avec l'objet catégorie complet
+    console.log(categorie.id, 'okay')
     setShowR(true); 
     setShowCat(false); 
   } catch (error) {
@@ -250,18 +200,7 @@ const handleCategoryClick = async (categorie) => {
   }
 };
 
-// Funtion pour ouvrir un autre modal
-// const handleShowR = async (user) => {
-//   try {
-//       await fetchEvaluationR(user.id);
-//       // console.log(questionsAndAnswersR, 'questionsAndAnswersR')
-//       // setEvaluationDataR(questionsAndAnswersR);
-//       console.log(evaluationDataR, 'evaluationDataR')
-//       setShowR(true);
-//     } catch (error) {
-//       console.error(error);
-//     }
-// };
+
 // Funtion appeler pour fermer un autre le modal
 const handleCloseShowR = () => {
   setShowR(false);
@@ -343,7 +282,7 @@ const processEvaluations = (evaluations) => {
           reponses: qr.reponses.map(reponse => {
             return {
               ...reponse,
-              niveauLabel: getNiveauLabel(reponse.niveau) // Ajoutez le label du niveau ici pour chaque réponse
+              niveauLabel: getNiveauLabel(reponse.niveau) 
             };
           })
         };
@@ -354,7 +293,7 @@ const processEvaluations = (evaluations) => {
 
 
 
-// **********************************Chart******************************************//
+// **********************************Chart diagramme******************************************//
 
 const prepareChartData = (userData) => {
   const responseCounts = userData.reponses.map(r => r.count);
@@ -436,8 +375,8 @@ let questionCounter2 = 1;
         <LoadingBox />
          ) : (
         <div>
-          <div>
-              <div className="d-flex justify-content-between mt-5 ms-4">
+          <div id='content-flex-reponse-evaluation'>
+              <div className="d-flex justify-content-between mt-5 ms-4 content-input-global-projet">
                 <div>
                     <Button
                     
@@ -447,7 +386,7 @@ let questionCounter2 = 1;
                               Evaluation reçue           
                     </Button>
                 </div>
-                <div className="flex-grow-1 d-flex justify-content-end ">
+                <div className="flex-grow-1 d-flex justify-content-end content-input-global-projet2 ">
                   <div className="champsRecherche mt-2 mb-3 w-50">
                     <Form>
                       <div
@@ -475,9 +414,9 @@ let questionCounter2 = 1;
                   </div>
                 </div>
               </div>
-              <div className="content-left-admin-dashbord border ms-4 me-4">
+              <div className="content-left-admin-dashbord border ms-4 me-4" id='content-left-admin-dashbord'>
                 <h3 className="mb-2">Liste des Evalués</h3>
-                <table className="table mb-5">
+                <table className="table mb-5" id='content-left-admin-dashbord-table-responsive'>
                   <thead className="table-light" id="hearder-color">
                     <tr>
                       

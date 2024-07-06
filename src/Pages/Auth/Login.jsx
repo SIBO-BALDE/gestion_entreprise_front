@@ -222,13 +222,13 @@ export default function Login() {
       const response = await axios.post(
         "https://api.myfeedback360.com/api/login",
         credentials,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
+        // {
+        //   headers: {
+        //     Authorization: `Bearer ${token}`,
+        //     Accept: "application/json",
+        //     "Content-Type": "application/json",
+        //   },
+        // }
       );
 
       console.log(credentials, "credentials");

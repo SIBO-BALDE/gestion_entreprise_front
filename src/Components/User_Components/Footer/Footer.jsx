@@ -40,7 +40,7 @@ export default function Footer() {
     }
     try {
         const response = await axios.post(
-          "https://api.com.myfeedback360.com/api/newsletter/create",
+          "https://api.myfeedback360.com/api/newsletter/create",
 
           emailData,
         

@@ -99,3 +99,40 @@
   thead #hearder-color{
     background-color: var(--principal) !important;
   }
+  .content-diagramme-circulaire-right-conten-2-admin{
+    width: 80% !important;
+    /* border: 3px solid red; */
+  }
+  .secondecontent{
+    /* border: 5px solid green; */
+    width: 100% !important;
+    height: auto !important;
+  }
+  
+
+  @media screen and (max-width:1386px) {
+    #maincontent-dashbord-static{
+      display: block;
+    }
+    
+    .secondecontent{
+      width: 100%;
+    }
+    .contentsidebar{
+      display: none;
+    }
+    .diagram-main-contain-dasboadadmin {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      /* border: 5px solid red; */
+    }
+   
+   
+   
+    
+
+    
+  }
+ 

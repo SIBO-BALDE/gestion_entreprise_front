@@ -208,7 +208,7 @@ const ajouterMessage = async (e) => {
 
   // If no validation errors, proceed with the request
   try {
-      const response = await axios.post("https://api.com.myfeedback360.com/api/ContactAbonementC/create", messageData);
+      const response = await axios.post("https://api.myfeedback360.com/api/ContactAbonementC/create", messageData);
 
       if (response.status === 200) {
           setMessages([...messages, response.data]);
@@ -247,7 +247,7 @@ const fetchAbonnement = async () => {
   try {
     
       const response = await axios.get(
-        "https://api.com.myfeedback360.com/api/listes/abonements",
+        "https://api.myfeedback360.com/api/listes/abonements",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -272,7 +272,7 @@ useEffect(() => {
     <div>
       {/* <NavbarUser/> */}
 
-    <div  style={{backgroundColor:'#004573',padding:'20px'}}>
+    <div  style={{backgroundColor:'#004573',padding:'20px'}} className='content-devis-main-one-contnt' id='content-devis-main-one-contnt'>
      
     <Underline text="Pour plus d'information remplissez ce formulaire" color='#fff' />
       <div className='content_devis_main container'>
@@ -515,7 +515,7 @@ useEffect(() => {
       </div>
 
       </div>
-      <footer><Footer/> </footer>   
+      {/* <footer><Footer/> </footer>    */}
     </div>
     </div>
   )

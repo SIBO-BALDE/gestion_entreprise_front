@@ -58,8 +58,8 @@ const Chart2 = () => {
       };
       try {
         if (token || role === 'Admin') {
-          const totalResponse = await axios.get('http://localhost:8000/api/participants', config);
-          const evaluatedResponse = await axios.get('http://localhost:8000/api/listes/total/utlisateur/evaluer', config);
+          const totalResponse = await axios.get('https://api.myfeedback360.com/api/participants', config);
+          const evaluatedResponse = await axios.get('https://api.myfeedback360.com/api/listes/total/utlisateur/evaluer', config);
 
           console.log('Total response data:', totalResponse.data);
           console.log('Evaluated response data:', evaluatedResponse.data);

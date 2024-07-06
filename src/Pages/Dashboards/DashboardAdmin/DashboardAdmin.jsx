@@ -30,6 +30,8 @@ import LoadingBox from "../../../Components/LoadingBox/LoadingBox";
 import ClassificationChart from "../../../Components/Admin_Components/Chart/ClassificationChart";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBuilding } from "@fortawesome/free-solid-svg-icons";
+import SideBar from "../../../Components/Admin_Components/SideBar/SideBar";
+import ResponsiveSideBarAdmin from "../../../Components/User_Components/ResponsiveSideBar/ResponsiveSideBarAdmin";
 
 
 
@@ -44,14 +46,15 @@ function KPI() {
     const [entreprises, setEntreprises] = useState([]);
     const [evaluationDataQR, setEvaluationDataQR] = useState([]);
     const [evaluationData, setEvaluationData] = useState([]);
- //  Lister les categories
+ 
+    //  Lister les categories
  const fetchCategories = async () => {
   const role = localStorage.getItem("rolecle");
   const token = localStorage.getItem("tokencle");
   try {
     if (token || role === "Admin") {
       const response = await axios.get(
-        "https://api.com.myfeedback360.com/api/categories",
+        "https://api.myfeedback360.com/api/categories",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -78,7 +81,7 @@ useEffect(() => {
     try {
       if (token || role === "Admin") {
         const response = await axios.get(
-          "https://api.com.myfeedback360.com/api/entreprises",
+          "https://api.myfeedback360.com/api/entreprises",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -94,6 +97,7 @@ useEffect(() => {
       console.error("Erreur lors de la récupération des catégories:", error);
     }
   };
+
   useEffect(() => {
     fetchEntreprises();
   }, []);
@@ -104,7 +108,7 @@ useEffect(() => {
     try {
       if (token || role === "Admin") {
         const response = await axios.get(
-          "https://api.com.myfeedback360.com/api/participants",
+          "https://api.myfeedback360.com/api/participants",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -135,7 +139,7 @@ useEffect(() => {
      try {
        if (token || role === "Admin") {
          const response = await axios.get(
-           "https://api.com.myfeedback360.com/api/evenements",
+           "https://api.myfeedback360.com/api/evenements",
            {
              headers: {
                Authorization: `Bearer ${token}`,
@@ -224,12 +228,13 @@ useEffect(() => {
   const totalPaginationPagesEvent = Math.ceil(events.length / eventsParPage);
 
   const [reponsesQuestion, setReponsesQuestion] = useState([]);
+
   const fetchReponsesQuestion = async (CategorieId, evaluationId) => {
     
     try {
       const token = localStorage.getItem("tokencle");
       const response = await axios.get(
-        `https://api.com.myfeedback360.com/api/categories/questions-and-reponses/${CategorieId}/${evaluationId}`,
+        `http://localhost:8000/api/categories/questions-and-reponses/${CategorieId}/${evaluationId}`,
         {
          
         }
@@ -247,22 +252,13 @@ useEffect(() => {
 
   const [classificationData, setClassificationData] = useState(null);
 
-  // useEffect(() => {
-  //   // Remplacez l'URL par l'URL de votre backend
-  //   axios.get('http://localhost:8000/api//liste/user/evaluer/admin')
-  //     .then((response) => {
-  //       setClassificationData(response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error('Erreur lors de la récupération des données de classification', error);
-  //     });
-  // }, []);
+ 
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchClassificationData = async () => {
-      const token = localStorage.getItem('tokencle'); // Récupérer le token du localStorage
-      const role = localStorage.getItem('rolecle'); // Récupérer le rôle du localStorage
+      const token = localStorage.getItem('tokencle'); 
+      const role = localStorage.getItem('rolecle'); 
 
       if (!token || role !== 'Admin') {
         setError("Vous devez être connecté en tant qu'administrateur pour voir ces données");
@@ -271,12 +267,12 @@ useEffect(() => {
       }
 
       try {
-        const response = await axios.get('https://api.com.myfeedback360.com/api/liste/user/evaluer/admin', {
+        const response = await axios.get('https://api.myfeedback360.com/api/liste/user/evaluer/admin', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        setClassificationData(response.data.classification); // Extraire correctement les données de classification
+        setClassificationData(response.data.classification); 
       } catch (error) {
         setError("Erreur lors de la récupération des données");
       } finally {
@@ -310,11 +306,9 @@ useEffect(() => {
         </div>
         <div className="">
           <div className="d-flex justify-center diagram-main-contain-dasboadadmin">
-         {/* <div> <Chart /></div>
-          <div><Chart1 /></div>
-          <div><Chart2 /></div> */}
+        
           <ClassificationChart classificationData={classificationData} />
-          {/* <div><h3>cc</h3></div> */}
+  
           <div><Chart2 /></div> 
           
           </div>
@@ -323,6 +317,7 @@ useEffect(() => {
       </div>
       )}
     </div>
+    
   );
 }
 
@@ -354,11 +349,15 @@ export default function DashbordAdmin() {
   // l'etat pour verifier si le sidebar est ouvert ou pas
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [name, setName] = useState("dashbordAdmin");
+  
 
   // function pour changer l'eta
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
+
+
+  
 
   const navigate = useNavigate();
   
@@ -393,7 +392,9 @@ export default function DashbordAdmin() {
         className={`maincontent-dashbord-static ${
           isSidebarOpen ? "hidden" : ""
         }`}
+        id="maincontent-dashbord-static"
       >
+        <div>
         <div className="contentsidebar">
           <SideBars
             isOpen={isSidebarOpen}
@@ -402,10 +403,16 @@ export default function DashbordAdmin() {
             id="sidebar-content"
           />
         </div>
+        
+        <NavbarAdmin onMenuClick={toggleSidebar} handleChangePath={handleChangePath} />
+
+        </div>
         <div className="secondecontent">
-          <div className="">
-            <NavbarAdmin onMenuClick={toggleSidebar} />
+          <div className="secondecontent-navbarmain-one-normal">
+            {/* <NavbarAdmin onMenuClick={toggleSidebar} /> */}
+            <NavbarAdmin onMenuClick={toggleSidebar} handleChangePath={handleChangePath} />
           </div>
+          
           
           {/* contenue selon le lien clicker */}
           {RenderContent(name)}

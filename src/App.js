@@ -31,60 +31,6 @@ import FormLien from './Components/User_Components/FormLien/FormLien';
 
 function App() {
 
-  // const refreshAccessToken = async () => {
-  //   const token = localStorage.getItem("tokencle");
-  //   if (!token) {
-  //     console.error("Token absent !");
-  //     return;
-  //   }
-  
-  //   try {
-  //     const response = await axios.post(
-  //       'http://localhost:8000/api/refresh',
-  //       {},
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     );
-  
-  //     const newAccessToken = response.data.access_token;
-  
-  //     localStorage.setItem("tokencle", newAccessToken);
-  
-  //     console.log("Token rafraîchi avec succès !");
-  //   } catch (error) {
-  //     console.error("Erreur lors du rafraîchissement du token :", error);
-  //   }
-  // };
-  
-  // const checkTokenExpiration = () => {
-  //   const accessToken = localStorage.getItem("tokencle");
-  //   if (!accessToken) {
-  //     console.error("Token absent !");
-  //     return;
-  //   }
-  
-  //   const { exp } = jwtDecode(accessToken); // Assure-toi d'avoir jwt-decode installé
-  
-  //   // Convertir la date d'expiration du token en secondes
-  //   const expirationTimeInSeconds = exp - Date.now() / 1000;
-  
-  //   // Si le token expire dans moins de 5 minutes, rafraîchis-le
-  //   if (expirationTimeInSeconds < 300) {
-  //     refreshAccessToken();
-  //   }
-  // };
-  
-  // // Vérifie périodiquement l'expiration du token
-  // const tokenRefreshInterval = setInterval(checkTokenExpiration, 60000); 
-  
-  // // Assure-toi d'arrêter le rafraîchissement automatique lorsque le composant est démonté
-  // return () => clearInterval(tokenRefreshInterval); 
-  
-
-
 
   return (
     <div >

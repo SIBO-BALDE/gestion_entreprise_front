@@ -48,7 +48,7 @@ function KPI() {
   try {
     if (token || role === "Admin") {
       const response = await axios.get(
-        "https://api.com.myfeedback360.com/api/categories",
+        "https://api.myfeedback360.com/api/categories",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -144,7 +144,7 @@ useEffect(() => {
     try {
       if (token || role === "SuperAdmin") {
         const response = await axios.get(
-          "https://api.com.myfeedback360.comapi/listes/admins",
+          "https://api.myfeedback360.com/api/listes/admins",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -179,9 +179,10 @@ useEffect(() => {
       {loading ? (
         <LoadingBox />
          ) : (
-      <div className="dashbord-content-main-one container" id="vv" style={{marginTop:'80px'}}>
-        <div >
-        <div className="content-left-admin-dashbord border" style={{height:'100%'}}>
+      <div className="dashbord-content-main-one container" id="vv" style={{marginTop:'80px'}} >
+        
+
+        <div className="content-left-admin-dashbord border table-responsive" style={{height:'100%'}} id="content-left-admin-dashbord">
           <h3 className="mb-2">Liste des Clients</h3>
           <table className="table mb-5 table-content-main">
             <thead className="table-light" id="hearder-color">
@@ -219,7 +220,8 @@ useEffect(() => {
           setCurrentPage={setCurrentPage1}
           />  
         </div>
-        </div>
+
+       
         <div className="content-diagramme-circulaire-right-conten-2 border pt-4">
           <div className="">
             <p className="text-center mt-2  ">
@@ -307,9 +309,10 @@ export default function DashboardSuperAdmin() {
             id="sidebar-content"
           />
         </div>
+        <NavbarSuperAdmin onMenuClick={toggleSidebar} handleChangePath={handleChangePath} />
         <div className="secondecontent">
           <div className="">
-            <NavbarSuperAdmin onMenuClick={toggleSidebar} />
+          <NavbarSuperAdmin onMenuClick={toggleSidebar} handleChangePath={handleChangePath} />
           </div>
           {/* <Tableaux /> */}
           {/* contenue selon le lien clicker */}

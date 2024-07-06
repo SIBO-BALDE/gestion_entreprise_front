@@ -12,6 +12,7 @@ import {
   import { useState } from "react";
   import Modal from "react-bootstrap/Modal";
   import { Link } from "react-router-dom";
+  import './Abonnement.css'
  
   
   import Swal from "sweetalert2";
@@ -51,7 +52,7 @@ export default function Abonnement() {
         try {
           
             const response = await axios.get(
-              "https://api.com.myfeedback360.com/api/listes/abonements",
+              "https://api.myfeedback360.com/api/listes/abonements",
               {
                 headers: {
                   Authorization: `Bearer ${token}`,
@@ -97,7 +98,7 @@ export default function Abonnement() {
           try {
             if (token || role==="SuperAdmin"){
               const response = await axios.post(
-                "https://api.com.myfeedback360.com/api/abonment/create",
+                "https://api.myfeedback360.com/api/abonment/create",
                 userData,
                 {
                   headers: {
@@ -217,7 +218,7 @@ const [editUserData, setEditUserData] = useState({
           if (token || role==="SuperAdmin"){
 
             const response = await axios.post(
-              `https://api.com.myfeedback360.com/api/abonment/update/${editUserData.id}`,
+              `https://api.myfeedback360.com/api/abonment/update/${editUserData.id}`,
               editUserData,
               {
                 headers: {
@@ -278,7 +279,7 @@ const [editUserData, setEditUserData] = useState({
         try {
           if (token || role === "SuperAdmin"){
             const response = await axios.delete(
-              `https://api.com.myfeedback360.com/api/abonements/${id}/soft-delete`,
+              `https://api.myfeedback360.com/api/abonements/${id}/soft-delete`,
               {
                 headers: {
                   'Content-Type': 'multipart/form-data',
@@ -317,7 +318,7 @@ const [editUserData, setEditUserData] = useState({
             <LoadingBox />
              ) : (
         <div className="container">
-          <div className="d-flex justify-content-between mt-5">
+          <div className="d-flex justify-content-between mt-5 content-input-global-projet">
             <div>
               <Button
                 variant="primary"
@@ -332,7 +333,7 @@ const [editUserData, setEditUserData] = useState({
             
             
     
-            <div className="flex-grow-1 d-flex justify-content-end ">
+            <div className="flex-grow-1 d-flex justify-content-end content-input-global-projet2 ">
               <div className="champsRecherche mt-2 mb-3 w-50">
                 <Form>
                   <div
@@ -360,7 +361,7 @@ const [editUserData, setEditUserData] = useState({
               </div>
             </div>
           </div>
-          <div className="mt-4 ms-3  me-3">
+          <div className="mt-4 ms-3  me-3 table-responsive">
             <h3>Liste des abonnements</h3>
             <table className="table border  border-1">
               <thead
@@ -403,7 +404,7 @@ const [editUserData, setEditUserData] = useState({
                     
                    
     
-                        <td className=" d-flex justify-content-evenly">
+                        <td className=" d-flex justify-content-evenly" id="btn-listes">
                           <Button
                             variant="primary"
                             // onClick={handleShowEdit}

@@ -18,7 +18,7 @@ export default function TableauSuperAdmin() {
     try {
       if (token || role === "SuperAdmin") {
         const response = await axios.get(
-          "http://localhost:8000/api/listes/admins",
+          "https://api.myfeedback360.com/api/listes/admins",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -43,7 +43,7 @@ export default function TableauSuperAdmin() {
     try {
       if (token || role === "SuperAdmin") {
         const response = await axios.get(
-          "http://localhost:8000/api/listes/entrepriseAbonement",
+          "https://api.myfeedback360.com/api/listes/entrepriseAbonement",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -70,7 +70,7 @@ export default function TableauSuperAdmin() {
     try {
       
         const response = await axios.get(
-          "http://localhost:8000/api/listes/abonements",
+          "https://api.myfeedback360.com/api/listes/abonements",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -96,7 +96,7 @@ export default function TableauSuperAdmin() {
 
 
   return (
-    <div className=''>
+    <div className=' card1-admin-content-main-superadmin'>
         <div className="card1-admin  pt-2 ps-1">
         <div className="d-flex justify-content-around mt-2 ">
           <div>

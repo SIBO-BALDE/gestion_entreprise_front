@@ -1,0 +1,21 @@
+
+@media screen and (max-width:1386px) {
+    #content-left-admin-dashbord{
+        margin: 0;
+        width: 100%;
+        
+    }
+    #content-flex-reponse-evaluation{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0 30px;
+
+    }
+    
+    #content-left-admin-dashbord-table-responsive{
+        width: 100% !important;
+    }
+    
+  }

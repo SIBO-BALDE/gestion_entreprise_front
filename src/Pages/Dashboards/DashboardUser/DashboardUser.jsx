@@ -30,32 +30,32 @@ function KPIUser() {
   const { submissionCount } = useAuth();
   const [events, setEvents] = useState([]);
 
-  const fetchEvents = async () => {
-    const role = localStorage.getItem("rolecle");
-    const token = localStorage.getItem("tokencle");
-    try {
-      if (token || role === "Participant") {
-        const response = await axios.get(
-          "http://localhost:8000/api/evenements/admin",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        console.log(response , 'liste')
-        setEvents(response.data.evenements);
-        setLoading(false)
+  // const fetchEvents = async () => {
+  //   const role = localStorage.getItem("rolecle");
+  //   const token = localStorage.getItem("tokencle");
+  //   try {
+  //     if (token || role === "Participant") {
+  //       const response = await axios.get(
+  //         "https://api.myfeedback360.com/api/evenements/admin",
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${token}`,
+  //           },
+  //         }
+  //       );
+  //       console.log(response , 'liste')
+  //       setEvents(response.data.evenements);
+  //       setLoading(false)
 
-        console.log(events);
-      }
-    } catch (error) {
-      console.error("Erreur lors de la récupération des catégories:", error);
-    }
-  };
-  useEffect(() => {
-    fetchEvents();
-  }, []);
+  //       console.log(events);
+  //     }
+  //   } catch (error) {
+  //     console.error("Erreur lors de la récupération des catégories:", error);
+  //   }
+  // };
+  // useEffect(() => {
+  //   fetchEvents();
+  // }, []);
 
   //  pour le champ recherche
 const [searchValue, setSearchValue] = useState("");
@@ -66,27 +66,27 @@ const handleSearchChange = (event) => {
 };
 
 // faire le filtre des maison par addrsse
-const filteredEvents = events.filter(
-  (eventEl) =>
-    eventEl &&
-    eventEl.titre &&
-    eventEl.titre.toLowerCase().includes(searchValue.toLowerCase())
-);
-const displayEvents = searchValue === "" ? events : filteredEvents;
+// const filteredEvents = events.filter(
+//   (eventEl) =>
+//     eventEl &&
+//     eventEl.titre &&
+//     eventEl.titre.toLowerCase().includes(searchValue.toLowerCase())
+// );
+// const displayEvents = searchValue === "" ? events : filteredEvents;
 
 
   const [currentPage, setCurrentPage] = useState(1);
 const  eventsParPage= 3;
 
 // pagination
-const indexOfLastEvent = currentPage* eventsParPage;
-const indexOfFirstEvent = indexOfLastEvent -  eventsParPage;
-const currentEvents = filteredEvents.slice(
-  indexOfFirstEvent,
-  indexOfLastEvent
-);
+// const indexOfLastEvent = currentPage* eventsParPage;
+// const indexOfFirstEvent = indexOfLastEvent -  eventsParPage;
+// const currentEvents = filteredEvents.slice(
+//   indexOfFirstEvent,
+//   indexOfLastEvent
+// );
 
-const totalPaginationPages = Math.ceil(events.length /  eventsParPage);
+// const totalPaginationPages = Math.ceil(events.length /  eventsParPage);
 
 
 
@@ -98,7 +98,7 @@ const [evaluations, setEvaluations] = useState([]);
     try {
       if (token && role === "Participant") {
         const response = await axios.get(
-          "http://localhost:8000/api/evaluations/admin",
+          "https://api.myfeedback360.com/api/evaluations/admin",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -162,32 +162,32 @@ const [currentPage2, setCurrentPage2] = useState(1);
  const totalPaginationPages2 = Math.ceil(evaluations.length /   evaluationParPage);
  const [eventsLenth, setEventsLenth] = useState([]);
 
- const fetchEventsLenth = async () => {
-  const role = localStorage.getItem("rolecle");
-  const token = localStorage.getItem("tokencle");
-  try {
-    if (token || role === "Participant") {
-      const response = await axios.get(
-        "http://localhost:8000/api/listes/evenements/evaluer",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log(response , 'liste')
-      setEventsLenth(response.data);
-      setLoading(false)
+//  const fetchEventsLenth = async () => {
+//   const role = localStorage.getItem("rolecle");
+//   const token = localStorage.getItem("tokencle");
+//   try {
+//     if (token || role === "Participant") {
+//       const response = await axios.get(
+//         "https://api.myfeedback360.com/api/listes/evenements/evaluer",
+//         {
+//           headers: {
+//             Authorization: `Bearer ${token}`,
+//           },
+//         }
+//       );
+//       console.log(response , 'liste')
+//       setEventsLenth(response.data);
+//       setLoading(false)
 
-      console.log(events);
-    }
-  } catch (error) {
-    console.error("Erreur lors de la récupération des catégories:", error);
-  }
-};
-useEffect(() => {
-  fetchEventsLenth ();
-}, []);
+//       console.log(events);
+//     }
+//   } catch (error) {
+//     console.error("Erreur lors de la récupération des catégories:", error);
+//   }
+// };
+// useEffect(() => {
+//   fetchEventsLenth ();
+// }, []);
 
 
 // feed evalution donnéé
@@ -197,7 +197,7 @@ const fetchEvaluationReponse = async () => {
     const token = localStorage.getItem("tokencle");
   try {
     if (token || role === "Participant") {
-      const response = await axios.get('http://localhost:8000/api/liste/user/evaluer',
+      const response = await axios.get('https://api.myfeedback360.com/api/liste/user/evaluer',
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -227,7 +227,7 @@ const fetchEvaluationUserRecu = async () => {
     const token = localStorage.getItem("tokencle");
   try {
     if (token || role === "Participant") {
-      const response = await axios.get('http://localhost:8000/api/evaluated-users',
+      const response = await axios.get('https://api.myfeedback360.com/api/evaluated-users',
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -261,8 +261,8 @@ useEffect(()=>{
          ) : (
     <div className="contenueprincipal container ">
       <div className="dashbord-content-main-one container" id="vv">
-        <div>
-        <div className="mt-4 ms-3  me-3">
+        <div id="content-left-admin-dashbord-1">
+        {/* <div className="mt-4 ms-3  me-3">
         <h3>Liste des évenements</h3>
         <table className="table border  border-1">
           <thead
@@ -299,7 +299,7 @@ useEffect(()=>{
                     <td>{ eventEl && eventEl.date_debut}</td>
                     <td>{ eventEl && eventEl.date_fin}</td>
                     <td className="d-flex justify-content-evenly">
-                      {/* Vos boutons d'action ici */}
+                      
                     </td>
                   </tr>
                 ))}
@@ -311,10 +311,10 @@ useEffect(()=>{
           totalPaginationPages={totalPaginationPages}
           setCurrentPage={setCurrentPage}
           />  
-      </div>
-        <div className="content-left-admin-dashbord border">
+      </div> */}
+        <div className="content-left-admin-dashbord border " id="content-left-admin-dashbord">
         <h3>Liste des évaluations </h3>
-        <table className="table border  border-1">
+        <table className="table border  border-1"  >
           <thead
             className=""
             id="hearder-color"
@@ -361,7 +361,7 @@ useEffect(()=>{
         </div>
 
         <div className="content-diagramme-circulaire-right-conten-2  pt-4 border">
-        <div className="card1-admin  pt-2 ps-1">
+        {/* <div className="card1-admin  pt-2 ps-1">
         <div className="d-flex justify-content-around mt-2 ">
           <div>
             <FontAwesomeIcon icon={faFeed} id="icon-content-admin" />
@@ -371,7 +371,7 @@ useEffect(()=>{
           </div>
         </div>
         <h1 className="text-center mt-1 ">{eventsLenth.length}</h1>
-      </div>
+      </div> */}
       <div className="card1-admin  pt-2 ps-1 ">
         <div className="d-flex justify-content-around mt-2 ">
           <div>
@@ -469,13 +469,13 @@ export default function DashboardUser() {
             handleChangePath={handleChangePath}
             id="sidebar-content"
           />
+          <NavbarUserAdmin onMenuClick={toggleSidebar} handleChangePath={handleChangePath} />
         </div>
         <div className="secondecontent">
           <div className="">
-            <NavbarUserAdmin onMenuClick={toggleSidebar} />
+          <NavbarUserAdmin onMenuClick={toggleSidebar} handleChangePath={handleChangePath} />
           </div>
-          {/* <Tableaux /> */}
-          {/* contenue selon le lien clicker */}
+        
           {RenderContent(name)}
         </div>
       </div>

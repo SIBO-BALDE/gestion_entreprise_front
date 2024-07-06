@@ -35,4 +35,22 @@
   #icon-content-admin {
     font-size: 20px;
   }
+  @media screen and (max-width:1386px) {
+    .card1-admin-content-main-superadmin{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+    }
+  }
   
+  @media screen and (max-width:671px){
+    .card1-admin-content-main-superadmin{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+    }
+
+  }

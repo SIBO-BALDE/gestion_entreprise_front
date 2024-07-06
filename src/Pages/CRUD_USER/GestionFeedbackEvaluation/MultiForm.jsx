@@ -16,7 +16,7 @@ const fetchUsers = async () => {
    if (token && role === "Participant") {
      const response = await axios.get(
       
-      `http://localhost:8000/api/participant/same-enterprise`,
+      `https://api.myfeedback360.com/api/participant/same-enterprise`,
       
        {
          headers: {
@@ -71,7 +71,7 @@ const handleUserSelectChange = (e) => {
     try {
       if (token || role === "Participant") {
         const response = await axios.get(
-          'http://localhost:8000/api/categories/admin',
+          'https://api.myfeedback360.com/api/categories/admin',
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -99,7 +99,7 @@ const handleUserSelectChange = (e) => {
 
 const fetchEvaluationDetail = async (evaluationId) => {
   try {
-      const response = await axios.get(`http://localhost:8000/api/evaluation/${evaluationId}`);
+      const response = await axios.get(`https://api.myfeedback360.com/api/evaluation/${evaluationId}`);
       setEvaluationData(response.data);
       console.log(response, 'response du')
      
@@ -121,7 +121,7 @@ const fetchEvaluationDetail = async (evaluationId) => {
         try {
           const token = localStorage.getItem("tokencle");
           const response = await axios.get(
-            `http://localhost:8000/api/categories/questions-and-reponses/${CategorieId}/${evaluationId}`,
+            `https://api.myfeedback360.com/api/categories/questions-and-reponses/${CategorieId}/${evaluationId}`,
             {
              
             }

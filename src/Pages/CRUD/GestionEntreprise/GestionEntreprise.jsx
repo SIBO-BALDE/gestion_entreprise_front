@@ -51,7 +51,7 @@ export default function GestionEntreprise() {
     try {
       if (token && role === "Admin") {
         const response = await axios.post(
-          "https://api.com.myfeedback360.com/api/entreprise/create",
+          "https://api.myfeedback360.com/api/entreprise/create",
 
           entrepriseData,
           {
@@ -97,7 +97,7 @@ export default function GestionEntreprise() {
     try {
       if (token || role === "Admin") {
         const response = await axios.get(
-          "https://api.com.myfeedback360.com/api/entreprises",
+          "https://api.myfeedback360.com/api/entreprises",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -141,7 +141,7 @@ export default function GestionEntreprise() {
     try {
       if (token || role === "Admin") {
           const response = await axios.post(
-          `https://api.com.myfeedback360.com/api/entreprise/update/${editentrepriseData.id}`,
+          `https://api.myfeedback360.com/api/entreprise/update/${editentrepriseData.id}`,
           editentrepriseData,
           {
             
@@ -193,7 +193,7 @@ export default function GestionEntreprise() {
     try {
       if (token || role === "Admin"){
         const response = await axios.delete(
-          `https://api.com.myfeedback360.com/api/entreprises/${id}/soft-delete`,
+          `https://api.myfeedback360.com/api/entreprises/${id}/soft-delete`,
           {
             headers: {
               'Content-Type': 'multipart/form-data',
@@ -263,7 +263,7 @@ const totalPaginationPages = Math.ceil(entreprises.length /  entrepriseParPage);
         <LoadingBox />
          ) : (
     <div className="container">
-      <div className="d-flex justify-content-between mt-5">
+      <div className="d-flex justify-content-between mt-5 content-input-global-projet">
         <div>
           <Button
             variant="primary"
@@ -275,7 +275,7 @@ const totalPaginationPages = Math.ceil(entreprises.length /  entrepriseParPage);
             Ajouter une entreprise
           </Button>
         </div>
-        <div className="flex-grow-1 d-flex justify-content-end ">
+        <div className="flex-grow-1 d-flex justify-content-end  content-input-global-projet2 ">
           <div className="champsRecherche mt-2 mb-3 w-50">
             <Form>
               <div

@@ -13,6 +13,7 @@ import { useAuth } from  '../../Auth/AuthContex'
 import Pagination from "../../../Components/User_Components/Pagination/Pagination";
 import LoadingBox from "../../../Components/LoadingBox/LoadingBox";
 // import Pagination from "../../Components/Pagination/Pagination";
+import "./GestionCategorie.css"; 
 
 export default function GestionCategorie() {
   const [loading, setLoading] = useState(true);
@@ -52,7 +53,7 @@ export default function GestionCategorie() {
     try {
       if (token && role === "Admin") {
         const response = await axios.post(
-          "https://api.com.myfeedback360.com/api/categorie/create",
+          "https://api.myfeedback360.com/api/categorie/create",
 
           categoryData,
           {
@@ -98,7 +99,7 @@ export default function GestionCategorie() {
     try {
       // if (token || role === "Admin") {
         const response = await axios.get(
-          "https://api.com.myfeedback360.com/api/categories",
+          "https://api.myfeedback360.com/api/categories",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -143,7 +144,7 @@ export default function GestionCategorie() {
     try {
       if (token || role === "Admin") {
           const response = await axios.post(
-          `https://api.com.myfeedback360.com/api/categorie/update/${editCategoryData.id}`,
+          `https://api.myfeedback360.com/api/categorie/update/${editCategoryData.id}`,
           editCategoryData,
           {
             headers: {
@@ -195,7 +196,7 @@ export default function GestionCategorie() {
     try {
       if (token || role === "Admin"){
         const response = await axios.delete(
-          `https://api.com.myfeedback360.com/api/categories/${id}/soft-delete`,
+          `https://api.myfeedback360.com/api/categories/${id}/soft-delete`,
           {
             headers: {
               'Content-Type': 'multipart/form-data',
@@ -266,7 +267,7 @@ const totalPaginationPages = Math.ceil(categories.length /  categorieParPage);
         <LoadingBox />
          ) : (
     <div className="container">
-      <div className="d-flex justify-content-between mt-5">
+      <div className="d-flex justify-content-between mt-5 content-input-global-projet">
         <div>
           <Button
             variant="primary"
@@ -278,12 +279,12 @@ const totalPaginationPages = Math.ceil(categories.length /  categorieParPage);
             Ajouter un lien hiérachie
           </Button>
         </div>
-        <div className="flex-grow-1 d-flex justify-content-end ">
+        <div className="flex-grow-1 d-flex justify-content-end  content-input-global-projet2" >
           <div className="champsRecherche mt-2 mb-3 w-50">
             <Form>
               <div
                 className="input-group flex-nowrap "
-                style={{ borderColor: "#004573" }}
+                style={{ borderColor: "#004573"}}
               >
                 <Form.Control
                   type="search"
@@ -308,6 +309,7 @@ const totalPaginationPages = Math.ceil(categories.length /  categorieParPage);
       </div>
       <div className="mt-4 ms-3  me-3">
         <h3>Liste des liens hiérachies</h3>
+        
         <table className="table border  border-1">
           <thead
             className=""
@@ -336,7 +338,7 @@ const totalPaginationPages = Math.ceil(categories.length /  categorieParPage);
             {currentCategories && currentCategories.map((categorie) => ( 
               <tr key={categorie && categorie.id} >
                 <td style={{ color: "black" }} >{categorie && categorie.nom}</td>
-                <td className="d-flex justify-content-evenly">
+                <td className="d-flex justify-content-evenly" id="btn-listes" >
                   <Button
                     variant="primary"
                     onClick={() => handleShowEditCategories(categorie)}

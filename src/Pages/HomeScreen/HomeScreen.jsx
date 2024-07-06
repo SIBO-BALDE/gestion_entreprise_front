@@ -114,7 +114,7 @@ export default function HomeScreen() {
             <div style={{ height:'100%', width:'100%'}} className='content-text-main-home'>
                 <h4 style={{color:'white',fontWeight:'bold',}}>Aimeriez vous renforcer la capicité de vos équipes à travers une évaluation  à 360°?</h4> <br />
                     <h4 style={{color:'white',fontWeight:'bold',}}><span style={{color:'#FFB703'}}>MY FEEDBACK <span className='text-white'>360°</span></span> est la solution</h4>
-                    <p style={{color:'white', textAlign:'justify'}} className='mt-5'>MYFEEDBACK <span style={{color:'#FFB703'}}>360°</span> offre une plateforme d'évaluation en ligne novatrice pour 
+                    <p style={{color:'white', textAlign:'justify'}} className='mt-5'>MY FEEDBACK <span style={{color:'#FFB703'}}>360°</span> offre une plateforme d'évaluation en ligne novatrice pour 
                        les entreprises désireuses de favoriser un environnement de travail
                        collaboratif et axé sur l'amélioration continue. Grâce à son expertise 
                        dans le domaine de l'évaluation des équipes, Byfeeding propose une solution 

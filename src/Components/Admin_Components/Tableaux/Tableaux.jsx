@@ -16,7 +16,7 @@ export default function Tableaux() {
     try {
       if (token || role === "Admin") {
         const response = await axios.get(
-          "http://localhost:8000/api/users_participants",
+          "https://api.myfeedback360.com/api/users_participants",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -44,7 +44,7 @@ export default function Tableaux() {
       try {
         if (token || role === "Admin") {
           const response = await axios.get(
-            "http://localhost:8000/api/entreprises",
+            "https://api.myfeedback360.com/api/entreprises",
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -73,7 +73,7 @@ export default function Tableaux() {
       try {
         if (token || role === "Admin") {
           const response = await axios.get(
-            "http://localhost:8000/api/evenements",
+            "https://api.myfeedback360.com/api/evenements",
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -102,7 +102,7 @@ const fetchEvaluationUserRecu = async () => {
     const token = localStorage.getItem("tokencle");
   try {
     if (token || role === "Admin") {
-      const response = await axios.get('http://localhost:8000/api/listes/total/utlisateur/evaluer',
+      const response = await axios.get('https://api.myfeedback360.com/api/listes/total/utlisateur/evaluer',
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -123,8 +123,9 @@ useEffect(()=>{
 
 
   return (
-    <div className='content_tab_admin_statistique'>
-      {/* <div className="content-diagramme-circulaire-right-conten-2  pt-4 "> */}
+<div>
+    <div className='content_tab_admin_statistique' id='content_tab_admin_statistique'>
+       
         <div className="card1-admin  pt-2 ps-1">
         <div className="d-flex justify-content-around mt-2 ">
           <div>
@@ -135,41 +136,146 @@ useEffect(()=>{
           </div>
         </div>
         <h1 className="text-center mt-1 ">{users.length}</h1>
-      </div>
-      <div className="card1-admin  pt-2 ps-1 ">
-        <div className="d-flex justify-content-around mt-2 ">
-          <div>
-            <FontAwesomeIcon icon={faBuilding} id="icon-content-admin" />
-          </div>
-          <div>
-            <h4> Nombre d'entreprises</h4>
-          </div>
         </div>
-        <h1 className="text-center mt-1 ">{entreprises.length}</h1>
-      </div>
-      <div className="card1-admin  pt-2 ps-1">
-        <div className="d-flex justify-content-around mt-2 ">
-          <div>
-            <FontAwesomeIcon icon={faCalendar} id="icon-content-admin" />
+        <div className="card1-admin  pt-2 ps-1 ">
+          <div className="d-flex justify-content-around mt-2 ">
+            <div>
+              <FontAwesomeIcon icon={faBuilding} id="icon-content-admin" />
+            </div>
+            <div>
+              <h4> Nombre d'entreprises</h4>
+            </div>
           </div>
-          <div>
-            <h4>Nombre d'evenements</h4>
-          </div>
+          <h1 className="text-center mt-1 ">{entreprises.length}</h1>
         </div>
-        <h1 className="text-center mt-1 ">{events.length}</h1>
-      </div>
-      <div className="card1-admin  pt-2 ps-1">
+        <div className="card1-admin  pt-2 ps-1">
+          <div className="d-flex justify-content-around mt-2 ">
+            <div>
+              <FontAwesomeIcon icon={faCalendar} id="icon-content-admin" />
+            </div>
+            <div>
+              <h4>Nombre d'evenements</h4>
+            </div>
+          </div>
+          <h1 className="text-center mt-1 ">{events.length}</h1>
+        </div>
+        <div className="card1-admin  pt-2 ps-1">
+          <div className="d-flex justify-content-around mt-2 ">
+            <div>
+              <FontAwesomeIcon icon={faUsers} id="icon-content-admin" />
+            </div>
+            <div>
+              <h4>Nombre de participant évalué</h4>
+            </div>
+          </div>
+          <h1 className="text-center mt-1 ">{evaluationDataRecu.length}</h1>
+        </div>
+       
+    </div>
+    {/* tablette */}
+    <div className='content_tab_admin_statistique2' id='content_tab_admin_statistique2'>
+      <div id='content_tab_admin_statistique-gap'>
+        <div className="card1-admin  pt-2 ps-1">
         <div className="d-flex justify-content-around mt-2 ">
           <div>
             <FontAwesomeIcon icon={faUsers} id="icon-content-admin" />
           </div>
           <div>
-            <h4>Nombre de participant évalué</h4>
+            <h4>Nombre de participants</h4>
           </div>
         </div>
-        <h1 className="text-center mt-1 ">{evaluationDataRecu.length}</h1>
+        <h1 className="text-center mt-1 ">{users.length}</h1>
+        </div>
+        <div className="card1-admin  pt-2 ps-1 ">
+          <div className="d-flex justify-content-around mt-2 ">
+            <div>
+              <FontAwesomeIcon icon={faBuilding} id="icon-content-admin" />
+            </div>
+            <div>
+              <h4> Nombre d'entreprises</h4>
+            </div>
+          </div>
+          <h1 className="text-center mt-1 ">{entreprises.length}</h1>
+        </div>
+
       </div>
-        {/* </div> */}
+      <div id='content_tab_admin_statistique-gap'>
+        <div className="card1-admin  pt-2 ps-1">
+          <div className="d-flex justify-content-around mt-2 ">
+            <div>
+              <FontAwesomeIcon icon={faCalendar} id="icon-content-admin" />
+            </div>
+            <div>
+              <h4>Nombre d'evenements</h4>
+            </div>
+          </div>
+          <h1 className="text-center mt-1 ">{events.length}</h1>
+        </div>
+        <div className="card1-admin  pt-2 ps-1">
+          <div className="d-flex justify-content-around mt-2 ">
+            <div>
+              <FontAwesomeIcon icon={faUsers} id="icon-content-admin" />
+            </div>
+            <div>
+              <h4>Nombre de participant évalué</h4>
+            </div>
+          </div>
+          <h1 className="text-center mt-1 ">{evaluationDataRecu.length}</h1>
+        </div>
+
+      </div>
+
     </div>
+    {/* mobile */}
+    <div className='content_tab_admin_statistique3' id='content_tab_admin_statistique3'>
+       
+        <div className="card1-admin  pt-2 ps-1">
+        <div className="d-flex justify-content-around mt-2 ">
+          <div>
+            <FontAwesomeIcon icon={faUsers} id="icon-content-admin" />
+          </div>
+          <div>
+            <h4>Nombre de participants</h4>
+          </div>
+        </div>
+        <h1 className="text-center mt-1 ">{users.length}</h1>
+        </div>
+        <div className="card1-admin  pt-2 ps-1 ">
+          <div className="d-flex justify-content-around mt-2 ">
+            <div>
+              <FontAwesomeIcon icon={faBuilding} id="icon-content-admin" />
+            </div>
+            <div>
+              <h4> Nombre d'entreprises</h4>
+            </div>
+          </div>
+          <h1 className="text-center mt-1 ">{entreprises.length}</h1>
+        </div>
+        <div className="card1-admin  pt-2 ps-1">
+          <div className="d-flex justify-content-around mt-2 ">
+            <div>
+              <FontAwesomeIcon icon={faCalendar} id="icon-content-admin" />
+            </div>
+            <div>
+              <h4>Nombre d'evenements</h4>
+            </div>
+          </div>
+          <h1 className="text-center mt-1 ">{events.length}</h1>
+        </div>
+        <div className="card1-admin  pt-2 ps-1">
+          <div className="d-flex justify-content-around mt-2 ">
+            <div>
+              <FontAwesomeIcon icon={faUsers} id="icon-content-admin" />
+            </div>
+            <div>
+              <h4>Nombre de participant évalué</h4>
+            </div>
+          </div>
+          <h1 className="text-center mt-1 ">{evaluationDataRecu.length}</h1>
+        </div>
+       
+    </div>
+
+</div>
   )
 }

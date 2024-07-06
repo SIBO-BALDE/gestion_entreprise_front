@@ -154,7 +154,7 @@ export default function GestionEvenement({ id }) {
     try {
       if (token && role === "Admin") {
         const response = await axios.post(
-          "https://api.com.myfeedback360.com/api/evenement/create",
+          "https://api.myfeedback360.com/api/evenement/create",
           eventData,
           {
             headers: {
@@ -206,7 +206,7 @@ export default function GestionEvenement({ id }) {
     try {
       if (token || role === "Admin") {
         const response = await axios.get(
-          "https://api.com.myfeedback360.com/api/evenements",
+          "https://api.myfeedback360.com/api/evenements",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -247,7 +247,7 @@ export default function GestionEvenement({ id }) {
           try {
             // Suppression de l'événement
             const response = await axios.delete(
-              `https://api.com.myfeedback360.com/api/evenements/${id}/soft-delete`,
+              `https://api.myfeedback360.com/api/evenements/${id}/soft-delete`,
               {
                 headers: {
                   'Content-Type': 'multipart/form-data',
@@ -374,7 +374,7 @@ export default function GestionEvenement({ id }) {
     try {
       if (token && role === "Admin") {
         const response = await axios.post(
-          `https://api.com.myfeedback360.com/api/evenement/update/${editEventData.id}`,
+          `https://api.myfeedback360.com/api/evenement/update/${editEventData.id}`,
           editEventData,
           {
             headers: {
@@ -495,7 +495,7 @@ const fetchFeedbackResponses = async (evenement_id) => {
   try {
     const token = localStorage.getItem("tokencle");
     const response = await axios.get(
-      `https://api.com.myfeedback360.com/api/listes/reponses/question/evenement/${evenement_id}`,
+      `https://api.myfeedback360.com/api/listes/reponses/question/evenement/${evenement_id}`,
       
       {
         headers: {
@@ -516,7 +516,7 @@ const fetchFeedbackResponses2 = async (evenement_id) => {
   try {
     const token = localStorage.getItem("tokencle");
     const response = await axios.get(
-      `https://api.com.myfeedback360.com/api/listes/reponses/question/evenement/repnodre/${evenement_id}`,
+      `https://api.myfeedback360.com/api/listes/reponses/question/evenement/repnodre/${evenement_id}`,
       
       {
         headers: {
@@ -608,7 +608,7 @@ const fetchEventsBlok = async () => {
   try {
     if (token || role === "Admin") {
       const response = await axios.get(
-        "https://api.com.myfeedback360.com/api/listes/evenements/archives",
+        "https://api.myfeedback360.com/api/listes/evenements/archives",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -654,7 +654,7 @@ const archiverEvaluation = async (id) => {
       if (token && role === 'Admin') {
         try {
           const response = await axios.post(
-            `https://api.com.myfeedback360.com/api/archiver/evenement/${id}`,
+            `https://api.myfeedback360.com/api/archiver/evenement/${id}`,
             {},
             {
               headers: {
@@ -710,7 +710,7 @@ let questionCounter = 1;
         <LoadingBox />
          ) : (
     <div className="container">
-      <div className="d-flex justify-content-between mt-5">
+      <div className="d-flex justify-content-between mt-5 content-input-global-projet">
         <div>
           <Button
             variant="primary"
@@ -733,7 +733,7 @@ let questionCounter = 1;
             Liste des évenements archivés
           </Button>
         </div>
-        <div className="flex-grow-1 d-flex justify-content-end ">
+        <div className="flex-grow-1 d-flex justify-content-end content-input-global-projet2 " id="content-input-global-projet2">
           <div className="champsRecherche mt-2 mb-3 w-50">
             <Form>
               <div
@@ -763,6 +763,7 @@ let questionCounter = 1;
       </div>
       <div className="mt-4 ms-3  me-3">
         <h3>Liste des évenements</h3>
+        <div className="table-responsive">
         <table className="table border  border-1">
           <thead
             className=""
@@ -868,6 +869,8 @@ let questionCounter = 1;
             totalPaginationPages={totalPaginationPagesEvent}
             setCurrentPage={setCurrentPage1}
 />
+
+        </div>
  
       </div>
 
@@ -933,8 +936,8 @@ let questionCounter = 1;
                         onChange={(e) => handleQuestionChange(questionIndex, e)}
                         placeholder="Question"
                       />
-                      <Button variant="danger" onClick={() => handleRemoveQuestion(questionIndex)}>
-                        <FontAwesomeIcon icon={faTrash} />
+                      <Button variant="" className="bg-white" onClick={() => handleRemoveQuestion(questionIndex)} style={{border:'1px solid red'}}>
+                        <FontAwesomeIcon icon={faTrash}  style={{color:'red'}} />
                       </Button>
                     </div>
                     <div>
@@ -948,19 +951,19 @@ let questionCounter = 1;
                             onChange={(e) => handleReponseChange(questionIndex, reponseIndex, e)}
                             placeholder="Réponse"
                           />
-                          <Button variant="danger" onClick={() => handleRemoveReponse(questionIndex, reponseIndex)}>
-                            <FontAwesomeIcon icon={faTrash} />
+                          <Button variant="" className="bg-white" onClick={() => handleRemoveReponse(questionIndex, reponseIndex)} style={{border:'1px solid red'}}>
+                            <FontAwesomeIcon icon={faTrash}  style={{color:'red'}} />
                           </Button>
                         </div>
                       ))}
-                      <Button variant="" onClick={() => handleAddReponse(questionIndex)} style={{ backgroundColor: '#004573', border: 'none', color: 'white', marginRight: '10px' }}>
-                        <FontAwesomeIcon icon={faPlus} />
+                      <Button variant="" className="bg-white" onClick={() => handleAddReponse(questionIndex)} style={{ marginRight: '10px', border:'1px solid #004573'}}>
+                        <FontAwesomeIcon icon={faPlus}  style={{color:'#004573'}} />
                       </Button><span>Ajouter une réponse</span>
                     </div>
                   </div>
                 ))}
-                <Button variant="" onClick={handleAddQuestion} style={{ backgroundColor: '#004573', border: 'none', color: 'white', marginRight: '10px' }}>
-                  <FontAwesomeIcon icon={faPlus} />
+                <Button variant="" onClick={handleAddQuestion} style={{ marginRight: '10px', border:'1px solid #004573' }}>
+                  <FontAwesomeIcon icon={faPlus} style={{color:'#004573'}} />
                 </Button><span>Ajouter une question</span>
               </div>
             </Form>
@@ -1077,8 +1080,8 @@ let questionCounter = 1;
                       value={question.nom}
                       onChange={(e) => handleQuestionChangeEdit(questionIndex, e.target.value)}
                     />
-                    <Button variant="danger" onClick={() => handleRemoveQuestionEdit(questionIndex)}>
-                      <FontAwesomeIcon icon={faTrash} />
+                    <Button variant="white" onClick={() => handleRemoveQuestionEdit(questionIndex)} style={{border:'1px solid red'}}>
+                      <FontAwesomeIcon icon={faTrash} style={{color: 'red'}} />
                     </Button>
                   </div>
                   <Form.Label>Reponses</Form.Label>
@@ -1091,19 +1094,19 @@ let questionCounter = 1;
                           value={reponse.nom}
                           onChange={(e) => handleReponseChangeEdit(questionIndex, reponseIndex, e.target.value)}
                         />
-                        <Button variant="danger" onClick={() => handleRemoveReponseEdit(questionIndex, reponseIndex)}>
-                          <FontAwesomeIcon icon={faTrash} />
+                        <Button variant="" className="bg-white" onClick={() => handleRemoveReponseEdit(questionIndex, reponseIndex)} style={{border:'1px solid red'}}>
+                          <FontAwesomeIcon icon={faTrash} style={{color: 'red'}} />
                         </Button>
                       </div>
                     ))}
-                    <Button variant="" onClick={() => handleAddReponseEdit(questionIndex)} style={{ backgroundColor: '#004573', border: 'none', color: 'white', marginRight: '10px' }}>
-                      <FontAwesomeIcon icon={faPlus} />
+                    <Button variant="" className="bg-white" onClick={() => handleAddReponseEdit(questionIndex)} style={{border:'1px solid #004573', marginRight: '10px'}}>
+                      <FontAwesomeIcon icon={faPlus} style={{color: '#004573'}} />
                     </Button><span>Ajouter une réponse</span>
                   </div>
                 </div>
               ))}
-              <Button variant="" onClick={handleAddQuestionEdit} style={{ backgroundColor: '#004573', border: 'none', color: 'white', marginRight: '10px' }}>
-                <FontAwesomeIcon icon={faPlus} />
+              <Button variant="" className="bg-white" onClick={handleAddQuestionEdit} style={{border:'1px solid #004573', marginRight: '10px'}}>
+                <FontAwesomeIcon icon={faPlus} style={{color: '#004573'}} />
               </Button><span>Ajouter une question</span>
             </div>
           </Form>

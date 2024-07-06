@@ -35,13 +35,63 @@
   #icon-content-admin {
     font-size: 20px;
   }
-  .text-chiffres {
-    /* margin-bottom: 50px; */
-  }
+  
   .content_tab_admin_statistique{
     display: flex !important;
+    /* flex-wrap: wrap; */
     justify-content: space-around !important;
     gap: 30px;
     width: 100% !important;
-
   }
+  #content_tab_admin_statistique-gap{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+  }
+  #content_tab_admin_statistique2{
+    display: none;
+  }
+  #content_tab_admin_statistique3{
+    display: none !important;
+
+   }
+  @media screen and (max-width:1386px) {
+   #content_tab_admin_statistique2{
+    display: block;
+   }
+   #content_tab_admin_statistique{
+    display: none !important;
+   }
+   #content_tab_admin_statistique3{
+    display: none !important;
+
+   }
+      
+     
+  
+    }
+    @media screen and (max-width:667px){
+      #content_tab_admin_statistique2{
+        display: none;
+       }
+       #content_tab_admin_statistique{
+        display: none !important;
+       }
+       #content_tab_admin_statistique3{
+        display: block !important;
+    
+       }
+          
+
+    }
+    @media screen and (max-width:338px){
+      .card1-admin{
+        width: auto !important;
+        height: auto !important;
+      }
+
+    }
+
+    
+  

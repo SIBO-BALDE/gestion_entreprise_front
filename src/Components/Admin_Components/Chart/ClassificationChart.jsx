@@ -12,16 +12,9 @@ const ClassificationChart = ({ classificationData }) => {
         backgroundColor: 'rgba(0, 69, 115, 0.2)',
         borderColor: 'rgb(0, 69, 115)',
         borderWidth: 2,
-        barThickness: 100, // Spécifiez une épaisseur de barre fixe
+        barThickness: 'flex', // Utiliser 'flex' pour une épaisseur de barre flexible
         maxBarThickness: 100, 
       },
-      // {
-      //   label: "Nombre de participant total évalué",
-      //   data: [],
-      //   backgroundColor: 'rgba(255, 183, 3,0.2)',
-      //   borderColor: 'rgb(255, 183, 3)',
-      //   borderWidth: 2,
-      // },
     ],
   });
 
@@ -29,29 +22,26 @@ const ClassificationChart = ({ classificationData }) => {
     if (classificationData) {
       setChartData((prevData) => ({
         ...prevData,
-        datasets: prevData.datasets.map((dataset, index) => {
-          // Note: Assuming classificationData contains only one group's data for now
-          // Update based on the correct data structure
-          return {
-            ...dataset,
-            data: [
-              classificationData.insuffisant ?? 0,
-              classificationData.moyen ?? 0,
-              classificationData.bien ?? 0,
-              classificationData.excellent ?? 0,
-            ],
-          };
-        }),
+        datasets: prevData.datasets.map((dataset) => ({
+          ...dataset,
+          data: [
+            classificationData.insuffisant ?? 0,
+            classificationData.moyen ?? 0,
+            classificationData.bien ?? 0,
+            classificationData.excellent ?? 0,
+          ],
+        })),
       }));
     }
   }, [classificationData]);
 
   return (
-    <div className="chart-container container">
-      {/* <h5 className='mt-4'>Classification des Utilisateurs Évalués</h5> */}
+    <div className="chart-container container" style={{ width: '100%', maxWidth: '536px', margin: '0 auto' }}>
       <Bar
         data={chartData}
         options={{
+          responsive: true,
+          maintainAspectRatio: false, // Permet à Chart.js d'ajuster le rapport hauteur/largeur automatiquement
           scales: {
             y: {
               beginAtZero: true,
@@ -81,8 +71,19 @@ const ClassificationChart = ({ classificationData }) => {
               },
             },
           },
+          layout: {
+            padding: {
+              left: 0,
+              right: 0,
+              top: 0,
+              bottom: 0,
+            },
+          },
+          barThickness: 'flex',
+          maxBarThickness: 100,
         }}
         className='cart-diagram-content'
+        height={400} // Définir une hauteur fixe pour le conteneur du diagramme
       />
     </div>
   );

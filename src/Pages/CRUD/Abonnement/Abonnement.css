@@ -1,63 +1,4 @@
-.devi-content-main-detail{
-    display: flex;
-    justify-content: space-around;
-    width: 760px !important;
-   
-}
-.CONTENT1{
-    width: 70%;
-    
-}
-.CONTENT2{
-    width: 30%;
-    
-}
-.two_content_detail{
-    display: grid;
-    grid-template-columns: 50% 50%;
-    
-}
-
-
-  /* Rendre le tableau réactif */
-.table-responsive{
-    overflow-x: auto;
-  }
-  
-  .table {
-    width: 100%;
-    max-width: 100%;
-    margin-bottom: 1rem;
-    background-color: transparent;
-  }
-  
-  .table th,
-  .table td {
-    padding: 0.75rem;
-    vertical-align: top;
-    border-top: 1px solid #dee2e6;
-  }
-  
-  .table thead th {
-    vertical-align: bottom;
-    border-bottom: 2px solid #dee2e6;
-  }
-  
-  .table tbody + tbody {
-    border-top: 2px solid #dee2e6;
-  }
-  
-  .table-responsive-sm {
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-
-
-/* Médias quéries */
-
-  @media screen  and (max-width:1120px){
+@media screen  and (max-width:1120px){
     .content-input-global-projet{
         display: flex;
         flex-direction: column;
@@ -100,17 +41,54 @@
   
     
 }
-  @media (max-width: 567px) {
+@media (max-width: 567px) {
     .table th,
     .table td {
       font-size: 12px;
       padding: 0.5rem;
     }
+    #btn-listes{
+        gap: 20px !important;
+    }
+  }
+  /* Rendre le tableau réactif */
+.table-responsive {
+    overflow-x: auto;
+  }
+  
+  .table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+  }
+  
+  .table th,
+  .table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+  }
+  
+  .table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+  }
+  
+  .table tbody + tbody {
+    border-top: 2px solid #dee2e6;
+  }
+  
+  .table-responsive-sm {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
   @media (max-width: 367px){
     #buttonArchiver{
         margin-left: 0px !important;
     }
+    
 
   }
-  
