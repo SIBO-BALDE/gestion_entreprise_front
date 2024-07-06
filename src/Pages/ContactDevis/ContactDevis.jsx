@@ -515,7 +515,7 @@ useEffect(() => {
       </div>
 
       </div>
-      {/* <footer><Footer/> </footer>    */}
+      <footer><Footer/> </footer>   
     </div>
     </div>
   )

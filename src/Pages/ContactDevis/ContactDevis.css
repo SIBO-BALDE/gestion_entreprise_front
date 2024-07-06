@@ -32,7 +32,6 @@
     margin-bottom: 20px;
 }
 
-
 .input-group input,
 .input-group textarea {
     width: 100%;
@@ -55,70 +54,60 @@
     border-radius: 5px;
     cursor: pointer;
 }
-.content_devis_main{
+
+.content_devis_main {
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 1fr;
+    gap: 20px;
     margin: 0 auto !important;
 }
 
+@media screen and (min-width: 768px) {
+    .content_devis_main {
+        grid-template-columns: 1fr 1fr;
+    }
+}
 
 .imageForm-content-devis{
     width: 100% !important;
     height: 100% !important;
 }
-@media screen and (max-width:1233px){
-    .content_devis_main{
+
+@media screen and (max-width:1233px) {
+    .content_devis_main {
         display: flex;
         flex-direction: column-reverse;
     }
-    #imageForm-content-devis-one{
+
+    #imageForm-content-devis-one {
         border-bottom: none !important;
         height: auto !important;
         border-top-left-radius: 10px !important;
     }
-    #imageForm-content-devis{
-        border-top-left-radius: 10px !important;
 
+    #imageForm-content-devis {
+        border-top-left-radius: 10px !important;
     }
-    .content_devis_main-form-one{
+
+    .content_devis_main-form-one {
         border-top-left-radius:0 !important;
         border-top-right-radius:0 !important;
         border-bottom-right-radius: 10px !important;
     }
-    
 }
-@media screen and (max-width:550px){
-    
-    #imageForm-content-devis-one{
-      height:auto !important;
-    }
-    
-    
-}
-@media screen and (max-width:768px){
-    
-    #imageForm-content-devis-one{
-      height:auto !important;
-    }
-    #content-devis-main-one-contnt{
-        height: auto !important;
-        border: 2px solid red;
-    }
-    .content_devis_main container{
-        height: auto;
-    }
-    .content_devis_main-form-one{
-        height: auto !important;
 
+@media screen and (max-width:550px) {
+    #imageForm-content-devis-one {
+        height:auto !important;
     }
-    
-    
 }
-@media screen and (max-width:391px){
-    
-    #imageForm-content-devis-one{
-      height:auto !important;
+
+@media screen and (max-width:768px) {
+    #imageForm-content-devis-one {
+        height:auto !important;
     }
-    
-    
+
+    #content-devis-main-one-contnt {
+        height: auto !important;
+    }
 }

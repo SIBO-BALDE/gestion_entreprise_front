@@ -116,8 +116,8 @@ export default function Footer() {
         </div>
         <section className='footer_bottom_home'>
             <div className='copyright_footer_home mt-4'>
-                <p>Copyright  <FontAwesomeIcon icon={regularIcons.faCopyright} /> 2024 MY FEEDBACK <strong style={{color:'#FFB703'}}>360°</strong> /
-                <Link to={'https://kevacom.com/'}  style={{textDecoration:'none', color:'#FFB703'}}>KEVACOM</Link>
+                <p>Copyright  <FontAwesomeIcon icon={regularIcons.faCopyright} /> 2024 MY FEEDBACK <strong style={{color:'#FFB703'}}>360°</strong> 
+                {/* <Link to={'https://kevacom.com/'}  style={{textDecoration:'none', color:'#FFB703'}}>KEVACOM</Link> */}
                 
                 </p>
             </div>
