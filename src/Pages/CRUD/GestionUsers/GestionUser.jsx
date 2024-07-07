@@ -15,6 +15,7 @@ import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
 import { emailPattern } from "../../Regex/Regex";
 import * as XLSX from 'xlsx';
+import './GsetionUser.css';
 
 
 import Swal from "sweetalert2";
@@ -854,8 +855,8 @@ const chartContainerStyle = {
           </div>
           <div>
             <Form onSubmit={handleSubmit}>
-              <div className="d-flex">
-                <div>
+              <div className="d-flex" id="btn-input-flex-content-main-user">
+                <div className="w-100" id="btn-input-flex-content-main-user-main">
                   <input type="file" accept=".xlsx, .xls, .csv" onChange={handleFileChange}
                     style={{
                       backgroundColor: "#fff",
@@ -870,7 +871,7 @@ const chartContainerStyle = {
                     id="responsive-baye-responsive"
                     />
                 </div>
-                <div>
+                <div className="w-100">
                   <button type="submit"
                     style={{
                       backgroundColor: "#004573",
@@ -879,7 +880,8 @@ const chartContainerStyle = {
                       borderTopRightRadius: '10px',
                       borderBottomRightRadius: '10px',
                       padding: '5px'
-                    }}>
+                    }}
+                    id="btn-input-flex-content-main-user-2">
                     Téléverser
                   </button>
                 </div>
@@ -1283,7 +1285,7 @@ const chartContainerStyle = {
               </div>
                 </div>
               <Modal.Body>
-              <table className="table border  border-1">
+              <table className="table border  border-1 w-100">
               <thead
                 className=""
                 id="hearder-color"

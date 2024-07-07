@@ -1,0 +1,49 @@
+@media screen  and (max-width:1120px){
+    #btn-input-flex-content-main-user{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        margin: 0;
+        width: 100%;
+    }
+    #btn-input-flex-content-main-user-2{
+        border-radius: 10px !important;
+        -webkit-border-radius: 10px !important;
+        -moz-border-radius: 10px !important;
+        -ms-border-radius: 10px !important;
+        -o-border-radius: 10px !important;
+        padding: 5px 15px;
+        width: 100% !important;
+        padding: 5px 10px;
+    }
+    #responsive-baye-responsive{
+        background-color: #004573 !important;
+        border: 1px solid  #004573;
+        color: #004573;
+        width: 100% !important;
+        border-radius: 10px !important;
+        /* padding: 3px ; */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 !important;
+        
+        -webkit-border-radius: 10px !important;
+        -moz-border-radius: 10px !important;
+        -ms-border-radius: 10px !important;
+        -o-border-radius: 10px !important;
+        margin-right: 0px !important;
+}
+#buttonAjouter{
+    margin: 0 !important;
+}
+#btn-input-flex-content-main-user-main{
+    background-color: #004573;
+    border-radius: 10px !important;
+    padding: 5px 10px;
+
+}
+
+}

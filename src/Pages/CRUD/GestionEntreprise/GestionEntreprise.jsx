@@ -333,7 +333,7 @@ const totalPaginationPages = Math.ceil(entreprises.length /  entrepriseParPage);
             {currentEntreprises && currentEntreprises.map((entreprise) => ( 
               <tr key={entreprise && entreprise.id} >
                 <td style={{ color: "black" }} >{entreprise && entreprise.nom}</td>
-                <td className="d-flex justify-content-evenly">
+                <td className="d-flex justify-content-evenly"  id="btn-listes">
                   <Button
                     variant="primary"
                     onClick={() => handleShowEditentreprises(entreprise)}
