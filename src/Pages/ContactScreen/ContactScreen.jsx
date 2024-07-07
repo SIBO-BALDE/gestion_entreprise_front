@@ -213,7 +213,7 @@ export default function ContactScreen() {
                 <FontAwesomeIcon icon={faWhatsapp} id='icon_content_contact' /> 
                 </div>
                 <div>
-                    <p className='text-white element_context_textcontact'>+221 77 134 64 96</p>
+                    <p className='text-white element_context_textcontact'>+221 77 885 44 82</p>
                 </div>
             </div>
             <div className='d-flex mt-2 '> 

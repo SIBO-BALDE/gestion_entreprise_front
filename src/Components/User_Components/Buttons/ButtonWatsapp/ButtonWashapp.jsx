@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 export default function ButtonWashapp() {
 
     const handleClickWatshappButton = async () => {
-        let phoneNumber = 773017272;
+        let phoneNumber = 778854482;
         Swal.fire({
           title: 'Êtes-vous sûr?',
           text: "De vouloir communiquer avec l'admin?",

@@ -83,7 +83,7 @@ export default function TarifScreen() {
                     <li>✓Assistance 24h/24</li>
                     
                     </ul>
-                    <Button className="select1"><Link to={'/devis_contact'} style={{textDecoration:'none', color:'white'}}>Essayez gratuitement</Link></Button>
+                    <Button className="select1"><Link to={'/devis_contact'} style={{textDecoration:'none', color:'white'}}>Je choisis ce plan</Link></Button>
                 </div>
                 
                 <div className="card card-2 hot-badge content_price_1">
@@ -101,7 +101,7 @@ export default function TarifScreen() {
                     <li>✓Gestion des liens hiérarchique </li>
                     <li>✓Assistance 24h/24</li>
                     </ul>
-                    <Button className="select1"><Link to={'/devis_contact'} style={{textDecoration:'none', color:'white'}}>Choisi ton plan</Link></Button>
+                    <Button className="select1"><Link to={'/devis_contact'} style={{textDecoration:'none', color:'white'}}>Je choisis ce plan</Link></Button>
                 </div>
                 <div className="card card-3 content_price_1">
                     <h2>Forfait à vie</h2>
@@ -118,7 +118,7 @@ export default function TarifScreen() {
                     <li>✓Gestion des liens hiérarchique </li>
                     <li>✓Assistance 24h/24</li>
                     </ul>
-                    <Button className="select1"><Link to={'/devis_contact'} style={{textDecoration:'none', color:'white'}}>Choisi ton plan</Link></Button>
+                    <Button className="select1"><Link to={'/devis_contact'} style={{textDecoration:'none', color:'white'}}>Je choisis ce plan</Link></Button>
                 </div>
               </div>
             
