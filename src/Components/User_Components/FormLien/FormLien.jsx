@@ -136,7 +136,7 @@ export default function FormLien() {
   let questionCounter2 = 1;
 
   return (
-    <div className='body-background'>
+    <div className='body-background-main-content'>
       <div className="form-container">
         <h2 className="form-title">Formulaire de questionnaire sur un évenement</h2>
         <Form onSubmit={handleSubmit}>

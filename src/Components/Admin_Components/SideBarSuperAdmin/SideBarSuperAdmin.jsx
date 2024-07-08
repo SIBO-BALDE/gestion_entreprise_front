@@ -61,7 +61,7 @@ export default function SideBarSuperAdmin({ isOpen, name, handleChangePath }) {
               <Image src={logo} alt="" id="image-contenu" className='border' />
             </div>
             <p className="text-center">
-              <Link to={'/'} style={{ textDecoration: 'none', color: 'white' }}>BARAKA GATE</Link>
+              <Link to={'/'} style={{ textDecoration: 'none', color: 'white' }}>MY FEEDBACK 360°</Link>
             </p>
             <hr className="text-white"/>
           </div>
