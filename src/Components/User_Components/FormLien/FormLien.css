@@ -52,9 +52,9 @@
   .body-background-main-content {
     background-color: #f2f2f2; 
     font-family: Arial, sans-serif; /* Police utilisée */
-    /* margin: 0; */
-    margin-top: 100px;
-    padding: 0;
+    margin: 0;
+    padding-top: 100px;
+    /* padding: 0; */
     display: flex;
     justify-content: center;
     /* align-items: center; */
