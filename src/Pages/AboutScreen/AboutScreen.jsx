@@ -387,59 +387,57 @@ export default function AboutScreen() {
       <Carousel activeIndex={index} onSelect={handleSelect} indicators={false} id='visiblement'>
         <Carousel.Item>
           <div className='content_images_top_ev_flex'>
+          <div className='content_content_formateur'>
+              
+              <div style={{ width:"640", height:"360"}} className='content_content_formateur_image'>
+              <div style={{display:'flex',justifyContent:'center',marginTop:'30px',marginBottom:'10px'}}><FontAwesomeIcon icon={faUser} style={{fontSize:'40px', color:'#FFB703'}} /> </div>
+              <h3 className='text-center mt-3' style={{color:'#FFB703'}}>Fatoumata Koné</h3>
+                <p className='text-white text-center' style={{textAlign:'justify'}}>Grâce à My Feedback 360°, nous avons pu instaurer une culture de feedback positif et constructif au sein de notre entreprise. Nos employés se sentent écoutés et valorisés.</p>
+                </div>
+            </div>
             <div className='content_content_formateur'>
               
               <div style={{ width:"640", height:"360"}} className='content_content_formateur_image'>
               <div style={{display:'flex',justifyContent:'center',marginTop:'30px',marginBottom:'10px'}}><FontAwesomeIcon icon={faUser} style={{fontSize:'40px', color:'#FFB703'}} /> </div>
-              <h3 className='text-center mt-3' style={{color:'#FFB703'}}>Sibo Baldé</h3>
+              <h3 className='text-center mt-3' style={{color:'#FFB703'}}>Abdoulaye Coulibaly</h3>
+                <p className='text-white text-center' style={{textAlign:'justify'}}>Depuis que nous utilisons My Feedback 360°, notre organisation a fait un bond en avant. La vision à 360° nous a permis de mieux comprendre nos forces et nos axes d'amélioration.</p>
+                </div>
+            </div>
+            <div className='content_content_formateur'>
+              
+              <div style={{ width:"640", height:"360"}} className='content_content_formateur_image'>
+              <div style={{display:'flex',justifyContent:'center',marginTop:'30px',marginBottom:'10px'}}><FontAwesomeIcon icon={faUser} style={{fontSize:'40px', color:'#FFB703'}} /> </div>
+              <h3 className='text-center mt-3' style={{color:'#FFB703'}}>Seynabou Diop</h3>
                 <p className='text-white text-center' style={{textAlign:'justify'}}>La plateforme My Feedback 360° a véritablement transformé notre manière de recevoir et d'analyser les feedbacks. 
                   Nos équipes sont plus performantes et engagées grâce à des retours constructifs et complets .</p>
-                </div>
-            </div>
-            <div className='content_content_formateur'>
-             
-              <div style={{ width:"640", height:"360"}} className='content_content_formateur_image'>
-              <div style={{display:'flex',justifyContent:'center',marginTop:'30px',marginBottom:'10px'}}><FontAwesomeIcon icon={faUser} style={{fontSize:'40px', color:'#FFB703'}}/> </div>
-                  <h3 className='text-center mt-3' style={{color:'#FFB703'}}>Andre Ndione</h3>
-                <p className='text-white text-center' style={{textAlign:'justify'}}>Depuis que nous utilisons My Feedback 360°, notre organisation a fait un bond en avant. 
-                  La vision à 360° nous a permis de mieux comprendre nos forces et nos axes d'amélioration.</p>
-                </div>
-            </div>
-            <div className='content_content_formateur'>
-              
-              <div style={{ width:"640", height:"360"}} className='content_content_formateur_image'>
-              <div style={{display:'flex',justifyContent:'center',marginTop:'30px',marginBottom:'10px'}}><FontAwesomeIcon icon={faUser} style={{fontSize:'40px', color:'#FFB703'}} /> </div>
-              <h3 className='text-center mt-3' style={{color:'#FFB703'}}>Mariama Wade</h3>
-                <p  className='text-white text-center' style={{textAlign:'justify'}}>Avec My Feedback 360°, nous avons pu obtenir des retours détaillés et pertinents qui ont grandement amélioré notre productivité et notre cohésion d'équipe.</p>
                 </div>
             </div>
           </div>
         </Carousel.Item>
         <Carousel.Item>
           <div className='content_images_top_ev_flex'>
-            <div className='content_content_formateur'>
+          <div className='content_content_formateur'>
               
               <div style={{ width:"640", height:"360"}} className='content_content_formateur_image'>
-              <div style={{display:'flex',justifyContent:'center',marginTop:'30px',marginBottom:'10px'}}><FontAwesomeIcon icon={faUser} style={{fontSize:'40px', color:'#FFB703'}}/> </div>
-              <h3 className='text-center mt-3' style={{color:'#FFB703'}}>Glen Leonard</h3>
-                <p className='text-white text-center' style={{textAlign:'justify'}}>Grâce à My Feedback 360°, nous avons pu instaurer une culture de feedback positif et constructif au sein de notre entreprise. 
-                  Nos employés se sentent écoutés et valorisés.</p>
-                </div>
-            </div>
-            <div className='content_content_formateur'>
-              
-               <div style={{ width:"640", height:"360"}} className='content_content_formateur_image'>
               <div style={{display:'flex',justifyContent:'center',marginTop:'30px',marginBottom:'10px'}}><FontAwesomeIcon icon={faUser} style={{fontSize:'40px', color:'#FFB703'}} /> </div>
-              <h3 className='text-center mt-3' style={{color:'#FFB703'}}>John Williams</h3>
-                <p  className='text-white text-center' style={{textAlign:'justify'}}>L'utilisation de My Feedback 360° a permis à notre équipe de mieux se comprendre et de collaborer plus efficacement. C'est une révolution dans notre manière de travailler.</p>
+              <h3 className='text-center mt-3' style={{color:'#FFB703'}}>Jean-Baptiste Lefebvre</h3>
+                <p className='text-white text-center' style={{textAlign:'justify'}}>La plateforme My Feedback 360° est un outil indispensable pour notre développement professionnel. Les retours d'évaluation sont précis et nous aident à nous améliorer constamment.</p>
                 </div>
             </div>
             <div className='content_content_formateur'>
               
               <div style={{ width:"640", height:"360"}} className='content_content_formateur_image'>
               <div style={{display:'flex',justifyContent:'center',marginTop:'30px',marginBottom:'10px'}}><FontAwesomeIcon icon={faUser} style={{fontSize:'40px', color:'#FFB703'}} /> </div>
-              <h3 className='text-center mt-3' style={{color:'#FFB703'}}>Isabelle Faye</h3>
-                <p  className='text-white text-center' style={{textAlign:'justify'}}>My Feedback 360° nous a offert une perspective nouvelle sur notre fonctionnement interne. Les feedbacks à 360° sont un atout majeur pour notre croissance continue.</p>
+              <h3 className='text-center mt-3' style={{color:'#FFB703'}}>Mariam Traoré</h3>
+                <p className='text-white text-center' style={{textAlign:'justify'}}>My Feedback 360° nous a offert une perspective nouvelle sur notre fonctionnement interne. Les feedbacks à 360° sont un atout majeur pour notre croissance continue.</p>
+                </div>
+            </div>
+            <div className='content_content_formateur'>
+              
+              <div style={{ width:"640", height:"360"}} className='content_content_formateur_image'>
+              <div style={{display:'flex',justifyContent:'center',marginTop:'30px',marginBottom:'10px'}}><FontAwesomeIcon icon={faUser} style={{fontSize:'40px', color:'#FFB703'}} /> </div>
+              <h3 className='text-center mt-3' style={{color:'#FFB703'}}>Aïssatou Ndiaye</h3>
+                <p className='text-white text-center' style={{textAlign:'justify'}}>L'utilisation de My Feedback 360° a permis à notre équipe de mieux se comprendre et de collaborer plus efficacement. C'est une révolution dans notre manière de travailler .</p>
                 </div>
             </div>
           </div>

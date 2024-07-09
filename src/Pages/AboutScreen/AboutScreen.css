@@ -593,7 +593,9 @@
       height: 100vh;
       
       
+      
   }
+
   .first-content{
     display: none;
   }
@@ -692,6 +694,7 @@
       gap: 10px;
       width: 90%;
       height: 130vh;
+      margin: 0px !important;
       
       
   }

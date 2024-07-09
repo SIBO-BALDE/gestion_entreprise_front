@@ -54,7 +54,7 @@ function ChiffresCles() {
           <div className='content_main_chiffre1' >
             <FontAwesomeIcon icon={faUsers} className='content_main_icon_home' />
           </div>
-          <div className='mt-4'>
+          <div className='mt-4' style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:"center"}}>
             <h1 className='content_blue_home' ref={el => numberElementsRef.current[0] = el}>+2000</h1>
             <p>Employés <br /> évalués</p>
           </div>
@@ -63,7 +63,7 @@ function ChiffresCles() {
           <div className='content_main_chiffre1' >
             <FontAwesomeIcon icon={faBuilding} className='content_main_icon_home' />
           </div>
-          <div className='mt-4'>
+          <div className='mt-4' style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:"center"}}>
             <h1 className='content_orange_home' ref={el => numberElementsRef.current[1] = el}>1000+</h1>
             <p>Entreprise <br /> partenaires</p>
           </div>
@@ -72,7 +72,7 @@ function ChiffresCles() {
           <div className='content_main_chiffre1'>
             <FontAwesomeIcon icon={faFaceSmile} className='content_main_icon_home' />
           </div>
-          <div className='mt-4'>
+          <div className='mt-4' style={{display:'flex', flexDirection:'column', justifyContent:'center', alignItems:"center"}}>
             <h1 className='content_blue_home'  ref={el => numberElementsRef.current[2] = el}>5000+</h1>
             <p>Resultats de <br /> satisfaction</p>
           </div>

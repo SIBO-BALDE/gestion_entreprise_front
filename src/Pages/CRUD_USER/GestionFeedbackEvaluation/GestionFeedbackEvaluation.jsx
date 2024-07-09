@@ -37,89 +37,7 @@ export default function GestionFeedbackEvaluation() {
  
 
 
-  // Funtion pour evaluer un participant
-  const ajouterEvaluation = async (e) => {
-    e.preventDefault();
-    const token = localStorage.getItem("tokencle");
-    const role = localStorage.getItem("rolecle");
-    
-    if (token && role === 'Participant') {
-      const idsDesReponses = Object.values(selectedReponse).map(reponse => parseInt(reponse, 10));
-  
-      // Création du tableau d'objets pour les réponses
-      const evaluation = idsDesReponses.map(reponse_id => ({ reponse_id }));
-      // Création de l'objet evaluationData
-      const evaluationData = {
-        evaluation: evaluation,
-        categorie_id: selectedCategoryId,
-        evaluer_id: selectedUserId,
-        commentaire: commentaire, 
-       
-       
-      };
-      console.log(evaluation, '(evaluation)')
-      console.log(selectedCategoryId, 'selectedCategoryId')
-      console.log(commentaire, 'commentaire')
-      console.log(selectedUserId, 'selectedUserId')
-      
-    
-      try {
-        if ( evaluationData.commentaire==='') {
-          Swal.fire({
-            icon: "error",
-            title: "Oops!",
-            text: "Vueillez remplir tout les champs!",
-          });
-          return
-        }
-        const response = await axios.post(
-          'https://api.myfeedback360.com/api/evaluation/create',
-          evaluationData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-            
-            
-          }
-        );
-        
-        Swal.fire({
-          icon: "success",
-          title: "Succès!",
-          text: "evaluation  envoye avec sucee avec succée!",
-        });
-        console.log("Réponse du serveur :", response.data);
-        // Réinitialiser les réponses sélectionnées après l'ajout
-        setSelectedReponse({});
-        setCommentaire('');
-        setEvaluationSelectionneeId(null);
-        setSelectedCategoryId(null);
-        setSelectedUserId(null);
-        // Fermer le modal après l'ajout
-        setShowAdd(false);
-      } catch (error) {
-        if (error.response.status === 409) {
-       
-        Swal.fire({
-          icon: "error",
-          title: "Oops!",
-          text: "Vous avez déjà évalué ce participant!",
-        }).then(() => {
-          handleClosAdd(); 
-        });
-        return;
-      }
-      handleClosAdd();
-        
-        console.error('Erreur lors de l\'ajout de l\'évaluation:', error);
-        console.log('Erreur :', error);
-        
-      }
-    } else {
-      console.error('Token ou rôle non disponibles');
-    }
-  };
+ 
 
 
   const [evaluations, setEvaluations] = useState([]);
@@ -340,159 +258,217 @@ let questionCounter = 1;
 
 
 const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({
-        evaluation: '',
-        categorie_id:'',
-        evaluer_id: '',
-        commentaire: '', 
+const [formData, setFormData] = useState({
+  evaluation: '',
+  categorie_id: '',
+  evaluer_id: '',
+  commentaire: '',
+});
+
+// Réinitialiser les étapes et les données du formulaire
+const resetForm = () => {
+  setStep(1);
+  setFormData({
+    evaluation: '',
+    categorie_id: '',
+    evaluer_id: '',
+    commentaire: '',
   });
+  questionCounter = 1; // Réinitialiser le compteur de questions
+};
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+const handleInputChange = (e) => {
+  const { name, value } = e.target;
+  setFormData({ ...formData, [name]: value });
+};
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Handle form submission logic here
-    console.log(formData);
-    handleClose(); 
-   
-  };
+const handleSubmit = (e) => {
+  e.preventDefault();
+  // Handle form submission logic here
+  console.log(formData);
+  handleClose();
+  resetForm(); // Réinitialiser le formulaire après la fermeture
+};
 
-  const nextStep = () => {
-    setStep(step + 1);
-  };
+const nextStep = () => {
+  setStep(step + 1);
+};
 
-  const prevStep = () => {
-    setStep(step - 1);
-  };
+const prevStep = () => {
+  setStep(step - 1);
+};
 
- 
-
-  const renderForm = () => {
-
-    switch (step) {
-      case 1:
-        return (
-          <Form style={{padding:'30px 0px'}}>
-             <h3>Qui voulez vous évalué ?</h3>
-            <CheckoutSteps currentStep={step} />
-            <Form.Group controlId="selectUser" className=''>
-             
-              {/* <CheckoutSteps step1 step2 step3></CheckoutSteps> */}
-              
-              <Form.Select value={selectedUserId} onChange={handleUserSelectChange} 
-                style={{marginTop:'20px',marginBottom:'20px', borderBottom:'1px solid black',backgroundColor:'white'}}>
-                <option value="">Sélectionner un utilisateur</option>
-                {users.map(user => (
-                  <option key={user.id} value={user.id}>
-                    {user.nom} {user.prenom}
-                  </option>
-                ))}
-              </Form.Select>
-            </Form.Group>
-            <div style={{display:'flex',justifyContent:'center',marginTop:'20px'}}>
-            <Button variant="primary" onClick={nextStep} style={{borderRadius:'50%',width:'40px', height:'40px', backgroundColor:'#ffb703', border:'none'}}>
-            <FontAwesomeIcon icon={faArrowCircleRight} />
+const renderForm = () => {
+  switch (step) {
+    case 1:
+      return (
+        <Form style={{ padding: '30px 0px' }}>
+          <h3>Qui voulez vous évalué ?</h3>
+          <CheckoutSteps currentStep={step} />
+          <Form.Group controlId="selectUser" className=''>
+            <Form.Select value={selectedUserId} onChange={handleUserSelectChange}
+              style={{ marginTop: '20px', marginBottom: '20px', borderBottom: '1px solid black', backgroundColor: 'white' }}>
+              <option value="">Sélectionner un utilisateur</option>
+              {users.map(user => (
+                <option key={user.id} value={user.id}>
+                  {user.nom} {user.prenom}
+                </option>
+              ))}
+            </Form.Select>
+          </Form.Group>
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+            <Button variant="primary" onClick={nextStep} style={{ borderRadius: '50%', width: '40px', height: '40px', backgroundColor: '#ffb703', border: 'none' }}>
+              <FontAwesomeIcon icon={faArrowCircleRight} />
             </Button>
-            </div>
+          </div>
+        </Form>
+      );
 
-            
- 
-          </Form>
-        );
-
-      case 2:
-        return (
-          <Form>
-            <Form.Group controlId="email">
+    case 2:
+      return (
+        <Form>
+          <Form.Group controlId="email">
             <h5>Votre lien hiérachique?</h5>
-            {/* <CheckoutSteps step1 step2 step3></CheckoutSteps> */}
             <CheckoutSteps currentStep={step} />
-               <div style={{ display: "flex", flexDirection: "row", justifyContent: 'center' }}>
-                  {categories.map((category) => (
-                    <div key={category.id} className="ms-4 mt-4">
-                      <button
-                        className="btn btn btn-content-ev"
-                        style={{ marginRight: "10px", border:'1px solid #004573', color:'#004573' }}
-                        onClick={(event) => handleButtonClick(category.id, event)}
-
-                      >
-                        {category.nom}
-                      </button>
-                    </div>
-                  ))}
+            <div style={{ display: "flex", flexDirection: "row", justifyContent: 'center' }}>
+              {categories.map((category) => (
+                <div key={category.id} className="ms-4 mt-4">
+                  <button
+                    className="btn btn btn-content-ev"
+                    style={{ marginRight: "10px", border: '1px solid #004573', color: '#004573' }}
+                    onClick={(event) => handleButtonClick(category.id, event)}
+                  >
+                    {category.nom}
+                  </button>
                 </div>
-            </Form.Group>
-            <div style={{display:'flex',justifyContent:'center',marginTop:'20px'}}>
-            <Button variant="" onClick={prevStep} style={{borderRadius:'50%',width:'40px', height:'40px', backgroundColor:'#ffb703', border:'none'}}>
-            <FontAwesomeIcon icon={faArrowCircleLeft} style={{color:'white'}} />
-            </Button>
-            <Button variant="" onClick={nextStep} style={{borderRadius:'50%',width:'40px', height:'40px', backgroundColor:'#ffb703', border:'none', marginLeft:'15px'}}>
-             <FontAwesomeIcon icon={faArrowCircleRight} style={{color:'white'}} />
-            </Button>
-
+              ))}
             </div>
+          </Form.Group>
+          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+            <Button variant="" onClick={prevStep} style={{ borderRadius: '50%', width: '40px', height: '40px', backgroundColor: '#ffb703', border: 'none' }}>
+              <FontAwesomeIcon icon={faArrowCircleLeft} style={{ color: 'white' }} />
+            </Button>
+            <Button variant="" onClick={nextStep} style={{ borderRadius: '50%', width: '40px', height: '40px', backgroundColor: '#ffb703', border: 'none', marginLeft: '15px' }}>
+              <FontAwesomeIcon icon={faArrowCircleRight} style={{ color: 'white' }} />
+            </Button>
+          </div>
+        </Form>
+      );
 
-            
+    case 3:
+      return (
+        <Form>
+          <CheckoutSteps currentStep={step} />
+          <Form.Group>
+            {reponsesQuestion && reponsesQuestion.map((question) => (
+              (evaluationSelectionneeId !== null && evaluationSelectionneeId == question.evaluation_id) && (
+                <div key={question.id} style={{ marginBottom: '20px' }}>
+                  <Form.Group controlId={`question-${question.id}`}>
+                    <Form.Label><strong>{questionCounter++}-</strong> {question.nom} ?</Form.Label>
+                    {question?.reponses_evaluation?.map((reponse) => (
+                      <Form.Check
+                        key={reponse.id}
+                        type="radio"
+                        id={`radio-${question.id}-${reponse.id}`}
+                        label={reponse.reponse}
+                        value={reponse.id}
+                        checked={selectedReponse[question.id] === reponse.id}
+                        onChange={() => handleRadioChange(question.id, reponse.id)}
+                      />
+                    ))}
+                  </Form.Group>
+                </div>
+              )
+            ))}
+          </Form.Group>
+          <Form.Group controlId="commentaire">
+            <Form.Label className='mt-3'>Commentaire :</Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={3}
+              value={commentaire}
+              onChange={(e) => setCommentaire(e.target.value)}
+            />
+          </Form.Group>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '20px' }}>
+            <Button variant="" onClick={prevStep} style={{ borderRadius: '50%', width: '40px', height: '40px', backgroundColor: '#ffb703', border: 'none' }}>
+              <FontAwesomeIcon icon={faArrowCircleLeft} style={{ color: 'white' }} />
+            </Button>
+            <Button variant="" type="submit" onClick={ajouterEvaluation} style={{ border: '1px solid #FFB703' }}>
+              Evaluer
+            </Button>
+          </div>
+        </Form>
+      );
 
-          </Form>
-        );
+    default:
+      return null;
+  }
+};
 
-      case 3:
-        return (
-          <Form>
-            {/* <CheckoutSteps step1 step2 step3></CheckoutSteps> */}
-            <CheckoutSteps currentStep={step} />
-            <Form.Group>
-        {reponsesQuestion && reponsesQuestion.map((question) => (
-          (evaluationSelectionneeId !== null && evaluationSelectionneeId == question.evaluation_id) && (
-            <div key={question.id} style={{ marginBottom: '20px' }}>
-              <Form.Group controlId={`question-${question.id}`}>
-                <Form.Label><strong>{questionCounter++}-</strong> {question.nom} ?</Form.Label>
-                {question?.reponses_evaluation?.map((reponse) => (
-                  <Form.Check
-                    key={reponse.id}
-                    type="radio"
-                    id={`radio-${question.id}-${reponse.id}`}
-                    label={reponse.reponse}
-                    value={reponse.id}
-                    checked={selectedReponse[question.id] === reponse.id}
-                    onChange={() => handleRadioChange(question.id, reponse.id)}
-                  />
-                ))}
-              </Form.Group>
-            </div>
-          )
-        ))}
-      </Form.Group>
-      <Form.Group controlId="commentaire">
-        <Form.Label className='mt-3'>Commentaire :</Form.Label>
-        <Form.Control
-          as="textarea"
-          rows={3}
-          value={commentaire}
-          onChange={(e) => setCommentaire(e.target.value)}
-        />
-      </Form.Group>
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginTop: '20px' }}>
-        <Button variant="" onClick={prevStep} style={{ borderRadius: '50%', width: '40px', height: '40px', backgroundColor: '#ffb703', border: 'none' }}>
-          <FontAwesomeIcon icon={faArrowCircleLeft} style={{ color: 'white' }} />
-        </Button>
-        <Button variant="" type="submit" onClick={ajouterEvaluation} style={{ border: '1px solid #FFB703' }}>
-          Evaluer
-        </Button>
-      </div>
-            
-            
-          </Form>
-        );
+const ajouterEvaluation = async (e) => {
+  e.preventDefault();
+  const token = localStorage.getItem("tokencle");
+  const role = localStorage.getItem("rolecle");
 
-      default:
-        return null;
+  if (token && role === 'Participant') {
+    const idsDesReponses = Object.values(selectedReponse).map(reponse => parseInt(reponse, 10));
+
+    const evaluation = idsDesReponses.map(reponse_id => ({ reponse_id }));
+    const evaluationData = {
+      evaluation: evaluation,
+      categorie_id: selectedCategoryId,
+      evaluer_id: selectedUserId,
+      commentaire: commentaire,
+    };
+
+    try {
+      if (evaluationData.commentaire === '') {
+        Swal.fire({
+          icon: "error",
+          title: "Oops!",
+          text: "Vueillez remplir tout les champs!",
+        });
+        return;
+      }
+      const response = await axios.post(
+        'https://api.myfeedback360.com/api/evaluation/create',
+        evaluationData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      Swal.fire({
+        icon: "success",
+        title: "Succès!",
+        text: "evaluation envoye avec sucee avec succée!",
+      });
+      console.log("Réponse du serveur :", response.data);
+      resetForm(); 
+      setShowAdd(false);
+    } catch (error) {
+      if (error.response.status === 409) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops!",
+          text: "Vous avez déjà évalué ce participant!",
+        }).then(() => {
+          handleClosAdd();
+        });
+        return;
+      }
+      handleClosAdd();
+
+      console.error('Erreur lors de l\'ajout de l\'évaluation:', error);
+      console.log('Erreur :', error);
     }
-  };
+  } else {
+    console.error('Token ou rôle non disponibles');
+  }
+};
 
   const handleButtonClick = async (CategorieId, event) => {
     event.preventDefault();

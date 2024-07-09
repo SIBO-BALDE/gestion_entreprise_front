@@ -20,119 +20,75 @@ export default function ContactScreen() {
   const [showMessages, setShowMessages] = useState(false);
   const [nom, setNom] = useState("");
   const [email, setEmail] = useState("");
-  
-
-  // Validation des checksamps
-  const [errors, setErrors] = useState({
+  const [message, setMessage] = useState("");
+ 
+  const [messages, setMessages] = useState([]);
+  const [messageData, setMessageData] = useState({
     nom: "",
     email: "",
-    message: "",
-  
+    message: ""
   });
-  
-  const [successeds, setSuccesseds] = useState({
-    nom: "",
-    email: "",
-    message: "",
-  });
-  const [validationStatus, setValidationStatus] = useState(false);
 
-  // function validation
-  const validateField = (name, value) => {
-    let errorMessage = "";
-    let successMessage = "";
-  
-    if (name === "email") {
-      if (!value.trim()) {
-        errorMessage = "L'email est obligatoire";
-      } else if (!emailPattern.test(value)) {
-        errorMessage = "L'email  invalide";
-      } else {
-        successMessage = "L'adresse est valide";
-      }
-    }
-    else if (name === "nom") {
-      if (!value.trim()) {
-        errorMessage = "Le nom est obligatoire";
-      } else if (value.trim().length < 2) {
-        errorMessage = "Le nom doit contenir au moins 2 lettres";
-      } else {
-        successMessage = "Le nom est valide";
-      }
-    }
-    
-  
-  
-  
-    // Mettez à jour le state en utilisant le nom du champ actuel
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [name]: errorMessage,
-    }));
-    setSuccesseds((prevSuccess) => ({
-      ...prevSuccess,
-      [name]: successMessage,
-    }));
-  
-    const isValid = Object.values(errors).every((error) => !error);
-    setValidationStatus(isValid);
-  };
 
  
-   // tableau ou stocker la liste des messages
-   const [messages, setMessages] = useState([]);
-    // etat pour ajout categorie
-    const [messageData, setMessageData] = useState({
-      nom: "",
-      email: "",
-      message: "",
-    
-    });
 
-   // function pour ajouter une message
-   const ajouterMessage = async () => {
-    validateField("nom", nom);
-    validateField("email", email);
+  const ajouterMessage = async () => {
    
-    if (validationStatus) {
-      
-    try {
+      if (messageData.nom === "" || messageData.email === "" ) {
+          Swal.fire({
+            icon: "error",
+            title: "Oops!",
+            text: "Veuillez remplir  tous les champs",
+          });
+          return
+        
+      }
+       // Vérification du format de l'email
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(messageData.email)) {
+          Swal.fire({
+            icon: "error",
+            title: "Oops!",
+            text: "Le format de l'email n'est pas valide!",
+          });
+          return;
+        }
+      try {
         const response = await axios.post(
           "https://api.myfeedback360.com/api/contacte/create",
-
-          messageData,
+          messageData
         );
 
-        // Vérifiez si la requête a réussi
         if (response.status === 200) {
-          // Ajoutez la nouvelle maison à la liste existante
-          console.log(response, 'response categorie')
           setMessages([...messages, response.data]);
-          // Réinitialisez les valeurs du formulaire après avoir ajouté la maison
           setMessageData({
             nom: "",
             email: "",
-            message: "",
-           
+            message: ""
           });
           Swal.fire({
             icon: "success",
             title: "Succès!",
-            text: "message envoyé avec succée!",
+            text: "Message envoyé avec succès!",
           });
-          // Fermez le modal
           handleClosemessages();
-         
         } else {
-          console.error("Erreur dans lajout de maison");
+          console.error("Erreur dans l'ajout du message");
         }
-     
-    } catch (error) {
-      // Gestion des erreurs Axios
-      console.error("Erreur Axios:", error);
-    }
-  }
-}
+      } catch (error) {
+        console.error("Erreur Axios:", error);
+      }
+    
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setMessageData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }));
+    // validateField(name, value);
+  };
 
 
 
@@ -159,12 +115,12 @@ export default function ContactScreen() {
                 value={messageData.nom}
                 onChange={(e) =>{
                  setMessageData({...messageData, nom: e.target.value})
-                 validateField("nom", e.target.value);
+                //  validateField("nom", e.target.value);
                
                 }}
                 />
-                <p style={{ color: "red" }}>{errors.nom}</p>
-                <p style={{ color: "green" }}>{successeds.nom}</p>
+                {/* <p style={{ color: "red" }}>{errors.nom}</p>
+                <p style={{ color: "green" }}>{successeds.nom}</p> */}
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput2" >
                 <Form.Label className='inputs_content_contact'>Email</Form.Label>
@@ -172,11 +128,11 @@ export default function ContactScreen() {
                 value={messageData.email}
                  onChange={(e) =>{
                   setMessageData({...messageData, email: e.target.value})
-                  validateField("email", e.target.value);
+                  // validateField("email", e.target.value);
                 }}
                 />
-                <p style={{ color: "red" }}>{errors.email}</p>
-                <p style={{ color: "green" }}>{successeds.email}</p>
+                {/* <p style={{ color: "red" }}>{errors.email}</p>
+                <p style={{ color: "green" }}>{successeds.email}</p> */}
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput3" >
                 <Form.Label className='inputs_content_contact'>Message</Form.Label>
